@@ -6,10 +6,15 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXFileReference section */
+		690E9C321EB3FA9400326680 /* testMDW2.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = testMDW2.py; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
 /* Begin PBXGroup section */
 		690E9C271EB3995A00326680 = {
 			isa = PBXGroup;
 			children = (
+				690E9C321EB3FA9400326680 /* testMDW2.py */,
 			);
 			sourceTree = "<group>";
 		};
@@ -22,7 +27,8 @@
 			buildConfigurationList = 690E9C2F1EB3995A00326680 /* Build configuration list for PBXLegacyTarget "MDW2" */;
 			buildPhases = (
 			);
-			buildToolPath = /usr/local/bin/python3;
+			buildToolPath = /opt/local/bin/python35;
+			buildWorkingDirectory = "";
 			dependencies = (
 			);
 			name = MDW2;
