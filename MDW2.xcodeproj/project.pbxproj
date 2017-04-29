@@ -8,6 +8,8 @@
 
 /* Begin PBXFileReference section */
 		690E9C321EB3FA9400326680 /* testMDW2.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = testMDW2.py; sourceTree = "<group>"; };
+		690E9C331EB4030A00326680 /* dab.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = dab.py; sourceTree = "<group>"; };
+		690E9C341EB4044F00326680 /* pylintrc */ = {isa = PBXFileReference; lastKnownFileType = text; path = pylintrc; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -15,6 +17,8 @@
 			isa = PBXGroup;
 			children = (
 				690E9C321EB3FA9400326680 /* testMDW2.py */,
+				690E9C341EB4044F00326680 /* pylintrc */,
+				690E9C331EB4030A00326680 /* dab.py */,
 			);
 			sourceTree = "<group>";
 		};
