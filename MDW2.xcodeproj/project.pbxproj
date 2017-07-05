@@ -10,6 +10,8 @@
 		690E9C321EB3FA9400326680 /* testMDW2.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = testMDW2.py; sourceTree = "<group>"; };
 		690E9C331EB4030A00326680 /* dab.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = dab.py; sourceTree = "<group>"; };
 		690E9C341EB4044F00326680 /* pylintrc */ = {isa = PBXFileReference; lastKnownFileType = text; path = pylintrc; sourceTree = "<group>"; };
+		693578181F0D263F00B10D7F /* dabfilter.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = dabfilter.py; sourceTree = "<group>"; };
+		693578191F0D372200B10D7F /* gluoncommons.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = gluoncommons.py; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -19,6 +21,8 @@
 				690E9C321EB3FA9400326680 /* testMDW2.py */,
 				690E9C341EB4044F00326680 /* pylintrc */,
 				690E9C331EB4030A00326680 /* dab.py */,
+				693578181F0D263F00B10D7F /* dabfilter.py */,
+				693578191F0D372200B10D7F /* gluoncommons.py */,
 			);
 			sourceTree = "<group>";
 		};
@@ -194,6 +198,7 @@
 				690E9C311EB3995A00326680 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
