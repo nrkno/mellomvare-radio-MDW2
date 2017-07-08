@@ -14,7 +14,7 @@ import re
 #import dab
 #print(env)
 
-VERBOSE = True
+VERBOSE = False
 
 def av_sats(tittel):
     "Filtrerer titler etter sats"
@@ -28,15 +28,21 @@ def av_sats(tittel):
 def av_opus(tittel):
     if tittel:
         #Opusnummer og undernummer, inskutt
-        sats_filter = re.compile('(.*?)(,|: op\. \d*? nr\. \d*)(.*?)\Z')
+        sats_filter = re.compile('(.*?)(, op\.? \d* nr\. \d*)(.*?)\Z')
         matchet = sats_filter.match(tittel)
         if matchet:
             tittel = matchet.group(1) + matchet.group(3)
         #Opusnummer til slutt
-        sats_filter = re.compile('(.*?), op\.* \d*\Z')
+        sats_filter = re.compile('(.*?), op\.? \d*\Z')
         matchet = sats_filter.match(tittel)
         if matchet:
             tittel = matchet.group(1)
+        #Opusnummer og undernummer til slutt
+        sats_filter = re.compile('(.*?):?,? op\.? \d*\.? nr\. \d*\Z')
+        matchet = sats_filter.match(tittel)
+        if matchet:
+            tittel = matchet.group(1)
+
     return tittel
 
 def av_BWV(tittel):
@@ -45,7 +51,6 @@ def av_BWV(tittel):
         sats_filter = re.compile('(.*?), BWV \d*(.*?)\Z')
         matchet = sats_filter.match(tittel)
         if matchet:
-            print(matchet.groups())
             tittel = matchet.group(1) + matchet.group(2)
     return tittel
 
@@ -55,8 +60,24 @@ def av_RV(tittel):
         sats_filter = re.compile('(.*?), RV \d*(.*?)\Z')
         matchet = sats_filter.match(tittel)
         if matchet:
-            print(matchet.groups())
             tittel = matchet.group(1) + matchet.group(2)
+    return tittel
+
+def av_RV(tittel):
+    if tittel:
+        sats_filter = re.compile('(.*?), RV \d*(.*?)\Z')
+        matchet = sats_filter.match(tittel)
+        if matchet:
+            tittel = matchet.group(1) + matchet.group(2)
+    return tittel
+
+def av_K(tittel):
+    if tittel:
+
+        sats_filter = re.compile('(.*?),? K\. ?\d*\Z')
+        matchet = sats_filter.match(tittel)
+        if matchet:
+            tittel = matchet.group(1)
     return tittel
 
 def get_title(doc):
@@ -124,7 +145,7 @@ def hent_filer(folder):
         if VERBOSE:
             print('title_uc_init_usats_uopus:', title_uc_init_usats_uopus)
 
-        title_uc_init_usats_uopus_BW = av_RV(av_BWV(title_uc_init_usats_uopus))
+        title_uc_init_usats_uopus_BW = av_RV(av_BWV(av_K(title_uc_init_usats_uopus)))
         print(title_uc_init_usats_uopus_BW)
 
 
@@ -132,7 +153,7 @@ def hent_filer(folder):
         #
 
 
-print(sys.getdefaultencoding())
-print(sys.stdout.encoding)
+#print(sys.getdefaultencoding())
+#print(sys.stdout.encoding)
 hent_filer('/Users/n12327/Desktop/AKtest/')
 
