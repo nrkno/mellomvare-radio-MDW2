@@ -25,6 +25,17 @@ def av_sats(tittel):
             return matchet.group(1) + matchet.group(2)
     return tittel
 
+def av_dur(tittel):
+    "Filtrerer ut toneart"
+    if tittel:
+        dur_filter = re.compile('(.*?)(, \w*?-dur|, \w*?-moll)(.*?)\Z')
+        matchet = dur_filter.match(tittel)
+        if matchet:
+            return matchet.group(1) + matchet.group(3)
+        else:
+            return tittel
+
+
 def av_opus(tittel):
     if tittel:
         #Opusnummer og undernummer, inskutt
@@ -118,6 +129,8 @@ def filter_title(tittel, initsial=False):
 
 
 def hent_filer(folder):
+    org_len = 0
+    res_len = 0
     for filename in listdir(folder):
         if filename.startswith('.'):
             continue
@@ -129,6 +142,7 @@ def hent_filer(folder):
         if title is None:
             continue
         print(title)
+        org_len += len(title)
         title_uc = filter_title(title)
         if VERBOSE:
             print('title_uc:', title_uc)
@@ -141,17 +155,23 @@ def hent_filer(folder):
         if VERBOSE:
             print('title_uc_init_usats:', title_uc_init_usats)
 
+
+        title_uc_init_usats = av_dur(title_uc_init_usats)
+
         title_uc_init_usats_uopus = av_opus(title_uc_init_usats)
-        if VERBOSE:
-            print('title_uc_init_usats_uopus:', title_uc_init_usats_uopus)
+        #if VERBOSE:
+        #    print('title_uc_init_usats_uopus:', title_uc_init_usats_uopus)
 
-        title_uc_init_usats_uopus_BW = av_RV(av_BWV(av_K(title_uc_init_usats_uopus)))
-        print(title_uc_init_usats_uopus_BW)
-
+        #title_uc_init_usats_uopus_BW = av_RV(av_BWV(av_K(title_uc_init_usats_uopus)))
+        #print(title_uc_init_usats_uopus_BW)
+        print(title_uc_init_usats)
 
         print()
+
+        res_len += len(title_uc_init_usats)
         #
 
+    print('Innsparing', res_len/org_len)
 
 #print(sys.getdefaultencoding())
 #print(sys.stdout.encoding)
