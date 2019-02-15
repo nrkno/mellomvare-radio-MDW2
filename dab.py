@@ -1,10 +1,14 @@
-#! /opt/local/bin/python3
-# -*- coding: utf-8 -*-
-"""Tilrettelegger for metadata - """
+#! /usr/local/bin/python
+# -*- coding: iso-8859-1 -*-
+
+"""Tilrettelegger modul for DAB og nettradio - versjon med tråder for hver av utkanalene"""
+#! /usr/local/bin/python
 
 #TODO:
 
-# Status er 0 for ikke prossesert, 1 for oppdatert info,  2 for ny, 3 for "force breaking"?
+#Lage grensesnitt for oppdateringer, dvs. at en GET til dette skriptet (ALT != POST) starter utspillings enhetene i oppdateringsmodus.
+
+##Status er 0 for ikke prossesert, 1 for oppdatert info,  2 for ny, 3 for "force breaking"?
 
 import time
 now = time.time()
@@ -12,20 +16,21 @@ from os import environ
 from cgi import parse_qs
 from sys import stdin, exc_info
 from threading import Thread
-from queue import Queue
-#import gluonspin
+from Queue import Queue
+import gluonspin
 import traceback
-from os import environ as env
 
 # Importer parsermoduler
+import news
+import result
 import iteminfo
 import digasEkstra
 import epg
-
-
+import textinfo
+import traffic
 
 # Importer utspillingsmoduler
-#import dls
+import dls
 import dlsInt #DLS egen streaming
 import dlsExt #DLS ekstern streamingspartner
 import dlsExt_test
@@ -36,10 +41,10 @@ import winmediaDr#Modul for DR enkodere
 import utGluon2
 
 
-VERBOSE = env['VERBOSE']
-TESTFIL = False
-traader = True # Kj/oslash/rer hver av utspillingsmodulene i tr/aring/der
-maxVent = 55 # Timeout tid p/aring/ tr/aring/dene
+verbose = False
+testFil = False
+traader = True #Kjører hver av utspillingsmodulene i tråder
+maxVent = 55 #Maks ventetid på utspillingsmodulene
 quark = "dab:ny"
 
 #print "Importtid:",time.time()-now
@@ -47,20 +52,29 @@ quark = "dab:ny"
 allow = ['10.0.1.17','*'] # Egentlig karuselladressene, eller *
 
 parsere = {
-            '/gluon/body/tables/@type=iteminfo':'iteminfo.parser(dok)',
-            '/gluon/objects/object/':'digasEkstra.parser(dok)',
-            '/gluon/body/tables/@type=epg':'epg.parser(dok)',
-            '/gluon/body/tables/@type=newswire':'news.newswire(dok)',
-            }
+    '/gluon/body/news/':'news.parser(dok)',
+    '/gluon/body/envelope/event':'result.parser(dok)',
+    '/gluon/body/tables/@type=iteminfo':'iteminfo.parser(dok)',
+    '/gluon/objects/object/':'digasEkstra.parser(dok)',
+    '/gluon/body/tables/@type=epg':'epg.parser(dok)',
+    '/gluon/body/tables/@type=newswire':'news.newswire(dok)',
+    '/gluon/body/tables/@type=textinfo':'textinfo.parser(dok)',
+    '/gluon/body/traffic/':'traffic.parser(dok)',
+    }
 
 utenheter = {
+    #'dls':'dls.tilDab(kanal=kanal,datatype=datatype,id=id)',
+    #'dlsHiof':'dlsHiof.tilDab(kanal=kanal,datatype=datatype,id=id)',
     'dlsInt':'dlsInt.tilDab(kanal=kanal,datatype=datatype,id=id)',
     'dlsExt':'dlsExt.tilDab(kanal=kanal,datatype=datatype,id=id)',
     'dlsExt_test':'dlsExt_test.tilDab(kanal=kanal,datatype=datatype,id=id)',
+    #'winmedia':'winmedia.lagMetadata(kanal=kanal,datatype=datatype,id=id)',
     'winmediaDr':'winmediaDr.lagMetadata(kanal=kanal,datatype=datatype,id=id)',
+    #'webplugin':'webplugin.lagMetadata(kanal=kanal,datatype=datatype,id=id)',
+    #'webplugin2':'webplugin2.lagMetadata(kanal=kanal,datatype=datatype,id=id)',
     'utGluon2':'utGluon2.lagMetadata(kanal=kanal,datatype=datatype,id=id)',
     }
-
+    
 
 def OK(quark, melding=""):
     if melding:
@@ -68,18 +82,19 @@ def OK(quark, melding=""):
     else:
         return '<OK quark="%s" />' % quark
 
+
 def error(errid,quark, melding=""):
     if melding:
         return """<error quark="%s">
 \t<errorMessage errorType="%s"><message>%s</message></errorMessage>
 </error>""" % (quark,errid,melding)
 
-def start_utspiller(innstikkNavn=None, innstikkType=None, parametre = {}, returMeldinger = None):
-    "Enhet som startes som en tr/aring/d og som laster riktig utspillingsenhet"
+def startUtspiller( innstikkNavn = None, innstikkType=None, parametre = {}, returMeldinger = None):
+    "Enhet som startes som en tråd og som laster riktig utspillingsenhet"
     
     #Setter riktige variabler for eval funksjonen
-    kanal = parametre['kanal']
-    datatype = parametre['datatype']
+    kanal=parametre['kanal']
+    datatype =parametre['datatype']
     if 'id' in parametre:
         id = parametre['id']
     else:
@@ -95,7 +110,7 @@ def start_utspiller(innstikkNavn=None, innstikkType=None, parametre = {}, returM
         returMeldinger.put({'innstikkNavn':innstikkNavn, 'status':'error','msg':msg})
     
 def main(dok):
-    #Hvis det ikke er noe dok her er det Â¯nsket en oppdatering
+    #Hvis det ikke er noe dok her er det ønsket en oppdatering
     s=[]
     p=[]
     #Finne riktig parser til dokumentet
@@ -106,27 +121,25 @@ def main(dok):
             if iBane.pathInXml:
                 p.append(parsere[krav])
                 s.append(eval(parsere[krav]))
-                # Siden vi aldri f/aring/r match p/aring/ mer en en type kan vi avbryte n/aring/
+                #Siden vi aldri får match på mer en en type kan vi avbryte nå
                 break
 
     else:
-        # Lager proforma liste for /aring/ oppdatere alle
+        #Lager proforma liste for å oppdatere alle
         s=[{'status':1,'kanal':'alle','datatype':'iteminfo'}]
-    # Start utspillingstjeneste
+    #Start utspillingstjeneste
     
-    if VERBOSE:
-        print ("Start utspilling:", time.time()-now)
-    # Innstikkstyper for hver av tjenestetypene i dab, dls, mot o.l.
+    if verbose:print "Start utspilling:",time.time()-now
+    #Innstikkstyper for hver av tjenestetypene i dab, dls, mot o.l.
     
-    # Sjekke hva som er oppdatert
+    #Sjekke hva som er oppdatert
     s2 = []
     trd = []
     meldinger = Queue()
     warnings = []
     for i in s:
         if not i['status']:
-            if VERBOSE:
-                print("IGNORERES")
+            if verbose:print "IGNORERES"
             continue
         kanal=i['kanal']
         datatype =i['datatype']
@@ -148,9 +161,8 @@ def main(dok):
             else:
                 s2.append(eval(utenheter[ut]))
                 
-            if VERBOSE:
-                print("Utg:", ut, time.time()-now)
-        #Samle tr/aring/dene
+            if verbose:print "UTg:",ut,time.time()-now
+        #Samle trådene
         nu=time.time()
         warnings = ['Warnings:']
         for t in trd:
@@ -165,16 +177,14 @@ def main(dok):
         #Venter bare ved dok
         time.sleep(20)
     for n,i in enumerate(p):
-        if VERBOSE:
-            print(n,i)
+        if verbose:print n,i
         if '.' in i:
             modul = i.split('.')[0]
             if 'opprensk' in dir(eval(modul)):
                 #kall riktig modul, med resultatet fra parsingen
                 eval(modul+'.opprensk(s[n])')
-                if VERBOSE:
-                    print('VI RYDDER')
-    #Vi sjekker trÃ‚dene enda en gang og lager en sluttrapport
+                if verbose:print 'VI RYDDER'
+    #Vi sjekker trådene enda en gang og lager en sluttrapport
     for t in trd:
         t.join(0.1)
         if t.isAlive():
@@ -198,28 +208,33 @@ def main(dok):
         #Vi fyrer feilmelding
         return error('dab11',quark,melding="\n".join(totalMelding))
 
-if (__name__=='__main__'):
-        # CGI
-                
-        print("Content-type: text/html")
-        print()
+    
 
+
+if (__name__=='__main__'):
+        #Dette skal vaere et cgi skript
+                
+        print "Content-type: text/html"
+        print
+        
+        #print environ
+        
         if 'HTTP_PC_REMOTE_ADDR' in environ:
             fra = environ['HTTP_PC_REMOTE_ADDR']
         elif 'REMOTE_ADDR' in environ:
             fra = environ['REMOTE_ADDR']
         else:
             fra = ''	
-        # Sjekke for gyldige adresser
+        #Sjekke for gyldige adresser
         if not ('*' in allow or fra in allow):
-            # dette er en feil
-            print("Uautorisert tilgang!!!")
+            #dette er en feil
+            print "Uautorisert tilgang!!!"
         else:
         
             try:
                     lengde=int(environ['CONTENT_LENGTH'])
             except:
-
+                    #print "Oppdaterer"
                     lengde = 0
                     xmldokument = ''
                     if testFil:
@@ -227,6 +242,7 @@ if (__name__=='__main__'):
                         
                         xmldokument = ''
                         while 1:
+                            
                             try:
                                     blokk = f.read(8024)
                                     if blokk:
@@ -235,17 +251,21 @@ if (__name__=='__main__'):
                                             break
                             except:
                                     break
+            
                         if len(xmldokument)<lengde:
-                            print("Fikk ikke lest hele dokumentet")
+                            print ("Fikk ikke lest hele dokumentet")
+            
+
                         f.close()
-                    # Dette maa vaere hovedmeldingen til klienter i systemet.
+
+                    #Dette maa vaere hovedmeldingen til klienter i systemet.
             if lengde > 0:
                     
                     f = stdin
                     xmldokument = f.read(lengde)
                     if xmldokument[:6]!='<?xml version='[:6]:
                             xmldokument = parse_qs(xmldokument)['dok'][0] #['dok'] ender i en liste....
-                            # M/aring/ endre lengden ogs/aring/ da
+                            #Må endre lengden også da
                             lengde = len(xmldokument)  
             try:				
                 alfa = main(xmldokument)
@@ -253,13 +273,13 @@ if (__name__=='__main__'):
             except:
                 type, val, tb = exc_info()
                 msg = "".join(traceback.format_exception(type, val, tb))
-                print(error("dab10",quark, melding=msg))
+                print error("dab10",quark, melding=msg)
     
     
 
             else:
-                # Alfa kan enten v/aelig/re en OK eller en feilmelding som er h/aring/ndtert av systemet
+                #Alfa kan enten være en OK eller en feilmelding som er håndtert av systemet
                 
-                print(alfa)
+                print alfa
 
     

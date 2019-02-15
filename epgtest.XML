@@ -1,0 +1,1906 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<gluon priority="3" artID="epg_NRK_P2_20140923">
+  <head>
+    <creator date="2014-09-23T13:58:02+01:00">
+      <name>ProgInfoDist</name>
+    </creator>
+    <metadata_DC>
+      <relations>
+        <relation_is_referenced_by reference="PI" label="exportSequenceNumber">6</relation_is_referenced_by>
+      </relations>
+    </metadata_DC>
+  </head>
+  <body>
+    <tables type="epg" sequenceNumber="1" documentSeries="1">
+      <element dataid="epg_NRK_P2_20140923" objecttype="container" channel="NRK P2">
+        <metadata_DC>
+          <titles>
+            <title>NRK P2 2014-09-23</title>
+          </titles>
+          <publishers>
+            <publisher>
+              <family_name person="false">NRK</family_name>
+              <name>NRK</name>
+              <role rolelist="gluon">Kringkaster</role>
+              <nationality>NO</nationality>
+            </publisher>
+          </publishers>
+          <dates>
+            <date_created/>
+            <date_issued>2014-09-23T06:00:00+01:00</date_issued>
+          </dates>
+        </metadata_DC>
+        <subelements>
+          <element dataid="NPUB01026614" objecttype="programme" channel="NRK P2" fragment="1">
+            <metadata_DC>
+              <titles>
+                <title>Dagsnytt med værmelding</title>
+              </titles>
+              <subjects>
+                <subject reference="ESCORT">N10 Faste nyhetssendinger</subject>
+              </subjects>
+              <description>
+                <abstract/>
+              </description>
+              <dates>
+                <date_issued>2014-09-23T00:00:00+01:00</date_issued>
+              </dates>
+              <types>
+                <type reference="PI_sendeflatetyper">20</type>
+                <type reference="PI_sendetyper">reprise</type>
+                <type reference="PI_reprisenummer">5</type>
+                <type reference="mediatype">Audio</type>
+                <type reference="NRK-Escort">N10 Faste nyhetssendinger</type>
+                <type reference="PI_Underkategori">E1 Bulletin</type>
+                <type reference="Nettkategori">Nyheter</type>
+              </types>
+              <format>
+                <format_extent>PT300S</format_extent>
+              </format>
+              <relations>
+                <relation_is_part_of label="serieCRID" reference="PI">/8085660100001478</relation_is_part_of>
+                <relation_is_referenced_by label="programCRID" reference="PI">/8085660102661478</relation_is_referenced_by>
+                <relation_is_referenced_by label="event_id" reference="PI">19633</relation_is_referenced_by>
+              </relations>
+            </metadata_DC>
+            <programmeSpecials>
+              <plannedTimeOfissue>2014-09-23T00:00:00+01:00</plannedTimeOfissue>
+              <endOfTransmission display="0">2014-09-23T00:05:00+01:00</endOfTransmission>
+            </programmeSpecials>
+            <origin purpose="DayPort">
+              <storage>\\entriq-nas\entriq\Incoming\CCS\AutomaticCapture\P2</storage>
+              <file>P2_20140923_NPUB-010266-14_000</file>
+            </origin>
+          </element>
+          <element dataid="MKMK03026614" objecttype="programme" channel="NRK P2" fragment="1">
+            <metadata_DC>
+              <titles>
+                <title>Notturno</title>
+              </titles>
+              <subjects>
+                <subject reference="ESCORT">B10 Klassisk musikk</subject>
+              </subjects>
+              <description>
+                <abstract>Klassisk nattradio.</abstract>
+              </description>
+              <dates>
+                <date_issued>2014-09-23T00:05:00+01:00</date_issued>
+              </dates>
+              <types>
+                <type reference="PI_sendeflatetyper">10</type>
+                <type reference="PI_sendetyper">vanlig</type>
+                <type reference="mediatype">Audio</type>
+                <type reference="NRK-Escort">B10 Klassisk musikk</type>
+                <type reference="PI_Underkategori">A1 Musikk</type>
+                <type reference="Nettkategori">Musikk</type>
+              </types>
+              <format>
+                <format_extent>PT21300S</format_extent>
+              </format>
+              <relations>
+                <relation_is_part_of label="serieCRID" reference="PI">/7577750300001477</relation_is_part_of>
+                <relation_is_referenced_by label="programCRID" reference="PI">/7577750302661477</relation_is_referenced_by>
+                <relation_is_referenced_by label="event_id" reference="PI">19647</relation_is_referenced_by>
+              </relations>
+            </metadata_DC>
+            <programmeSpecials>
+              <plannedTimeOfissue>2014-09-23T00:05:00+01:00</plannedTimeOfissue>
+              <endOfTransmission display="0">2014-09-23T06:00:00+01:00</endOfTransmission>
+            </programmeSpecials>
+            <origin purpose="DayPort">
+              <storage>\\entriq-nas\entriq\Incoming\CCS\AutomaticCapture\P2</storage>
+              <file>P2_201409230005_MKMK-030266-14_000</file>
+            </origin>
+          </element>
+          <element dataid="NPUB08003314" objecttype="programme" channel="NRK P2" fragment="1">
+            <metadata_DC>
+              <titles>
+                <title>Dagsnytt</title>
+              </titles>
+              <subjects>
+                <subject reference="ESCORT">N10 Faste nyhetssendinger</subject>
+              </subjects>
+              <description>
+                <abstract/>
+              </description>
+              <dates>
+                <date_issued>2014-09-23T06:00:00+01:00</date_issued>
+              </dates>
+              <types>
+                <type reference="PI_sendeflatetyper">20</type>
+                <type reference="PI_sendetyper">reprise</type>
+                <type reference="PI_reprisenummer">7</type>
+                <type reference="mediatype">Audio</type>
+                <type reference="NRK-Escort">N10 Faste nyhetssendinger</type>
+                <type reference="PI_Underkategori">E1 Bulletin</type>
+                <type reference="Nettkategori">Nyheter</type>
+              </types>
+              <format>
+                <format_extent>PT180S</format_extent>
+              </format>
+              <relations>
+                <relation_is_part_of label="serieCRID" reference="PI">/8085660800001478</relation_is_part_of>
+                <relation_is_referenced_by label="programCRID" reference="PI">/8085660800331478</relation_is_referenced_by>
+                <relation_is_referenced_by label="event_id" reference="PI">19672</relation_is_referenced_by>
+              </relations>
+            </metadata_DC>
+            <programmeSpecials>
+              <plannedTimeOfissue>2014-09-23T06:00:00+01:00</plannedTimeOfissue>
+              <endOfTransmission display="0">2014-09-23T06:03:00+01:00</endOfTransmission>
+            </programmeSpecials>
+            <origin purpose="DayPort">
+              <storage>\\entriq-nas\entriq\Incoming\CCS\AutomaticCapture\P2</storage>
+              <file>P2_201409230600_NPUB-080033-14_000</file>
+            </origin>
+          </element>
+          <element dataid="MKTR07003814" objecttype="programme" channel="NRK P2" fragment="1">
+            <metadata_DC>
+              <titles>
+                <title>Kulturhuset Bok</title>
+              </titles>
+              <subjects>
+                <subject reference="ESCORT">D45 Litteratur</subject>
+              </subjects>
+              <description>
+                <abstract/>
+              </description>
+              <dates>
+                <date_issued>2014-09-23T06:03:00+01:00</date_issued>
+              </dates>
+              <types>
+                <type reference="PI_sendeflatetyper">10</type>
+                <type reference="PI_sendetyper">reprise</type>
+                <type reference="PI_reprisenummer">1</type>
+                <type reference="mediatype">Audio</type>
+                <type reference="NRK-Escort">D45 Litteratur</type>
+                <type reference="PI_Underkategori">F1 Magasin</type>
+                <type reference="Nettkategori">Kultur</type>
+              </types>
+              <format>
+                <format_extent>PT1620S</format_extent>
+              </format>
+              <relations>
+                <relation_is_part_of label="serieCRID" reference="PI">/7584820700001477</relation_is_part_of>
+                <relation_is_referenced_by label="programCRID" reference="PI">/7584820700381477</relation_is_referenced_by>
+                <relation_is_referenced_by label="event_id" reference="PI">19674</relation_is_referenced_by>
+              </relations>
+            </metadata_DC>
+            <programmeSpecials>
+              <plannedTimeOfissue>2014-09-23T06:03:00+01:00</plannedTimeOfissue>
+              <endOfTransmission display="0">2014-09-23T06:30:00+01:00</endOfTransmission>
+            </programmeSpecials>
+            <origin purpose="DayPort">
+              <storage>\\entriq-nas\entriq\Incoming\CCS\AutomaticCapture\P2</storage>
+              <file>P2_201409230603_MKTR-070038-14_000</file>
+            </origin>
+          </element>
+          <element dataid="" objecttype="programme" channel="NRK P2" fragment="1">
+            <metadata_DC>
+              <titles>
+                <title>Nyhetsmorgen:</title>
+              </titles>
+              <subjects>
+                <subject reference="ESCORT"/>
+              </subjects>
+              <description>
+                <abstract/>
+              </description>
+              <dates>
+                <date_issued>2014-09-23T06:30:00+01:00</date_issued>
+              </dates>
+              <types>
+                <type reference="PI_sendeflatetyper">0</type>
+                <type reference="PI_sendetyper">vanlig</type>
+                <type reference="NRK-Escort"/>
+                <type reference="PI_Underkategori"/>
+              </types>
+              <format>
+                <format_extent>PT9000S</format_extent>
+              </format>
+              <relations>
+                <relation_is_referenced_by label="event_id" reference="PI">19698</relation_is_referenced_by>
+              </relations>
+            </metadata_DC>
+            <programmeSpecials>
+              <plannedTimeOfissue>2014-09-23T06:30:00+01:00</plannedTimeOfissue>
+              <endOfTransmission display="0">2014-09-23T09:00:00+01:00</endOfTransmission>
+            </programmeSpecials>
+            <subelements>
+              <element dataid="NPUB50019014" objecttype="programme" channel="NRK P2" fragment="1">
+                <metadata_DC>
+                  <titles>
+                    <title>Nyhetsmorgen</title>
+                  </titles>
+                  <subjects>
+                    <subject reference="ESCORT">K99 Diverse samfunnsspørsmål, Likestilling i arb.livet</subject>
+                  </subjects>
+                  <description>
+                    <abstract/>
+                  </description>
+                  <dates>
+                    <date_issued>2014-09-23T06:30:00+01:00</date_issued>
+                  </dates>
+                  <types>
+                    <type reference="PI_sendeflatetyper">20</type>
+                    <type reference="PI_sendetyper">vanlig</type>
+                    <type reference="mediatype">Audio</type>
+                    <type reference="NRK-Escort">K99 Diverse samfunnsspørsmål, Likestilling i arb.livet</type>
+                    <type reference="PI_Underkategori">F1 Magasin</type>
+                    <type reference="Nettkategori">Helse og forbruker</type>
+                  </types>
+                  <format>
+                    <format_extent>PT1800S</format_extent>
+                  </format>
+                  <relations>
+                    <relation_is_part_of label="serieCRID" reference="PI">/8085665000001478</relation_is_part_of>
+                    <relation_is_referenced_by label="programCRID" reference="PI">/8085665001901478#P2201409230630</relation_is_referenced_by>
+                    <relation_is_referenced_by label="event_id" reference="PI">19701</relation_is_referenced_by>
+                  </relations>
+                </metadata_DC>
+                <programmeSpecials>
+                  <plannedTimeOfissue>2014-09-23T06:30:00+01:00</plannedTimeOfissue>
+                  <endOfTransmission display="0">2014-09-23T07:00:00+01:00</endOfTransmission>
+                </programmeSpecials>
+              </element>
+              <element dataid="NPUB11003414" objecttype="programme" channel="NRK P2" fragment="1">
+                <metadata_DC>
+                  <titles>
+                    <title>Dagsnytt</title>
+                  </titles>
+                  <subjects>
+                    <subject reference="ESCORT">N00 Nyheter</subject>
+                  </subjects>
+                  <description>
+                    <abstract>Nord for Salten, og på 91.9 MHz i Oslo-området kl 07.00-09.00: NRK Sápmi.</abstract>
+                  </description>
+                  <dates>
+                    <date_issued>2014-09-23T07:00:00+01:00</date_issued>
+                  </dates>
+                  <types>
+                    <type reference="PI_sendeflatetyper">20</type>
+                    <type reference="PI_sendetyper">reprise</type>
+                    <type reference="PI_reprisenummer">6</type>
+                    <type reference="mediatype">Audio</type>
+                    <type reference="NRK-Escort">N00 Nyheter</type>
+                    <type reference="PI_Underkategori">E1 Bulletin</type>
+                    <type reference="Nettkategori">Nyheter</type>
+                  </types>
+                  <format>
+                    <format_extent>PT180S</format_extent>
+                  </format>
+                  <relations>
+                    <relation_is_part_of label="serieCRID" reference="PI">/8085661100001478</relation_is_part_of>
+                    <relation_is_referenced_by label="programCRID" reference="PI">/8085661100341478</relation_is_referenced_by>
+                    <relation_is_referenced_by label="event_id" reference="PI">19719</relation_is_referenced_by>
+                  </relations>
+                </metadata_DC>
+                <programmeSpecials>
+                  <plannedTimeOfissue>2014-09-23T07:00:00+01:00</plannedTimeOfissue>
+                  <endOfTransmission display="0">2014-09-23T07:03:00+01:00</endOfTransmission>
+                </programmeSpecials>
+              </element>
+              <element dataid="NPUB50019014" objecttype="programme" channel="NRK P2" fragment="2">
+                <metadata_DC>
+                  <titles>
+                    <title>Nyhetsmorgen</title>
+                  </titles>
+                  <subjects>
+                    <subject reference="ESCORT">K99 Diverse samfunnsspørsmål, Likestilling i arb.livet</subject>
+                  </subjects>
+                  <description>
+                    <abstract/>
+                  </description>
+                  <dates>
+                    <date_issued>2014-09-23T07:03:00+01:00</date_issued>
+                  </dates>
+                  <types>
+                    <type reference="PI_sendeflatetyper">20</type>
+                    <type reference="PI_sendetyper">vanlig</type>
+                    <type reference="mediatype">Audio</type>
+                    <type reference="NRK-Escort">K99 Diverse samfunnsspørsmål, Likestilling i arb.livet</type>
+                    <type reference="PI_Underkategori">F1 Magasin</type>
+                    <type reference="Nettkategori">Helse og forbruker</type>
+                  </types>
+                  <format>
+                    <format_extent>PT1620S</format_extent>
+                  </format>
+                  <relations>
+                    <relation_is_part_of label="serieCRID" reference="PI">/8085665000001478</relation_is_part_of>
+                    <relation_is_referenced_by label="programCRID" reference="PI">/8085665001901478#P2201409230630</relation_is_referenced_by>
+                    <relation_is_referenced_by label="event_id" reference="PI">19730</relation_is_referenced_by>
+                  </relations>
+                </metadata_DC>
+                <programmeSpecials>
+                  <plannedTimeOfissue>2014-09-23T07:03:00+01:00</plannedTimeOfissue>
+                  <endOfTransmission display="0">2014-09-23T07:30:00+01:00</endOfTransmission>
+                </programmeSpecials>
+              </element>
+              <element dataid="NPUB12003414" objecttype="programme" channel="NRK P2" fragment="1">
+                <metadata_DC>
+                  <titles>
+                    <title>Dagsnytt</title>
+                  </titles>
+                  <subjects>
+                    <subject reference="ESCORT">N10 Faste nyhetssendinger</subject>
+                  </subjects>
+                  <description>
+                    <abstract/>
+                  </description>
+                  <dates>
+                    <date_issued>2014-09-23T07:30:00+01:00</date_issued>
+                  </dates>
+                  <types>
+                    <type reference="PI_sendeflatetyper">20</type>
+                    <type reference="PI_sendetyper">reprise</type>
+                    <type reference="PI_reprisenummer">3</type>
+                    <type reference="mediatype">Audio</type>
+                    <type reference="NRK-Escort">N10 Faste nyhetssendinger</type>
+                    <type reference="PI_Underkategori">E1 Bulletin</type>
+                    <type reference="Nettkategori">Nyheter</type>
+                  </types>
+                  <format>
+                    <format_extent>PT600S</format_extent>
+                  </format>
+                  <relations>
+                    <relation_is_part_of label="serieCRID" reference="PI">/8085661200001478</relation_is_part_of>
+                    <relation_is_referenced_by label="programCRID" reference="PI">/8085661200341478</relation_is_referenced_by>
+                    <relation_is_referenced_by label="event_id" reference="PI">19745</relation_is_referenced_by>
+                  </relations>
+                </metadata_DC>
+                <programmeSpecials>
+                  <plannedTimeOfissue>2014-09-23T07:30:00+01:00</plannedTimeOfissue>
+                  <endOfTransmission display="0">2014-09-23T07:40:00+01:00</endOfTransmission>
+                </programmeSpecials>
+              </element>
+              <element dataid="NPUB50019014" objecttype="programme" channel="NRK P2" fragment="3">
+                <metadata_DC>
+                  <titles>
+                    <title>Nyhetsmorgen</title>
+                  </titles>
+                  <subjects>
+                    <subject reference="ESCORT">K99 Diverse samfunnsspørsmål, Likestilling i arb.livet</subject>
+                  </subjects>
+                  <description>
+                    <abstract/>
+                  </description>
+                  <dates>
+                    <date_issued>2014-09-23T07:40:00+01:00</date_issued>
+                  </dates>
+                  <types>
+                    <type reference="PI_sendeflatetyper">20</type>
+                    <type reference="PI_sendetyper">vanlig</type>
+                    <type reference="mediatype">Audio</type>
+                    <type reference="NRK-Escort">K99 Diverse samfunnsspørsmål, Likestilling i arb.livet</type>
+                    <type reference="PI_Underkategori">F1 Magasin</type>
+                    <type reference="Nettkategori">Helse og forbruker</type>
+                  </types>
+                  <format>
+                    <format_extent>PT300S</format_extent>
+                  </format>
+                  <relations>
+                    <relation_is_part_of label="serieCRID" reference="PI">/8085665000001478</relation_is_part_of>
+                    <relation_is_referenced_by label="programCRID" reference="PI">/8085665001901478#P2201409230630</relation_is_referenced_by>
+                    <relation_is_referenced_by label="event_id" reference="PI">19764</relation_is_referenced_by>
+                  </relations>
+                </metadata_DC>
+                <programmeSpecials>
+                  <plannedTimeOfissue>2014-09-23T07:40:00+01:00</plannedTimeOfissue>
+                  <endOfTransmission display="0">2014-09-23T07:45:00+01:00</endOfTransmission>
+                </programmeSpecials>
+              </element>
+              <element dataid="NREP37018914" objecttype="programme" channel="NRK P2" fragment="1">
+                <metadata_DC>
+                  <titles>
+                    <title>Politisk kvarter</title>
+                  </titles>
+                  <subjects>
+                    <subject reference="ESCORT">K30 Politikk generelt</subject>
+                  </subjects>
+                  <description>
+                    <abstract/>
+                  </description>
+                  <dates>
+                    <date_issued>2014-09-23T07:45:00+01:00</date_issued>
+                  </dates>
+                  <types>
+                    <type reference="PI_sendeflatetyper">20</type>
+                    <type reference="PI_sendetyper">vanlig</type>
+                    <type reference="mediatype">Audio</type>
+                    <type reference="NRK-Escort">K30 Politikk generelt</type>
+                    <type reference="PI_Underkategori">E1 Bulletin</type>
+                    <type reference="Nettkategori">Nyheter</type>
+                  </types>
+                  <format>
+                    <format_extent>PT900S</format_extent>
+                  </format>
+                  <relations>
+                    <relation_is_part_of label="serieCRID" reference="PI">/8269803700001478</relation_is_part_of>
+                    <relation_is_referenced_by label="programCRID" reference="PI">/8269803701891478</relation_is_referenced_by>
+                    <relation_is_referenced_by label="event_id" reference="PI">19765</relation_is_referenced_by>
+                  </relations>
+                </metadata_DC>
+                <programmeSpecials>
+                  <plannedTimeOfissue>2014-09-23T07:45:00+01:00</plannedTimeOfissue>
+                  <endOfTransmission display="0">2014-09-23T08:00:00+01:00</endOfTransmission>
+                </programmeSpecials>
+              </element>
+              <element dataid="NPUB13003214" objecttype="programme" channel="NRK P2" fragment="1">
+                <metadata_DC>
+                  <titles>
+                    <title>Dagsnytt</title>
+                  </titles>
+                  <subjects>
+                    <subject reference="ESCORT">N10 Faste nyhetssendinger</subject>
+                  </subjects>
+                  <description>
+                    <abstract/>
+                  </description>
+                  <dates>
+                    <date_issued>2014-09-23T08:00:00+01:00</date_issued>
+                  </dates>
+                  <types>
+                    <type reference="PI_sendeflatetyper">20</type>
+                    <type reference="PI_sendetyper">reprise</type>
+                    <type reference="PI_reprisenummer">7</type>
+                    <type reference="mediatype">Audio</type>
+                    <type reference="NRK-Escort">N10 Faste nyhetssendinger</type>
+                    <type reference="PI_Underkategori">E1 Bulletin</type>
+                    <type reference="Nettkategori">Nyheter</type>
+                  </types>
+                  <format>
+                    <format_extent>PT180S</format_extent>
+                  </format>
+                  <relations>
+                    <relation_is_part_of label="serieCRID" reference="PI">/8085661300001478</relation_is_part_of>
+                    <relation_is_referenced_by label="programCRID" reference="PI">/8085661300321478</relation_is_referenced_by>
+                    <relation_is_referenced_by label="event_id" reference="PI">19766</relation_is_referenced_by>
+                  </relations>
+                </metadata_DC>
+                <programmeSpecials>
+                  <plannedTimeOfissue>2014-09-23T08:00:00+01:00</plannedTimeOfissue>
+                  <endOfTransmission display="0">2014-09-23T08:03:00+01:00</endOfTransmission>
+                </programmeSpecials>
+              </element>
+              <element dataid="NMAG01018914" objecttype="programme" channel="NRK P2" fragment="1">
+                <metadata_DC>
+                  <titles>
+                    <title>Kulturnytt</title>
+                  </titles>
+                  <subjects>
+                    <subject reference="ESCORT">D90 Diverse Kunst/ Kultur/ Medier</subject>
+                  </subjects>
+                  <description>
+                    <abstract/>
+                  </description>
+                  <dates>
+                    <date_issued>2014-09-23T08:03:00+01:00</date_issued>
+                  </dates>
+                  <types>
+                    <type reference="PI_sendeflatetyper">20</type>
+                    <type reference="PI_sendetyper">vanlig</type>
+                    <type reference="mediatype">Audio</type>
+                    <type reference="NRK-Escort">D90 Diverse Kunst/ Kultur/ Medier</type>
+                    <type reference="PI_Underkategori">F1 Magasin</type>
+                  </types>
+                  <format>
+                    <format_extent>PT1620S</format_extent>
+                  </format>
+                  <relations>
+                    <relation_is_part_of label="serieCRID" reference="PI">/7765710100001478</relation_is_part_of>
+                    <relation_is_referenced_by label="programCRID" reference="PI">/7765710101891478</relation_is_referenced_by>
+                    <relation_is_referenced_by label="event_id" reference="PI">19773</relation_is_referenced_by>
+                  </relations>
+                </metadata_DC>
+                <programmeSpecials>
+                  <plannedTimeOfissue>2014-09-23T08:03:00+01:00</plannedTimeOfissue>
+                  <endOfTransmission display="0">2014-09-23T08:30:00+01:00</endOfTransmission>
+                </programmeSpecials>
+              </element>
+              <element dataid="NPUB50019014" objecttype="programme" channel="NRK P2" fragment="4">
+                <metadata_DC>
+                  <titles>
+                    <title>Nyhetsmorgen</title>
+                  </titles>
+                  <subjects>
+                    <subject reference="ESCORT">K99 Diverse samfunnsspørsmål, Likestilling i arb.livet</subject>
+                  </subjects>
+                  <description>
+                    <abstract/>
+                  </description>
+                  <dates>
+                    <date_issued>2014-09-23T08:30:00+01:00</date_issued>
+                  </dates>
+                  <types>
+                    <type reference="PI_sendeflatetyper">20</type>
+                    <type reference="PI_sendetyper">vanlig</type>
+                    <type reference="mediatype">Audio</type>
+                    <type reference="NRK-Escort">K99 Diverse samfunnsspørsmål, Likestilling i arb.livet</type>
+                    <type reference="PI_Underkategori">F1 Magasin</type>
+                    <type reference="Nettkategori">Helse og forbruker</type>
+                  </types>
+                  <format>
+                    <format_extent>PT1800S</format_extent>
+                  </format>
+                  <relations>
+                    <relation_is_part_of label="serieCRID" reference="PI">/8085665000001478</relation_is_part_of>
+                    <relation_is_referenced_by label="programCRID" reference="PI">/8085665001901478#P2201409230630</relation_is_referenced_by>
+                    <relation_is_referenced_by label="event_id" reference="PI">19795</relation_is_referenced_by>
+                  </relations>
+                </metadata_DC>
+                <programmeSpecials>
+                  <plannedTimeOfissue>2014-09-23T08:30:00+01:00</plannedTimeOfissue>
+                  <endOfTransmission display="0">2014-09-23T09:00:00+01:00</endOfTransmission>
+                </programmeSpecials>
+              </element>
+            </subelements>
+          </element>
+          <element dataid="NPUB19033814" objecttype="programme" channel="NRK P2" fragment="1">
+            <metadata_DC>
+              <titles>
+                <title>Dagsnytt</title>
+              </titles>
+              <subjects>
+                <subject reference="ESCORT">N10 Faste nyhetssendinger</subject>
+              </subjects>
+              <description>
+                <abstract/>
+              </description>
+              <dates>
+                <date_issued>2014-09-23T09:00:00+01:00</date_issued>
+              </dates>
+              <types>
+                <type reference="PI_sendeflatetyper">20</type>
+                <type reference="PI_sendetyper">reprise</type>
+                <type reference="PI_reprisenummer">5</type>
+                <type reference="mediatype">Audio</type>
+                <type reference="NRK-Escort">N10 Faste nyhetssendinger</type>
+                <type reference="PI_Underkategori">E1 Bulletin</type>
+                <type reference="Nettkategori">Nyheter</type>
+              </types>
+              <format>
+                <format_extent>PT180S</format_extent>
+              </format>
+              <relations>
+                <relation_is_part_of label="serieCRID" reference="PI">/8085661900001478</relation_is_part_of>
+                <relation_is_referenced_by label="programCRID" reference="PI">/8085661903381478</relation_is_referenced_by>
+                <relation_is_referenced_by label="event_id" reference="PI">19816</relation_is_referenced_by>
+              </relations>
+            </metadata_DC>
+            <programmeSpecials>
+              <plannedTimeOfissue>2014-09-23T09:00:00+01:00</plannedTimeOfissue>
+              <endOfTransmission display="0">2014-09-23T09:03:00+01:00</endOfTransmission>
+            </programmeSpecials>
+            <origin purpose="DayPort">
+              <storage>\\entriq-nas\entriq\Incoming\CCS\AutomaticCapture\P2</storage>
+              <file>P2_201409230900_NPUB-190338-14_000</file>
+            </origin>
+          </element>
+          <element dataid="MDSP25018914" objecttype="programme" channel="NRK P2" fragment="1">
+            <metadata_DC>
+              <titles>
+                <title>Ekko</title>
+              </titles>
+              <subjects>
+                <subject reference="ESCORT">K99 Diverse samfunnsspørsmål, Likestilling i arb.livet</subject>
+              </subjects>
+              <description>
+                <abstract>09.03: Dagens sak. 09.30: Ekko-reportasjen</abstract>
+              </description>
+              <dates>
+                <date_issued>2014-09-23T09:03:00+01:00</date_issued>
+              </dates>
+              <types>
+                <type reference="PI_sendeflatetyper">10</type>
+                <type reference="PI_sendetyper">vanlig</type>
+                <type reference="mediatype">Audio</type>
+                <type reference="NRK-Escort">K99 Diverse samfunnsspørsmål, Likestilling i arb.livet</type>
+                <type reference="PI_Underkategori">F1 Magasin</type>
+                <type reference="Nettkategori">Helse og forbruker</type>
+              </types>
+              <format>
+                <format_extent>PT3420S</format_extent>
+              </format>
+              <relations>
+                <relation_is_part_of label="serieCRID" reference="PI">/6883802500001477</relation_is_part_of>
+                <relation_is_referenced_by label="programCRID" reference="PI">/6883802501891477#P2201409230903</relation_is_referenced_by>
+                <relation_is_referenced_by label="event_id" reference="PI">19824</relation_is_referenced_by>
+              </relations>
+            </metadata_DC>
+            <programmeSpecials>
+              <plannedTimeOfissue>2014-09-23T09:03:00+01:00</plannedTimeOfissue>
+              <endOfTransmission display="0">2014-09-23T10:00:00+01:00</endOfTransmission>
+            </programmeSpecials>
+            <origin purpose="DayPort">
+              <storage>\\entriq-nas\entriq\Incoming\CCS\AutomaticCapture\P2</storage>
+              <file>P2_201409230903_MDSP-250189-14_000</file>
+            </origin>
+          </element>
+          <element dataid="NPUB18030314" objecttype="programme" channel="NRK P2" fragment="1">
+            <metadata_DC>
+              <titles>
+                <title>Dagsnytt</title>
+              </titles>
+              <subjects>
+                <subject reference="ESCORT">N10 Faste nyhetssendinger</subject>
+              </subjects>
+              <description>
+                <abstract/>
+              </description>
+              <dates>
+                <date_issued>2014-09-23T10:00:00+01:00</date_issued>
+              </dates>
+              <types>
+                <type reference="PI_sendeflatetyper">20</type>
+                <type reference="PI_sendetyper">reprise</type>
+                <type reference="PI_reprisenummer">5</type>
+                <type reference="mediatype">Audio</type>
+                <type reference="NRK-Escort">N10 Faste nyhetssendinger</type>
+                <type reference="PI_Underkategori">E1 Bulletin</type>
+                <type reference="Nettkategori">Nyheter</type>
+              </types>
+              <format>
+                <format_extent>PT180S</format_extent>
+              </format>
+              <relations>
+                <relation_is_part_of label="serieCRID" reference="PI">/8085661800001478</relation_is_part_of>
+                <relation_is_referenced_by label="programCRID" reference="PI">/8085661803031478</relation_is_referenced_by>
+                <relation_is_referenced_by label="event_id" reference="PI">19831</relation_is_referenced_by>
+              </relations>
+            </metadata_DC>
+            <programmeSpecials>
+              <plannedTimeOfissue>2014-09-23T10:00:00+01:00</plannedTimeOfissue>
+              <endOfTransmission display="0">2014-09-23T10:03:00+01:00</endOfTransmission>
+            </programmeSpecials>
+            <origin purpose="DayPort">
+              <storage>\\entriq-nas\entriq\Incoming\CCS\AutomaticCapture\P2</storage>
+              <file>P2_201409231000_NPUB-180303-14_000</file>
+            </origin>
+          </element>
+          <element dataid="MDSP25018914" objecttype="programme" channel="NRK P2" fragment="2">
+            <metadata_DC>
+              <titles>
+                <title>Ekko</title>
+              </titles>
+              <subjects>
+                <subject reference="ESCORT">K99 Diverse samfunnsspørsmål, Likestilling i arb.livet</subject>
+              </subjects>
+              <description>
+                <abstract>10.03: Viten. 10.30: Historie</abstract>
+              </description>
+              <dates>
+                <date_issued>2014-09-23T10:03:00+01:00</date_issued>
+              </dates>
+              <types>
+                <type reference="PI_sendeflatetyper">10</type>
+                <type reference="PI_sendetyper">vanlig</type>
+                <type reference="mediatype">Audio</type>
+                <type reference="NRK-Escort">K99 Diverse samfunnsspørsmål, Likestilling i arb.livet</type>
+                <type reference="PI_Underkategori">F1 Magasin</type>
+                <type reference="Nettkategori">Helse og forbruker</type>
+              </types>
+              <format>
+                <format_extent>PT3300S</format_extent>
+              </format>
+              <relations>
+                <relation_is_part_of label="serieCRID" reference="PI">/6883802500001477</relation_is_part_of>
+                <relation_is_referenced_by label="programCRID" reference="PI">/6883802501891477#P2201409230903</relation_is_referenced_by>
+                <relation_is_referenced_by label="event_id" reference="PI">19842</relation_is_referenced_by>
+              </relations>
+            </metadata_DC>
+            <programmeSpecials>
+              <plannedTimeOfissue>2014-09-23T10:03:00+01:00</plannedTimeOfissue>
+              <endOfTransmission display="0">2014-09-23T10:58:00+01:00</endOfTransmission>
+            </programmeSpecials>
+            <origin purpose="DayPort">
+              <storage>\\entriq-nas\entriq\Incoming\CCS\AutomaticCapture\P2</storage>
+              <file>P2_201409231003_MDSP-250189-14_000</file>
+            </origin>
+          </element>
+          <element dataid="NPUB17033814" objecttype="programme" channel="NRK P2" fragment="1">
+            <metadata_DC>
+              <titles>
+                <title>Dagsnytt</title>
+              </titles>
+              <subjects>
+                <subject reference="ESCORT">N10 Faste nyhetssendinger</subject>
+              </subjects>
+              <description>
+                <abstract/>
+              </description>
+              <dates>
+                <date_issued>2014-09-23T11:00:00+01:00</date_issued>
+              </dates>
+              <types>
+                <type reference="PI_sendeflatetyper">20</type>
+                <type reference="PI_sendetyper">reprise</type>
+                <type reference="PI_reprisenummer">6</type>
+                <type reference="mediatype">Audio</type>
+                <type reference="NRK-Escort">N10 Faste nyhetssendinger</type>
+                <type reference="PI_Underkategori">E1 Bulletin</type>
+                <type reference="Nettkategori">Nyheter</type>
+              </types>
+              <format>
+                <format_extent>PT180S</format_extent>
+              </format>
+              <relations>
+                <relation_is_part_of label="serieCRID" reference="PI">/8085661700001478</relation_is_part_of>
+                <relation_is_referenced_by label="programCRID" reference="PI">/8085661703381478</relation_is_referenced_by>
+                <relation_is_referenced_by label="event_id" reference="PI">19862</relation_is_referenced_by>
+              </relations>
+            </metadata_DC>
+            <programmeSpecials>
+              <plannedTimeOfissue>2014-09-23T11:00:00+01:00</plannedTimeOfissue>
+              <endOfTransmission display="0">2014-09-23T11:03:00+01:00</endOfTransmission>
+            </programmeSpecials>
+            <origin purpose="DayPort">
+              <storage>\\entriq-nas\entriq\Incoming\CCS\AutomaticCapture\P2</storage>
+              <file>P2_201409231100_NPUB-170338-14_000</file>
+            </origin>
+          </element>
+          <element dataid="MKMR06016714" objecttype="programme" channel="NRK P2" fragment="1">
+            <metadata_DC>
+              <titles>
+                <title>Spillerom</title>
+              </titles>
+              <subjects>
+                <subject reference="ESCORT">D40 Musikk</subject>
+              </subjects>
+              <description>
+                <abstract>Programleder Mari Lunnan og produsent Aaste Kveseth.</abstract>
+              </description>
+              <dates>
+                <date_issued>2014-09-23T11:03:00+01:00</date_issued>
+              </dates>
+              <types>
+                <type reference="PI_sendeflatetyper">10</type>
+                <type reference="PI_sendetyper">vanlig</type>
+                <type reference="mediatype">Audio</type>
+                <type reference="NRK-Escort">D40 Musikk</type>
+                <type reference="PI_Underkategori">F1 Magasin</type>
+                <type reference="Nettkategori">Kultur</type>
+              </types>
+              <format>
+                <format_extent>PT3300S</format_extent>
+              </format>
+              <relations>
+                <relation_is_part_of label="serieCRID" reference="PI">/7577820600001477</relation_is_part_of>
+                <relation_is_referenced_by label="programCRID" reference="PI">/7577820601671477</relation_is_referenced_by>
+                <relation_is_referenced_by label="event_id" reference="PI">19869</relation_is_referenced_by>
+              </relations>
+            </metadata_DC>
+            <programmeSpecials>
+              <plannedTimeOfissue>2014-09-23T11:03:00+01:00</plannedTimeOfissue>
+              <endOfTransmission display="0">2014-09-23T11:58:00+01:00</endOfTransmission>
+            </programmeSpecials>
+            <origin purpose="DayPort">
+              <storage>\\entriq-nas\entriq\Incoming\CCS\AutomaticCapture\P2</storage>
+              <file>P2_201409231103_MKMR-060167-14_000</file>
+            </origin>
+          </element>
+          <element dataid="NPUB21033814" objecttype="programme" channel="NRK P2" fragment="1">
+            <metadata_DC>
+              <titles>
+                <title>Dagsnytt</title>
+              </titles>
+              <subjects>
+                <subject reference="ESCORT">N10 Faste nyhetssendinger</subject>
+              </subjects>
+              <description>
+                <abstract/>
+              </description>
+              <dates>
+                <date_issued>2014-09-23T12:00:00+01:00</date_issued>
+              </dates>
+              <types>
+                <type reference="PI_sendeflatetyper">20</type>
+                <type reference="PI_sendetyper">reprise</type>
+                <type reference="PI_reprisenummer">6</type>
+                <type reference="mediatype">Audio</type>
+                <type reference="NRK-Escort">N10 Faste nyhetssendinger</type>
+                <type reference="PI_Underkategori">E1 Bulletin</type>
+                <type reference="Nettkategori">Nyheter</type>
+              </types>
+              <format>
+                <format_extent>PT180S</format_extent>
+              </format>
+              <relations>
+                <relation_is_part_of label="serieCRID" reference="PI">/8085662100001478</relation_is_part_of>
+                <relation_is_referenced_by label="programCRID" reference="PI">/8085662103381478</relation_is_referenced_by>
+                <relation_is_referenced_by label="event_id" reference="PI">19892</relation_is_referenced_by>
+              </relations>
+            </metadata_DC>
+            <programmeSpecials>
+              <plannedTimeOfissue>2014-09-23T12:00:00+01:00</plannedTimeOfissue>
+              <endOfTransmission display="0">2014-09-23T12:03:00+01:00</endOfTransmission>
+            </programmeSpecials>
+            <origin purpose="DayPort">
+              <storage>\\entriq-nas\entriq\Incoming\CCS\AutomaticCapture\P2</storage>
+              <file>P2_201409231200_NPUB-210338-14_000</file>
+            </origin>
+          </element>
+          <element dataid="" objecttype="programme" channel="NRK P2" fragment="1">
+            <metadata_DC>
+              <titles>
+                <title>Samiske nyheter og aktualiteter:</title>
+              </titles>
+              <subjects>
+                <subject reference="ESCORT"/>
+              </subjects>
+              <description>
+                <abstract/>
+              </description>
+              <dates>
+                <date_issued>2014-09-23T12:04:00+01:00</date_issued>
+              </dates>
+              <types>
+                <type reference="PI_sendeflatetyper">0</type>
+                <type reference="PI_sendetyper">vanlig</type>
+                <type reference="NRK-Escort"/>
+                <type reference="PI_Underkategori"/>
+              </types>
+              <format>
+                <format_extent>PT1440S</format_extent>
+              </format>
+              <relations>
+                <relation_is_referenced_by label="event_id" reference="PI">19916</relation_is_referenced_by>
+              </relations>
+            </metadata_DC>
+            <programmeSpecials>
+              <plannedTimeOfissue>2014-09-23T12:04:00+01:00</plannedTimeOfissue>
+              <endOfTransmission display="0">2014-09-23T12:28:00+01:00</endOfTransmission>
+            </programmeSpecials>
+            <subelements>
+              <element dataid="SANY15015214" objecttype="programme" channel="NRK P2" fragment="1">
+                <metadata_DC>
+                  <titles>
+                    <title>Dárogiel oddasat - Nyheter på norsk</title>
+                  </titles>
+                  <subjects>
+                    <subject reference="ESCORT">Y03 Nyheter på norsk - riks</subject>
+                  </subjects>
+                  <description>
+                    <abstract/>
+                  </description>
+                  <dates>
+                    <date_issued>2014-09-23T12:04:00+01:00</date_issued>
+                  </dates>
+                  <types>
+                    <type reference="PI_sendeflatetyper">20</type>
+                    <type reference="PI_sendetyper">reprise</type>
+                    <type reference="PI_reprisenummer">2</type>
+                    <type reference="mediatype">Audio</type>
+                    <type reference="NRK-Escort">Y03 Nyheter på norsk - riks</type>
+                    <type reference="PI_Underkategori">E1 Bulletin</type>
+                  </types>
+                  <format>
+                    <format_extent>PT180S</format_extent>
+                  </format>
+                  <relations>
+                    <relation_is_part_of label="serieCRID" reference="PI">/6578891500001483</relation_is_part_of>
+                    <relation_is_referenced_by label="programCRID" reference="PI">/6578891501521483</relation_is_referenced_by>
+                    <relation_is_referenced_by label="event_id" reference="PI">19917</relation_is_referenced_by>
+                  </relations>
+                </metadata_DC>
+                <programmeSpecials>
+                  <plannedTimeOfissue>2014-09-23T12:04:00+01:00</plannedTimeOfissue>
+                  <endOfTransmission display="0">2014-09-23T12:07:00+01:00</endOfTransmission>
+                </programmeSpecials>
+              </element>
+              <element dataid="SANY05015214" objecttype="programme" channel="NRK P2" fragment="1">
+                <metadata_DC>
+                  <titles>
+                    <title>Oddasat - Nyheter på nordsamisk</title>
+                  </titles>
+                  <subjects>
+                    <subject reference="ESCORT">Y02 Nyheter - regionalt</subject>
+                  </subjects>
+                  <description>
+                    <abstract/>
+                  </description>
+                  <dates>
+                    <date_issued>2014-09-23T12:07:00+01:00</date_issued>
+                  </dates>
+                  <types>
+                    <type reference="PI_sendeflatetyper">20</type>
+                    <type reference="PI_sendetyper">reprise</type>
+                    <type reference="PI_reprisenummer">2</type>
+                    <type reference="mediatype">Audio</type>
+                    <type reference="NRK-Escort">Y02 Nyheter - regionalt</type>
+                    <type reference="PI_Underkategori">E1 Bulletin</type>
+                  </types>
+                  <format>
+                    <format_extent>PT180S</format_extent>
+                  </format>
+                  <relations>
+                    <relation_is_part_of label="serieCRID" reference="PI">/6578890500001483</relation_is_part_of>
+                    <relation_is_referenced_by label="programCRID" reference="PI">/6578890501521483</relation_is_referenced_by>
+                    <relation_is_referenced_by label="event_id" reference="PI">19920</relation_is_referenced_by>
+                  </relations>
+                </metadata_DC>
+                <programmeSpecials>
+                  <plannedTimeOfissue>2014-09-23T12:07:00+01:00</plannedTimeOfissue>
+                  <endOfTransmission display="0">2014-09-23T12:10:00+01:00</endOfTransmission>
+                </programmeSpecials>
+              </element>
+              <element dataid="SANY18013414" objecttype="programme" channel="NRK P2" fragment="1">
+                <metadata_DC>
+                  <titles>
+                    <title>Ådåsa - Nyheter på lulesamisk                   </title>
+                  </titles>
+                  <subjects>
+                    <subject reference="ESCORT">Y02 Nyheter - regionalt</subject>
+                  </subjects>
+                  <description>
+                    <abstract/>
+                  </description>
+                  <dates>
+                    <date_issued>2014-09-23T12:10:00+01:00</date_issued>
+                  </dates>
+                  <types>
+                    <type reference="PI_sendeflatetyper">20</type>
+                    <type reference="PI_sendetyper">reprise</type>
+                    <type reference="PI_reprisenummer">2</type>
+                    <type reference="mediatype">Audio</type>
+                    <type reference="NRK-Escort">Y02 Nyheter - regionalt</type>
+                    <type reference="PI_Underkategori">E1 Bulletin</type>
+                  </types>
+                  <format>
+                    <format_extent>PT180S</format_extent>
+                  </format>
+                  <relations>
+                    <relation_is_part_of label="serieCRID" reference="PI">/6578891800001483</relation_is_part_of>
+                    <relation_is_referenced_by label="programCRID" reference="PI">/6578891801341483</relation_is_referenced_by>
+                    <relation_is_referenced_by label="event_id" reference="PI">19921</relation_is_referenced_by>
+                  </relations>
+                </metadata_DC>
+                <programmeSpecials>
+                  <plannedTimeOfissue>2014-09-23T12:10:00+01:00</plannedTimeOfissue>
+                  <endOfTransmission display="0">2014-09-23T12:13:00+01:00</endOfTransmission>
+                </programmeSpecials>
+              </element>
+              <element dataid="SANY19013414" objecttype="programme" channel="NRK P2" fragment="1">
+                <metadata_DC>
+                  <titles>
+                    <title>Åarjel saernieh - Nyheter på sørsamisk</title>
+                  </titles>
+                  <subjects>
+                    <subject reference="ESCORT">Y02 Nyheter - regionalt</subject>
+                  </subjects>
+                  <description>
+                    <abstract/>
+                  </description>
+                  <dates>
+                    <date_issued>2014-09-23T12:13:00+01:00</date_issued>
+                  </dates>
+                  <types>
+                    <type reference="PI_sendeflatetyper">20</type>
+                    <type reference="PI_sendetyper">reprise</type>
+                    <type reference="PI_reprisenummer">2</type>
+                    <type reference="mediatype">Audio</type>
+                    <type reference="NRK-Escort">Y02 Nyheter - regionalt</type>
+                    <type reference="PI_Underkategori">E1 Bulletin</type>
+                  </types>
+                  <format>
+                    <format_extent>PT180S</format_extent>
+                  </format>
+                  <relations>
+                    <relation_is_part_of label="serieCRID" reference="PI">/6578891900001483</relation_is_part_of>
+                    <relation_is_referenced_by label="programCRID" reference="PI">/6578891901341483</relation_is_referenced_by>
+                    <relation_is_referenced_by label="event_id" reference="PI">19922</relation_is_referenced_by>
+                  </relations>
+                </metadata_DC>
+                <programmeSpecials>
+                  <plannedTimeOfissue>2014-09-23T12:13:00+01:00</plannedTimeOfissue>
+                  <endOfTransmission display="0">2014-09-23T12:16:00+01:00</endOfTransmission>
+                </programmeSpecials>
+              </element>
+              <element dataid="SANY14007614" objecttype="programme" channel="NRK P2" fragment="1">
+                <metadata_DC>
+                  <titles>
+                    <title>Åarjel faaroe - Sørsamisk magasin</title>
+                  </titles>
+                  <subjects>
+                    <subject reference="ESCORT">Y05 Sørsamiske nyheter - riks</subject>
+                  </subjects>
+                  <description>
+                    <abstract>Nord for Salten, og på 90.1 MHz i Oslo-området kl 14.00-17.30: NRK Sápmi.</abstract>
+                  </description>
+                  <dates>
+                    <date_issued>2014-09-23T12:16:00+01:00</date_issued>
+                  </dates>
+                  <types>
+                    <type reference="PI_sendeflatetyper">10</type>
+                    <type reference="PI_sendetyper">reprise</type>
+                    <type reference="PI_reprisenummer">2</type>
+                    <type reference="mediatype">Audio</type>
+                    <type reference="NRK-Escort">Y05 Sørsamiske nyheter - riks</type>
+                    <type reference="PI_Underkategori">Z1 Annet / Ikke relevant</type>
+                  </types>
+                  <format>
+                    <format_extent>PT720S</format_extent>
+                  </format>
+                  <relations>
+                    <relation_is_part_of label="serieCRID" reference="PI">/6578891400001483</relation_is_part_of>
+                    <relation_is_referenced_by label="programCRID" reference="PI">/6578891400761483</relation_is_referenced_by>
+                    <relation_is_referenced_by label="event_id" reference="PI">19923</relation_is_referenced_by>
+                  </relations>
+                </metadata_DC>
+                <programmeSpecials>
+                  <plannedTimeOfissue>2014-09-23T12:16:00+01:00</plannedTimeOfissue>
+                  <endOfTransmission display="0">2014-09-23T12:28:00+01:00</endOfTransmission>
+                </programmeSpecials>
+              </element>
+            </subelements>
+          </element>
+          <element dataid="NPUB44018914" objecttype="programme" channel="NRK P2" fragment="1">
+            <metadata_DC>
+              <titles>
+                <title>Nyhetslunsj</title>
+              </titles>
+              <subjects>
+                <subject reference="ESCORT">N00 Nyheter</subject>
+              </subjects>
+              <description>
+                <abstract/>
+              </description>
+              <dates>
+                <date_issued>2014-09-23T12:30:00+01:00</date_issued>
+              </dates>
+              <types>
+                <type reference="PI_sendeflatetyper">20</type>
+                <type reference="PI_sendetyper">vanlig</type>
+                <type reference="mediatype">Audio</type>
+                <type reference="NRK-Escort">N00 Nyheter</type>
+                <type reference="PI_Underkategori">F1 Magasin</type>
+                <type reference="Nettkategori">Nyheter</type>
+              </types>
+              <format>
+                <format_extent>PT1740S</format_extent>
+              </format>
+              <relations>
+                <relation_is_part_of label="serieCRID" reference="PI">/8085664400001478</relation_is_part_of>
+                <relation_is_referenced_by label="programCRID" reference="PI">/8085664401891478</relation_is_referenced_by>
+                <relation_is_referenced_by label="event_id" reference="PI">19927</relation_is_referenced_by>
+              </relations>
+            </metadata_DC>
+            <programmeSpecials>
+              <plannedTimeOfissue>2014-09-23T12:30:00+01:00</plannedTimeOfissue>
+              <endOfTransmission display="0">2014-09-23T12:59:00+01:00</endOfTransmission>
+            </programmeSpecials>
+            <origin purpose="DayPort">
+              <storage>\\entriq-nas\entriq\Incoming\CCS\AutomaticCapture\P2</storage>
+              <file>P2_201409231230_NPUB-440189-14_000</file>
+            </origin>
+          </element>
+          <element dataid="NPUB22030314" objecttype="programme" channel="NRK P2" fragment="1">
+            <metadata_DC>
+              <titles>
+                <title>Dagsnytt</title>
+              </titles>
+              <subjects>
+                <subject reference="ESCORT">N10 Faste nyhetssendinger</subject>
+              </subjects>
+              <description>
+                <abstract/>
+              </description>
+              <dates>
+                <date_issued>2014-09-23T13:00:00+01:00</date_issued>
+              </dates>
+              <types>
+                <type reference="PI_sendeflatetyper">20</type>
+                <type reference="PI_sendetyper">reprise</type>
+                <type reference="PI_reprisenummer">6</type>
+                <type reference="mediatype">Audio</type>
+                <type reference="NRK-Escort">N10 Faste nyhetssendinger</type>
+                <type reference="PI_Underkategori">E1 Bulletin</type>
+                <type reference="Nettkategori">Nyheter</type>
+              </types>
+              <format>
+                <format_extent>PT180S</format_extent>
+              </format>
+              <relations>
+                <relation_is_part_of label="serieCRID" reference="PI">/8085662200001478</relation_is_part_of>
+                <relation_is_referenced_by label="programCRID" reference="PI">/8085662203031478</relation_is_referenced_by>
+                <relation_is_referenced_by label="event_id" reference="PI">19928</relation_is_referenced_by>
+              </relations>
+            </metadata_DC>
+            <programmeSpecials>
+              <plannedTimeOfissue>2014-09-23T13:00:00+01:00</plannedTimeOfissue>
+              <endOfTransmission display="0">2014-09-23T13:03:00+01:00</endOfTransmission>
+            </programmeSpecials>
+            <origin purpose="DayPort">
+              <storage>\\entriq-nas\entriq\Incoming\CCS\AutomaticCapture\P2</storage>
+              <file>P2_201409231300_NPUB-220303-14_000</file>
+            </origin>
+          </element>
+          <element dataid="MKTR15019014" objecttype="programme" channel="NRK P2" fragment="1">
+            <metadata_DC>
+              <titles>
+                <title>Kulturhuset</title>
+              </titles>
+              <subjects>
+                <subject reference="ESCORT">D90 Diverse Kunst/ Kultur/ Medier</subject>
+              </subjects>
+              <description>
+                <abstract>- trender og tendenser i kulturen.</abstract>
+              </description>
+              <dates>
+                <date_issued>2014-09-23T13:03:00+01:00</date_issued>
+              </dates>
+              <types>
+                <type reference="PI_sendeflatetyper">10</type>
+                <type reference="PI_sendetyper">vanlig</type>
+                <type reference="mediatype">Audio</type>
+                <type reference="NRK-Escort">D90 Diverse Kunst/ Kultur/ Medier</type>
+                <type reference="PI_Underkategori">F1 Magasin</type>
+              </types>
+              <format>
+                <format_extent>PT3420S</format_extent>
+              </format>
+              <relations>
+                <relation_is_part_of label="serieCRID" reference="PI">/7584821500001477</relation_is_part_of>
+                <relation_is_referenced_by label="programCRID" reference="PI">/7584821501901477#P2201409231303</relation_is_referenced_by>
+                <relation_is_referenced_by label="event_id" reference="PI">19932</relation_is_referenced_by>
+              </relations>
+            </metadata_DC>
+            <programmeSpecials>
+              <plannedTimeOfissue>2014-09-23T13:03:00+01:00</plannedTimeOfissue>
+              <endOfTransmission display="0">2014-09-23T14:00:00+01:00</endOfTransmission>
+            </programmeSpecials>
+            <origin purpose="DayPort">
+              <storage>\\entriq-nas\entriq\Incoming\CCS\AutomaticCapture\P2</storage>
+              <file>P2_201409231303_MKTR-150190-14_000</file>
+            </origin>
+          </element>
+          <element dataid="NPUB23033814" objecttype="programme" channel="NRK P2" fragment="1">
+            <metadata_DC>
+              <titles>
+                <title>Dagsnytt</title>
+              </titles>
+              <subjects>
+                <subject reference="ESCORT">N10 Faste nyhetssendinger</subject>
+              </subjects>
+              <description>
+                <abstract/>
+              </description>
+              <dates>
+                <date_issued>2014-09-23T14:00:00+01:00</date_issued>
+              </dates>
+              <types>
+                <type reference="PI_sendeflatetyper">20</type>
+                <type reference="PI_sendetyper">reprise</type>
+                <type reference="PI_reprisenummer">5</type>
+                <type reference="mediatype">Audio</type>
+                <type reference="NRK-Escort">N10 Faste nyhetssendinger</type>
+                <type reference="PI_Underkategori">E1 Bulletin</type>
+                <type reference="Nettkategori">Nyheter</type>
+              </types>
+              <format>
+                <format_extent>PT180S</format_extent>
+              </format>
+              <relations>
+                <relation_is_part_of label="serieCRID" reference="PI">/8085662300001478</relation_is_part_of>
+                <relation_is_referenced_by label="programCRID" reference="PI">/8085662303381478</relation_is_referenced_by>
+                <relation_is_referenced_by label="event_id" reference="PI">19961</relation_is_referenced_by>
+              </relations>
+            </metadata_DC>
+            <programmeSpecials>
+              <plannedTimeOfissue>2014-09-23T14:00:00+01:00</plannedTimeOfissue>
+              <endOfTransmission display="0">2014-09-23T14:03:00+01:00</endOfTransmission>
+            </programmeSpecials>
+            <origin purpose="DayPort">
+              <storage>\\entriq-nas\entriq\Incoming\CCS\AutomaticCapture\P2</storage>
+              <file>P2_201409231400_NPUB-230338-14_000</file>
+            </origin>
+          </element>
+          <element dataid="MKTR15019014" objecttype="programme" channel="NRK P2" fragment="2">
+            <metadata_DC>
+              <titles>
+                <title>Kulturhuset</title>
+              </titles>
+              <subjects>
+                <subject reference="ESCORT">D90 Diverse Kunst/ Kultur/ Medier</subject>
+              </subjects>
+              <description>
+                <abstract>- trender og tendenser i kulturen.</abstract>
+              </description>
+              <dates>
+                <date_issued>2014-09-23T14:03:00+01:00</date_issued>
+              </dates>
+              <types>
+                <type reference="PI_sendeflatetyper">10</type>
+                <type reference="PI_sendetyper">vanlig</type>
+                <type reference="mediatype">Audio</type>
+                <type reference="NRK-Escort">D90 Diverse Kunst/ Kultur/ Medier</type>
+                <type reference="PI_Underkategori">F1 Magasin</type>
+              </types>
+              <format>
+                <format_extent>PT3360S</format_extent>
+              </format>
+              <relations>
+                <relation_is_part_of label="serieCRID" reference="PI">/7584821500001477</relation_is_part_of>
+                <relation_is_referenced_by label="programCRID" reference="PI">/7584821501901477#P2201409231303</relation_is_referenced_by>
+                <relation_is_referenced_by label="event_id" reference="PI">19969</relation_is_referenced_by>
+              </relations>
+            </metadata_DC>
+            <programmeSpecials>
+              <plannedTimeOfissue>2014-09-23T14:03:00+01:00</plannedTimeOfissue>
+              <endOfTransmission display="0">2014-09-23T14:59:00+01:00</endOfTransmission>
+            </programmeSpecials>
+            <origin purpose="DayPort">
+              <storage>\\entriq-nas\entriq\Incoming\CCS\AutomaticCapture\P2</storage>
+              <file>P2_201409231403_MKTR-150190-14_000</file>
+            </origin>
+          </element>
+          <element dataid="NPUB51016714" objecttype="programme" channel="NRK P2" fragment="1">
+            <metadata_DC>
+              <titles>
+                <title>Nyhetsettermiddag</title>
+              </titles>
+              <subjects>
+                <subject reference="ESCORT">K99 Diverse samfunnsspørsmål, Likestilling i arb.livet</subject>
+              </subjects>
+              <description>
+                <abstract>De viktigste nyhetene fra inn- og utland. Oppdatering, intervjuer, analyser og kommentarer på direkten.</abstract>
+              </description>
+              <dates>
+                <date_issued>2014-09-23T15:00:00+01:00</date_issued>
+              </dates>
+              <types>
+                <type reference="PI_sendeflatetyper">20</type>
+                <type reference="PI_sendetyper">vanlig</type>
+                <type reference="mediatype">Audio</type>
+                <type reference="NRK-Escort">K99 Diverse samfunnsspørsmål, Likestilling i arb.livet</type>
+                <type reference="PI_Underkategori">F1 Magasin</type>
+                <type reference="Nettkategori">Helse og forbruker</type>
+              </types>
+              <format>
+                <format_extent>PT1800S</format_extent>
+              </format>
+              <relations>
+                <relation_is_part_of label="serieCRID" reference="PI">/8085665100001478</relation_is_part_of>
+                <relation_is_referenced_by label="programCRID" reference="PI">/8085665101671478#P2201409231500</relation_is_referenced_by>
+                <relation_is_referenced_by label="event_id" reference="PI">19990</relation_is_referenced_by>
+              </relations>
+            </metadata_DC>
+            <programmeSpecials>
+              <plannedTimeOfissue>2014-09-23T15:00:00+01:00</plannedTimeOfissue>
+              <endOfTransmission display="0">2014-09-23T15:30:00+01:00</endOfTransmission>
+            </programmeSpecials>
+            <origin purpose="DayPort">
+              <storage>\\entriq-nas\entriq\Incoming\CCS\AutomaticCapture\P2</storage>
+              <file>P2_201409231500_NPUB-510167-14_000</file>
+            </origin>
+          </element>
+          <element dataid="NPUB51016714" objecttype="programme" channel="NRK P2" fragment="2">
+            <metadata_DC>
+              <titles>
+                <title>Nyhetsettermiddag</title>
+              </titles>
+              <subjects>
+                <subject reference="ESCORT">K99 Diverse samfunnsspørsmål, Likestilling i arb.livet</subject>
+              </subjects>
+              <description>
+                <abstract>De viktigste nyhetene fra inn- og utland. Oppdatering, intervjuer, analyser og kommentarer på direkten.</abstract>
+              </description>
+              <dates>
+                <date_issued>2014-09-23T15:30:00+01:00</date_issued>
+              </dates>
+              <types>
+                <type reference="PI_sendeflatetyper">20</type>
+                <type reference="PI_sendetyper">vanlig</type>
+                <type reference="mediatype">Audio</type>
+                <type reference="NRK-Escort">K99 Diverse samfunnsspørsmål, Likestilling i arb.livet</type>
+                <type reference="PI_Underkategori">F1 Magasin</type>
+                <type reference="Nettkategori">Helse og forbruker</type>
+              </types>
+              <format>
+                <format_extent>PT1800S</format_extent>
+              </format>
+              <relations>
+                <relation_is_part_of label="serieCRID" reference="PI">/8085665100001478</relation_is_part_of>
+                <relation_is_referenced_by label="programCRID" reference="PI">/8085665101671478#P2201409231500</relation_is_referenced_by>
+                <relation_is_referenced_by label="event_id" reference="PI">20010</relation_is_referenced_by>
+              </relations>
+            </metadata_DC>
+            <programmeSpecials>
+              <plannedTimeOfissue>2014-09-23T15:30:00+01:00</plannedTimeOfissue>
+              <endOfTransmission display="0">2014-09-23T16:00:00+01:00</endOfTransmission>
+            </programmeSpecials>
+            <origin purpose="DayPort">
+              <storage>\\entriq-nas\entriq\Incoming\CCS\AutomaticCapture\P2</storage>
+              <file>P2_201409231530_NPUB-510167-14_000</file>
+            </origin>
+          </element>
+          <element dataid="NPUB42018914" objecttype="programme" channel="NRK P2" fragment="1">
+            <metadata_DC>
+              <titles>
+                <title>Dagsnytt</title>
+              </titles>
+              <subjects>
+                <subject reference="ESCORT">N00 Nyheter</subject>
+              </subjects>
+              <description>
+                <abstract/>
+              </description>
+              <dates>
+                <date_issued>2014-09-23T16:00:00+01:00</date_issued>
+              </dates>
+              <types>
+                <type reference="PI_sendeflatetyper">20</type>
+                <type reference="PI_sendetyper">vanlig</type>
+                <type reference="mediatype">Audio</type>
+                <type reference="NRK-Escort">N00 Nyheter</type>
+                <type reference="PI_Underkategori">Z1 Annet / Ikke relevant</type>
+                <type reference="Nettkategori">Nyheter</type>
+              </types>
+              <format>
+                <format_extent>PT1800S</format_extent>
+              </format>
+              <relations>
+                <relation_is_part_of label="serieCRID" reference="PI">/8085664200001478</relation_is_part_of>
+                <relation_is_referenced_by label="programCRID" reference="PI">/8085664201891478</relation_is_referenced_by>
+                <relation_is_referenced_by label="event_id" reference="PI">20011</relation_is_referenced_by>
+              </relations>
+            </metadata_DC>
+            <programmeSpecials>
+              <plannedTimeOfissue>2014-09-23T16:00:00+01:00</plannedTimeOfissue>
+              <endOfTransmission display="0">2014-09-23T16:30:00+01:00</endOfTransmission>
+            </programmeSpecials>
+            <origin purpose="DayPort">
+              <storage>\\entriq-nas\entriq\Incoming\CCS\AutomaticCapture\P2</storage>
+              <file>P2_201409231600_NPUB-420189-14_000</file>
+            </origin>
+          </element>
+          <element dataid="NPUB51016714" objecttype="programme" channel="NRK P2" fragment="3">
+            <metadata_DC>
+              <titles>
+                <title>Nyhetsettermiddag</title>
+              </titles>
+              <subjects>
+                <subject reference="ESCORT">K99 Diverse samfunnsspørsmål, Likestilling i arb.livet</subject>
+              </subjects>
+              <description>
+                <abstract>De viktigste nyhetene fra inn- og utland. Oppdatering, intervjuer, analyser og kommentarer på direkten.</abstract>
+              </description>
+              <dates>
+                <date_issued>2014-09-23T16:30:00+01:00</date_issued>
+              </dates>
+              <types>
+                <type reference="PI_sendeflatetyper">20</type>
+                <type reference="PI_sendetyper">vanlig</type>
+                <type reference="mediatype">Audio</type>
+                <type reference="NRK-Escort">K99 Diverse samfunnsspørsmål, Likestilling i arb.livet</type>
+                <type reference="PI_Underkategori">F1 Magasin</type>
+                <type reference="Nettkategori">Helse og forbruker</type>
+              </types>
+              <format>
+                <format_extent>PT1800S</format_extent>
+              </format>
+              <relations>
+                <relation_is_part_of label="serieCRID" reference="PI">/8085665100001478</relation_is_part_of>
+                <relation_is_referenced_by label="programCRID" reference="PI">/8085665101671478#P2201409231500</relation_is_referenced_by>
+                <relation_is_referenced_by label="event_id" reference="PI">20034</relation_is_referenced_by>
+              </relations>
+            </metadata_DC>
+            <programmeSpecials>
+              <plannedTimeOfissue>2014-09-23T16:30:00+01:00</plannedTimeOfissue>
+              <endOfTransmission display="0">2014-09-23T17:00:00+01:00</endOfTransmission>
+            </programmeSpecials>
+            <origin purpose="DayPort">
+              <storage>\\entriq-nas\entriq\Incoming\CCS\AutomaticCapture\P2</storage>
+              <file>P2_201409231630_NPUB-510167-14_000</file>
+            </origin>
+          </element>
+          <element dataid="MKTR02016714" objecttype="programme" channel="NRK P2" fragment="1">
+            <metadata_DC>
+              <titles>
+                <title>Salongen</title>
+              </titles>
+              <subjects>
+                <subject reference="ESCORT">D90 Diverse Kunst/ Kultur/ Medier</subject>
+              </subjects>
+              <description>
+                <abstract/>
+              </description>
+              <dates>
+                <date_issued>2014-09-23T17:00:00+01:00</date_issued>
+              </dates>
+              <types>
+                <type reference="PI_sendeflatetyper">10</type>
+                <type reference="PI_sendetyper">vanlig</type>
+                <type reference="mediatype">Audio</type>
+                <type reference="NRK-Escort">D90 Diverse Kunst/ Kultur/ Medier</type>
+                <type reference="PI_Underkategori">F1 Magasin</type>
+              </types>
+              <format>
+                <format_extent>PT3600S</format_extent>
+              </format>
+              <relations>
+                <relation_is_part_of label="serieCRID" reference="PI">/7584820200001477</relation_is_part_of>
+                <relation_is_referenced_by label="programCRID" reference="PI">/7584820201671477</relation_is_referenced_by>
+                <relation_is_referenced_by label="event_id" reference="PI">20039</relation_is_referenced_by>
+              </relations>
+            </metadata_DC>
+            <programmeSpecials>
+              <plannedTimeOfissue>2014-09-23T17:00:00+01:00</plannedTimeOfissue>
+              <endOfTransmission display="0">2014-09-23T18:00:00+01:00</endOfTransmission>
+            </programmeSpecials>
+            <origin purpose="DayPort">
+              <storage>\\entriq-nas\entriq\Incoming\CCS\AutomaticCapture\P2</storage>
+              <file>P2_201409231700_MKTR-020167-14_000</file>
+            </origin>
+          </element>
+          <element dataid="NMAG03018914" objecttype="programme" channel="NRK P2" fragment="1">
+            <metadata_DC>
+              <titles>
+                <title>Dagsnytt atten</title>
+              </titles>
+              <subjects>
+                <subject reference="ESCORT">K99 Diverse samfunnsspørsmål, Likestilling i arb.livet</subject>
+              </subjects>
+              <description>
+                <abstract/>
+              </description>
+              <dates>
+                <date_issued>2014-09-23T18:00:00+01:00</date_issued>
+              </dates>
+              <types>
+                <type reference="PI_sendeflatetyper">20</type>
+                <type reference="PI_sendetyper">vanlig</type>
+                <type reference="mediatype">Audio</type>
+                <type reference="NRK-Escort">K99 Diverse samfunnsspørsmål, Likestilling i arb.livet</type>
+                <type reference="PI_Underkategori">H1 Diskusjon/Intervju/Debatt</type>
+                <type reference="Nettkategori">Helse og forbruker</type>
+              </types>
+              <format>
+                <format_extent>PT3540S</format_extent>
+              </format>
+              <relations>
+                <relation_is_part_of label="serieCRID" reference="PI">/7765710300001478</relation_is_part_of>
+                <relation_is_referenced_by label="programCRID" reference="PI">/7765710301891478</relation_is_referenced_by>
+                <relation_is_referenced_by label="event_id" reference="PI">20050</relation_is_referenced_by>
+              </relations>
+            </metadata_DC>
+            <programmeSpecials>
+              <plannedTimeOfissue>2014-09-23T18:00:00+01:00</plannedTimeOfissue>
+              <endOfTransmission display="0">2014-09-23T18:59:00+01:00</endOfTransmission>
+            </programmeSpecials>
+            <origin purpose="DayPort">
+              <storage>\\entriq-nas\entriq\Incoming\CCS\AutomaticCapture\P2</storage>
+              <file>P2_201409231800_NMAG-030189-14_000</file>
+            </origin>
+          </element>
+          <element dataid="NPUB31033814" objecttype="programme" channel="NRK P2" fragment="1">
+            <metadata_DC>
+              <titles>
+                <title>Dagsnytt</title>
+              </titles>
+              <subjects>
+                <subject reference="ESCORT">N00 Nyheter</subject>
+              </subjects>
+              <description>
+                <abstract/>
+              </description>
+              <dates>
+                <date_issued>2014-09-23T19:00:00+01:00</date_issued>
+              </dates>
+              <types>
+                <type reference="PI_sendeflatetyper">20</type>
+                <type reference="PI_sendetyper">reprise</type>
+                <type reference="PI_reprisenummer">5</type>
+                <type reference="mediatype">Audio</type>
+                <type reference="NRK-Escort">N00 Nyheter</type>
+                <type reference="PI_Underkategori">E1 Bulletin</type>
+                <type reference="Nettkategori">Nyheter</type>
+              </types>
+              <format>
+                <format_extent>PT180S</format_extent>
+              </format>
+              <relations>
+                <relation_is_part_of label="serieCRID" reference="PI">/8085663100001478</relation_is_part_of>
+                <relation_is_referenced_by label="programCRID" reference="PI">/8085663103381478</relation_is_referenced_by>
+                <relation_is_referenced_by label="event_id" reference="PI">20061</relation_is_referenced_by>
+              </relations>
+            </metadata_DC>
+            <programmeSpecials>
+              <plannedTimeOfissue>2014-09-23T19:00:00+01:00</plannedTimeOfissue>
+              <endOfTransmission display="0">2014-09-23T19:03:00+01:00</endOfTransmission>
+            </programmeSpecials>
+            <origin purpose="DayPort">
+              <storage>\\entriq-nas\entriq\Incoming\CCS\AutomaticCapture\P2</storage>
+              <file>P2_201409231900_NPUB-310338-14_000</file>
+            </origin>
+          </element>
+          <element dataid="" objecttype="programme" channel="NRK P2" fragment="1">
+            <metadata_DC>
+              <titles>
+                <title>Musikk i P2:</title>
+              </titles>
+              <subjects>
+                <subject reference="ESCORT"/>
+              </subjects>
+              <description>
+                <abstract/>
+              </description>
+              <dates>
+                <date_issued>2014-09-23T19:03:00+01:00</date_issued>
+              </dates>
+              <types>
+                <type reference="PI_sendeflatetyper">0</type>
+                <type reference="PI_sendetyper">vanlig</type>
+                <type reference="NRK-Escort"/>
+                <type reference="PI_Underkategori"/>
+              </types>
+              <format>
+                <format_extent>PT8820S</format_extent>
+              </format>
+              <relations>
+                <relation_is_referenced_by label="event_id" reference="PI">20068</relation_is_referenced_by>
+              </relations>
+            </metadata_DC>
+            <programmeSpecials>
+              <plannedTimeOfissue>2014-09-23T19:03:00+01:00</plannedTimeOfissue>
+              <endOfTransmission display="0">2014-09-23T21:30:00+01:00</endOfTransmission>
+            </programmeSpecials>
+            <subelements>
+              <element dataid="MKMR57015714" objecttype="programme" channel="NRK P2" fragment="1">
+                <metadata_DC>
+                  <titles>
+                    <title>Spillerom</title>
+                  </titles>
+                  <subjects>
+                    <subject reference="ESCORT">D40 Musikk</subject>
+                  </subjects>
+                  <description>
+                    <abstract/>
+                  </description>
+                  <dates>
+                    <date_issued>2014-09-23T19:03:00+01:00</date_issued>
+                  </dates>
+                  <types>
+                    <type reference="PI_sendeflatetyper">10</type>
+                    <type reference="PI_sendetyper">vanlig</type>
+                    <type reference="mediatype">Audio</type>
+                    <type reference="NRK-Escort">D40 Musikk</type>
+                    <type reference="PI_Underkategori">A1 Musikk</type>
+                    <type reference="Nettkategori">Kultur</type>
+                  </types>
+                  <format>
+                    <format_extent>PT1620S</format_extent>
+                  </format>
+                  <relations>
+                    <relation_is_part_of label="serieCRID" reference="PI">/7577825700001477</relation_is_part_of>
+                    <relation_is_referenced_by label="programCRID" reference="PI">/7577825701571477</relation_is_referenced_by>
+                    <relation_is_referenced_by label="event_id" reference="PI">20064</relation_is_referenced_by>
+                  </relations>
+                </metadata_DC>
+                <programmeSpecials>
+                  <plannedTimeOfissue>2014-09-23T19:03:00+01:00</plannedTimeOfissue>
+                  <endOfTransmission display="0">2014-09-23T19:30:00+01:00</endOfTransmission>
+                </programmeSpecials>
+              </element>
+              <element dataid="MKMK19003314" objecttype="programme" channel="NRK P2" fragment="1">
+                <metadata_DC>
+                  <titles>
+                    <title>Klassisk tirsdag: Ultima-festivalen</title>
+                  </titles>
+                  <subjects>
+                    <subject reference="ESCORT">B10 Klassisk musikk</subject>
+                  </subjects>
+                  <description>
+                    <abstract>DR underholdningsorkestret. Dirigent: Baldur Brönnimann. Solister: Mattis Herman Nyquist, skuespiller. Andrea Bræin Hovig, skuespiller. Katrine Gislinge, klaver. Breaking the Ice, av Karin Rehnqvist. Papillon Mignon, av Bent Sørensen. Blue Mountain, av Eivind Buene. Fra Universitetets aula i Oslo 20. september. Programleder: Bodil Maroni Jensen.</abstract>
+                  </description>
+                  <dates>
+                    <date_issued>2014-09-23T19:30:00+01:00</date_issued>
+                  </dates>
+                  <types>
+                    <type reference="PI_sendeflatetyper">10</type>
+                    <type reference="PI_sendetyper">vanlig</type>
+                    <type reference="mediatype">Audio</type>
+                    <type reference="NRK-Escort">B10 Klassisk musikk</type>
+                    <type reference="PI_Underkategori">A1 Musikk</type>
+                    <type reference="Nettkategori">Musikk</type>
+                  </types>
+                  <format>
+                    <format_extent>PT7200S</format_extent>
+                  </format>
+                  <relations>
+                    <relation_is_part_of label="serieCRID" reference="PI">/7577751900001477</relation_is_part_of>
+                    <relation_is_referenced_by label="programCRID" reference="PI">/7577751900331477</relation_is_referenced_by>
+                    <relation_is_referenced_by label="event_id" reference="PI">20072</relation_is_referenced_by>
+                  </relations>
+                </metadata_DC>
+                <programmeSpecials>
+                  <plannedTimeOfissue>2014-09-23T19:30:00+01:00</plannedTimeOfissue>
+                  <endOfTransmission display="0">2014-09-23T21:30:00+01:00</endOfTransmission>
+                </programmeSpecials>
+              </element>
+            </subelements>
+          </element>
+          <element dataid="MKTR01003814" objecttype="programme" channel="NRK P2" fragment="1">
+            <metadata_DC>
+              <titles>
+                <title>Diktafon</title>
+              </titles>
+              <subjects>
+                <subject reference="ESCORT">A02 Lyrikk</subject>
+              </subjects>
+              <description>
+                <abstract>Gjest: Kjartan Hatløy med diktsamlingen "Mi meinings hus". Ved Annelita Meinich.</abstract>
+              </description>
+              <dates>
+                <date_issued>2014-09-23T21:30:00+01:00</date_issued>
+              </dates>
+              <types>
+                <type reference="PI_sendeflatetyper">10</type>
+                <type reference="PI_sendetyper">reprise</type>
+                <type reference="PI_reprisenummer">2</type>
+                <type reference="mediatype">Audio</type>
+                <type reference="NRK-Escort">A02 Lyrikk</type>
+                <type reference="PI_Underkategori">F1 Magasin</type>
+                <type reference="Nettkategori">Serier og filmer</type>
+              </types>
+              <format>
+                <format_extent>PT1800S</format_extent>
+              </format>
+              <relations>
+                <relation_is_part_of label="serieCRID" reference="PI">/7584820100001477</relation_is_part_of>
+                <relation_is_referenced_by label="programCRID" reference="PI">/7584820100381477</relation_is_referenced_by>
+                <relation_is_referenced_by label="event_id" reference="PI">20103</relation_is_referenced_by>
+              </relations>
+            </metadata_DC>
+            <programmeSpecials>
+              <plannedTimeOfissue>2014-09-23T21:30:00+01:00</plannedTimeOfissue>
+              <endOfTransmission display="0">2014-09-23T22:00:00+01:00</endOfTransmission>
+            </programmeSpecials>
+            <origin purpose="DayPort">
+              <storage>\\entriq-nas\entriq\Incoming\CCS\AutomaticCapture\P2</storage>
+              <file>P2_201409232130_MKTR-010038-14_000</file>
+            </origin>
+          </element>
+          <element dataid="NPUB34026614" objecttype="programme" channel="NRK P2" fragment="1">
+            <metadata_DC>
+              <titles>
+                <title>Dagsnytt med værmelding</title>
+              </titles>
+              <subjects>
+                <subject reference="ESCORT">N00 Nyheter</subject>
+              </subjects>
+              <description>
+                <abstract/>
+              </description>
+              <dates>
+                <date_issued>2014-09-23T22:00:00+01:00</date_issued>
+              </dates>
+              <types>
+                <type reference="PI_sendeflatetyper">20</type>
+                <type reference="PI_sendetyper">reprise</type>
+                <type reference="PI_reprisenummer">4</type>
+                <type reference="mediatype">Audio</type>
+                <type reference="NRK-Escort">N00 Nyheter</type>
+                <type reference="PI_Underkategori">E1 Bulletin</type>
+                <type reference="Nettkategori">Nyheter</type>
+              </types>
+              <format>
+                <format_extent>PT300S</format_extent>
+              </format>
+              <relations>
+                <relation_is_part_of label="serieCRID" reference="PI">/8085663400001478</relation_is_part_of>
+                <relation_is_referenced_by label="programCRID" reference="PI">/8085663402661478</relation_is_referenced_by>
+                <relation_is_referenced_by label="event_id" reference="PI">20108</relation_is_referenced_by>
+              </relations>
+            </metadata_DC>
+            <programmeSpecials>
+              <plannedTimeOfissue>2014-09-23T22:00:00+01:00</plannedTimeOfissue>
+              <endOfTransmission display="0">2014-09-23T22:05:00+01:00</endOfTransmission>
+            </programmeSpecials>
+            <origin purpose="DayPort">
+              <storage>\\entriq-nas\entriq\Incoming\CCS\AutomaticCapture\P2</storage>
+              <file>P2_201409232200_NPUB-340266-14_000</file>
+            </origin>
+          </element>
+          <element dataid="" objecttype="programme" channel="NRK P2" fragment="1">
+            <metadata_DC>
+              <titles>
+                <title>P2s Blå Mix:</title>
+              </titles>
+              <subjects>
+                <subject reference="ESCORT"/>
+              </subjects>
+              <description>
+                <abstract/>
+              </description>
+              <dates>
+                <date_issued>2014-09-23T22:05:00+01:00</date_issued>
+              </dates>
+              <types>
+                <type reference="PI_sendeflatetyper">0</type>
+                <type reference="PI_sendetyper">vanlig</type>
+                <type reference="NRK-Escort"/>
+                <type reference="PI_Underkategori"/>
+              </types>
+              <format>
+                <format_extent>PT6900S</format_extent>
+              </format>
+              <relations>
+                <relation_is_referenced_by label="event_id" reference="PI">20114</relation_is_referenced_by>
+              </relations>
+            </metadata_DC>
+            <programmeSpecials>
+              <plannedTimeOfissue>2014-09-23T22:05:00+01:00</plannedTimeOfissue>
+              <endOfTransmission display="0">2014-09-24T00:00:00+01:00</endOfTransmission>
+            </programmeSpecials>
+            <subelements>
+              <element dataid="MDSP29019414" objecttype="programme" channel="NRK P2" fragment="1">
+                <metadata_DC>
+                  <titles>
+                    <title>Ekko</title>
+                  </titles>
+                  <subjects>
+                    <subject reference="ESCORT">K99 Diverse samfunnsspørsmål, Likestilling i arb.livet</subject>
+                  </subjects>
+                  <description>
+                    <abstract>Gjenhør fra formiddagens sending.</abstract>
+                  </description>
+                  <dates>
+                    <date_issued>2014-09-23T22:05:00+01:00</date_issued>
+                  </dates>
+                  <types>
+                    <type reference="PI_sendeflatetyper">10</type>
+                    <type reference="PI_sendetyper">vanlig</type>
+                    <type reference="mediatype">Audio</type>
+                    <type reference="NRK-Escort">K99 Diverse samfunnsspørsmål, Likestilling i arb.livet</type>
+                    <type reference="PI_Underkategori">F1 Magasin</type>
+                    <type reference="Nettkategori">Helse og forbruker</type>
+                  </types>
+                  <format>
+                    <format_extent>PT3300S</format_extent>
+                  </format>
+                  <relations>
+                    <relation_is_part_of label="serieCRID" reference="PI">/6883802900001477</relation_is_part_of>
+                    <relation_is_referenced_by label="programCRID" reference="PI">/6883802901941477</relation_is_referenced_by>
+                    <relation_is_referenced_by label="event_id" reference="PI">20113</relation_is_referenced_by>
+                  </relations>
+                </metadata_DC>
+                <programmeSpecials>
+                  <plannedTimeOfissue>2014-09-23T22:05:00+01:00</plannedTimeOfissue>
+                  <endOfTransmission display="0">2014-09-23T23:00:00+01:00</endOfTransmission>
+                </programmeSpecials>
+              </element>
+              <element dataid="NPUB35026614" objecttype="programme" channel="NRK P2" fragment="1">
+                <metadata_DC>
+                  <titles>
+                    <title>Dagsnytt</title>
+                  </titles>
+                  <subjects>
+                    <subject reference="ESCORT">N00 Nyheter</subject>
+                  </subjects>
+                  <description>
+                    <abstract/>
+                  </description>
+                  <dates>
+                    <date_issued>2014-09-23T23:00:00+01:00</date_issued>
+                  </dates>
+                  <types>
+                    <type reference="PI_sendeflatetyper">20</type>
+                    <type reference="PI_sendetyper">reprise</type>
+                    <type reference="PI_reprisenummer">4</type>
+                    <type reference="mediatype">Audio</type>
+                    <type reference="NRK-Escort">N00 Nyheter</type>
+                    <type reference="PI_Underkategori">E1 Bulletin</type>
+                    <type reference="Nettkategori">Nyheter</type>
+                  </types>
+                  <format>
+                    <format_extent>PT180S</format_extent>
+                  </format>
+                  <relations>
+                    <relation_is_part_of label="serieCRID" reference="PI">/8085663500001478</relation_is_part_of>
+                    <relation_is_referenced_by label="programCRID" reference="PI">/8085663502661478</relation_is_referenced_by>
+                    <relation_is_referenced_by label="event_id" reference="PI">20118</relation_is_referenced_by>
+                  </relations>
+                </metadata_DC>
+                <programmeSpecials>
+                  <plannedTimeOfissue>2014-09-23T23:00:00+01:00</plannedTimeOfissue>
+                  <endOfTransmission display="0">2014-09-23T23:03:00+01:00</endOfTransmission>
+                </programmeSpecials>
+              </element>
+              <element dataid="MKTR16014214" objecttype="programme" channel="NRK P2" fragment="1">
+                <metadata_DC>
+                  <titles>
+                    <title>Kulturhuset</title>
+                  </titles>
+                  <subjects>
+                    <subject reference="ESCORT">D90 Diverse Kunst/ Kultur/ Medier</subject>
+                  </subjects>
+                  <description>
+                    <abstract>Gjenhør fra ettermiddagens sending.</abstract>
+                  </description>
+                  <dates>
+                    <date_issued>2014-09-23T23:03:00+01:00</date_issued>
+                  </dates>
+                  <types>
+                    <type reference="PI_sendeflatetyper">10</type>
+                    <type reference="PI_sendetyper">vanlig</type>
+                    <type reference="mediatype">Audio</type>
+                    <type reference="NRK-Escort">D90 Diverse Kunst/ Kultur/ Medier</type>
+                    <type reference="PI_Underkategori">F1 Magasin</type>
+                  </types>
+                  <format>
+                    <format_extent>PT1620S</format_extent>
+                  </format>
+                  <relations>
+                    <relation_is_part_of label="serieCRID" reference="PI">/7584821600001477</relation_is_part_of>
+                    <relation_is_referenced_by label="programCRID" reference="PI">/7584821601421477</relation_is_referenced_by>
+                    <relation_is_referenced_by label="event_id" reference="PI">20122</relation_is_referenced_by>
+                  </relations>
+                </metadata_DC>
+                <programmeSpecials>
+                  <plannedTimeOfissue>2014-09-23T23:03:00+01:00</plannedTimeOfissue>
+                  <endOfTransmission display="0">2014-09-23T23:30:00+01:00</endOfTransmission>
+                </programmeSpecials>
+              </element>
+              <element dataid="DMPO54003714" objecttype="programme" channel="NRK P2" fragment="1">
+                <metadata_DC>
+                  <titles>
+                    <title>NRK for 50 år siden</title>
+                  </titles>
+                  <subjects>
+                    <subject reference="ESCORT">E00 Lett underholdning</subject>
+                  </subjects>
+                  <description>
+                    <abstract>Torkjell Berulfsen gir oss noe av det NRK Radio sendte i 1964.</abstract>
+                  </description>
+                  <dates>
+                    <date_issued>2014-09-23T23:30:00+01:00</date_issued>
+                  </dates>
+                  <types>
+                    <type reference="PI_sendeflatetyper">10</type>
+                    <type reference="PI_sendetyper">reprise</type>
+                    <type reference="PI_reprisenummer">2</type>
+                    <type reference="mediatype">Audio</type>
+                    <type reference="NRK-Escort">E00 Lett underholdning</type>
+                    <type reference="PI_Underkategori">C9 Lett underholdning, Annet</type>
+                    <type reference="Nettkategori">Underholdning</type>
+                  </types>
+                  <format>
+                    <format_extent>PT1800S</format_extent>
+                  </format>
+                  <relations>
+                    <relation_is_part_of label="serieCRID" reference="PI">/7780795400001468</relation_is_part_of>
+                    <relation_is_referenced_by label="programCRID" reference="PI">/7780795400371468</relation_is_referenced_by>
+                    <relation_is_referenced_by label="event_id" reference="PI">20124</relation_is_referenced_by>
+                  </relations>
+                </metadata_DC>
+                <programmeSpecials>
+                  <plannedTimeOfissue>2014-09-23T23:30:00+01:00</plannedTimeOfissue>
+                  <endOfTransmission display="0">2014-09-24T00:00:00+01:00</endOfTransmission>
+                </programmeSpecials>
+              </element>
+            </subelements>
+          </element>
+        </subelements>
+      </element>
+    </tables>
+  </body>
+</gluon>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0820"
+   LastUpgradeVersion = "1010"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -44,7 +44,7 @@
       allowLocationSimulation = "YES">
       <PathRunnable
          runnableDebuggingMode = "0"
-         FilePath = "/opt/local/bin/python35">
+         FilePath = "/opt/local/Library/Frameworks/Python.framework/Versions/3.7/bin/python37">
       </PathRunnable>
       <MacroExpansion>
          <BuildableReference
@@ -57,7 +57,7 @@
       </MacroExpansion>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "&quot;$(SOURCE_ROOT)/testMDW2.py&quot;"
+            argument = "&quot;$(SOURCE_ROOT)/test.py&quot;"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>

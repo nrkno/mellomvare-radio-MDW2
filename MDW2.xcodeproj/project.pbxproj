@@ -7,22 +7,114 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		690E9C321EB3FA9400326680 /* testMDW2.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = testMDW2.py; sourceTree = "<group>"; };
-		690E9C331EB4030A00326680 /* dab.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = dab.py; sourceTree = "<group>"; };
+		690E9C321EB3FA9400326680 /* test.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = test.py; sourceTree = "<group>"; };
 		690E9C341EB4044F00326680 /* pylintrc */ = {isa = PBXFileReference; lastKnownFileType = text; path = pylintrc; sourceTree = "<group>"; };
-		693578181F0D263F00B10D7F /* dabfilter.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = dabfilter.py; sourceTree = "<group>"; };
-		693578191F0D372200B10D7F /* gluoncommons.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = gluoncommons.py; sourceTree = "<group>"; };
+		69D9D8DD22170A5300DDCD7D /* digasFakeLib.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = digasFakeLib.py; sourceTree = "<group>"; };
+		69D9D8DE22170A5300DDCD7D /* lagTestWebNett.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = lagTestWebNett.py; sourceTree = "<group>"; };
+		69D9D8DF22170A5400DDCD7D /* dlsExt_test.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = dlsExt_test.py; sourceTree = "<group>"; };
+		69D9D8E022170A5400DDCD7D /* winmedia.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = winmedia.py; sourceTree = "<group>"; };
+		69D9D8E122170A5400DDCD7D /* felles.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = felles.py; sourceTree = "<group>"; };
+		69D9D8E222170A5400DDCD7D /* item.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = item.xml; sourceTree = "<group>"; };
+		69D9D8E322170A5400DDCD7D /* item3.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = item3.xml; sourceTree = "<group>"; };
+		69D9D8E422170A5400DDCD7D /* roller.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = roller.py; sourceTree = "<group>"; };
+		69D9D8E522170A5400DDCD7D /* utGluon2.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = utGluon2.py; sourceTree = "<group>"; };
+		69D9D8E622170A5400DDCD7D /* spillUtBreaking.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = spillUtBreaking.py; sourceTree = "<group>"; };
+		69D9D8E722170A5400DDCD7D /* winmediaDr.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = winmediaDr.py; sourceTree = "<group>"; };
+		69D9D8E822170A5400DDCD7D /* intensometer.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = intensometer.py; sourceTree = "<group>"; };
+		69D9D8E922170A5500DDCD7D /* MDWdump.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = MDWdump.py; sourceTree = "<group>"; };
+		69D9D8EA22170A5500DDCD7D /* digasEkstra.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = digasEkstra.py; sourceTree = "<group>"; };
+		69D9D8EB22170A5500DDCD7D /* news.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = news.py; sourceTree = "<group>"; };
+		69D9D8EC22170A5500DDCD7D /* webplugin.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = webplugin.py; sourceTree = "<group>"; };
+		69D9D8ED22170A5500DDCD7D /* dls.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = dls.py; sourceTree = "<group>"; };
+		69D9D8EE22170A5500DDCD7D /* annonser.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = annonser.py; sourceTree = "<group>"; };
+		69D9D8EF22170A5500DDCD7D /* epgGrafikkMorgen.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = epgGrafikkMorgen.py; sourceTree = "<group>"; };
+		69D9D8F022170A5500DDCD7D /* epg2.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = epg2.py; sourceTree = "<group>"; };
+		69D9D8F122170A5500DDCD7D /* lagTestWeb.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = lagTestWeb.py; sourceTree = "<group>"; };
+		69D9D8F222170A5500DDCD7D /* epgtest.XML */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = epgtest.XML; sourceTree = "<group>"; };
+		69D9D8F322170A5500DDCD7D /* sendTilHiof.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = sendTilHiof.py; sourceTree = "<group>"; };
+		69D9D8F422170A5500DDCD7D /* sendTilDab.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = sendTilDab.py; sourceTree = "<group>"; };
+		69D9D8F522170A5600DDCD7D /* dlsInt.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = dlsInt.py; sourceTree = "<group>"; };
+		69D9D8F622170A5600DDCD7D /* iteminfo.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = iteminfo.py; sourceTree = "<group>"; };
+		69D9D8F722170A5600DDCD7D /* digasFake.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = digasFake.py; sourceTree = "<group>"; };
+		69D9D8F822170A5600DDCD7D /* mot.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = mot.py; sourceTree = "<group>"; };
+		69D9D8F922170A5600DDCD7D /* gluonspin.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = gluonspin.py; sourceTree = "<group>"; };
+		69D9D8FA22170A5600DDCD7D /* rogalandVeir.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = rogalandVeir.py; sourceTree = "<group>"; };
+		69D9D8FB22170A5600DDCD7D /* dlsExt.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = dlsExt.py; sourceTree = "<group>"; };
+		69D9D8FC22170A5600DDCD7D /* mmt.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = mmt.py; sourceTree = "<group>"; };
+		69D9D8FD22170A5600DDCD7D /* dls_c.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = dls_c.py; sourceTree = "<group>"; };
+		69D9D8FE22170A5700DDCD7D /* item2.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = item2.xml; sourceTree = "<group>"; };
+		69D9D8FF22170A5700DDCD7D /* gluoncommons.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = gluoncommons.py; sourceTree = "<group>"; };
+		69D9D90022170A5700DDCD7D /* utGluon.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = utGluon.py; sourceTree = "<group>"; };
+		69D9D90122170A5700DDCD7D /* fopp.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = fopp.xml; sourceTree = "<group>"; };
+		69D9D90222170A5800DDCD7D /* epg.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = epg.py; sourceTree = "<group>"; };
+		69D9D90322170A5800DDCD7D /* dbConn.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = dbConn.py; sourceTree = "<group>"; };
+		69D9D90422170A5800DDCD7D /* dab.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = dab.py; sourceTree = "<group>"; };
+		69D9D90522170A5800DDCD7D /* sender_lokal.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = sender_lokal.py; sourceTree = "<group>"; };
+		69D9D90622170A5800DDCD7D /* result.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = result.py; sourceTree = "<group>"; };
+		69D9D90722170A5900DDCD7D /* textinfo.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = textinfo.py; sourceTree = "<group>"; };
+		69D9D90822170A5900DDCD7D /* traffic.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = traffic.py; sourceTree = "<group>"; };
+		69D9D90922170A5900DDCD7D /* sendTilServer.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = sendTilServer.py; sourceTree = "<group>"; };
+		69D9D90A22170A5900DDCD7D /* epgGrafikk.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = epgGrafikk.py; sourceTree = "<group>"; };
+		69D9D90B22170A5900DDCD7D /* dabfilter.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = dabfilter.py; sourceTree = "<group>"; };
+		69D9D90C22170A5900DDCD7D /* utGluon2exp.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = utGluon2exp.py; sourceTree = "<group>"; };
+		69D9D90D22170A5A00DDCD7D /* webplugin2.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = webplugin2.py; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
 		690E9C271EB3995A00326680 = {
 			isa = PBXGroup;
 			children = (
-				690E9C321EB3FA9400326680 /* testMDW2.py */,
+				690E9C321EB3FA9400326680 /* test.py */,
 				690E9C341EB4044F00326680 /* pylintrc */,
-				690E9C331EB4030A00326680 /* dab.py */,
-				693578181F0D263F00B10D7F /* dabfilter.py */,
-				693578191F0D372200B10D7F /* gluoncommons.py */,
+				69D9D8EE22170A5500DDCD7D /* annonser.py */,
+				69D9D90422170A5800DDCD7D /* dab.py */,
+				69D9D90B22170A5900DDCD7D /* dabfilter.py */,
+				69D9D90322170A5800DDCD7D /* dbConn.py */,
+				69D9D8EA22170A5500DDCD7D /* digasEkstra.py */,
+				69D9D8F722170A5600DDCD7D /* digasFake.py */,
+				69D9D8DD22170A5300DDCD7D /* digasFakeLib.py */,
+				69D9D8FD22170A5600DDCD7D /* dls_c.py */,
+				69D9D8ED22170A5500DDCD7D /* dls.py */,
+				69D9D8DF22170A5400DDCD7D /* dlsExt_test.py */,
+				69D9D8FB22170A5600DDCD7D /* dlsExt.py */,
+				69D9D8F522170A5600DDCD7D /* dlsInt.py */,
+				69D9D90222170A5800DDCD7D /* epg.py */,
+				69D9D8F022170A5500DDCD7D /* epg2.py */,
+				69D9D90A22170A5900DDCD7D /* epgGrafikk.py */,
+				69D9D8EF22170A5500DDCD7D /* epgGrafikkMorgen.py */,
+				69D9D8F222170A5500DDCD7D /* epgtest.XML */,
+				69D9D8E122170A5400DDCD7D /* felles.py */,
+				69D9D90122170A5700DDCD7D /* fopp.xml */,
+				69D9D8FF22170A5700DDCD7D /* gluoncommons.py */,
+				69D9D8F922170A5600DDCD7D /* gluonspin.py */,
+				69D9D8E822170A5400DDCD7D /* intensometer.py */,
+				69D9D8E222170A5400DDCD7D /* item.xml */,
+				69D9D8FE22170A5700DDCD7D /* item2.xml */,
+				69D9D8E322170A5400DDCD7D /* item3.xml */,
+				69D9D8F622170A5600DDCD7D /* iteminfo.py */,
+				69D9D8F122170A5500DDCD7D /* lagTestWeb.py */,
+				69D9D8DE22170A5300DDCD7D /* lagTestWebNett.py */,
+				69D9D8E922170A5500DDCD7D /* MDWdump.py */,
+				69D9D8FC22170A5600DDCD7D /* mmt.py */,
+				69D9D8F822170A5600DDCD7D /* mot.py */,
+				69D9D8EB22170A5500DDCD7D /* news.py */,
+				69D9D90622170A5800DDCD7D /* result.py */,
+				69D9D8FA22170A5600DDCD7D /* rogalandVeir.py */,
+				69D9D8E422170A5400DDCD7D /* roller.py */,
+				69D9D90522170A5800DDCD7D /* sender_lokal.py */,
+				69D9D8F422170A5500DDCD7D /* sendTilDab.py */,
+				69D9D8F322170A5500DDCD7D /* sendTilHiof.py */,
+				69D9D90922170A5900DDCD7D /* sendTilServer.py */,
+				69D9D8E622170A5400DDCD7D /* spillUtBreaking.py */,
+				69D9D90722170A5900DDCD7D /* textinfo.py */,
+				69D9D90822170A5900DDCD7D /* traffic.py */,
+				69D9D90022170A5700DDCD7D /* utGluon.py */,
+				69D9D8E522170A5400DDCD7D /* utGluon2.py */,
+				69D9D90C22170A5900DDCD7D /* utGluon2exp.py */,
+				69D9D8EC22170A5500DDCD7D /* webplugin.py */,
+				69D9D90D22170A5A00DDCD7D /* webplugin2.py */,
+				69D9D8E022170A5400DDCD7D /* winmedia.py */,
+				69D9D8E722170A5400DDCD7D /* winmediaDr.py */,
 			);
 			sourceTree = "<group>";
 		};
@@ -35,7 +127,7 @@
 			buildConfigurationList = 690E9C2F1EB3995A00326680 /* Build configuration list for PBXLegacyTarget "MDW2" */;
 			buildPhases = (
 			);
-			buildToolPath = /opt/local/bin/python35;
+			buildToolPath = /opt/local/bin/python3;
 			buildWorkingDirectory = "";
 			dependencies = (
 			);
@@ -49,7 +141,7 @@
 		690E9C281EB3995A00326680 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0820;
+				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = "Tormod Værvågen";
 				TargetAttributes = {
 					690E9C2C1EB3995A00326680 = {
@@ -84,15 +176,23 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -128,15 +228,23 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;

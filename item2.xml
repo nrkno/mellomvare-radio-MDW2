@@ -1,0 +1,1807 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<gluon priority="3" artID="epg_NRK_P2_20130325">
+  <head>
+    <creator date="2013-03-25T13:20:52+01:00">
+      <name>ProgInfoDist</name>
+    </creator>
+    <metadata_DC>
+      <relations>
+        <relation_is_referenced_by reference="PI" label="exportSequenceNumber">5</relation_is_referenced_by>
+      </relations>
+    </metadata_DC>
+  </head>
+  <body>
+    <tables type="epg" sequenceNumber="1" documentSeries="1">
+      <element dataid="epg_NRK_P2_20130325" objecttype="container" channel="NRK P2">
+        <metadata_DC>
+          <titles>
+            <title>NRK P2 2013-03-25</title>
+          </titles>
+          <publishers>
+            <publisher>
+              <family_name person="false">NRK</family_name>
+              <name>NRK</name>
+              <role rolelist="gluon">Kringkaster</role>
+              <nationality>NO</nationality>
+            </publisher>
+          </publishers>
+          <dates>
+            <date_created/>
+            <date_issued>2013-03-25T06:00:00+01:00</date_issued>
+          </dates>
+        </metadata_DC>
+        <subelements>
+          <element dataid="MNRA01008413" objecttype="programme" channel="NRK P2" fragment="1">
+            <metadata_DC>
+              <titles>
+                <title>Dagsnytt med værmelding</title>
+              </titles>
+              <subjects>
+                <subject reference="ESCORT">N10 Faste nyhetssendinger</subject>
+              </subjects>
+              <description>
+                <abstract/>
+              </description>
+              <dates>
+                <date_issued>2013-03-25T00:00:00+01:00</date_issued>
+              </dates>
+              <types>
+                <type reference="PI_sendeflatetyper">20</type>
+                <type reference="PI_sendetyper">reprise</type>
+                <type reference="PI_reprisenummer">3</type>
+                <type reference="mediatype">Audio</type>
+                <type reference="NRK-Escort">N10 Faste nyhetssendinger</type>
+                <type reference="PI_Underkategori">E1 Bulletin</type>
+                <type reference="Nettkategori">Nyheter</type>
+              </types>
+              <format>
+                <format_extent>PT300S</format_extent>
+              </format>
+              <relations>
+                <relation_is_part_of label="serieCRID" reference="PI">/7882650100001377</relation_is_part_of>
+                <relation_is_referenced_by label="programCRID" reference="PI">/7882650100841377</relation_is_referenced_by>
+                <relation_is_referenced_by label="event_id" reference="PI">42528</relation_is_referenced_by>
+              </relations>
+            </metadata_DC>
+            <programmeSpecials>
+              <plannedTimeOfissue>2013-03-25T00:00:00+01:00</plannedTimeOfissue>
+              <endOfTransmission display="0">2013-03-25T00:05:00+01:00</endOfTransmission>
+            </programmeSpecials>
+            <origin purpose="DayPort">
+              <storage>\\entriq-nas\entriq\Incoming\CCS\AutomaticCapture\P2</storage>
+              <file>P2_20130325_MNRA-010084-13_000</file>
+            </origin>
+          </element>
+          <element dataid="MKMK03008413" objecttype="programme" channel="NRK P2" fragment="1">
+            <metadata_DC>
+              <titles>
+                <title>Notturno</title>
+              </titles>
+              <subjects>
+                <subject reference="ESCORT">B10 Klassisk musikk</subject>
+              </subjects>
+              <description>
+                <abstract>Klassisk nattradio.</abstract>
+              </description>
+              <dates>
+                <date_issued>2013-03-25T00:05:00+01:00</date_issued>
+              </dates>
+              <types>
+                <type reference="PI_sendeflatetyper">10</type>
+                <type reference="PI_sendetyper">vanlig</type>
+                <type reference="mediatype">Audio</type>
+                <type reference="NRK-Escort">B10 Klassisk musikk</type>
+                <type reference="PI_Underkategori">A1 Musikk</type>
+                <type reference="Nettkategori">Musikk</type>
+              </types>
+              <format>
+                <format_extent>PT21300S</format_extent>
+              </format>
+              <relations>
+                <relation_is_part_of label="serieCRID" reference="PI">/7577750300001377</relation_is_part_of>
+                <relation_is_referenced_by label="programCRID" reference="PI">/7577750300841377</relation_is_referenced_by>
+                <relation_is_referenced_by label="event_id" reference="PI">42539</relation_is_referenced_by>
+              </relations>
+            </metadata_DC>
+            <programmeSpecials>
+              <plannedTimeOfissue>2013-03-25T00:05:00+01:00</plannedTimeOfissue>
+              <endOfTransmission display="0">2013-03-25T06:00:00+01:00</endOfTransmission>
+            </programmeSpecials>
+            <origin purpose="DayPort">
+              <storage>\\entriq-nas\entriq\Incoming\CCS\AutomaticCapture\P2</storage>
+              <file>P2_201303250005_MKMK-030084-13_000</file>
+            </origin>
+          </element>
+          <element dataid="MNRA08006013" objecttype="programme" channel="NRK P2" fragment="1">
+            <metadata_DC>
+              <titles>
+                <title>Dagsnytt</title>
+              </titles>
+              <subjects>
+                <subject reference="ESCORT">N10 Faste nyhetssendinger</subject>
+              </subjects>
+              <description>
+                <abstract/>
+              </description>
+              <dates>
+                <date_issued>2013-03-25T06:00:00+01:00</date_issued>
+              </dates>
+              <types>
+                <type reference="PI_sendeflatetyper">20</type>
+                <type reference="PI_sendetyper">reprise</type>
+                <type reference="PI_reprisenummer">5</type>
+                <type reference="mediatype">Audio</type>
+                <type reference="NRK-Escort">N10 Faste nyhetssendinger</type>
+                <type reference="PI_Underkategori">E1 Bulletin</type>
+                <type reference="Nettkategori">Nyheter</type>
+              </types>
+              <format>
+                <format_extent>PT180S</format_extent>
+              </format>
+              <relations>
+                <relation_is_part_of label="serieCRID" reference="PI">/7882650800001377</relation_is_part_of>
+                <relation_is_referenced_by label="programCRID" reference="PI">/7882650800601377</relation_is_referenced_by>
+                <relation_is_referenced_by label="event_id" reference="PI">42584</relation_is_referenced_by>
+              </relations>
+            </metadata_DC>
+            <programmeSpecials>
+              <plannedTimeOfissue>2013-03-25T06:00:00+01:00</plannedTimeOfissue>
+              <endOfTransmission display="0">2013-03-25T06:03:00+01:00</endOfTransmission>
+            </programmeSpecials>
+            <origin purpose="DayPort">
+              <storage>\\entriq-nas\entriq\Incoming\CCS\AutomaticCapture\P2</storage>
+              <file>P2_201303250600_MNRA-080060-13_000</file>
+            </origin>
+          </element>
+          <element dataid="MKMR57006013" objecttype="programme" channel="NRK P2" fragment="1">
+            <metadata_DC>
+              <titles>
+                <title>Spillerom</title>
+              </titles>
+              <subjects>
+                <subject reference="ESCORT">D40 Musikk</subject>
+              </subjects>
+              <description>
+                <abstract>Historier om musikken. Programleder: Mari Lunnan.</abstract>
+              </description>
+              <dates>
+                <date_issued>2013-03-25T06:03:00+01:00</date_issued>
+              </dates>
+              <types>
+                <type reference="PI_sendeflatetyper">10</type>
+                <type reference="PI_sendetyper">vanlig</type>
+                <type reference="mediatype">Audio</type>
+                <type reference="NRK-Escort">D40 Musikk</type>
+                <type reference="PI_Underkategori">A1 Musikk</type>
+                <type reference="Nettkategori">Kultur</type>
+              </types>
+              <format>
+                <format_extent>PT1560S</format_extent>
+              </format>
+              <relations>
+                <relation_is_part_of label="serieCRID" reference="PI">/7577825700001377</relation_is_part_of>
+                <relation_is_referenced_by label="programCRID" reference="PI">/7577825700601377</relation_is_referenced_by>
+                <relation_is_referenced_by label="event_id" reference="PI">42606</relation_is_referenced_by>
+              </relations>
+            </metadata_DC>
+            <programmeSpecials>
+              <plannedTimeOfissue>2013-03-25T06:03:00+01:00</plannedTimeOfissue>
+              <endOfTransmission display="0">2013-03-25T06:29:00+01:00</endOfTransmission>
+            </programmeSpecials>
+            <origin purpose="DayPort">
+              <storage>\\entriq-nas\entriq\Incoming\CCS\AutomaticCapture\P2</storage>
+              <file>P2_201303250603_MKMR-570060-13_000</file>
+            </origin>
+          </element>
+          <element dataid="" objecttype="programme" channel="NRK P2" fragment="1">
+            <metadata_DC>
+              <titles>
+                <title>Nyhetsmorgen i P2 og Alltid Nyheter:</title>
+              </titles>
+              <subjects>
+                <subject reference="ESCORT"/>
+              </subjects>
+              <description>
+                <abstract/>
+              </description>
+              <dates>
+                <date_issued>2013-03-25T06:30:00+01:00</date_issued>
+              </dates>
+              <types>
+                <type reference="PI_sendeflatetyper">0</type>
+                <type reference="PI_sendetyper">vanlig</type>
+                <type reference="NRK-Escort"/>
+                <type reference="PI_Underkategori"/>
+              </types>
+              <format>
+                <format_extent>PT9000S</format_extent>
+              </format>
+              <relations>
+                <relation_is_referenced_by label="event_id" reference="PI">42612</relation_is_referenced_by>
+              </relations>
+            </metadata_DC>
+            <programmeSpecials>
+              <plannedTimeOfissue>2013-03-25T06:30:00+01:00</plannedTimeOfissue>
+              <endOfTransmission display="0">2013-03-25T09:00:00+01:00</endOfTransmission>
+            </programmeSpecials>
+            <subelements>
+              <element dataid="MNRA36005913" objecttype="programme" channel="NRK P2" fragment="1">
+                <metadata_DC>
+                  <titles>
+                    <title>Nyhetsmorgen</title>
+                  </titles>
+                  <subjects>
+                    <subject reference="ESCORT">K99 Diverse samfunnsspørsmål, Likestilling i arb.livet</subject>
+                  </subjects>
+                  <description>
+                    <abstract/>
+                  </description>
+                  <dates>
+                    <date_issued>2013-03-25T06:30:00+01:00</date_issued>
+                  </dates>
+                  <types>
+                    <type reference="PI_sendeflatetyper">20</type>
+                    <type reference="PI_sendetyper">vanlig</type>
+                    <type reference="mediatype">Audio</type>
+                    <type reference="NRK-Escort">K99 Diverse samfunnsspørsmål, Likestilling i arb.livet</type>
+                    <type reference="PI_Underkategori">F1 Magasin</type>
+                    <type reference="Nettkategori">Helse og forbruker</type>
+                  </types>
+                  <format>
+                    <format_extent>PT3600S</format_extent>
+                  </format>
+                  <relations>
+                    <relation_is_part_of label="serieCRID" reference="PI">/7882653600001377</relation_is_part_of>
+                    <relation_is_referenced_by label="programCRID" reference="PI">/7882653600591377#P2201303250630</relation_is_referenced_by>
+                    <relation_is_referenced_by label="event_id" reference="PI">42611</relation_is_referenced_by>
+                  </relations>
+                </metadata_DC>
+                <programmeSpecials>
+                  <plannedTimeOfissue>2013-03-25T06:30:00+01:00</plannedTimeOfissue>
+                  <endOfTransmission display="0">2013-03-25T07:30:00+01:00</endOfTransmission>
+                </programmeSpecials>
+              </element>
+              <element dataid="MNRA12006013" objecttype="programme" channel="NRK P2" fragment="1">
+                <metadata_DC>
+                  <titles>
+                    <title>Dagsnytt</title>
+                  </titles>
+                  <subjects>
+                    <subject reference="ESCORT">N10 Faste nyhetssendinger</subject>
+                  </subjects>
+                  <description>
+                    <abstract>Nord for Salten, og på 91.9 MHz i Oslo-området kl 07.00-09.00: NRK Sápmi.</abstract>
+                  </description>
+                  <dates>
+                    <date_issued>2013-03-25T07:30:00+01:00</date_issued>
+                  </dates>
+                  <types>
+                    <type reference="PI_sendeflatetyper">20</type>
+                    <type reference="PI_sendetyper">reprise</type>
+                    <type reference="PI_reprisenummer">2</type>
+                    <type reference="mediatype">Audio</type>
+                    <type reference="NRK-Escort">N10 Faste nyhetssendinger</type>
+                    <type reference="PI_Underkategori">Z1 Annet / Ikke relevant</type>
+                    <type reference="Nettkategori">Nyheter</type>
+                  </types>
+                  <format>
+                    <format_extent>PT600S</format_extent>
+                  </format>
+                  <relations>
+                    <relation_is_part_of label="serieCRID" reference="PI">/7882651200001377</relation_is_part_of>
+                    <relation_is_referenced_by label="programCRID" reference="PI">/7882651200601377</relation_is_referenced_by>
+                    <relation_is_referenced_by label="event_id" reference="PI">42656</relation_is_referenced_by>
+                  </relations>
+                </metadata_DC>
+                <programmeSpecials>
+                  <plannedTimeOfissue>2013-03-25T07:30:00+01:00</plannedTimeOfissue>
+                  <endOfTransmission display="0">2013-03-25T07:40:00+01:00</endOfTransmission>
+                </programmeSpecials>
+              </element>
+              <element dataid="MNRA36005913" objecttype="programme" channel="NRK P2" fragment="2">
+                <metadata_DC>
+                  <titles>
+                    <title>Nyhetsmorgen</title>
+                  </titles>
+                  <subjects>
+                    <subject reference="ESCORT">K99 Diverse samfunnsspørsmål, Likestilling i arb.livet</subject>
+                  </subjects>
+                  <description>
+                    <abstract/>
+                  </description>
+                  <dates>
+                    <date_issued>2013-03-25T07:40:00+01:00</date_issued>
+                  </dates>
+                  <types>
+                    <type reference="PI_sendeflatetyper">20</type>
+                    <type reference="PI_sendetyper">vanlig</type>
+                    <type reference="mediatype">Audio</type>
+                    <type reference="NRK-Escort">K99 Diverse samfunnsspørsmål, Likestilling i arb.livet</type>
+                    <type reference="PI_Underkategori">F1 Magasin</type>
+                    <type reference="Nettkategori">Helse og forbruker</type>
+                  </types>
+                  <format>
+                    <format_extent>PT300S</format_extent>
+                  </format>
+                  <relations>
+                    <relation_is_part_of label="serieCRID" reference="PI">/7882653600001377</relation_is_part_of>
+                    <relation_is_referenced_by label="programCRID" reference="PI">/7882653600591377#P2201303250630</relation_is_referenced_by>
+                    <relation_is_referenced_by label="event_id" reference="PI">42673</relation_is_referenced_by>
+                  </relations>
+                </metadata_DC>
+                <programmeSpecials>
+                  <plannedTimeOfissue>2013-03-25T07:40:00+01:00</plannedTimeOfissue>
+                  <endOfTransmission display="0">2013-03-25T07:45:00+01:00</endOfTransmission>
+                </programmeSpecials>
+              </element>
+              <element dataid="MNRA37005913" objecttype="programme" channel="NRK P2" fragment="1">
+                <metadata_DC>
+                  <titles>
+                    <title>Politisk kvarter</title>
+                  </titles>
+                  <subjects>
+                    <subject reference="ESCORT">K30 Politikk generelt</subject>
+                  </subjects>
+                  <description>
+                    <abstract/>
+                  </description>
+                  <dates>
+                    <date_issued>2013-03-25T07:45:00+01:00</date_issued>
+                  </dates>
+                  <types>
+                    <type reference="PI_sendeflatetyper">20</type>
+                    <type reference="PI_sendetyper">vanlig</type>
+                    <type reference="mediatype">Audio</type>
+                    <type reference="NRK-Escort">K30 Politikk generelt</type>
+                    <type reference="PI_Underkategori">E1 Bulletin</type>
+                    <type reference="Nettkategori">Nyheter</type>
+                  </types>
+                  <format>
+                    <format_extent>PT900S</format_extent>
+                  </format>
+                  <relations>
+                    <relation_is_part_of label="serieCRID" reference="PI">/7882653700001377</relation_is_part_of>
+                    <relation_is_referenced_by label="programCRID" reference="PI">/7882653700591377</relation_is_referenced_by>
+                    <relation_is_referenced_by label="event_id" reference="PI">42676</relation_is_referenced_by>
+                  </relations>
+                </metadata_DC>
+                <programmeSpecials>
+                  <plannedTimeOfissue>2013-03-25T07:45:00+01:00</plannedTimeOfissue>
+                  <endOfTransmission display="0">2013-03-25T08:00:00+01:00</endOfTransmission>
+                </programmeSpecials>
+              </element>
+              <element dataid="MNRA36005913" objecttype="programme" channel="NRK P2" fragment="3">
+                <metadata_DC>
+                  <titles>
+                    <title>Nyhetsmorgen</title>
+                  </titles>
+                  <subjects>
+                    <subject reference="ESCORT">K99 Diverse samfunnsspørsmål, Likestilling i arb.livet</subject>
+                  </subjects>
+                  <description>
+                    <abstract/>
+                  </description>
+                  <dates>
+                    <date_issued>2013-03-25T08:00:00+01:00</date_issued>
+                  </dates>
+                  <types>
+                    <type reference="PI_sendeflatetyper">20</type>
+                    <type reference="PI_sendetyper">vanlig</type>
+                    <type reference="mediatype">Audio</type>
+                    <type reference="NRK-Escort">K99 Diverse samfunnsspørsmål, Likestilling i arb.livet</type>
+                    <type reference="PI_Underkategori">F1 Magasin</type>
+                    <type reference="Nettkategori">Helse og forbruker</type>
+                  </types>
+                  <format>
+                    <format_extent>PT300S</format_extent>
+                  </format>
+                  <relations>
+                    <relation_is_part_of label="serieCRID" reference="PI">/7882653600001377</relation_is_part_of>
+                    <relation_is_referenced_by label="programCRID" reference="PI">/7882653600591377#P2201303250630</relation_is_referenced_by>
+                    <relation_is_referenced_by label="event_id" reference="PI">42677</relation_is_referenced_by>
+                  </relations>
+                </metadata_DC>
+                <programmeSpecials>
+                  <plannedTimeOfissue>2013-03-25T08:00:00+01:00</plannedTimeOfissue>
+                  <endOfTransmission display="0">2013-03-25T08:05:00+01:00</endOfTransmission>
+                </programmeSpecials>
+              </element>
+              <element dataid="MNMA01005913" objecttype="programme" channel="NRK P2" fragment="1">
+                <metadata_DC>
+                  <titles>
+                    <title>Kulturnytt</title>
+                  </titles>
+                  <subjects>
+                    <subject reference="ESCORT">D90 Diverse Kunst/ Kultur/ Medier</subject>
+                  </subjects>
+                  <description>
+                    <abstract/>
+                  </description>
+                  <dates>
+                    <date_issued>2013-03-25T08:05:00+01:00</date_issued>
+                  </dates>
+                  <types>
+                    <type reference="PI_sendeflatetyper">20</type>
+                    <type reference="PI_sendetyper">vanlig</type>
+                    <type reference="mediatype">Audio</type>
+                    <type reference="NRK-Escort">D90 Diverse Kunst/ Kultur/ Medier</type>
+                    <type reference="PI_Underkategori">F1 Magasin</type>
+                  </types>
+                  <format>
+                    <format_extent>PT1500S</format_extent>
+                  </format>
+                  <relations>
+                    <relation_is_part_of label="serieCRID" reference="PI">/7877650100001377</relation_is_part_of>
+                    <relation_is_referenced_by label="programCRID" reference="PI">/7877650100591377</relation_is_referenced_by>
+                    <relation_is_referenced_by label="event_id" reference="PI">42701</relation_is_referenced_by>
+                  </relations>
+                </metadata_DC>
+                <programmeSpecials>
+                  <plannedTimeOfissue>2013-03-25T08:05:00+01:00</plannedTimeOfissue>
+                  <endOfTransmission display="0">2013-03-25T08:30:00+01:00</endOfTransmission>
+                </programmeSpecials>
+              </element>
+              <element dataid="MNRA36005913" objecttype="programme" channel="NRK P2" fragment="4">
+                <metadata_DC>
+                  <titles>
+                    <title>Nyhetsmorgen</title>
+                  </titles>
+                  <subjects>
+                    <subject reference="ESCORT">K99 Diverse samfunnsspørsmål, Likestilling i arb.livet</subject>
+                  </subjects>
+                  <description>
+                    <abstract/>
+                  </description>
+                  <dates>
+                    <date_issued>2013-03-25T08:30:00+01:00</date_issued>
+                  </dates>
+                  <types>
+                    <type reference="PI_sendeflatetyper">20</type>
+                    <type reference="PI_sendetyper">vanlig</type>
+                    <type reference="mediatype">Audio</type>
+                    <type reference="NRK-Escort">K99 Diverse samfunnsspørsmål, Likestilling i arb.livet</type>
+                    <type reference="PI_Underkategori">F1 Magasin</type>
+                    <type reference="Nettkategori">Helse og forbruker</type>
+                  </types>
+                  <format>
+                    <format_extent>PT1800S</format_extent>
+                  </format>
+                  <relations>
+                    <relation_is_part_of label="serieCRID" reference="PI">/7882653600001377</relation_is_part_of>
+                    <relation_is_referenced_by label="programCRID" reference="PI">/7882653600591377#P2201303250630</relation_is_referenced_by>
+                    <relation_is_referenced_by label="event_id" reference="PI">42709</relation_is_referenced_by>
+                  </relations>
+                </metadata_DC>
+                <programmeSpecials>
+                  <plannedTimeOfissue>2013-03-25T08:30:00+01:00</plannedTimeOfissue>
+                  <endOfTransmission display="0">2013-03-25T09:00:00+01:00</endOfTransmission>
+                </programmeSpecials>
+              </element>
+            </subelements>
+          </element>
+          <element dataid="MNRA19016513" objecttype="programme" channel="NRK P2" fragment="1">
+            <metadata_DC>
+              <titles>
+                <title>Dagsnytt</title>
+              </titles>
+              <subjects>
+                <subject reference="ESCORT">N10 Faste nyhetssendinger</subject>
+              </subjects>
+              <description>
+                <abstract/>
+              </description>
+              <dates>
+                <date_issued>2013-03-25T09:00:00+01:00</date_issued>
+              </dates>
+              <types>
+                <type reference="PI_sendeflatetyper">20</type>
+                <type reference="PI_sendetyper">vanlig</type>
+                <type reference="mediatype">Audio</type>
+                <type reference="NRK-Escort">N10 Faste nyhetssendinger</type>
+                <type reference="PI_Underkategori">E1 Bulletin</type>
+                <type reference="Nettkategori">Nyheter</type>
+              </types>
+              <format>
+                <format_extent>PT180S</format_extent>
+              </format>
+              <relations>
+                <relation_is_part_of label="serieCRID" reference="PI">/7882651900001377</relation_is_part_of>
+                <relation_is_referenced_by label="programCRID" reference="PI">/7882651901651377</relation_is_referenced_by>
+                <relation_is_referenced_by label="event_id" reference="PI">42729</relation_is_referenced_by>
+              </relations>
+            </metadata_DC>
+            <programmeSpecials>
+              <plannedTimeOfissue>2013-03-25T09:00:00+01:00</plannedTimeOfissue>
+              <endOfTransmission display="0">2013-03-25T09:03:00+01:00</endOfTransmission>
+            </programmeSpecials>
+            <origin purpose="DayPort">
+              <storage>\\entriq-nas\entriq\Incoming\CCS\AutomaticCapture\P2</storage>
+              <file>P2_201303250900_MNRA-190165-13_000</file>
+            </origin>
+          </element>
+          <element dataid="MDSP25005913" objecttype="programme" channel="NRK P2" fragment="1">
+            <metadata_DC>
+              <titles>
+                <title>Ekko - et aktuelt samfunnsprogram</title>
+              </titles>
+              <subjects>
+                <subject reference="ESCORT">K99 Diverse samfunnsspørsmål, Likestilling i arb.livet</subject>
+              </subjects>
+              <description>
+                <abstract>09.03: Dagens Ekko. 09.30: Ekko-portrettet</abstract>
+              </description>
+              <dates>
+                <date_issued>2013-03-25T09:03:00+01:00</date_issued>
+              </dates>
+              <types>
+                <type reference="PI_sendeflatetyper">10</type>
+                <type reference="PI_sendetyper">vanlig</type>
+                <type reference="mediatype">Audio</type>
+                <type reference="NRK-Escort">K99 Diverse samfunnsspørsmål, Likestilling i arb.livet</type>
+                <type reference="PI_Underkategori">F1 Magasin</type>
+                <type reference="Nettkategori">Helse og forbruker</type>
+              </types>
+              <format>
+                <format_extent>PT3420S</format_extent>
+              </format>
+              <relations>
+                <relation_is_part_of label="serieCRID" reference="PI">/6883802500001377</relation_is_part_of>
+                <relation_is_referenced_by label="programCRID" reference="PI">/6883802500591377#P2201303250903</relation_is_referenced_by>
+                <relation_is_referenced_by label="event_id" reference="PI">42737</relation_is_referenced_by>
+              </relations>
+            </metadata_DC>
+            <programmeSpecials>
+              <plannedTimeOfissue>2013-03-25T09:03:00+01:00</plannedTimeOfissue>
+              <endOfTransmission display="0">2013-03-25T10:00:00+01:00</endOfTransmission>
+            </programmeSpecials>
+            <origin purpose="DayPort">
+              <storage>\\entriq-nas\entriq\Incoming\CCS\AutomaticCapture\P2</storage>
+              <file>P2_201303250903_MDSP-250059-13_000</file>
+            </origin>
+          </element>
+          <element dataid="MNRA18016413" objecttype="programme" channel="NRK P2" fragment="1">
+            <metadata_DC>
+              <titles>
+                <title>Dagsnytt</title>
+              </titles>
+              <subjects>
+                <subject reference="ESCORT">N10 Faste nyhetssendinger</subject>
+              </subjects>
+              <description>
+                <abstract/>
+              </description>
+              <dates>
+                <date_issued>2013-03-25T10:00:00+01:00</date_issued>
+              </dates>
+              <types>
+                <type reference="PI_sendeflatetyper">20</type>
+                <type reference="PI_sendetyper">vanlig</type>
+                <type reference="mediatype">Audio</type>
+                <type reference="NRK-Escort">N10 Faste nyhetssendinger</type>
+                <type reference="PI_Underkategori">E1 Bulletin</type>
+                <type reference="Nettkategori">Nyheter</type>
+              </types>
+              <format>
+                <format_extent>PT180S</format_extent>
+              </format>
+              <relations>
+                <relation_is_part_of label="serieCRID" reference="PI">/7882651800001377</relation_is_part_of>
+                <relation_is_referenced_by label="programCRID" reference="PI">/7882651801641377</relation_is_referenced_by>
+                <relation_is_referenced_by label="event_id" reference="PI">42742</relation_is_referenced_by>
+              </relations>
+            </metadata_DC>
+            <programmeSpecials>
+              <plannedTimeOfissue>2013-03-25T10:00:00+01:00</plannedTimeOfissue>
+              <endOfTransmission display="0">2013-03-25T10:03:00+01:00</endOfTransmission>
+            </programmeSpecials>
+            <origin purpose="DayPort">
+              <storage>\\entriq-nas\entriq\Incoming\CCS\AutomaticCapture\P2</storage>
+              <file>P2_201303251000_MNRA-180164-13_000</file>
+            </origin>
+          </element>
+          <element dataid="MDSP25005913" objecttype="programme" channel="NRK P2" fragment="2">
+            <metadata_DC>
+              <titles>
+                <title>Ekko - et aktuelt samfunnsprogram</title>
+              </titles>
+              <subjects>
+                <subject reference="ESCORT">K99 Diverse samfunnsspørsmål, Likestilling i arb.livet</subject>
+              </subjects>
+              <description>
+                <abstract>10.03: Viten.</abstract>
+              </description>
+              <dates>
+                <date_issued>2013-03-25T10:03:00+01:00</date_issued>
+              </dates>
+              <types>
+                <type reference="PI_sendeflatetyper">10</type>
+                <type reference="PI_sendetyper">vanlig</type>
+                <type reference="mediatype">Audio</type>
+                <type reference="NRK-Escort">K99 Diverse samfunnsspørsmål, Likestilling i arb.livet</type>
+                <type reference="PI_Underkategori">F1 Magasin</type>
+                <type reference="Nettkategori">Helse og forbruker</type>
+              </types>
+              <format>
+                <format_extent>PT3300S</format_extent>
+              </format>
+              <relations>
+                <relation_is_part_of label="serieCRID" reference="PI">/6883802500001377</relation_is_part_of>
+                <relation_is_referenced_by label="programCRID" reference="PI">/6883802500591377#P2201303250903</relation_is_referenced_by>
+                <relation_is_referenced_by label="event_id" reference="PI">42759</relation_is_referenced_by>
+              </relations>
+            </metadata_DC>
+            <programmeSpecials>
+              <plannedTimeOfissue>2013-03-25T10:03:00+01:00</plannedTimeOfissue>
+              <endOfTransmission display="0">2013-03-25T10:58:00+01:00</endOfTransmission>
+            </programmeSpecials>
+            <origin purpose="DayPort">
+              <storage>\\entriq-nas\entriq\Incoming\CCS\AutomaticCapture\P2</storage>
+              <file>P2_201303251003_MDSP-250059-13_000</file>
+            </origin>
+          </element>
+          <element dataid="MNRA17008413" objecttype="programme" channel="NRK P2" fragment="1">
+            <metadata_DC>
+              <titles>
+                <title>Dagsnytt</title>
+              </titles>
+              <subjects>
+                <subject reference="ESCORT">N10 Faste nyhetssendinger</subject>
+              </subjects>
+              <description>
+                <abstract/>
+              </description>
+              <dates>
+                <date_issued>2013-03-25T11:00:00+01:00</date_issued>
+              </dates>
+              <types>
+                <type reference="PI_sendeflatetyper">20</type>
+                <type reference="PI_sendetyper">reprise</type>
+                <type reference="PI_reprisenummer">2</type>
+                <type reference="mediatype">Audio</type>
+                <type reference="NRK-Escort">N10 Faste nyhetssendinger</type>
+                <type reference="PI_Underkategori">E1 Bulletin</type>
+                <type reference="Nettkategori">Nyheter</type>
+              </types>
+              <format>
+                <format_extent>PT180S</format_extent>
+              </format>
+              <relations>
+                <relation_is_part_of label="serieCRID" reference="PI">/7882651700001377</relation_is_part_of>
+                <relation_is_referenced_by label="programCRID" reference="PI">/7882651700841377</relation_is_referenced_by>
+                <relation_is_referenced_by label="event_id" reference="PI">42770</relation_is_referenced_by>
+              </relations>
+            </metadata_DC>
+            <programmeSpecials>
+              <plannedTimeOfissue>2013-03-25T11:00:00+01:00</plannedTimeOfissue>
+              <endOfTransmission display="0">2013-03-25T11:03:00+01:00</endOfTransmission>
+            </programmeSpecials>
+            <origin purpose="DayPort">
+              <storage>\\entriq-nas\entriq\Incoming\CCS\AutomaticCapture\P2</storage>
+              <file>P2_201303251100_MNRA-170084-13_000</file>
+            </origin>
+          </element>
+          <element dataid="MKTR11006013" objecttype="programme" channel="NRK P2" fragment="1">
+            <metadata_DC>
+              <titles>
+                <title>RadioSelskapet</title>
+              </titles>
+              <subjects>
+                <subject reference="ESCORT">D90 Diverse Kunst/ Kultur/ Medier</subject>
+              </subjects>
+              <description>
+                <abstract/>
+              </description>
+              <dates>
+                <date_issued>2013-03-25T11:03:00+01:00</date_issued>
+              </dates>
+              <types>
+                <type reference="PI_sendeflatetyper">10</type>
+                <type reference="PI_sendetyper">vanlig</type>
+                <type reference="mediatype">Audio</type>
+                <type reference="NRK-Escort">D90 Diverse Kunst/ Kultur/ Medier</type>
+                <type reference="PI_Underkategori">F1 Magasin</type>
+              </types>
+              <format>
+                <format_extent>PT3420S</format_extent>
+              </format>
+              <relations>
+                <relation_is_part_of label="serieCRID" reference="PI">/7584821100001377</relation_is_part_of>
+                <relation_is_referenced_by label="programCRID" reference="PI">/7584821100601377#P2201303251103</relation_is_referenced_by>
+                <relation_is_referenced_by label="event_id" reference="PI">42782</relation_is_referenced_by>
+              </relations>
+            </metadata_DC>
+            <programmeSpecials>
+              <plannedTimeOfissue>2013-03-25T11:03:00+01:00</plannedTimeOfissue>
+              <endOfTransmission display="0">2013-03-25T12:00:00+01:00</endOfTransmission>
+            </programmeSpecials>
+            <origin purpose="DayPort">
+              <storage>\\entriq-nas\entriq\Incoming\CCS\AutomaticCapture\P2</storage>
+              <file>P2_201303251103_MKTR-110060-13_000</file>
+            </origin>
+          </element>
+          <element dataid="MNRA21016513" objecttype="programme" channel="NRK P2" fragment="1">
+            <metadata_DC>
+              <titles>
+                <title>Dagsnytt</title>
+              </titles>
+              <subjects>
+                <subject reference="ESCORT">N10 Faste nyhetssendinger</subject>
+              </subjects>
+              <description>
+                <abstract/>
+              </description>
+              <dates>
+                <date_issued>2013-03-25T12:00:00+01:00</date_issued>
+              </dates>
+              <types>
+                <type reference="PI_sendeflatetyper">20</type>
+                <type reference="PI_sendetyper">vanlig</type>
+                <type reference="mediatype">Audio</type>
+                <type reference="NRK-Escort">N10 Faste nyhetssendinger</type>
+                <type reference="PI_Underkategori">E1 Bulletin</type>
+                <type reference="Nettkategori">Nyheter</type>
+              </types>
+              <format>
+                <format_extent>PT180S</format_extent>
+              </format>
+              <relations>
+                <relation_is_part_of label="serieCRID" reference="PI">/7882652100001377</relation_is_part_of>
+                <relation_is_referenced_by label="programCRID" reference="PI">/7882652101651377</relation_is_referenced_by>
+                <relation_is_referenced_by label="event_id" reference="PI">42795</relation_is_referenced_by>
+              </relations>
+            </metadata_DC>
+            <programmeSpecials>
+              <plannedTimeOfissue>2013-03-25T12:00:00+01:00</plannedTimeOfissue>
+              <endOfTransmission display="0">2013-03-25T12:03:00+01:00</endOfTransmission>
+            </programmeSpecials>
+            <origin purpose="DayPort">
+              <storage>\\entriq-nas\entriq\Incoming\CCS\AutomaticCapture\P2</storage>
+              <file>P2_201303251200_MNRA-210165-13_000</file>
+            </origin>
+          </element>
+          <element dataid="MKTR11006013" objecttype="programme" channel="NRK P2" fragment="2">
+            <metadata_DC>
+              <titles>
+                <title>RadioSelskapet</title>
+              </titles>
+              <subjects>
+                <subject reference="ESCORT">D90 Diverse Kunst/ Kultur/ Medier</subject>
+              </subjects>
+              <description>
+                <abstract/>
+              </description>
+              <dates>
+                <date_issued>2013-03-25T12:03:00+01:00</date_issued>
+              </dates>
+              <types>
+                <type reference="PI_sendeflatetyper">10</type>
+                <type reference="PI_sendetyper">vanlig</type>
+                <type reference="mediatype">Audio</type>
+                <type reference="NRK-Escort">D90 Diverse Kunst/ Kultur/ Medier</type>
+                <type reference="PI_Underkategori">F1 Magasin</type>
+              </types>
+              <format>
+                <format_extent>PT1560S</format_extent>
+              </format>
+              <relations>
+                <relation_is_part_of label="serieCRID" reference="PI">/7584821100001377</relation_is_part_of>
+                <relation_is_referenced_by label="programCRID" reference="PI">/7584821100601377#P2201303251103</relation_is_referenced_by>
+                <relation_is_referenced_by label="event_id" reference="PI">42806</relation_is_referenced_by>
+              </relations>
+            </metadata_DC>
+            <programmeSpecials>
+              <plannedTimeOfissue>2013-03-25T12:03:00+01:00</plannedTimeOfissue>
+              <endOfTransmission display="0">2013-03-25T12:29:00+01:00</endOfTransmission>
+            </programmeSpecials>
+            <origin purpose="DayPort">
+              <storage>\\entriq-nas\entriq\Incoming\CCS\AutomaticCapture\P2</storage>
+              <file>P2_201303251203_MKTR-110060-13_000</file>
+            </origin>
+          </element>
+          <element dataid="MNRA44005913" objecttype="programme" channel="NRK P2" fragment="1">
+            <metadata_DC>
+              <titles>
+                <title>Nyhetslunsj</title>
+              </titles>
+              <subjects>
+                <subject reference="ESCORT">N00 Nyheter</subject>
+              </subjects>
+              <description>
+                <abstract/>
+              </description>
+              <dates>
+                <date_issued>2013-03-25T12:30:00+01:00</date_issued>
+              </dates>
+              <types>
+                <type reference="PI_sendeflatetyper">20</type>
+                <type reference="PI_sendetyper">vanlig</type>
+                <type reference="mediatype">Audio</type>
+                <type reference="NRK-Escort">N00 Nyheter</type>
+                <type reference="PI_Underkategori">F1 Magasin</type>
+                <type reference="Nettkategori">Nyheter</type>
+              </types>
+              <format>
+                <format_extent>PT1740S</format_extent>
+              </format>
+              <relations>
+                <relation_is_part_of label="serieCRID" reference="PI">/7882654400001377</relation_is_part_of>
+                <relation_is_referenced_by label="programCRID" reference="PI">/7882654400591377</relation_is_referenced_by>
+                <relation_is_referenced_by label="event_id" reference="PI">42820</relation_is_referenced_by>
+              </relations>
+            </metadata_DC>
+            <programmeSpecials>
+              <plannedTimeOfissue>2013-03-25T12:30:00+01:00</plannedTimeOfissue>
+              <endOfTransmission display="0">2013-03-25T12:59:00+01:00</endOfTransmission>
+            </programmeSpecials>
+            <origin purpose="DayPort">
+              <storage>\\entriq-nas\entriq\Incoming\CCS\AutomaticCapture\P2</storage>
+              <file>P2_201303251230_MNRA-440059-13_000</file>
+            </origin>
+          </element>
+          <element dataid="MNRA22011213" objecttype="programme" channel="NRK P2" fragment="1">
+            <metadata_DC>
+              <titles>
+                <title>Dagsnytt</title>
+              </titles>
+              <subjects>
+                <subject reference="ESCORT">N10 Faste nyhetssendinger</subject>
+              </subjects>
+              <description>
+                <abstract/>
+              </description>
+              <dates>
+                <date_issued>2013-03-25T13:00:00+01:00</date_issued>
+              </dates>
+              <types>
+                <type reference="PI_sendeflatetyper">20</type>
+                <type reference="PI_sendetyper">vanlig</type>
+                <type reference="mediatype">Audio</type>
+                <type reference="NRK-Escort">N10 Faste nyhetssendinger</type>
+                <type reference="PI_Underkategori">E1 Bulletin</type>
+                <type reference="Nettkategori">Nyheter</type>
+              </types>
+              <format>
+                <format_extent>PT180S</format_extent>
+              </format>
+              <relations>
+                <relation_is_part_of label="serieCRID" reference="PI">/7882652200001377</relation_is_part_of>
+                <relation_is_referenced_by label="programCRID" reference="PI">/7882652201121377</relation_is_referenced_by>
+                <relation_is_referenced_by label="event_id" reference="PI">42822</relation_is_referenced_by>
+              </relations>
+            </metadata_DC>
+            <programmeSpecials>
+              <plannedTimeOfissue>2013-03-25T13:00:00+01:00</plannedTimeOfissue>
+              <endOfTransmission display="0">2013-03-25T13:03:00+01:00</endOfTransmission>
+            </programmeSpecials>
+            <origin purpose="DayPort">
+              <storage>\\entriq-nas\entriq\Incoming\CCS\AutomaticCapture\P2</storage>
+              <file>P2_201303251300_MNRA-220112-13_000</file>
+            </origin>
+          </element>
+          <element dataid="MKMR57006013" objecttype="programme" channel="NRK P2" fragment="1">
+            <metadata_DC>
+              <titles>
+                <title>Spillerom</title>
+              </titles>
+              <subjects>
+                <subject reference="ESCORT">D40 Musikk</subject>
+              </subjects>
+              <description>
+                <abstract>Historier om musikken. Programleder: Mari Lunnan.</abstract>
+              </description>
+              <dates>
+                <date_issued>2013-03-25T13:03:00+01:00</date_issued>
+              </dates>
+              <types>
+                <type reference="PI_sendeflatetyper">10</type>
+                <type reference="PI_sendetyper">reprise</type>
+                <type reference="PI_reprisenummer">1</type>
+                <type reference="mediatype">Audio</type>
+                <type reference="NRK-Escort">D40 Musikk</type>
+                <type reference="PI_Underkategori">A1 Musikk</type>
+                <type reference="Nettkategori">Kultur</type>
+              </types>
+              <format>
+                <format_extent>PT1620S</format_extent>
+              </format>
+              <relations>
+                <relation_is_part_of label="serieCRID" reference="PI">/7577825700001377</relation_is_part_of>
+                <relation_is_referenced_by label="programCRID" reference="PI">/7577825700601377</relation_is_referenced_by>
+                <relation_is_referenced_by label="event_id" reference="PI">42834</relation_is_referenced_by>
+              </relations>
+            </metadata_DC>
+            <programmeSpecials>
+              <plannedTimeOfissue>2013-03-25T13:03:00+01:00</plannedTimeOfissue>
+              <endOfTransmission display="0">2013-03-25T13:30:00+01:00</endOfTransmission>
+            </programmeSpecials>
+            <origin purpose="DayPort">
+              <storage>\\entriq-nas\entriq\Incoming\CCS\AutomaticCapture\P2</storage>
+              <file>P2_201303251303_MKMR-570060-13_000</file>
+            </origin>
+          </element>
+          <element dataid="" objecttype="programme" channel="NRK P2" fragment="1">
+            <metadata_DC>
+              <titles>
+                <title>NRK Sápmi:</title>
+              </titles>
+              <subjects>
+                <subject reference="ESCORT"/>
+              </subjects>
+              <description>
+                <abstract/>
+              </description>
+              <dates>
+                <date_issued>2013-03-25T13:30:00+01:00</date_issued>
+              </dates>
+              <types>
+                <type reference="PI_sendeflatetyper">0</type>
+                <type reference="PI_sendetyper">vanlig</type>
+                <type reference="NRK-Escort"/>
+                <type reference="PI_Underkategori"/>
+              </types>
+              <format>
+                <format_extent>PT1740S</format_extent>
+              </format>
+              <relations>
+                <relation_is_referenced_by label="event_id" reference="PI">42850</relation_is_referenced_by>
+              </relations>
+            </metadata_DC>
+            <programmeSpecials>
+              <plannedTimeOfissue>2013-03-25T13:30:00+01:00</plannedTimeOfissue>
+              <endOfTransmission display="0">2013-03-25T13:59:00+01:00</endOfTransmission>
+            </programmeSpecials>
+            <subelements>
+              <element dataid="SANY15004813" objecttype="programme" channel="NRK P2" fragment="1">
+                <metadata_DC>
+                  <titles>
+                    <title>Dárogiel oddasat - Nyheter på norsk</title>
+                  </titles>
+                  <subjects>
+                    <subject reference="ESCORT">Y03 Nyheter på norsk - riks</subject>
+                  </subjects>
+                  <description>
+                    <abstract/>
+                  </description>
+                  <dates>
+                    <date_issued>2013-03-25T13:30:00+01:00</date_issued>
+                  </dates>
+                  <types>
+                    <type reference="PI_sendeflatetyper">20</type>
+                    <type reference="PI_sendetyper">reprise</type>
+                    <type reference="PI_reprisenummer">2</type>
+                    <type reference="mediatype">Audio</type>
+                    <type reference="NRK-Escort">Y03 Nyheter på norsk - riks</type>
+                    <type reference="PI_Underkategori">E1 Bulletin</type>
+                  </types>
+                  <format>
+                    <format_extent>PT300S</format_extent>
+                  </format>
+                  <relations>
+                    <relation_is_part_of label="serieCRID" reference="PI">/6578891500001383</relation_is_part_of>
+                    <relation_is_referenced_by label="programCRID" reference="PI">/6578891500481383</relation_is_referenced_by>
+                    <relation_is_referenced_by label="event_id" reference="PI">42853</relation_is_referenced_by>
+                  </relations>
+                </metadata_DC>
+                <programmeSpecials>
+                  <plannedTimeOfissue>2013-03-25T13:30:00+01:00</plannedTimeOfissue>
+                  <endOfTransmission display="0">2013-03-25T13:35:00+01:00</endOfTransmission>
+                </programmeSpecials>
+              </element>
+              <element dataid="SANY05004813" objecttype="programme" channel="NRK P2" fragment="1">
+                <metadata_DC>
+                  <titles>
+                    <title>Oddasat - Nyheter på samisk</title>
+                  </titles>
+                  <subjects>
+                    <subject reference="ESCORT">Y02 Nyheter - regionalt</subject>
+                  </subjects>
+                  <description>
+                    <abstract/>
+                  </description>
+                  <dates>
+                    <date_issued>2013-03-25T13:35:00+01:00</date_issued>
+                  </dates>
+                  <types>
+                    <type reference="PI_sendeflatetyper">20</type>
+                    <type reference="PI_sendetyper">reprise</type>
+                    <type reference="PI_reprisenummer">2</type>
+                    <type reference="mediatype">Audio</type>
+                    <type reference="NRK-Escort">Y02 Nyheter - regionalt</type>
+                    <type reference="PI_Underkategori">E1 Bulletin</type>
+                  </types>
+                  <format>
+                    <format_extent>PT600S</format_extent>
+                  </format>
+                  <relations>
+                    <relation_is_part_of label="serieCRID" reference="PI">/6578890500001383</relation_is_part_of>
+                    <relation_is_referenced_by label="programCRID" reference="PI">/6578890500481383</relation_is_referenced_by>
+                    <relation_is_referenced_by label="event_id" reference="PI">42854</relation_is_referenced_by>
+                  </relations>
+                </metadata_DC>
+                <programmeSpecials>
+                  <plannedTimeOfissue>2013-03-25T13:35:00+01:00</plannedTimeOfissue>
+                  <endOfTransmission display="0">2013-03-25T13:45:00+01:00</endOfTransmission>
+                </programmeSpecials>
+              </element>
+              <element dataid="SANY13002413" objecttype="programme" channel="NRK P2" fragment="1">
+                <metadata_DC>
+                  <titles>
+                    <title>Julev sátta</title>
+                  </titles>
+                  <subjects>
+                    <subject reference="ESCORT">Y06 Lulesamiske nyheter - riks</subject>
+                  </subjects>
+                  <description>
+                    <abstract>Nord for Salten, og på 90.1 MHz i Oslo-området kl 14.00-17.30: NRK Sápmi.</abstract>
+                  </description>
+                  <dates>
+                    <date_issued>2013-03-25T13:45:00+01:00</date_issued>
+                  </dates>
+                  <types>
+                    <type reference="PI_sendeflatetyper">10</type>
+                    <type reference="PI_sendetyper">reprise</type>
+                    <type reference="PI_reprisenummer">2</type>
+                    <type reference="mediatype">Audio</type>
+                    <type reference="NRK-Escort">Y06 Lulesamiske nyheter - riks</type>
+                    <type reference="PI_Underkategori">Z1 Annet / Ikke relevant</type>
+                  </types>
+                  <format>
+                    <format_extent>PT840S</format_extent>
+                  </format>
+                  <relations>
+                    <relation_is_part_of label="serieCRID" reference="PI">/6578891300001383</relation_is_part_of>
+                    <relation_is_referenced_by label="programCRID" reference="PI">/6578891300241383</relation_is_referenced_by>
+                    <relation_is_referenced_by label="event_id" reference="PI">42855</relation_is_referenced_by>
+                  </relations>
+                </metadata_DC>
+                <programmeSpecials>
+                  <plannedTimeOfissue>2013-03-25T13:45:00+01:00</plannedTimeOfissue>
+                  <endOfTransmission display="0">2013-03-25T13:59:00+01:00</endOfTransmission>
+                </programmeSpecials>
+              </element>
+            </subelements>
+          </element>
+          <element dataid="MNRA23016513" objecttype="programme" channel="NRK P2" fragment="1">
+            <metadata_DC>
+              <titles>
+                <title>Dagsnytt</title>
+              </titles>
+              <subjects>
+                <subject reference="ESCORT">N10 Faste nyhetssendinger</subject>
+              </subjects>
+              <description>
+                <abstract/>
+              </description>
+              <dates>
+                <date_issued>2013-03-25T14:00:00+01:00</date_issued>
+              </dates>
+              <types>
+                <type reference="PI_sendeflatetyper">20</type>
+                <type reference="PI_sendetyper">vanlig</type>
+                <type reference="mediatype">Audio</type>
+                <type reference="NRK-Escort">N10 Faste nyhetssendinger</type>
+                <type reference="PI_Underkategori">E1 Bulletin</type>
+                <type reference="Nettkategori">Nyheter</type>
+              </types>
+              <format>
+                <format_extent>PT180S</format_extent>
+              </format>
+              <relations>
+                <relation_is_part_of label="serieCRID" reference="PI">/7882652300001377</relation_is_part_of>
+                <relation_is_referenced_by label="programCRID" reference="PI">/7882652301651377</relation_is_referenced_by>
+                <relation_is_referenced_by label="event_id" reference="PI">42858</relation_is_referenced_by>
+              </relations>
+            </metadata_DC>
+            <programmeSpecials>
+              <plannedTimeOfissue>2013-03-25T14:00:00+01:00</plannedTimeOfissue>
+              <endOfTransmission display="0">2013-03-25T14:03:00+01:00</endOfTransmission>
+            </programmeSpecials>
+            <origin purpose="DayPort">
+              <storage>\\entriq-nas\entriq\Incoming\CCS\AutomaticCapture\P2</storage>
+              <file>P2_201303251400_MNRA-230165-13_000</file>
+            </origin>
+          </element>
+          <element dataid="MKTR15006013" objecttype="programme" channel="NRK P2" fragment="1">
+            <metadata_DC>
+              <titles>
+                <title>Kulturhuset</title>
+              </titles>
+              <subjects>
+                <subject reference="ESCORT">D90 Diverse Kunst/ Kultur/ Medier</subject>
+              </subjects>
+              <description>
+                <abstract>- trender og tendenser i kulturen.</abstract>
+              </description>
+              <dates>
+                <date_issued>2013-03-25T14:03:00+01:00</date_issued>
+              </dates>
+              <types>
+                <type reference="PI_sendeflatetyper">10</type>
+                <type reference="PI_sendetyper">vanlig</type>
+                <type reference="mediatype">Audio</type>
+                <type reference="NRK-Escort">D90 Diverse Kunst/ Kultur/ Medier</type>
+                <type reference="PI_Underkategori">F1 Magasin</type>
+              </types>
+              <format>
+                <format_extent>PT3420S</format_extent>
+              </format>
+              <relations>
+                <relation_is_part_of label="serieCRID" reference="PI">/7584821500001377</relation_is_part_of>
+                <relation_is_referenced_by label="programCRID" reference="PI">/7584821500601377#P2201303251403</relation_is_referenced_by>
+                <relation_is_referenced_by label="event_id" reference="PI">42867</relation_is_referenced_by>
+              </relations>
+            </metadata_DC>
+            <programmeSpecials>
+              <plannedTimeOfissue>2013-03-25T14:03:00+01:00</plannedTimeOfissue>
+              <endOfTransmission display="0">2013-03-25T15:00:00+01:00</endOfTransmission>
+            </programmeSpecials>
+            <origin purpose="DayPort">
+              <storage>\\entriq-nas\entriq\Incoming\CCS\AutomaticCapture\P2</storage>
+              <file>P2_201303251403_MKTR-150060-13_000</file>
+            </origin>
+          </element>
+          <element dataid="MNRA24008413" objecttype="programme" channel="NRK P2" fragment="1">
+            <metadata_DC>
+              <titles>
+                <title>Dagsnytt</title>
+              </titles>
+              <subjects>
+                <subject reference="ESCORT">N10 Faste nyhetssendinger</subject>
+              </subjects>
+              <description>
+                <abstract/>
+              </description>
+              <dates>
+                <date_issued>2013-03-25T15:00:00+01:00</date_issued>
+              </dates>
+              <types>
+                <type reference="PI_sendeflatetyper">20</type>
+                <type reference="PI_sendetyper">reprise</type>
+                <type reference="PI_reprisenummer">2</type>
+                <type reference="mediatype">Audio</type>
+                <type reference="NRK-Escort">N10 Faste nyhetssendinger</type>
+                <type reference="PI_Underkategori">E1 Bulletin</type>
+                <type reference="Nettkategori">Nyheter</type>
+              </types>
+              <format>
+                <format_extent>PT300S</format_extent>
+              </format>
+              <relations>
+                <relation_is_part_of label="serieCRID" reference="PI">/7882652400001377</relation_is_part_of>
+                <relation_is_referenced_by label="programCRID" reference="PI">/7882652400841377</relation_is_referenced_by>
+                <relation_is_referenced_by label="event_id" reference="PI">42884</relation_is_referenced_by>
+              </relations>
+            </metadata_DC>
+            <programmeSpecials>
+              <plannedTimeOfissue>2013-03-25T15:00:00+01:00</plannedTimeOfissue>
+              <endOfTransmission display="0">2013-03-25T15:05:00+01:00</endOfTransmission>
+            </programmeSpecials>
+            <origin purpose="DayPort">
+              <storage>\\entriq-nas\entriq\Incoming\CCS\AutomaticCapture\P2</storage>
+              <file>P2_201303251500_MNRA-240084-13_000</file>
+            </origin>
+          </element>
+          <element dataid="MKTR15006013" objecttype="programme" channel="NRK P2" fragment="2">
+            <metadata_DC>
+              <titles>
+                <title>Kulturhuset</title>
+              </titles>
+              <subjects>
+                <subject reference="ESCORT">D90 Diverse Kunst/ Kultur/ Medier</subject>
+              </subjects>
+              <description>
+                <abstract>- trender og tendenser i kulturen.</abstract>
+              </description>
+              <dates>
+                <date_issued>2013-03-25T15:05:00+01:00</date_issued>
+              </dates>
+              <types>
+                <type reference="PI_sendeflatetyper">10</type>
+                <type reference="PI_sendetyper">vanlig</type>
+                <type reference="mediatype">Audio</type>
+                <type reference="NRK-Escort">D90 Diverse Kunst/ Kultur/ Medier</type>
+                <type reference="PI_Underkategori">F1 Magasin</type>
+              </types>
+              <format>
+                <format_extent>PT3300S</format_extent>
+              </format>
+              <relations>
+                <relation_is_part_of label="serieCRID" reference="PI">/7584821500001377</relation_is_part_of>
+                <relation_is_referenced_by label="programCRID" reference="PI">/7584821500601377#P2201303251403</relation_is_referenced_by>
+                <relation_is_referenced_by label="event_id" reference="PI">42900</relation_is_referenced_by>
+              </relations>
+            </metadata_DC>
+            <programmeSpecials>
+              <plannedTimeOfissue>2013-03-25T15:05:00+01:00</plannedTimeOfissue>
+              <endOfTransmission display="0">2013-03-25T16:00:00+01:00</endOfTransmission>
+            </programmeSpecials>
+            <origin purpose="DayPort">
+              <storage>\\entriq-nas\entriq\Incoming\CCS\AutomaticCapture\P2</storage>
+              <file>P2_201303251505_MKTR-150060-13_000</file>
+            </origin>
+          </element>
+          <element dataid="MNRA42005913" objecttype="programme" channel="NRK P2" fragment="1">
+            <metadata_DC>
+              <titles>
+                <title>Dagsnytt</title>
+              </titles>
+              <subjects>
+                <subject reference="ESCORT">N00 Nyheter</subject>
+              </subjects>
+              <description>
+                <abstract/>
+              </description>
+              <dates>
+                <date_issued>2013-03-25T16:00:00+01:00</date_issued>
+              </dates>
+              <types>
+                <type reference="PI_sendeflatetyper">20</type>
+                <type reference="PI_sendetyper">vanlig</type>
+                <type reference="mediatype">Audio</type>
+                <type reference="NRK-Escort">N00 Nyheter</type>
+                <type reference="PI_Underkategori">Z1 Annet / Ikke relevant</type>
+                <type reference="Nettkategori">Nyheter</type>
+              </types>
+              <format>
+                <format_extent>PT1740S</format_extent>
+              </format>
+              <relations>
+                <relation_is_part_of label="serieCRID" reference="PI">/7882654200001377</relation_is_part_of>
+                <relation_is_referenced_by label="programCRID" reference="PI">/7882654200591377</relation_is_referenced_by>
+                <relation_is_referenced_by label="event_id" reference="PI">42905</relation_is_referenced_by>
+              </relations>
+            </metadata_DC>
+            <programmeSpecials>
+              <plannedTimeOfissue>2013-03-25T16:00:00+01:00</plannedTimeOfissue>
+              <endOfTransmission display="0">2013-03-25T16:29:00+01:00</endOfTransmission>
+            </programmeSpecials>
+            <origin purpose="DayPort">
+              <storage>\\entriq-nas\entriq\Incoming\CCS\AutomaticCapture\P2</storage>
+              <file>P2_201303251600_MNRA-420059-13_000</file>
+            </origin>
+          </element>
+          <element dataid="MNMA02005913" objecttype="programme" channel="NRK P2" fragment="1">
+            <metadata_DC>
+              <titles>
+                <title>Kulturnytt</title>
+              </titles>
+              <subjects>
+                <subject reference="ESCORT">D90 Diverse Kunst/ Kultur/ Medier</subject>
+              </subjects>
+              <description>
+                <abstract/>
+              </description>
+              <dates>
+                <date_issued>2013-03-25T16:30:00+01:00</date_issued>
+              </dates>
+              <types>
+                <type reference="PI_sendeflatetyper">20</type>
+                <type reference="PI_sendetyper">vanlig</type>
+                <type reference="mediatype">Audio</type>
+                <type reference="NRK-Escort">D90 Diverse Kunst/ Kultur/ Medier</type>
+                <type reference="PI_Underkategori">F1 Magasin</type>
+              </types>
+              <format>
+                <format_extent>PT3540S</format_extent>
+              </format>
+              <relations>
+                <relation_is_part_of label="serieCRID" reference="PI">/7877650200001377</relation_is_part_of>
+                <relation_is_referenced_by label="programCRID" reference="PI">/7877650200591377</relation_is_referenced_by>
+                <relation_is_referenced_by label="event_id" reference="PI">42930</relation_is_referenced_by>
+              </relations>
+            </metadata_DC>
+            <programmeSpecials>
+              <plannedTimeOfissue>2013-03-25T16:30:00+01:00</plannedTimeOfissue>
+              <endOfTransmission display="0">2013-03-25T17:29:00+01:00</endOfTransmission>
+            </programmeSpecials>
+            <origin purpose="DayPort">
+              <storage>\\entriq-nas\entriq\Incoming\CCS\AutomaticCapture\P2</storage>
+              <file>P2_201303251630_MNMA-020059-13_000</file>
+            </origin>
+          </element>
+          <element dataid="MDSP28005913" objecttype="programme" channel="NRK P2" fragment="1">
+            <metadata_DC>
+              <titles>
+                <title>Ekko - et aktuelt samfunnsprogram</title>
+              </titles>
+              <subjects>
+                <subject reference="ESCORT">K99 Diverse samfunnsspørsmål, Likestilling i arb.livet</subject>
+              </subjects>
+              <description>
+                <abstract>Utdrag fra formiddagens sending.</abstract>
+              </description>
+              <dates>
+                <date_issued>2013-03-25T17:30:00+01:00</date_issued>
+              </dates>
+              <types>
+                <type reference="PI_sendeflatetyper">10</type>
+                <type reference="PI_sendetyper">vanlig</type>
+                <type reference="mediatype">Audio</type>
+                <type reference="NRK-Escort">K99 Diverse samfunnsspørsmål, Likestilling i arb.livet</type>
+                <type reference="PI_Underkategori">F1 Magasin</type>
+                <type reference="Nettkategori">Helse og forbruker</type>
+              </types>
+              <format>
+                <format_extent>PT1800S</format_extent>
+              </format>
+              <relations>
+                <relation_is_part_of label="serieCRID" reference="PI">/6883802800001377</relation_is_part_of>
+                <relation_is_referenced_by label="programCRID" reference="PI">/6883802800591377</relation_is_referenced_by>
+                <relation_is_referenced_by label="event_id" reference="PI">42941</relation_is_referenced_by>
+              </relations>
+            </metadata_DC>
+            <programmeSpecials>
+              <plannedTimeOfissue>2013-03-25T17:30:00+01:00</plannedTimeOfissue>
+              <endOfTransmission display="0">2013-03-25T18:00:00+01:00</endOfTransmission>
+            </programmeSpecials>
+            <origin purpose="DayPort">
+              <storage>\\entriq-nas\entriq\Incoming\CCS\AutomaticCapture\P2</storage>
+              <file>P2_201303251730_MDSP-280059-13_000</file>
+            </origin>
+          </element>
+          <element dataid="MNMA03005913" objecttype="programme" channel="NRK P2" fragment="1">
+            <metadata_DC>
+              <titles>
+                <title>Dagsnytt atten</title>
+              </titles>
+              <subjects>
+                <subject reference="ESCORT">K99 Diverse samfunnsspørsmål, Likestilling i arb.livet</subject>
+              </subjects>
+              <description>
+                <abstract/>
+              </description>
+              <dates>
+                <date_issued>2013-03-25T18:00:00+01:00</date_issued>
+              </dates>
+              <types>
+                <type reference="PI_sendeflatetyper">20</type>
+                <type reference="PI_sendetyper">vanlig</type>
+                <type reference="mediatype">Audio</type>
+                <type reference="NRK-Escort">K99 Diverse samfunnsspørsmål, Likestilling i arb.livet</type>
+                <type reference="PI_Underkategori">H1 Diskusjon/Intervju/Debatt</type>
+                <type reference="Nettkategori">Helse og forbruker</type>
+              </types>
+              <format>
+                <format_extent>PT3540S</format_extent>
+              </format>
+              <relations>
+                <relation_is_part_of label="serieCRID" reference="PI">/7877650300001377</relation_is_part_of>
+                <relation_is_referenced_by label="programCRID" reference="PI">/7877650300591377</relation_is_referenced_by>
+                <relation_is_referenced_by label="event_id" reference="PI">42945</relation_is_referenced_by>
+              </relations>
+            </metadata_DC>
+            <programmeSpecials>
+              <plannedTimeOfissue>2013-03-25T18:00:00+01:00</plannedTimeOfissue>
+              <endOfTransmission display="0">2013-03-25T18:59:00+01:00</endOfTransmission>
+            </programmeSpecials>
+            <origin purpose="DayPort">
+              <storage>\\entriq-nas\entriq\Incoming\CCS\AutomaticCapture\P2</storage>
+              <file>P2_201303251800_MNMA-030059-13_000</file>
+            </origin>
+          </element>
+          <element dataid="MNRA31008413" objecttype="programme" channel="NRK P2" fragment="1">
+            <metadata_DC>
+              <titles>
+                <title>Dagsnytt</title>
+              </titles>
+              <subjects>
+                <subject reference="ESCORT">N00 Nyheter</subject>
+              </subjects>
+              <description>
+                <abstract/>
+              </description>
+              <dates>
+                <date_issued>2013-03-25T19:00:00+01:00</date_issued>
+              </dates>
+              <types>
+                <type reference="PI_sendeflatetyper">20</type>
+                <type reference="PI_sendetyper">reprise</type>
+                <type reference="PI_reprisenummer">2</type>
+                <type reference="mediatype">Audio</type>
+                <type reference="NRK-Escort">N00 Nyheter</type>
+                <type reference="PI_Underkategori">E1 Bulletin</type>
+                <type reference="Nettkategori">Nyheter</type>
+              </types>
+              <format>
+                <format_extent>PT180S</format_extent>
+              </format>
+              <relations>
+                <relation_is_part_of label="serieCRID" reference="PI">/7882653100001377</relation_is_part_of>
+                <relation_is_referenced_by label="programCRID" reference="PI">/7882653100841377</relation_is_referenced_by>
+                <relation_is_referenced_by label="event_id" reference="PI">42958</relation_is_referenced_by>
+              </relations>
+            </metadata_DC>
+            <programmeSpecials>
+              <plannedTimeOfissue>2013-03-25T19:00:00+01:00</plannedTimeOfissue>
+              <endOfTransmission display="0">2013-03-25T19:03:00+01:00</endOfTransmission>
+            </programmeSpecials>
+            <origin purpose="DayPort">
+              <storage>\\entriq-nas\entriq\Incoming\CCS\AutomaticCapture\P2</storage>
+              <file>P2_201303251900_MNRA-310084-13_000</file>
+            </origin>
+          </element>
+          <element dataid="MKTR03001213" objecttype="programme" channel="NRK P2" fragment="1">
+            <metadata_DC>
+              <titles>
+                <title>Kunstreisen</title>
+              </titles>
+              <subjects>
+                <subject reference="ESCORT">D90 Diverse Kunst/ Kultur/ Medier</subject>
+              </subjects>
+              <description>
+                <abstract>Tromsdalen kirke, Ishavskatedralen, et landemerke for Tromsø. Ved Nina Skurtveit og Gunnar Danbolt.</abstract>
+              </description>
+              <dates>
+                <date_issued>2013-03-25T19:03:00+01:00</date_issued>
+              </dates>
+              <types>
+                <type reference="PI_sendeflatetyper">10</type>
+                <type reference="PI_sendetyper">reprise</type>
+                <type reference="PI_reprisenummer">1</type>
+                <type reference="mediatype">Audio</type>
+                <type reference="NRK-Escort">D90 Diverse Kunst/ Kultur/ Medier</type>
+                <type reference="PI_Underkategori">F1 Magasin</type>
+              </types>
+              <format>
+                <format_extent>PT1620S</format_extent>
+              </format>
+              <relations>
+                <relation_is_part_of label="serieCRID" reference="PI">/7584820300001377</relation_is_part_of>
+                <relation_is_referenced_by label="programCRID" reference="PI">/7584820300121377</relation_is_referenced_by>
+                <relation_is_referenced_by label="event_id" reference="PI">42960</relation_is_referenced_by>
+              </relations>
+            </metadata_DC>
+            <programmeSpecials>
+              <plannedTimeOfissue>2013-03-25T19:03:00+01:00</plannedTimeOfissue>
+              <endOfTransmission display="0">2013-03-25T19:30:00+01:00</endOfTransmission>
+            </programmeSpecials>
+            <origin purpose="DayPort">
+              <storage>\\entriq-nas\entriq\Incoming\CCS\AutomaticCapture\P2</storage>
+              <file>P2_201303251903_MKTR-030012-13_000</file>
+            </origin>
+          </element>
+          <element dataid="MKMR46000513" objecttype="programme" channel="NRK P2" fragment="1">
+            <metadata_DC>
+              <titles>
+                <title>Musikk i P2 - Verdensscenen</title>
+              </titles>
+              <subjects>
+                <subject reference="ESCORT">B80 Etnomusikk/verdensmusikk</subject>
+              </subjects>
+              <description>
+                <abstract>- musikk fra hele verden. Ved Arne Berg.</abstract>
+              </description>
+              <dates>
+                <date_issued>2013-03-25T19:30:00+01:00</date_issued>
+              </dates>
+              <types>
+                <type reference="PI_sendeflatetyper">10</type>
+                <type reference="PI_sendetyper">reprise</type>
+                <type reference="PI_reprisenummer">1</type>
+                <type reference="mediatype">Audio</type>
+                <type reference="NRK-Escort">B80 Etnomusikk/verdensmusikk</type>
+                <type reference="PI_Underkategori">A1 Musikk</type>
+              </types>
+              <format>
+                <format_extent>PT5400S</format_extent>
+              </format>
+              <relations>
+                <relation_is_part_of label="serieCRID" reference="PI">/7577824600001377</relation_is_part_of>
+                <relation_is_referenced_by label="programCRID" reference="PI">/7577824600051377</relation_is_referenced_by>
+                <relation_is_referenced_by label="event_id" reference="PI">47587</relation_is_referenced_by>
+              </relations>
+            </metadata_DC>
+            <programmeSpecials>
+              <plannedTimeOfissue>2013-03-25T19:30:00+01:00</plannedTimeOfissue>
+              <endOfTransmission display="0">2013-03-25T21:00:00+01:00</endOfTransmission>
+            </programmeSpecials>
+            <origin purpose="DayPort">
+              <storage>\\entriq-nas\entriq\Incoming\CCS\AutomaticCapture\P2</storage>
+              <file>P2_201303251930_MKMR-460005-13_000</file>
+            </origin>
+          </element>
+          <element dataid="MNRA33008413" objecttype="programme" channel="NRK P2" fragment="1">
+            <metadata_DC>
+              <titles>
+                <title>Dagsnytt</title>
+              </titles>
+              <subjects>
+                <subject reference="ESCORT">N00 Nyheter</subject>
+              </subjects>
+              <description>
+                <abstract/>
+              </description>
+              <dates>
+                <date_issued>2013-03-25T21:00:00+01:00</date_issued>
+              </dates>
+              <types>
+                <type reference="PI_sendeflatetyper">20</type>
+                <type reference="PI_sendetyper">reprise</type>
+                <type reference="PI_reprisenummer">4</type>
+                <type reference="mediatype">Audio</type>
+                <type reference="NRK-Escort">N00 Nyheter</type>
+                <type reference="PI_Underkategori">E1 Bulletin</type>
+                <type reference="Nettkategori">Nyheter</type>
+              </types>
+              <format>
+                <format_extent>PT180S</format_extent>
+              </format>
+              <relations>
+                <relation_is_part_of label="serieCRID" reference="PI">/7882653300001377</relation_is_part_of>
+                <relation_is_referenced_by label="programCRID" reference="PI">/7882653300841377</relation_is_referenced_by>
+                <relation_is_referenced_by label="event_id" reference="PI">42985</relation_is_referenced_by>
+              </relations>
+            </metadata_DC>
+            <programmeSpecials>
+              <plannedTimeOfissue>2013-03-25T21:00:00+01:00</plannedTimeOfissue>
+              <endOfTransmission display="0">2013-03-25T21:03:00+01:00</endOfTransmission>
+            </programmeSpecials>
+            <origin purpose="DayPort">
+              <storage>\\entriq-nas\entriq\Incoming\CCS\AutomaticCapture\P2</storage>
+              <file>P2_201303252100_MNRA-330084-13_000</file>
+            </origin>
+          </element>
+          <element dataid="MKDR62090012" objecttype="programme" channel="NRK P2" fragment="1">
+            <metadata_DC>
+              <titles>
+                <title>Radioteatret: "Men hempen glapp"</title>
+              </titles>
+              <subjects>
+                <subject reference="ESCORT">A17 Kulturell fiksjon - Nyskrevet norsk</subject>
+              </subjects>
+              <description>
+                <abstract>Ibsen og Grieg i fritt fall. Her får du servert et knippe tekster av Henrik Ibsen med musikk av Edvard Grieg i en tapning du aldri tidligere har hørt. To skuespillere, to jazzmusikere, en sanger og en klassisk pianist skal i samarbeid med instruktør Else Barratt-Due og lyddesigner Terje Hellem improvisere frem et annerledes hørespill.</abstract>
+              </description>
+              <dates>
+                <date_issued>2013-03-25T21:03:00+01:00</date_issued>
+              </dates>
+              <types>
+                <type reference="PI_sendeflatetyper">10</type>
+                <type reference="PI_sendetyper">reprise</type>
+                <type reference="PI_reprisenummer">3</type>
+                <type reference="mediatype">Audio</type>
+                <type reference="NRK-Escort">A17 Kulturell fiksjon - Nyskrevet norsk</type>
+                <type reference="PI_Underkategori">B2 Drama, Skuespillere</type>
+              </types>
+              <format>
+                <format_extent>PT3420S</format_extent>
+              </format>
+              <relations>
+                <relation_is_part_of label="serieCRID" reference="PI"/>
+                <relation_is_referenced_by label="event_id" reference="PI">42991</relation_is_referenced_by>
+              </relations>
+            </metadata_DC>
+            <programmeSpecials>
+              <plannedTimeOfissue>2013-03-25T21:03:00+01:00</plannedTimeOfissue>
+              <endOfTransmission display="0">2013-03-25T22:00:00+01:00</endOfTransmission>
+            </programmeSpecials>
+            <origin purpose="DayPort">
+              <storage>\\entriq-nas\entriq\Incoming\CCS\AutomaticCapture\P2</storage>
+              <file>P2_201303252103_MKDR-620900-12_000</file>
+            </origin>
+          </element>
+          <element dataid="MNRA34008413" objecttype="programme" channel="NRK P2" fragment="1">
+            <metadata_DC>
+              <titles>
+                <title>Dagsnytt med værmelding</title>
+              </titles>
+              <subjects>
+                <subject reference="ESCORT">N00 Nyheter</subject>
+              </subjects>
+              <description>
+                <abstract/>
+              </description>
+              <dates>
+                <date_issued>2013-03-25T22:00:00+01:00</date_issued>
+              </dates>
+              <types>
+                <type reference="PI_sendeflatetyper">20</type>
+                <type reference="PI_sendetyper">reprise</type>
+                <type reference="PI_reprisenummer">3</type>
+                <type reference="mediatype">Audio</type>
+                <type reference="NRK-Escort">N00 Nyheter</type>
+                <type reference="PI_Underkategori">Z1 Annet / Ikke relevant</type>
+                <type reference="Nettkategori">Nyheter</type>
+              </types>
+              <format>
+                <format_extent>PT300S</format_extent>
+              </format>
+              <relations>
+                <relation_is_part_of label="serieCRID" reference="PI">/7882653400001377</relation_is_part_of>
+                <relation_is_referenced_by label="programCRID" reference="PI">/7882653400841377</relation_is_referenced_by>
+                <relation_is_referenced_by label="event_id" reference="PI">42997</relation_is_referenced_by>
+              </relations>
+            </metadata_DC>
+            <programmeSpecials>
+              <plannedTimeOfissue>2013-03-25T22:00:00+01:00</plannedTimeOfissue>
+              <endOfTransmission display="0">2013-03-25T22:05:00+01:00</endOfTransmission>
+            </programmeSpecials>
+            <origin purpose="DayPort">
+              <storage>\\entriq-nas\entriq\Incoming\CCS\AutomaticCapture\P2</storage>
+              <file>P2_201303252200_MNRA-340084-13_000</file>
+            </origin>
+          </element>
+          <element dataid="" objecttype="programme" channel="NRK P2" fragment="1">
+            <metadata_DC>
+              <titles>
+                <title>P2s Blå Mix:</title>
+              </titles>
+              <subjects>
+                <subject reference="ESCORT"/>
+              </subjects>
+              <description>
+                <abstract/>
+              </description>
+              <dates>
+                <date_issued>2013-03-25T22:05:00+01:00</date_issued>
+              </dates>
+              <types>
+                <type reference="PI_sendeflatetyper">0</type>
+                <type reference="PI_sendetyper">vanlig</type>
+                <type reference="NRK-Escort"/>
+                <type reference="PI_Underkategori"/>
+              </types>
+              <format>
+                <format_extent>PT6900S</format_extent>
+              </format>
+              <relations>
+                <relation_is_referenced_by label="event_id" reference="PI">43008</relation_is_referenced_by>
+              </relations>
+            </metadata_DC>
+            <programmeSpecials>
+              <plannedTimeOfissue>2013-03-25T22:05:00+01:00</plannedTimeOfissue>
+              <endOfTransmission display="0">2013-03-26T00:00:00+01:00</endOfTransmission>
+            </programmeSpecials>
+            <subelements>
+              <element dataid="MDSP29016813" objecttype="programme" channel="NRK P2" fragment="1">
+                <metadata_DC>
+                  <titles>
+                    <title>Ekko - et aktuelt samfunnsprogram</title>
+                  </titles>
+                  <subjects>
+                    <subject reference="ESCORT">K99 Diverse samfunnsspørsmål, Likestilling i arb.livet</subject>
+                  </subjects>
+                  <description>
+                    <abstract>Gjenhør fra formiddagens sending.</abstract>
+                  </description>
+                  <dates>
+                    <date_issued>2013-03-25T22:05:00+01:00</date_issued>
+                  </dates>
+                  <types>
+                    <type reference="PI_sendeflatetyper">10</type>
+                    <type reference="PI_sendetyper">vanlig</type>
+                    <type reference="mediatype">Audio</type>
+                    <type reference="NRK-Escort">K99 Diverse samfunnsspørsmål, Likestilling i arb.livet</type>
+                    <type reference="PI_Underkategori">F1 Magasin</type>
+                    <type reference="Nettkategori">Helse og forbruker</type>
+                  </types>
+                  <format>
+                    <format_extent>PT3300S</format_extent>
+                  </format>
+                  <relations>
+                    <relation_is_part_of label="serieCRID" reference="PI">/6883802900001377</relation_is_part_of>
+                    <relation_is_referenced_by label="programCRID" reference="PI">/6883802901681377</relation_is_referenced_by>
+                    <relation_is_referenced_by label="event_id" reference="PI">43004</relation_is_referenced_by>
+                  </relations>
+                </metadata_DC>
+                <programmeSpecials>
+                  <plannedTimeOfissue>2013-03-25T22:05:00+01:00</plannedTimeOfissue>
+                  <endOfTransmission display="0">2013-03-25T23:00:00+01:00</endOfTransmission>
+                </programmeSpecials>
+              </element>
+              <element dataid="MNRA35008413" objecttype="programme" channel="NRK P2" fragment="1">
+                <metadata_DC>
+                  <titles>
+                    <title>Dagsnytt</title>
+                  </titles>
+                  <subjects>
+                    <subject reference="ESCORT">N00 Nyheter</subject>
+                  </subjects>
+                  <description>
+                    <abstract/>
+                  </description>
+                  <dates>
+                    <date_issued>2013-03-25T23:00:00+01:00</date_issued>
+                  </dates>
+                  <types>
+                    <type reference="PI_sendeflatetyper">20</type>
+                    <type reference="PI_sendetyper">reprise</type>
+                    <type reference="PI_reprisenummer">3</type>
+                    <type reference="mediatype">Audio</type>
+                    <type reference="NRK-Escort">N00 Nyheter</type>
+                    <type reference="PI_Underkategori">E1 Bulletin</type>
+                    <type reference="Nettkategori">Nyheter</type>
+                  </types>
+                  <format>
+                    <format_extent>PT180S</format_extent>
+                  </format>
+                  <relations>
+                    <relation_is_part_of label="serieCRID" reference="PI">/7882653500001377</relation_is_part_of>
+                    <relation_is_referenced_by label="programCRID" reference="PI">/7882653500841377</relation_is_referenced_by>
+                    <relation_is_referenced_by label="event_id" reference="PI">43011</relation_is_referenced_by>
+                  </relations>
+                </metadata_DC>
+                <programmeSpecials>
+                  <plannedTimeOfissue>2013-03-25T23:00:00+01:00</plannedTimeOfissue>
+                  <endOfTransmission display="0">2013-03-25T23:03:00+01:00</endOfTransmission>
+                </programmeSpecials>
+              </element>
+              <element dataid="MKTR16006413" objecttype="programme" channel="NRK P2" fragment="1">
+                <metadata_DC>
+                  <titles>
+                    <title>Kulturhuset</title>
+                  </titles>
+                  <subjects>
+                    <subject reference="ESCORT">D90 Diverse Kunst/ Kultur/ Medier</subject>
+                  </subjects>
+                  <description>
+                    <abstract>Gjenhør fra ettermiddagens sending.</abstract>
+                  </description>
+                  <dates>
+                    <date_issued>2013-03-25T23:03:00+01:00</date_issued>
+                  </dates>
+                  <types>
+                    <type reference="PI_sendeflatetyper">10</type>
+                    <type reference="PI_sendetyper">vanlig</type>
+                    <type reference="mediatype">Audio</type>
+                    <type reference="NRK-Escort">D90 Diverse Kunst/ Kultur/ Medier</type>
+                    <type reference="PI_Underkategori">F1 Magasin</type>
+                  </types>
+                  <format>
+                    <format_extent>PT1620S</format_extent>
+                  </format>
+                  <relations>
+                    <relation_is_part_of label="serieCRID" reference="PI">/7584821600001377</relation_is_part_of>
+                    <relation_is_referenced_by label="programCRID" reference="PI">/7584821600641377</relation_is_referenced_by>
+                    <relation_is_referenced_by label="event_id" reference="PI">43018</relation_is_referenced_by>
+                  </relations>
+                </metadata_DC>
+                <programmeSpecials>
+                  <plannedTimeOfissue>2013-03-25T23:03:00+01:00</plannedTimeOfissue>
+                  <endOfTransmission display="0">2013-03-25T23:30:00+01:00</endOfTransmission>
+                </programmeSpecials>
+              </element>
+              <element dataid="DMPT12001213" objecttype="programme" channel="NRK P2" fragment="1">
+                <metadata_DC>
+                  <titles>
+                    <title>Språkteigen</title>
+                  </titles>
+                  <subjects>
+                    <subject reference="ESCORT">G60 Språk</subject>
+                  </subjects>
+                  <description>
+                    <abstract>Ved Ann Jones.</abstract>
+                  </description>
+                  <dates>
+                    <date_issued>2013-03-25T23:30:00+01:00</date_issued>
+                  </dates>
+                  <types>
+                    <type reference="PI_sendeflatetyper">10</type>
+                    <type reference="PI_sendetyper">reprise</type>
+                    <type reference="PI_reprisenummer">1</type>
+                    <type reference="mediatype">Audio</type>
+                    <type reference="NRK-Escort">G60 Språk</type>
+                    <type reference="PI_Underkategori">F1 Magasin</type>
+                    <type reference="Nettkategori">Vitenskap og kunnskap</type>
+                  </types>
+                  <format>
+                    <format_extent>PT1800S</format_extent>
+                  </format>
+                  <relations>
+                    <relation_is_part_of label="serieCRID" reference="PI">/7780841200001368</relation_is_part_of>
+                    <relation_is_referenced_by label="programCRID" reference="PI">/7780841200121368</relation_is_referenced_by>
+                    <relation_is_referenced_by label="event_id" reference="PI">43021</relation_is_referenced_by>
+                  </relations>
+                </metadata_DC>
+                <programmeSpecials>
+                  <plannedTimeOfissue>2013-03-25T23:30:00+01:00</plannedTimeOfissue>
+                  <endOfTransmission display="0">2013-03-26T00:00:00+01:00</endOfTransmission>
+                </programmeSpecials>
+              </element>
+            </subelements>
+          </element>
+        </subelements>
+      </element>
+    </tables>
+  </body>
+</gluon>

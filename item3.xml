@@ -1,0 +1,97 @@
+<?xml version="1.0" ?><gluon artID="DKOP02018913" priority="3" xmlns="http://gluon.nrk.no/gluon2" xmlns:fn="http://www.w3.org/2006/xpath-functions" xmlns:gluonDict="http://gluon.nrk.no/gluonDict" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://gluon.nrk.no/gluon2 http://gluon.nrk.no/gluon2.xsd">
+	<head>
+		<metadata>
+			<creators>
+				<creator>
+					<name>digasEkstra</name>
+				</creator>
+			</creators>
+		</metadata>
+	</head>
+	<objects>
+		<object dataid="DKOP02018913" fragment="1" objecttype="programme">
+			<metadata>
+				<titles>
+					<title>P1 Ettermiddag i Hedmark og Oppland</title>
+				</titles>
+				<subjects>
+					<subject label="Omtalt" link="http://gluon.nrk.no/dataordbok.xml#mentioned" reference="Digas">Amundsen</subject>
+					<subject label="Omtalt" link="http://gluon.nrk.no/dataordbok.xml#mentioned" reference="Digas">Rune Øygard</subject>
+					<subject label="Tags" link="http://gluon.nrk.no/dataordbok.xml#subject" reference="Digas">Storhamar </subject>
+					<subject label="Tags" link="http://gluon.nrk.no/dataordbok.xml#subject" reference="Digas">ishockey </subject>
+					<subject label="Tags" link="http://gluon.nrk.no/dataordbok.xml#subject" reference="Digas">yrkesvalg</subject>
+					<subject label="Tags" link="http://gluon.nrk.no/dataordbok.xml#subject" reference="Digas">yrke </subject>
+					<subject label="Tags" link="http://gluon.nrk.no/dataordbok.xml#subject" reference="Digas">åker gård </subject>
+					<subject label="Tags" link="http://gluon.nrk.no/dataordbok.xml#subject" reference="Digas">kortreist kultur</subject>
+					<subject label="Tags" link="http://gluon.nrk.no/dataordbok.xml#subject" reference="Digas">tv-aksjonen</subject>
+					<subject label="Tags" link="http://gluon.nrk.no/dataordbok.xml#subject" reference="Digas">demens</subject>
+					<subject label="Tags" link="http://gluon.nrk.no/dataordbok.xml#subject" reference="Digas">kvinnelige bønder</subject>
+					<subject label="Tags" link="http://gluon.nrk.no/dataordbok.xml#subject" reference="Digas">stupetårn</subject>
+					<subject label="Tags" link="http://gluon.nrk.no/dataordbok.xml#subject" reference="Digas">vekter </subject>
+					<subject label="Tags" link="http://gluon.nrk.no/dataordbok.xml#subject" reference="Digas">vold</subject>
+					<subject label="Tags" link="http://gluon.nrk.no/dataordbok.xml#subject" reference="Digas">optimistene</subject>
+				</subjects>
+				<description>
+					<abstract label="standFirst" link="http://gluon.nrk.no/dataordbok.xml#description" purpose="shortDescription" reference="nrkDataordbok" restriction="public">P1 Ettermiddag i Hedmark og Oppland med Reidar Kjæstad i studio.</abstract>
+				</description>
+				<contributors>
+					<contributor>
+						<name>Reidar Kjæstad</name>
+						<role link="http://gluon.nrk.no/nrkRoller.xml#V40">Programleder</role>
+					</contributor>
+					<contributor>
+						<name>Reidar Kjæstad</name>
+						<role link="http://gluon.nrk.no/nrkRoller.xml#V490">Redigerer</role>
+					</contributor>
+					<contributor>
+						<name>Mads Hansen</name>
+						<role>Intervjuobjekt</role>
+					</contributor>
+					<contributor>
+						<name>Erik Hagaseth Haug</name>
+						<role>Intervjuobjekt</role>
+					</contributor>
+					<contributor>
+						<name>Phung Hang</name>
+						<role>Intervjuobjekt</role>
+					</contributor>
+					<contributor>
+						<name>Phung Hang</name>
+						<role>Intervjuobjekt</role>
+					</contributor>
+					<contributor>
+						<name>Morten Aspeli</name>
+						<role>Intervjuobjekt</role>
+					</contributor>
+					<contributor>
+						<name>Hanne Tveter </name>
+						<role>Intervjuobjekt</role>
+					</contributor>
+					<contributor>
+						<name>Ragnhild Moen Holø</name>
+						<role link="http://gluon.nrk.no/nrkRoller.xml#V90">Produsent</role>
+					</contributor>
+				</contributors>
+				<types>
+					<type label="avviklingsform" reference="Digas">Hel fil</type>
+				</types>
+				<format>
+					<formatExtent>PT180S</formatExtent>
+				</format>
+				<identifier label="uniqueIdentifier" link="http://gluon.nrk.no/dataordbok.xml#upid" reference="PI.PROGRAM">DKOP02018913</identifier>
+				<relations>
+					<relationReferences label="illustration" reference="kaleido"/>
+					<relationReferences label="illustrationCaption" reference="kaleido"/>
+					<relationIsDescribedBy label="#!Linktittel" link="kaleido" reference="POT">http://www.nrk.no/programomtale.html</relationIsDescribedBy>
+				</relations>
+				<coverage>
+					<coverageSpatial>
+						<location latitude="" longitude="" type="position">
+							<name/>
+						</location>
+					</coverageSpatial>
+				</coverage>
+			</metadata>
+		</object>
+	</objects>
+</gluon>
