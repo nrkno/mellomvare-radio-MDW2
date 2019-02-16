@@ -1,14 +1,11 @@
-#! /usr/bin/python
-# -*- coding: iso-8859-1 -*-
+# -*- coding: utf-8 -*-
+"Dette er en hjelpefil for annonseringer i de forskjellige kanalene"
 
-#Dette er en hjelpefil for annonseringer i de forskjellige kanalene
-
-
-spiller = ['spiller', 'fremfører']
-spilles = ['spilles av', 'fremføres av']
-spiltAv = ['med', 'fremført av']
-lytter = ['Du hører ', 'Du lytter til ', 'På radioen nå: ']
-nesteLytter = ['Så får du høre ']
+spiller = ['spiller', 'fremf¿rer']
+spilles = ['spilles av', 'fremf¿res av']
+spiltAv = ['med', 'fremf¿rt av']
+lytter = ['Du h¿rer ', 'Du lytter til ', 'NŒ: ']
+nesteLytter = ['SŒ fŒr du h¿re ']
 
 # | gir ny linje dersom det trengs, ellers vil det fremstå som et ordskille.
 
@@ -23,19 +20,10 @@ itemtittel = {'nrk':["tittel + ' med ' + artist"],
 		'p3':["artist + ' med ' + tittel"],
 		'fmk':["tittel + ' med ' + artist"],
 		'p1of':["tittel + ' med ' + artist"],
-		'ak':["'Nå: '+ tittel + '|fremført av ' + artist"],
-		#'ak':[
-		#"choice(lytter) + tittel + '|som ' + choice(spilles) + ' ' +  artist",
-		# "tittel + ' ' + choice(spilles) + '|' + artist"],
-		# 'ak_S':["choice(lytter) + tittel + '|' +  artist",
-		# "tittel + artist"],
+		'ak':["'NŒ: '+ tittel + '|fremf¿rt av ' + artist"],
 		'mpetre':["artist + ' med ' + tittel"],
 		'ev1':["tittel + ' ' + artist"],
 		'ev2':["tittel + ' ' + artist"],
-		'p5oslo':["'P5 nå:' + artist + '-' + tittel"],
-		'p5stavanger':["'P5 nå:' + artist + '-' + tittel"],
-		'p5trondheim':["'P5 nå:' + artist + '-' + tittel"],
-		'p5bergen':["'P5 nå:' + artist + '-' + tittel"],
 		}
 
 #newstittel brukes for news innslag fra Digas
@@ -45,7 +33,6 @@ newstittel =  {'nrk':["tittel + '.|' + artist"],
 		'nrk_5_1':["tittel"],
 		'barn':["tittel"],
 		'gull':["tittel"],
-
 			}
 
 #NRK kanalen er en kanal som brukes dersom kanalnavnet er ukjent
@@ -66,9 +53,9 @@ nesteItemtittel = {'nrk':["'Neste blir ' + tittel + ' med ' + artist"],
 #brukes for news innslag fra Digas
 nesteNewstittel =  {'nrk':["'Neste: ' + tittel + '.|' + artist"],
 	        'nrk_5_1':["'Neste: ' + tittel"],
-                'barn':["'Neste: ' + tittel"],
-		'gull':["ur + ': ' + tittel"],
-		'ev1':["'Neste: ' + tittel"],
-                'ev2':["'Neste: ' + tittel"],
+            'barn':["'Neste: ' + tittel"],
+		    'gull':["ur + ': ' + tittel"],
+		    'ev1':["'Neste: ' + tittel"],
+            'ev2':["'Neste: ' + tittel"],
 
 			}
