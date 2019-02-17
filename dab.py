@@ -1,5 +1,5 @@
 #! /usr/local/bin/python3
-# -*- coding: utf-8-*-
+# -*- coding: utf-8 -*-
 
 """Tilrettelegger modul for DAB og nettradio"""
 
@@ -7,69 +7,63 @@
 # Status er 0 for ikke prossesert, 1 for oppdatert info,  2 for ny, 3 for "force breaking"
 
 import time
-now = time.time()
+import traceback
 from os import environ
-from cgi import parse_qs
 from sys import stdin, exc_info
 from threading import Thread
-from Queue import Queue
+from queue import Queue
+
 import gluonspin
-import traceback
 
 # Importer parsermoduler
 import iteminfo
 import digasEkstra
 
 # Importer utspillingsmoduler
-import dlsInt #DLS egen streaming
-import dlsExt #DLS ekstern streamingspartner
+import dlsInt # DLS egen streaming
+import dlsExt # DLS ekstern streamingspartner
 import dlsExt_test
-import winmedia #Nettradiomodul
-import winmediaDr#Modul for DR enkodere
-import utGluon2
+import winmedia # Nettradiomodul
+import winmediaDr # Modul for DR enkodere
+import ut_gluon2
 
-verbose = False
-testFil = False
-traader = True #Kjører hver av utspillingsmodulene i tråder
-maxVent = 55 #Maks ventetid pÂ utspillingsmodulene
-quark = "dab:mdw2"
-
-allow = ['10.0.1.17','*'] # Egentlig karuselladressene, eller *
+VERBOSE = False
+TRAADER = True # Kj√∏rer hver av utspillingsmodulene i tr√•der
+TIMEOUT = 15 # Maks ventetid p√• utspillingsmodulene
+QUARK_NAME = "dab:mdw2"
 
 parsere = {
-    '/gluon/body/tables/@type=iteminfo':'iteminfo.parser(dok)',
-    '/gluon/objects/object/':'digasEkstra.parser(dok)',
+    '/gluon/body/tables/@type=iteminfo':iteminfo.parser(dok),
+    '/gluon/objects/object/':digasEkstra.parser(dok),
     }
 
 utenheter = {
     #'dls':'dls.tilDab(kanal=kanal,datatype=datatype,id=id)',
     #'dlsHiof':'dlsHiof.tilDab(kanal=kanal,datatype=datatype,id=id)',
-    'dlsInt':'dlsInt.tilDab(kanal=kanal,datatype=datatype,id=id)',
+    'dlsInt':dlsInt.tilDab(kanal=kanal,datatype=datatype,id=id),
     'dlsExt':'dlsExt.tilDab(kanal=kanal,datatype=datatype,id=id)',
     'dlsExt_test':'dlsExt_test.tilDab(kanal=kanal,datatype=datatype,id=id)',
-    #'winmedia':'winmedia.lagMetadata(kanal=kanal,datatype=datatype,id=id)',
     'winmediaDr':'winmediaDr.lagMetadata(kanal=kanal,datatype=datatype,id=id)',
-    'utGluon2':'utGluon2.lagMetadata(kanal=kanal,datatype=datatype,id=id)',
+    'ut_gluon2':'ut_gluon2.lagMetadata(kanal=kanal,datatype=datatype,id=id)',
     }
     
 
-def OK(quark, melding=""):
+def OK(QUARK_NAME, melding=""):
     if melding:
-        return '<OK quark="%s">%s</OK>' % (quark,melding)
+        return '<OK quark="%s">%s</OK>' % (QUARK_NAME, melding)
     else:
-        return '<OK quark="%s" />' % quark
+        return '<OK quark="%s" />' % QUARK_NAME
 
 
-def error(errid,quark, melding=""):
+def error(errid, QUARK_NAME, melding=""):
     if melding:
         return """<error quark="%s">
 \t<errorMessage errorType="%s"><message>%s</message></errorMessage>
-</error>""" % (quark,errid,melding)
+</error>""" % (QUARK_NAME, errid, melding)
 
-def startUtspiller(innstikk_navn=None, innstikk_type=None, parametre={}, returMeldinger=None):
-    "Enhet som startes som en tråd og som laster riktig utspillingsenhet"
-    
-    #Setter riktige variabler for eval funksjonen
+def startUtspiller(innstikk_navn=None, innstikk_type=None, parametre={}, retur_meldinger=None):
+    "Enhet som startes som en trd og som laster riktig utspillingsenhet"
+    # Setter riktige variabler for eval funksjonen
     kanal = parametre['kanal']
     datatype = parametre['datatype']
     if 'id' in parametre:
@@ -79,45 +73,45 @@ def startUtspiller(innstikk_navn=None, innstikk_type=None, parametre={}, returMe
     try:
         msg = eval(innstikk_type)
         if not msg:
-            msg=''
-        returMeldinger.put({'innstikk_navn':innstikk_navn, 'status':'ok','msg':msg})
+            msg = ''
+        retur_meldinger.put({'innstikk_navn':innstikk_navn, 'status':'ok','msg':msg})
     except:
         type, val, tb = exc_info()
         msg = "".join(traceback.format_exception(type, val, tb))
-        returMeldinger.put({'innstikk_navn':innstikk_navn, 'status':'error','msg':msg})
+        retur_meldinger.put({'innstikk_navn':innstikk_navn, 'status':'error','msg':msg})
     
 def main(dok):
-    #Hvis det ikke er noe dok her er det ¯nsket en oppdatering
-    s=[]
-    p=[]
-    #Finne riktig parser til dokumentet
+    # Hvis det ikke er noe dok her er det √∏nsket en oppdatering av utmodulene
+    status_list = []
+    prosess_list = []
+    # Finne riktig parser til dokumentet
     if dok:
         for krav in parsere:
-            iBane = gluonspin.gluonPath(krav)
-            gluonspin.parseString(dok,iBane)
-            if iBane.pathInXml:
-                p.append(parsere[krav])
-                #Todo kan vi gjøre dette uten eval
-                s.append(eval(parsere[krav]))
-                #Siden vi aldri får match på mer en en type kan vi avbryte nå
+            i_bane = gluonspin.gluonPath(krav)
+            gluonspin.parseString(dok,i_bane)
+            if i_bane.pathInXml:
+                prosess_list.append(parsere[krav])
+                #Todo kan vi gjre dette uten eval
+                status_list.append(eval(parsere[krav]))
+                #Siden vi aldri f√•r match p√• mer en en type kan vi avbryte n√•
                 break
     else:
-        #Lager proforma liste for Â oppdatere alle
-        s=[{'status':1,'kanal':'alle','datatype':'iteminfo'}]
-    #Start utspillingstjeneste
+        # Lager proforma liste for  oppdatere alle
+        status_list = [{'status':1,'kanal':'alle','datatype':'iteminfo'}]
+    # Start utspillingstjeneste
     
-    if verbose:
+    if VERBOSE:
         print ("Start utspilling:",time.time() - now)
-    #Innstikkstyper for hver av tjenestetypene i dab, dls, mot o.l.
+    # Innstikkstyper for hver av tjenestetypene i dab, dls, mot o.l.
     
-    #Sjekke hva som er oppdatert
+    # Sjekke hva som er oppdatert
     s2 = []
     trd = []
     meldinger = Queue()
     warnings = []
-    for i in s:
+    for i in status_list:
         if not i['status']:
-            if verbose:
+            if VERBOSE:
                 print("IGNORERES")
             continue
         kanal=i['kanal']
@@ -128,7 +122,7 @@ def main(dok):
             id = ''
         
         for ut in utenheter:
-            if traader:
+            if TRAADER:
                 t = Thread(target=startUtspiller,
                         kwargs = {'innstikk_navn':ut, 'innstikk_type':utenheter[ut], 'parametre':i, 'returMeldinger': meldinger}
                         )
@@ -138,39 +132,29 @@ def main(dok):
                 trd.append(t)
             else:
                 s2.append(eval(utenheter[ut]))
-            if verbose:
-                print("UTg:",ut,time.time()-now)
-        #Samle trådene
+            if VERBOSE:
+                print("UTG:",ut,time.time()-now)
+        # Samle tr√•dene
         nu = time.time()
         warnings = ['Warnings:']
         for t in trd:
-            vent = maxVent - (time.time() -nu)
+            vent = TIMEOUT - (time.time() -nu)
             t.join(vent)
             if t.isAlive():
-                warnings.append("%s brukte mer en %s sekunder" % (t.getName(), maxVent))
-            
-    
-    #Dersom noe trenger opprydningsrutiner legges disse inn her etter alle utspillingsmodulene
+                warnings.append("%s brukte mer en %s sekunder" % (t.getName(), TIMEOUT))
+    # Dersom noe trenger opprydningsrutiner legges disse inn her etter alle utspillingsmodulene
     if dok:
         #Venter bare ved dok
         time.sleep(20)
     for n,i in enumerate(p):
-        if verbose:
+        if VERBOSE:
             print(n,i)
-        if '.' in i:
-            modul = i.split('.')[0]
-            #TODO: Denne er neppe i bruk nå
-            if 'opprensk' in dir(eval(modul)):
-                #kall riktig modul, med resultatet fra parsingen
-                eval(modul+'.opprensk(s[n])')
-                if verbose:
-                    print('VI RYDDER')
-    #Vi sjekker trådene enda en gang og lager en sluttrapport
+    # Vi sjekker trdene enda en gang og lager en sluttrapport
     for t in trd:
         t.join(0.1)
         if t.isAlive():
-            warnings.append("%s ble tvunget ned etter %s sekunder" % (t.getName(), maxVent))
-    #Sjekke meldingene
+            warnings.append("%s ble tvunget ned etter %s sekunder" % (t.getName(), TIMEOUT))
+    # Sjekke meldingene
     totalStatusOK = True
     totalMelding = []
     while not meldinger.empty():
@@ -178,21 +162,20 @@ def main(dok):
         if melding['status']=='error':
             totalStatusOK = False
         totalMelding.append("\n%(innstikk_navn)s\n%(status)s\n%(msg)s" % melding)
-    #Legge til Warnings
+    # Legge til Warnings
     if len(warnings)>1:
         #Vi skal legge til warningsene
         totalMelding.extend(warnings)
     if totalStatusOK:
         #Vi skal returnere OK
-        return OK(quark,melding="\n".join(totalMelding))
+        return OK(QUARK_NAME, melding="\n".join(totalMelding))
     else:
-        #Vi fyrer feilmelding
-        return error('dab11',quark,melding="\n".join(totalMelding))
+        # Vi fyrer feilmelding
+        return error('dab11', QUARK_NAME, melding="\n".join(totalMelding))
 
     
 def handler():
     "Modul for CGI, henter ut dok"
-
     print("Content-type: text/html")
     print()
     if 'CONTENT_LENGTH' in environ:
@@ -208,7 +191,7 @@ def handler():
     except:
         type, val, tb = exc_info()
         msg = "".join(traceback.format_exception(type, val, tb))
-        print(error("dab10",quark, melding=msg))
+        print(error("dab10", QUARK_NAME, melding=msg))
     else:
         #Svar til sender
         print(respons)

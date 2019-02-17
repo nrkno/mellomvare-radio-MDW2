@@ -2,6 +2,11 @@
 
 "Tester for MDW2"
 
+import dabfilter
 import dab
+
+with open('/Users/n12327/Documents/Xcode prosjekter/MDW2/Eksempelfiler/item.xml') as fp:
+    dok = fp.read()
+
 
 print('Hello')
