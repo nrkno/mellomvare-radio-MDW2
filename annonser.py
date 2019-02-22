@@ -7,7 +7,7 @@ spiltAv = ['med', 'fremf¿rt av']
 lytter = ['Du h¿rer ', 'Du lytter til ', 'NŒ: ']
 nesteLytter = ['SŒ fŒr du h¿re ']
 
-# | gir ny linje dersom det trengs, ellers vil det fremstå som et ordskille.
+# | gir ny linje dersom det trengs, ellers vil det fremstŒ som et ordskille.
 
 # Tilgjengelige variabler : tittel,artist, beskrivelse, digastype, label og for neste ogsaa ur
 

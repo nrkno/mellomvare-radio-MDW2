@@ -17,10 +17,10 @@ import gluonspin
 
 # Importer parsermoduler
 import iteminfo
-import digasEkstra
 
 # Importer utspillingsmoduler
-import dlsInt # DLS egen streaming
+#TODO: Sjekk om denne er reell.
+# import dlsInt # DLS egen streaming
 import dlsExt # DLS ekstern streamingspartner
 import dlsExt_test
 import winmedia # Nettradiomodul
@@ -31,11 +31,6 @@ VERBOSE = False
 TRAADER = True # Kjører hver av utspillingsmodulene i tråder
 TIMEOUT = 15 # Maks ventetid på utspillingsmodulene
 QUARK_NAME = "dab:mdw2"
-
-parsere = {
-    '/gluon/body/tables/@type=iteminfo':iteminfo.parser(dok),
-    '/gluon/objects/object/':digasEkstra.parser(dok),
-    }
 
 utenheter = {
     #'dls':'dls.tilDab(kanal=kanal,datatype=datatype,id=id)',
@@ -86,15 +81,8 @@ def main(dok):
     prosess_list = []
     # Finne riktig parser til dokumentet
     if dok:
-        for krav in parsere:
-            i_bane = gluonspin.gluonPath(krav)
-            gluonspin.parseString(dok,i_bane)
-            if i_bane.pathInXml:
-                prosess_list.append(parsere[krav])
-                #Todo kan vi gjre dette uten eval
-                status_list.append(eval(parsere[krav]))
-                #Siden vi aldri får match på mer en en type kan vi avbryte nå
-                break
+        # Alt skal til iteminfo
+        status_list.append(iteminfo.parser(dok))
     else:
         # Lager proforma liste for  oppdatere alle
         status_list = [{'status':1,'kanal':'alle','datatype':'iteminfo'}]

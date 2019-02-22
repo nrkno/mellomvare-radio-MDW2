@@ -9,7 +9,7 @@ programtiden oppgis til å være null"""
 
 
 import xml.dom.minidom
-import MySQLdb as mdb
+import pymysql as mdb
 import re
 import time
 from random import choice
@@ -1147,16 +1147,12 @@ def parser(xmlstreng):
                 c2.execute(sql,(kanal,localid)) 
                 c2.close()
                 
-                if verbose:print localid,'SLETTET, fordi den var utløpt, eller skulle strykes'
+                if verbose:
+                    print(localid,'SLETTET, fordi den var utløpt, eller skulle strykes')
         
             
     #Lukke database
     d.commit()
     d.close()
     return {'status':status, 'kanal':kanal, 'datatype':'iteminfo'}
-    
-if __name__=='__main__':
-    f=open('item.xml')
-    print parser(f.read())
-    f.close()
     
