@@ -10,9 +10,8 @@ import time
 from random import choice, sample
 
 import sendTilServer
-import spillUtBreaking
 from annonser import *
-from dbConn import database
+from db_conn import database
 
 IKKE_DLS = ['nett'] #Legg inn bloknavn som ikke støtter dls teknologien, nettradioen f. eks.
 
@@ -48,7 +47,7 @@ Limit 1
     return p
 
 
-def sammenlignTittler(tittel1,tittel2):
+def sammenlign_tittler(tittel1, tittel2):
     "Sammenligner om titler er nesten like, f. eks. to satser av et verk, returnerer True hvis vi synes det er likt"
     #Vi finner forskjellen, Vi forutsetter at Verktittel begynner likt, dersom dette er et problem
     
@@ -893,22 +892,18 @@ def hentNewsInfo(d,kanal,hovedkanal,distriktssending=0):
 
     return s
 
-def hentItemNext(d,kanal,hovedkanal,distriktssending=0):
+def hentItemNext(d, kanal, hovedkanal, distriktssending=False):
     "Henter informasjon om det neste innslaget som skal på lufta, returnerer en liste med et element."
     #Dersom vi ikke har en distriktssending, skal vi gå til hovedkanalen for metadata:
-    #******
+
     distriktssending = 0
     if not distriktssending:
         kanal = hovedkanal
-
-
-    
-    c= d.cursor()
+    c = d.cursor()
     #Først må vi finne ut om vi har en samsending
-    
     sql = """SELECT kildekanal FROM iteminfo WHERE kanal=%s AND type='programme'  AND localid = '1' LIMIT 1 ;"""
-    c.execute(sql,(kanal,))
-    row =  c.fetchone()
+    c.execute(sql, (kanal,))
+    row = c.fetchone()
     if row:
         kildekanal = row[0]
     else:
@@ -917,7 +912,6 @@ def hentItemNext(d,kanal,hovedkanal,distriktssending=0):
         #Da henter vi verdiene fra denne isteden
         kanal = kildekanal
     
-
     #Først finne ut om vi har to like titler. Dersom denne feiler har vi i alle fall ikke noen like titler.
     try:
         sql = """SELECT tittel FROM iteminfo WHERE kanal=%s AND type='item' AND (localid = '4' OR localid = '3')  LIMIT 2;"""
@@ -926,12 +920,13 @@ def hentItemNext(d,kanal,hovedkanal,distriktssending=0):
         tittel1 = c.fetchone()[0]
         tittel2 = c.fetchone()[0]
     except:
+        # FIXME: Dette er tull
         tittel1 = 'x'
         tittel2 = 'y'
 
     #Dersom titlene er like med untak av satsbetegnelsene viser vi ingenting
     else:
-        if sammenlignTittler(tittel1,tittel2):
+        if sammenlign_tittler(tittel1, tittel2):
             return []
     
     #Ellers viser vi nesteinformasjon

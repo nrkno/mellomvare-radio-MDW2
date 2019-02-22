@@ -21,7 +21,7 @@ import iteminfo
 # Importer utspillingsmoduler
 #TODO: Sjekk om denne er reell.
 # import dlsInt # DLS egen streaming
-import dlsExt # DLS ekstern streamingspartner
+import dls_ext # DLS ekstern streamingspartner
 import dlsExt_test
 import winmedia # Nettradiomodul
 import winmediaDr # Modul for DR enkodere
@@ -33,22 +33,18 @@ TIMEOUT = 15 # Maks ventetid på utspillingsmodulene
 QUARK_NAME = "dab:mdw2"
 
 utenheter = {
-    #'dls':'dls.tilDab(kanal=kanal,datatype=datatype,id=id)',
-    #'dlsHiof':'dlsHiof.tilDab(kanal=kanal,datatype=datatype,id=id)',
     'dlsInt':dlsInt.tilDab(kanal=kanal,datatype=datatype,id=id),
-    'dlsExt':'dlsExt.tilDab(kanal=kanal,datatype=datatype,id=id)',
+    'dls_ext':'dls_ext.tilDab(kanal=kanal,datatype=datatype,id=id)',
     'dlsExt_test':'dlsExt_test.tilDab(kanal=kanal,datatype=datatype,id=id)',
     'winmediaDr':'winmediaDr.lagMetadata(kanal=kanal,datatype=datatype,id=id)',
     'ut_gluon2':'ut_gluon2.lagMetadata(kanal=kanal,datatype=datatype,id=id)',
     }
-    
 
 def OK(QUARK_NAME, melding=""):
     if melding:
         return '<OK quark="%s">%s</OK>' % (QUARK_NAME, melding)
     else:
         return '<OK quark="%s" />' % QUARK_NAME
-
 
 def error(errid, QUARK_NAME, melding=""):
     if melding:
