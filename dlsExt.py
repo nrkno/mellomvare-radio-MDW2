@@ -19,7 +19,6 @@ IKKE_DLS = ['nett'] #Legg inn bloknavn som ikke støtter dls teknologien, nettra
 egenProd = 'EBU-NONRK' #Label for egenproduksjon
 MAX_LEVETID = 2
 VERBOSE = True
-testModus = False
 lagetGrense = 1980 #Årstall for når vi skal markere at eldre er arkivopptak
 
 def minimumLevetid(d,kanal):
@@ -1018,8 +1017,6 @@ def hentNewsItemNext(d,kanal,hovedkanal,distriktssending=0):
     if not distriktssending:
         kanal = hovedkanal
 
-
-    
     c= d.cursor()
     #Først må vi finne ut om vi har en samsending
     
@@ -1058,9 +1055,7 @@ def hentNewsItemNext(d,kanal,hovedkanal,distriktssending=0):
         #Dette er en forelÃ¸pig patch for at en har begynt Ã¥ bruke datetime objekter
         tid = tid.isoformat()
 
-
     ur = tid[11:16]
-
     if kanal in nesteNewstittel:
         if not artist and ('artist' in nesteNewstittel[kanal]):
             item = tittel
@@ -1190,10 +1185,10 @@ def roter(s,n):
     "Roterer en liste N plasser"
     return s[n:] + s[:n]
 
-def lagVisningstider(streng, min = 4, max = 30):
+def lagVisningstider(text, min_sec=4, max_sec=30):
     "Lager en kommaseparert liste med visningstider, slik at vi får en individuel tilpassning av dls-ene"
     #128 er max linjelengde som gir verdien max
-    return str(int((len(streng)) / 128.0 * max + min))
+    return str(int((len(text)) / 128.0 * max_sec + min_sec))
 
 def xmlEntety(streng):
     "qout og amp er en kamp"
@@ -1343,7 +1338,7 @@ def tilDab(kanal='alle', datatype=None, id=''):
                 dataliste = map(None, s,(map(lagVisningstider,s)))
 
                 for addr in ["nrkhd-ice-01.netwerk.no","nrkhd-ice-02.netwerk.no"]:
-                    svar = sendTilServer.sendData(
+                    sendTilServer.sendData(
                     '%s:1204' % addr,
                     kanal=kanal,
                     blokk='riks1',
@@ -1351,7 +1346,6 @@ def tilDab(kanal='alle', datatype=None, id=''):
                     stop=stop,
                     liste=dataliste
                     )
-
     #Lukke databasen
     
     d.close()

@@ -17,7 +17,6 @@ class gluonspinError(Exception):
     def __str__(self):
         return repr(self.value)
     
-    pass
 class gluonTransmitters(xml.sax.handler.ContentHandler):
     """Henter ut transmitterne, og navnet på avsendersystemet."""
     def __init__(self):

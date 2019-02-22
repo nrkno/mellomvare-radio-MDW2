@@ -16,14 +16,12 @@
 		69D9D8E322170A5400DDCD7D /* item3.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = item3.xml; sourceTree = "<group>"; };
 		69D9D8E422170A5400DDCD7D /* roller.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = roller.py; sourceTree = "<group>"; };
 		69D9D8E522170A5400DDCD7D /* ut_gluon2.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = ut_gluon2.py; sourceTree = "<group>"; };
-		69D9D8E622170A5400DDCD7D /* spillUtBreaking.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = spillUtBreaking.py; sourceTree = "<group>"; };
 		69D9D8E722170A5400DDCD7D /* winmediaDr.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = winmediaDr.py; sourceTree = "<group>"; };
 		69D9D8E922170A5500DDCD7D /* MDWdump.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = MDWdump.py; sourceTree = "<group>"; };
 		69D9D8EE22170A5500DDCD7D /* annonser.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = annonser.py; sourceTree = "<group>"; };
 		69D9D8F122170A5500DDCD7D /* lagTestWeb.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = lagTestWeb.py; sourceTree = "<group>"; };
 		69D9D8F322170A5500DDCD7D /* sendTilHiof.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = sendTilHiof.py; sourceTree = "<group>"; };
 		69D9D8F422170A5500DDCD7D /* sendTilDab.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = sendTilDab.py; sourceTree = "<group>"; };
-		69D9D8F522170A5600DDCD7D /* dlsInt.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = dlsInt.py; sourceTree = "<group>"; };
 		69D9D8F622170A5600DDCD7D /* iteminfo.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = iteminfo.py; sourceTree = "<group>"; };
 		69D9D8F822170A5600DDCD7D /* mot.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = mot.py; sourceTree = "<group>"; };
 		69D9D8F922170A5600DDCD7D /* gluonspin.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = gluonspin.py; sourceTree = "<group>"; };
@@ -35,7 +33,7 @@
 		69D9D90422170A5800DDCD7D /* dab.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = dab.py; sourceTree = "<group>"; };
 		69D9D90522170A5800DDCD7D /* sender_lokal.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = sender_lokal.py; sourceTree = "<group>"; };
 		69D9D90622170A5800DDCD7D /* result.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = result.py; sourceTree = "<group>"; };
-		69D9D90922170A5900DDCD7D /* sendTilServer.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = sendTilServer.py; sourceTree = "<group>"; };
+		69D9D90922170A5900DDCD7D /* send_til_server.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = send_til_server.py; sourceTree = "<group>"; };
 		69D9D90B22170A5900DDCD7D /* dabfilter.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = dabfilter.py; sourceTree = "<group>"; };
 		69D9D90C22170A5900DDCD7D /* utGluon2exp.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = utGluon2exp.py; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -52,7 +50,6 @@
 				69D9D90322170A5800DDCD7D /* dbConn.py */,
 				69D9D8DF22170A5400DDCD7D /* dlsExt_test.py */,
 				69D9D8FB22170A5600DDCD7D /* dlsExt.py */,
-				69D9D8F522170A5600DDCD7D /* dlsInt.py */,
 				69D9D8E122170A5400DDCD7D /* felles.py */,
 				69D9D8FF22170A5700DDCD7D /* gluoncommons.py */,
 				69D9D8F922170A5600DDCD7D /* gluonspin.py */,
@@ -68,8 +65,7 @@
 				69D9D90522170A5800DDCD7D /* sender_lokal.py */,
 				69D9D8F422170A5500DDCD7D /* sendTilDab.py */,
 				69D9D8F322170A5500DDCD7D /* sendTilHiof.py */,
-				69D9D90922170A5900DDCD7D /* sendTilServer.py */,
-				69D9D8E622170A5400DDCD7D /* spillUtBreaking.py */,
+				69D9D90922170A5900DDCD7D /* send_til_server.py */,
 				69D9D8E522170A5400DDCD7D /* ut_gluon2.py */,
 				69D9D90C22170A5900DDCD7D /* utGluon2exp.py */,
 				69D9D8E722170A5400DDCD7D /* winmediaDr.py */,
