@@ -9,7 +9,7 @@ roterer så listen deretter.
 import time
 from random import choice, sample
 
-import sendTilServer
+import send_til_server
 from annonser import *
 from db_conn import database
 
@@ -18,12 +18,12 @@ IKKE_DLS = ['nett'] #Legg inn bloknavn som ikke støtter dls teknologien, nettra
 egenProd = 'EBU-NONRK' #Label for egenproduksjon
 MAX_LEVETID = 2
 VERBOSE = True
-lagetGrense = 1980 #Årstall for når vi skal markere at eldre er arkivopptak
+LAGET_GRENSE = 1980 #Årstall for når vi skal markere at eldre er arkivopptak
 
-def minimumLevetid(d,kanal):
+def minimum_levetid(d, kanal):
     "Finner den laveste gjenværende tid på en kanal"
-    #Denne må modifiseres for å ta hensyn til alle dls'ene i kanalen
-    #Kanskje heller ta vare på alle stoptidene slik at vi kan legge de på en stak som regenererer dls,ene?
+    # Denne må modifiseres for å ta hensyn til alle dls'ene i kanalen
+    # Kanskje heller ta vare på alle stoptidene slik at vi kan legge de på en stak som regenererer dls,ene?
     c = d.cursor()
     sql = """select
 UNIX_TIMESTAMP(tid) + lengde - UNIX_TIMESTAMP()
@@ -32,29 +32,28 @@ from iteminfo
 where
  kanal=%s
 order by tid_igjen
-Limit 1
-;"""
+Limit 1;
+"""
     c.execute(sql,(kanal))
     try:
         try:
-            p = int(c.fetchone()[0])
+            periode = int(c.fetchone()[0])
         finally:
             c.close()
     except TypeError:
         return 0
     if kanal != 'ak':
-        p += 600
-    return p
+        periode += 600
+    return periode
 
 
 def sammenlign_tittler(tittel1, tittel2):
     "Sammenligner om titler er nesten like, f. eks. to satser av et verk, returnerer True hvis vi synes det er likt"
     #Vi finner forskjellen, Vi forutsetter at Verktittel begynner likt, dersom dette er et problem
-    
     try:
         for i in range(len(tittel1)):
-            if tittel1[i]!=tittel2[i]:break
-    
+            if tittel1[i] != tittel2[i]:
+                break
     except:
         pass
     #Vi tar ut forskjellene
@@ -63,29 +62,28 @@ def sammenlign_tittler(tittel1, tittel2):
 
     #Vi gjør en enkel test i første omgang, siden kan dette brukes til noe ala : ... sats 1. fulgt av sats 2.
     
-    if len(likheten)>3 * len(forskjell) and 'sats' in forskjell:
+    if len(likheten) > 3 * len(forskjell) and 'sats' in forskjell:
         return True
     else:
         return False
 
 
-def ISOtilDato(dato,sekunder=0, sql=0):
+def iso_til_dato(dato, sekunder=0, sql=False):
     if not dato:
         return 0
     if type(dato)!=type(''):
         #Dette er en forelÃ¸pig patch for at en har begynt Ã¥ bruke datetime objekter
         dato = dato.isoformat()
-    if 'T' in dato or sql:
+    if 'T' in dato or sql is True:
         try:
             if sekunder:
-                tid= time.mktime ((int(dato[0:4]),int(dato[5:7]), int(dato[8:10]),int(dato[11:13]),int(dato[14:16])
+                tid = time.mktime((int(dato[0:4]), int(dato[5:7]), int(dato[8:10]), int(dato[11:13]), int(dato[14:16])
                         ,int(dato[17:19]),-1,-1,-1))
             else:
-                tid= time.mktime ((int(dato[0:4]),int(dato[5:7]), int(dato[8:10]),int(dato[11:13]),int(dato[14:16])
+                tid = time.mktime((int(dato[0:4]),int(dato[5:7]), int(dato[8:10]),int(dato[11:13]),int(dato[14:16])
                         ,0,-1,-1,-1))
         except ValueError:
             tid = 0
-    
     else:
         try:
             tid = int(dato)
@@ -100,16 +98,16 @@ def finn_kanaler(d, ikke_distrikt=False):
         sql = """SELECT DISTINCT navn FROM kanal WHERE foreldre_id=id;"""
     else:
         sql = """SELECT DISTINCT navn FROM kanal;"""
-    s = []
+    svar = []
     c.execute(sql)
     while 1:
         p = c.fetchone()
         if p:
-            s.append(p[0].lower())
+            svar.append(p[0].lower())
         else:
             break
     c.close()
-    return s
+    return svar
 
 def distriktskanal(d, kanal):
     "Returnerer en liste av underkanaler på grunnlag av et kanalnavn"
@@ -264,7 +262,7 @@ def hentPgrinfo(d, kanal, hovedkanal):
         return []
     return [tittel, beskrivelse]
 
-def hentProgrammeinfo(d, kanal, hovedkanal, distriktssending  =False, style='enkel', useTimeLimit = True, harDistrikter = False, forceDistrikt = True):
+def hentProgrammeinfo(d, kanal, hovedkanal, distriktssending=False, useTimeLimit=True, harDistrikter=False, forceDistrikt=True):
     """Henter informasjon om programmet som er på lufta, returnerer en liste med et element. Ved distriktssendinger kan flagget
     for distriktssendinger settes.
     Finner ut om det gjeldenede programmet er på lufta akkurat nå, dersom ikke finner ut om hovedkanalen har data
@@ -274,7 +272,7 @@ def hentProgrammeinfo(d, kanal, hovedkanal, distriktssending  =False, style='enk
     if VERBOSE:
         print()
         print('Henter programme info - inn')
-        print('kanal=%s, hovedkanal=%s, distriktssending=%s, style=%s, useTimeLimit=%s, harDistrikter=%s' % ( kanal, hovedkanal, distriktssending, style, useTimeLimit, harDistrikter))
+        print('kanal=%s, hovedkanal=%s, distriktssending=%s, useTimeLimit=%s, harDistrikter=%s' % ( kanal, hovedkanal, distriktssending, useTimeLimit, harDistrikter))
     c = d.cursor()
     
     #Sjekke om programmet er utløpt i kanalen
@@ -321,7 +319,6 @@ def hentProgrammeinfo(d, kanal, hovedkanal, distriktssending  =False, style='enk
         #Kanalen har et aktivt program, og den har en mor, dvs hovedkanl er ikke seg selv.
         distriktssending = True
         tittelSufix = ''
-
 
     elif digastype == '50' and (kanal != hovedkanal):
         #Vi har en distriktssending av den gamle typen
@@ -375,7 +372,7 @@ def hentProgrammeinfo(d, kanal, hovedkanal, distriktssending  =False, style='enk
         # *** ENDRING sjekke om programdataene er utløpt
         if hovedkanal and (not distriktssending):
             
-            return hentProgrammeinfo(d,hovedkanal,None, distriktssending=distriktssending, style=style, useTimeLimit= useTimeLimit)
+            return hentProgrammeinfo(d,hovedkanal,None, distriktssending=distriktssending, useTimeLimit= useTimeLimit)
         else:
             return [''], distriktssending
 
@@ -384,7 +381,7 @@ def hentProgrammeinfo(d, kanal, hovedkanal, distriktssending  =False, style='enk
 
     if VERBOSE:
         print('Henter programme info - ut')
-        print('kanal=%s, hovedkanal=%s, distriktssending=%s, style=%s, useTimeLimit=%s, harDistrikter=%s' % ( kanal, hovedkanal, distriktssending, style, useTimeLimit, harDistrikter))
+        print('kanal=%s, hovedkanal=%s, distriktssending=%s, useTimeLimit=%s, harDistrikter=%s' % ( kanal, hovedkanal, distriktssending, useTimeLimit, harDistrikter))
     
 
     #Dersom vi ikke er i en sending, skal vi jo ikke vise noe program
@@ -392,43 +389,25 @@ def hentProgrammeinfo(d, kanal, hovedkanal, distriktssending  =False, style='enk
 
     #Dersom vi er mer enn fem minutter, 300 sekunder inn i et program viser vi bare programmet
     
-    sekunderSiden = time.time() - ISOtilDato(tid,sekunder=1, sql=1)
+    sekunderSiden = time.time() - iso_til_dato(tid,sekunder=1, sql=1)
     #Tar bort programomtale litt ut i programmet.
 
-    if sekunderSiden>600 and useTimeLimit:
-        if style=='enkel':
-            return [tittel], distriktssending
-        else:
-            return [choice(lytter) + ' ' + tittel], distriktssending
-    
+    if sekunderSiden > 600 and useTimeLimit:
+        return [tittel], distriktssending
 
     if artist:
-        if style=='enkel':
-            item = tittel + '. ' + artist
-            if len(item) > 128:
-                    return [tittel, artist], distriktssending
-            else:
-                    return [item], distriktssending
+        item = tittel + '. ' + artist
+        if len(item) > 128:
+                return [tittel, artist], distriktssending
         else:
-            item = choice(lytter) + ' ' + tittel + '. ' + artist
-            if len(item) > 128:
-                return [choice(lytter) + ' ' + tittel, artist], distriktssending
-            else:
+                return [item], distriktssending
+    else:
+        item = tittel + '. ' + beskrivelse
+        if len(item) > 128:
+                return [tittel, beskrivelse], distriktssending
+        else:
                 return [item], distriktssending
 
-    else:
-        if style=='enkel':
-            item = tittel + '. ' + beskrivelse
-            if len(item) > 128:
-                    return [tittel, beskrivelse], distriktssending
-            else:
-                    return [item], distriktssending
-        else:
-            item = choice(lytter) + ' ' + tittel + '. ' + beskrivelse
-            if len(item) > 128:
-                return [choice(lytter) + ' ' + tittel, beskrivelse], distriktssending
-            else:
-                return [item], distriktssending
 
 
 def hentProgrammeNext(d,kanal,hovedkanal,distriktssending=0):
@@ -511,7 +490,7 @@ def hentIteminfo(d,kanal,hovedkanal,distriktssending=0):
     except :
         laget = 0
     else:
-        if laget<lagetGrense:
+        if laget<LAGET_GRENSE:
             tittel = "%s, innspilt %s," % (tittel,laget)
 
 
@@ -723,7 +702,7 @@ def hentNewsItem(d,kanal,hovedkanal,distriktssending=0):
     except :
         laget = 0
     else:
-        if laget<lagetGrense:
+        if laget<LAGET_GRENSE:
             tittel = "%s, innspilt %s," % (tittel,laget)
 
 
@@ -842,7 +821,7 @@ def hentNewsInfo(d,kanal,hovedkanal,distriktssending=0):
     except :
         laget = 0
     else:
-        if laget<lagetGrense:
+        if laget < LAGET_GRENSE:
             tittel = "%s, innspilt %s," % (tittel,laget)
     
 
@@ -1099,83 +1078,6 @@ def hentNewsItemNext(d,kanal,hovedkanal,distriktssending=0):
 
     return s
 
-
-def hentBadetemperaturer(d,kanal,hovedkanal,distriktssending=0):
-    "Henter badetemperaturer til reiseradioen o.l."
-    c= d.cursor()
-    sql = """select
-stedsnavn,
-vanntemperatur
-
-from bade_temp
-where
-vanntemperatur <> 0
-and
-TO_DAYS(NOW()) - TO_DAYS(oppdatert) = 0
-and svarteliste = 'N'
-order by
-vanntemperatur
-desc
-;"""
-
-    sql2 = """select
-stedsnavn,
-vanntemperatur
-
-from bade_temp
-where
-vanntemperatur <> 0
-and
-TO_DAYS(NOW()) - TO_DAYS(oppdatert) = 0
-and
-svarteliste = 'N'
-and
-fylkesnavn in ('Oslo', 'Akershus','Østfold','Vestfold','Buskerud','Telemark')
-order by
-vanntemperatur
-desc
-;"""
-    #Finne riktig sql spørring
-    if kanal=='p1of' or kanal=='p1_ndoa':
-        sql=sql2
- 
- 
-    s=[]
-    listestreng = 'Badetemperaturene : Høyest - '
-    c.execute(sql,)
-    temperaturliste = c.fetchall()
-    if len(temperaturliste) == 0:
-        return []
-    if len(temperaturliste) > 5:
-        temperaturliste = [temperaturliste[0]]+sample(temperaturliste[1:-1],3)+ [temperaturliste[-1]]
-    for temp in temperaturliste:
-        sted,temperatur = temp
-        if ',' in sted:
-            sted = sted.split(',')[0]
-        listestreng += "%s:%s|" % (sted,temperatur)
-    listestreng += '(lavest)'
-
-
-    #Sette sammen dls til så få linjer som mulig
-    part = ''
-    deler = listestreng.split('|')
-    for delen in deler:
-        
-        if part:
-            if len(part) + len(delen) < 125:
-                part = part + ' ' + delen
-            elif len(delen) < 125:
-                #Vi legger den ferdige dls fragmentet til listen
-                s.append(part + '...')
-                part = '...' + delen
-        else:
-            part = delen
-    #Opprydding vi må uansett legge til den siste part
-    s.append(part)
-
-
-    return s
-
 def roter(s,n):
     "Roterer en liste N plasser"
     return s[n:] + s[:n]
@@ -1185,13 +1087,7 @@ def lagVisningstider(text, min_sec=4, max_sec=30):
     #128 er max linjelengde som gir verdien max
     return str(int((len(text)) / 128.0 * max_sec + min_sec))
 
-def xmlEntety(streng):
-    "qout og amp er en kamp"
-    #128 er max linjelengde som gir verdien max
-    
-    return streng.replace('&', '&amp;').replace('"', '&quot;')
-
-def tilDab(kanal='alle', datatype=None, id=''):
+def til_dab(kanal='alle', datatype=None, id=''):
     "Henter data for en gitt kanal ut i fra de forskjellige databasene og setter sammen til en DLS som sendes videre som et mimemultipartdokument."
     
     #kanal='alle'
@@ -1219,7 +1115,6 @@ def tilDab(kanal='alle', datatype=None, id=''):
             #Vi har en kanal med barn, ergo er hovedkanalen kanalen selv.
             hovedkanal = kanal
             harDistrikter = True
-
 
         for kanal in distriktskanaler:
             # Filtrer for distriktskanaler som hr egne metadata
@@ -1315,20 +1210,20 @@ def tilDab(kanal='alle', datatype=None, id=''):
                 multiplex = blokk
                 if VERBOSE:
                     print("MULTIPLEX", multiplex)
-                #multiplex = 'ALL' # Dette kan difrensieres etterhvert
-                start = sendTilServer.isodato(time.time()) #DVS vi sender en liste som gjelder fra nå
-                #Dersom vi har iteminfo er levetiden på listen lik den gjenværende tiden på det korteste innslaget
+                # multiplex = 'ALL' # Dette kan difrensieres etterhvert
+                start = send_til_server.isodato(time.time()) #DVS vi sender en liste som gjelder fra nå
+                # Dersom vi har iteminfo er levetiden på listen lik den gjenværende tiden på det korteste innslaget
                 if distriktssending:
-                    levetid = minimumLevetid(d,kanal)
+                    levetid = minimum_levetid(d, kanal)
                 else:
-                    levetid = minimumLevetid(d,hovedkanal)
-                if levetid <=0:
+                    levetid = minimum_levetid(d, hovedkanal)
+                if levetid <= 0:
                     #Vi har ingen ok tidsangivelse
                     levetid = 60 * 60 * MAX_LEVETID #dvs i hele timer regnet om til sekunder
 
-                stop = sendTilServer.isodato(time.time() + levetid + 5 )  #5 sekunder ofset slik at infoen heller henger enn forsvinner like før en oppdatering
+                stop = send_til_server.isodato(time.time() + levetid + 5)  #5 sekunder ofset slik at infoen heller henger enn forsvinner like før en oppdatering
 
-                s = map(xmlEntety,s)
+                s = map(xmlEntety, s)
                 #Lag en kommaseparert liste over visningstider
                 dataliste = map(None, s,(map(lagVisningstider,s)))
 

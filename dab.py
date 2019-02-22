@@ -19,12 +19,10 @@ import gluonspin
 import iteminfo
 
 # Importer utspillingsmoduler
-#TODO: Sjekk om denne er reell.
-# import dlsInt # DLS egen streaming
 import dls_ext # DLS ekstern streamingspartner
-import dlsExt_test
-import winmedia # Nettradiomodul
-import winmediaDr # Modul for DR enkodere
+#import dlsExt_test # Vi venter med denne, det er bare utsendelses adressen som er annerledes.
+#import winmedia # Nettradiomodul
+#import winmediaDr # Modul for DR enkodere
 import ut_gluon2
 
 VERBOSE = False
@@ -33,7 +31,6 @@ TIMEOUT = 15 # Maks ventetid på utspillingsmodulene
 QUARK_NAME = "dab:mdw2"
 
 utenheter = {
-    'dlsInt':dlsInt.tilDab(kanal=kanal,datatype=datatype,id=id),
     'dls_ext':'dls_ext.tilDab(kanal=kanal,datatype=datatype,id=id)',
     'dlsExt_test':'dlsExt_test.tilDab(kanal=kanal,datatype=datatype,id=id)',
     'winmediaDr':'winmediaDr.lagMetadata(kanal=kanal,datatype=datatype,id=id)',

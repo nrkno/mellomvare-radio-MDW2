@@ -13,7 +13,7 @@ import pymysql as mdb
 import re
 import time
 from random import choice
-from dbConn import database
+from db_conn import database
 
 from roller import rolleliste, rollerelasjon, ikkeRolle
 

@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 "Dette er en hjelpefil for annonseringer i de forskjellige kanalene"
 
-spiller = ['spiller', 'fremfører']
-spilles = ['spilles av', 'fremføres av']
-spilt_av = ['med', 'fremført av']
-lytter = ['Du hører ', 'Du lytter til ', 'Nå: ']
-neste_lytter = ['Så får du høre ']
+spiller = ['spiller', 'fremf√∏rer']
+spilles = ['spilles av', 'fremf√∏res av']
+spilt_av = ['med', 'fremf√∏rt av']
+lytter = ['Du h√∏rer ', 'Du lytter til ', 'N√•: ']
+neste_lytter = ['S√• f√•r du h√∏re ']
 
-# | gir ny linje dersom det trengs, ellers vil det fremstå som et ordskille.
+# | gir ny linje dersom det trengs, ellers vil det fremst√• som et ordskille.
 
 # Tilgjengelige variabler : tittel,artist, beskrivelse, digastype, label
 
@@ -16,14 +16,14 @@ neste_lytter = ['Så får du høre ']
 # itemtittel brukes for musikkinslag
 
 itemtittel = {'nrk':["<tittel> med <artist>"],
-		'ak':["Nå: <tittel> |fremført av <artist>"],
+		'ak':["N√•: <tittel> |fremf√∏rt av <artist>"],
 		'mpetre':["<artist> med <tittel>"],
 		'ev1':["<tittel> <artist>"],
 		'ev2':["<tittel> <artist>"],
 		}
 
 # newstittel brukes for news innslag fra Digas
-#H vis man ikke vil ha med artistfeltet i en kanal, bruk '<kanalnavn>':["tittel"]
+# Hvis man ikke vil ha med artistfeltet i en kanal, bruk '<kanalnavn>':["tittel"]
 newstittel =  {'nrk':["<tittel>. |<artist>"],
 		'barn':["<tittel>"],
 		'gull':["<tittel>"],
