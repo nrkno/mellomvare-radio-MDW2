@@ -15,7 +15,7 @@ from db_conn import database
 
 IKKE_DLS = ['nett'] #Legg inn bloknavn som ikke støtter dls teknologien, nettradioen f. eks.
 
-egenProd = 'EBU-NONRK' #Label for egenproduksjon
+EGENPROD = 'EBU-NONRK' #Label for egenproduksjon
 MAX_LEVETID = 2
 VERBOSE = True
 LAGET_GRENSE = 1980 #Årstall for når vi skal markere at eldre er arkivopptak
@@ -34,7 +34,7 @@ where
 order by tid_igjen
 Limit 1;
 """
-    c.execute(sql,(kanal))
+    c.execute(sql, (kanal))
     try:
         try:
             periode = int(c.fetchone()[0])
@@ -46,42 +46,39 @@ Limit 1;
         periode += 600
     return periode
 
-
 def sammenlign_tittler(tittel1, tittel2):
     "Sammenligner om titler er nesten like, f. eks. to satser av et verk, returnerer True hvis vi synes det er likt"
-    #Vi finner forskjellen, Vi forutsetter at Verktittel begynner likt, dersom dette er et problem
     try:
-        for i in range(len(tittel1)):
-            if tittel1[i] != tittel2[i]:
+        for i, bokstav1 in enumerate(tittel1):
+            if bokstav1 != tittel2[i]:
                 break
-    except:
+    except IndexError:
         pass
     #Vi tar ut forskjellene
     likheten = tittel1[:i].rstrip(':.;, ')
     forskjell = tittel1[i:]
 
     #Vi gjør en enkel test i første omgang, siden kan dette brukes til noe ala : ... sats 1. fulgt av sats 2.
-    
-    if len(likheten) > 3 * len(forskjell) and 'sats' in forskjell:
+    if len(likheten) > 2.5 * len(forskjell) and 'sats' in forskjell:
         return True
     else:
         return False
 
-
 def iso_til_dato(dato, sekunder=0, sql=False):
     if not dato:
         return 0
-    if type(dato)!=type(''):
+    # FIXME: Denne er trolig unødvendig nå
+    if type(dato) != type(''):
         #Dette er en forelÃ¸pig patch for at en har begynt Ã¥ bruke datetime objekter
         dato = dato.isoformat()
     if 'T' in dato or sql is True:
         try:
             if sekunder:
-                tid = time.mktime((int(dato[0:4]), int(dato[5:7]), int(dato[8:10]), int(dato[11:13]), int(dato[14:16])
-                        ,int(dato[17:19]),-1,-1,-1))
+                tid = time.mktime((int(dato[0:4]), int(dato[5:7]), int(dato[8:10]), int(dato[11:13]), int(dato[14:16]),
+                                   int(dato[17:19]), -1, -1, -1))
             else:
-                tid = time.mktime((int(dato[0:4]),int(dato[5:7]), int(dato[8:10]),int(dato[11:13]),int(dato[14:16])
-                        ,0,-1,-1,-1))
+                tid = time.mktime((int(dato[0:4]),int(dato[5:7]), int(dato[8:10]), int(dato[11:13]), int(dato[14:16]),
+                                   0, -1, -1, -1))
         except ValueError:
             tid = 0
     else:
@@ -114,7 +111,7 @@ def distriktskanal(d, kanal):
     #Finne først intern ideen på kanalen
     c = d.cursor()
     sql = """SELECT DISTINCT id FROM kanal WHERE navn =%s LIMIT 1;"""
-    c.execute(sql,(kanal))
+    c.execute(sql, (kanal))
     row = c.fetchone()
     c.close()
     if row:
@@ -123,13 +120,13 @@ def distriktskanal(d, kanal):
         kanalId = 99
         if VERBOSE:
             print("UKJENT KANAL", kanal)
-    
+
     #Finne så hvilke distriktskanaler vi har
 
     c = d.cursor()
     sql = """SELECT navn FROM kanal WHERE foreldre_id =%s ;"""
     s = []
-    c.execute(sql,(kanalId))
+    c.execute(sql, (kanalId))
     while 1:
         p = c.fetchone()
         if p:
@@ -143,7 +140,7 @@ def distriktskanal(d, kanal):
         c = d.cursor()
         sql = """SELECT navn FROM kanal WHERE ID =%s LIMIT 1;"""
         s = []
-        c.execute(sql,(kanalId))
+        c.execute(sql, (kanalId))
         while 1:
             p = c.fetchone()
             if p:
@@ -153,13 +150,12 @@ def distriktskanal(d, kanal):
         c.close()
     return s
 
-
 def finnHovedkanal(d, kanal):
     "Returnerer navnet på hovedkanalen eller kanalnavn på grunnlag av kanalnavn"
-    #Finne fÃ¸rst intern ideen pÃ¥ morkanalen
+    #Finne først intern ideen på morkanalen
     c = d.cursor()
     sql = """SELECT DISTINCT foreldre_id FROM kanal WHERE navn =%s LIMIT 1;"""
-    c.execute(sql,(kanal))
+    c.execute(sql, (kanal))
     row = c.fetchone()
     c.close()
     if row:
@@ -167,23 +163,19 @@ def finnHovedkanal(d, kanal):
     else:
         hovedId = 99
         print("UKJENT KANAL", kanal)
-    
+
     #Finne hva hovedkanalen heter
-    
     c = d.cursor()
     sql = """SELECT navn FROM kanal WHERE id =%s LIMIT 1;"""
-    s = []
-    c.execute(sql,(hovedId))
+    c.execute(sql, (hovedId))
     row = c.fetchone()
     c.close()
     if row:
         return row[0]
-    # FIXME: Hva skjer hvis vi bommer her
-
+    return kanal
 
 def finnBlokker(d):
     "Returnerer alle blokkene fra dab-databasen"
-    
     c = d.cursor()
     sql = """SELECT DISTINCT id, navn FROM blokk;"""
     s = {}
@@ -197,29 +189,23 @@ def finnBlokker(d):
     c.close()
     return s
 
-
-def hentVisningsvalg(d,kanal, datatype=None, oppdatering=0):
+def hentVisningsvalg(d, kanal, datatype=None):
     "Henter ut visningsvalg og verdier for filterfunksjonen"
     #Først finner vi kanal_ID på kanalen.
-    
     blk = {}
     als = {}
-    c= d.cursor()
-    
+    c = d.cursor()()
     sql = """SELECT DISTINCT
             datatyper.tittel,datatyper.alias, blokk.navn
             FROM datatyper
             INNER JOIN dataikanal ON datatyper.id=dataikanal.datatype_id
             INNER JOIN blokk ON dataikanal.blokk_id=blokk.id
             INNER JOIN kanal ON kanal.id=dataikanal.kanal_id
-            
             WHERE kanal.navn = %s;"""
-    
-    c.execute(sql,(kanal,))
-    
+    c.execute(sql, (kanal,))
+
     for row in c.fetchall():
         tittel, alias, blokk = row
-        
         if not blokk in blk:
             blk[blokk] = [tittel]
             als[blokk] = [alias]
@@ -235,30 +221,27 @@ def hentVisningsvalg(d,kanal, datatype=None, oppdatering=0):
             FROM datatyper
             WHERE tittel = %s LIMIT 1"""
     c.execute(sql,(datatype,))
-    if c.rowcount ==1:
-        optType = c.fetchone()[0]
+    if c.rowcount == 1:
+        opt_type = c.fetchone()[0]
     else:
-        optType = 0
-    
+        opt_type = 0
     c.close()
     for vblk in als:
-        if not optType in als[vblk]:
+        if not opt_type in als[vblk]:
             blk.pop(vblk)
     return blk
 
 def hentPgrinfo(d, kanal, hovedkanal):
     "Henter kanalnavn og kanalbeskrivelse. Returnerer en liste de kanalnavn er 1. element og beskrivelsen 2."
-    c= d.cursor()
+    c = d.cursor()
     sql = """SELECT tittel, beskrivelse FROM iteminfo WHERE kanal=%s AND type='pgr' LIMIT 1;"""
-    
-    c.execute(sql,(kanal,))
+    c.execute(sql, (kanal,))
     try:
         try:
             tittel, beskrivelse = c.fetchone()
         finally:
             c.close()
     except TypeError:
-        
         return []
     return [tittel, beskrivelse]
 
@@ -282,7 +265,7 @@ def hentProgrammeinfo(d, kanal, hovedkanal, distriktssending=False, useTimeLimit
     progId !='DUMMY_PROD_NR'
     LIMIT 1;"""
     #Denne gir og PI sendeflatetype
-    c.execute(sql,(kanal,))
+    c.execute(sql, (kanal,))
     if c.rowcount:
         iProgramme = True
         if VERBOSE:
@@ -291,7 +274,6 @@ def hentProgrammeinfo(d, kanal, hovedkanal, distriktssending=False, useTimeLimit
         iProgramme = False
         if VERBOSE:
             print("%s IKKE eget PROGRAM" % kanal)
-
     if iProgramme and harDistrikter:
         #Vi har med å gjøre en distriktskanal som har eget program, da skal hele dls-en ignoreres. Den skal genereres ut ifra kanalens egen oppkall
         c.close()
@@ -304,7 +286,7 @@ def hentProgrammeinfo(d, kanal, hovedkanal, distriktssending=False, useTimeLimit
 
     sql = """SELECT digastype FROM iteminfo WHERE kanal=%s AND type='programme' AND localid = '1' LIMIT 1;"""
     #Denne gir og PI sendeflatetype
-    c.execute(sql,(hovedkanal,))
+    c.execute(sql, (hovedkanal,))
     try:
         try:
             digastype, = c.fetchone()
@@ -313,20 +295,17 @@ def hentProgrammeinfo(d, kanal, hovedkanal, distriktssending=False, useTimeLimit
     except TypeError:
         digastype = ''
         #Sjekke omo denne egentlig vil kunne feile
-
     #Finne alternativ måte for å tenne distriktsflagg
     if iProgramme and (kanal != hovedkanal):
         #Kanalen har et aktivt program, og den har en mor, dvs hovedkanl er ikke seg selv.
         distriktssending = True
         tittelSufix = ''
-
     elif digastype == '50' and (kanal != hovedkanal):
         #Vi har en distriktssending av den gamle typen
         distriktssending = True
         #Vi har ennå ikke distriktsvise programme info
         #Vi henter først ut navnet "Brandet" på kanalen
-        c= d.cursor()
-        
+        c = d.cursor()
         sql = """SELECT branding FROM kanal WHERE navn=%s LIMIT 1;"""
         c.execute(sql,(kanal,))
         try:
@@ -341,9 +320,7 @@ def hentProgrammeinfo(d, kanal, hovedkanal, distriktssending=False, useTimeLimit
             tittelSufix = ' fra ' + branding
         else:
             tittelSufix = ''
-        
         kanal = hovedkanal #Dette gjør at vi aldri henter programdata fra distriktsflaten
-
     else:
         #Hovedkanalen er ikke registrert med en distriktsflate, sjekke om vi skal la underkanalen ta styringen
         #Vi skal ikke har regionvise resultater
@@ -354,7 +331,7 @@ def hentProgrammeinfo(d, kanal, hovedkanal, distriktssending=False, useTimeLimit
             kanal = hovedkanal
             tittelSufix = ''
 
-    c= d.cursor()
+    c = d.cursor()
     sql = """SELECT tittel, beskrivelse, artist, tid FROM iteminfo WHERE kanal=%s AND type='programme' AND localid = '1'
     LIMIT 1;"""
 
@@ -364,37 +341,27 @@ def hentProgrammeinfo(d, kanal, hovedkanal, distriktssending=False, useTimeLimit
             tittel, beskrivelse, artist, tid = c.fetchone()
         finally:
             c.close()
-
     except TypeError:
         if VERBOSE:
             print("Feil i utlesing av kanaldata=%s, henter fra hovedkanal=%s" % (kanal, hovedkanal))
         #Dersom vi ikke har noe her, kan det hende det er en distriktskanal som ikke har egne metadata,
         # *** ENDRING sjekke om programdataene er utløpt
         if hovedkanal and (not distriktssending):
-            
             return hentProgrammeinfo(d,hovedkanal,None, distriktssending=distriktssending, useTimeLimit= useTimeLimit)
         else:
             return [''], distriktssending
 
-
     tittel = tittel + tittelSufix #Legger på f. eks. "fra NRK Trøndelag" på dirstriksflater
-
     if VERBOSE:
         print('Henter programme info - ut')
         print('kanal=%s, hovedkanal=%s, distriktssending=%s, useTimeLimit=%s, harDistrikter=%s' % ( kanal, hovedkanal, distriktssending, useTimeLimit, harDistrikter))
-    
-
     #Dersom vi ikke er i en sending, skal vi jo ikke vise noe program
-
-
     #Dersom vi er mer enn fem minutter, 300 sekunder inn i et program viser vi bare programmet
-    
-    sekunderSiden = time.time() - iso_til_dato(tid,sekunder=1, sql=1)
-    #Tar bort programomtale litt ut i programmet.
 
+    sekunderSiden = time.time() - iso_til_dato(tid, sekunder=1, sql=1)
+    #Tar bort programomtale litt ut i programmet.
     if sekunderSiden > 600 and useTimeLimit:
         return [tittel], distriktssending
-
     if artist:
         item = tittel + '. ' + artist
         if len(item) > 128:
@@ -408,49 +375,37 @@ def hentProgrammeinfo(d, kanal, hovedkanal, distriktssending=False, useTimeLimit
         else:
                 return [item], distriktssending
 
-
-
-def hentProgrammeNext(d,kanal,hovedkanal,distriktssending=0):
+def hentProgrammeNext(d, kanal, hovedkanal, distriktssending=0):
     "Henter informasjon om det neste programmet som skal på lufta, returnerer en liste med et element."
-    c= d.cursor()
+    c = d.cursor()
     sql = """SELECT tittel, tid FROM iteminfo WHERE kanal=%s AND type='programme' AND localid = '2' LIMIT 1;"""
-    
-    c.execute(sql,(kanal,))
+    c.execute(sql, (kanal, ))
     try:
         try:
-            
             tittel, tid = c.fetchone()
         finally:
             c.close()
     except TypeError:
         if hovedkanal and not distriktssending:
-            return hentProgrammeNext(d,hovedkanal,None)
-        else:
-            return []
+            return hentProgrammeNext(d, hovedkanal, None)
+        return []
 
-    if type(tid)!=type(''):
+    if type(tid) != type(''):
         #Dette er en foreløpig patch for at en har begynt å bruke datetime objekter
         tid = tid.isoformat()
-
-    #item = "Klokka " + tid[11:16] + ' kommer ' + tittel
     item = tid[11:16] + '- ' + tittel
     return [item]
 
-def hentIteminfo(d,kanal,hovedkanal,distriktssending=0):
+def hentIteminfo(d, kanal, hovedkanal, distriktssending=0):
     "Henter informasjon om musikkinnslaget som er på lufta, returnerer en liste med et element."
-    
-    
     #Dersom vi ikke har en distriktssending, skal vi gå til hovedkanalen for metadata:
-    
     if not distriktssending:
         kanal = hovedkanal
-
-
-    c= d.cursor()
+    c = d.cursor()
     #Først må vi finne ut om vi har en samsending
 
     sql = """SELECT kildekanal FROM iteminfo WHERE kanal=%s AND type='programme'  AND localid = '1' LIMIT 1 ;"""
-    c.execute(sql,(kanal,))
+    c.execute(sql, (kanal,))
     row =  c.fetchone()
     if row:
         kildekanal = row[0]
@@ -462,15 +417,15 @@ def hentIteminfo(d,kanal,hovedkanal,distriktssending=0):
     
     sql = """SELECT tittel,artist, beskrivelse, digastype, label FROM iteminfo WHERE kanal=%s AND type='item'  AND localid = '3' LIMIT 1 ;"""
 
-    c.execute(sql,(kanal,))
+    c.execute(sql, (kanal,))
     try:
         try:
-            tittel,artist, beskrivelse, digastype, label = c.fetchone()
+            tittel, artist, beskrivelse, digastype, label = c.fetchone()
         finally:
             c.close()
     except TypeError:
         if hovedkanal and not distriktssending:
-            return hentIteminfo(d,hovedkanal,None)
+            return hentIteminfo(d, hovedkanal, None)
         else:
             return []
     #Stotte for BMS som ikke har digastyper, default er musikk
@@ -479,9 +434,9 @@ def hentIteminfo(d,kanal,hovedkanal,distriktssending=0):
             return []
 
     #Vi finner opptaksdato
-    c= d.cursor()
+    c = d.cursor()
     sql = """SELECT YEAR(laget) FROM iteminfo WHERE kanal=%s AND type='item'  AND localid = '3' LIMIT 1 ;"""
-    c.execute(sql,(kanal,))
+    c.execute(sql, (kanal,))
     try:
         try:
             laget, = c.fetchone()
@@ -490,10 +445,8 @@ def hentIteminfo(d,kanal,hovedkanal,distriktssending=0):
     except :
         laget = 0
     else:
-        if laget<LAGET_GRENSE:
-            tittel = "%s, innspilt %s," % (tittel,laget)
-
-
+        if laget < LAGET_GRENSE:
+            tittel = "%s, innspilt %s," % (tittel, laget)
 
     if kanal in itemtittel:
         if not artist:
@@ -501,6 +454,7 @@ def hentIteminfo(d,kanal,hovedkanal,distriktssending=0):
         elif artist[0]=='.':
             #Dette er en type som ikke kan bindes med verk, ved hjelp av "spiller" verbet.
             #Vi velger derfor egen annonseringstype for dette.
+            # TODO: Bytt eval med string replace
             try:
                 item = eval(choice(itemtittel[kanal+'_S']))
             except KeyError:
@@ -511,18 +465,15 @@ def hentIteminfo(d,kanal,hovedkanal,distriktssending=0):
     else:
         item = eval(choice(itemtittel['nrk']))
     
-    if label.startswith(egenProd):
+    if label.startswith(EGENPROD):
         # Vi tar den enkle utvegen, det er snakk om en ann. av et program, denne er det vel snart ikke brukt for lenger men vi beholder den litt til. ***
         item = tittel+ '.|'+ artist
-    
 
     s=[]
     #Sette sammen dls til så få linjer som mulig
     part = ''
     deler = item.split('|')
     for delen in deler:
-        
-        
         if part:
             if len(part) + len(delen) < 125:
                 part = part + ' ' + delen
@@ -533,24 +484,21 @@ def hentIteminfo(d,kanal,hovedkanal,distriktssending=0):
             else:
                 #Dls frqagmentet er for langt
                 #Vi deler det på punktum, dersom det finnes
-                
                 if '.' in delen:
-                    del1,del2 = delen.split('.',1)
+                    del1, del2 = delen.split('.', 1)
                     if len(part) + len(del1) < 125:
                         s.append(part + ' ' + del1 + '...')
                         part = '...' + del2
                     else:
                         #Vi må dytte part i listen
                         s.append(part + '...')
-                        s.append('...'+del1 + '...')
+                        s.append('...'+ del1 + '...')
                         part = '...' + del2
                 else:
-                    pass
                     print("#HER SKULLE VI IKKE HA VÆRT#")
                     #eg krise
                     #Lage rutine som deler på ord
         else:
-        
             part = delen
     #Opprydding vi må uansett legge til den siste part
     s.append(part)
@@ -562,16 +510,11 @@ def hentIteminfo(d,kanal,hovedkanal,distriktssending=0):
 
 def hentIteminfoExtra(d,kanal,hovedkanal,distriktssending=0):
     "Henter informasjon om ekstra musikkinformasjon om innslaget som er på lufta, returnerer en liste med et element."
-    
     #Dersom vi ikke har en distriktssending, skal vi gå til hovedkanalen for metadata:
-    
     if not distriktssending:
         kanal = hovedkanal
-
-
-    c= d.cursor()
+    c = d.cursor()
     #Først må vi finne ut om vi har en samsending
-    
     sql = """SELECT kildekanal FROM iteminfo WHERE kanal=%s AND type='programme'  AND localid = '1' LIMIT 1 ;"""
     c.execute(sql,(kanal,))
     row =  c.fetchone()
@@ -583,11 +526,7 @@ def hentIteminfoExtra(d,kanal,hovedkanal,distriktssending=0):
         #Da henter vi verdiene fra denne isteden
         kanal = kildekanal
 
-
-
-
     sql = """SELECT tittel,artist, beskrivelse, digastype, label FROM iteminfo WHERE kanal=%s AND type='item'  AND localid = '3' LIMIT 1 ;"""
-    
     c.execute(sql,(kanal,))
     try:
         try:
@@ -599,7 +538,7 @@ def hentIteminfoExtra(d,kanal,hovedkanal,distriktssending=0):
             return hentIteminfoExtra(d,hovedkanal,None)
         else:
             return []
-    
+
     #For å få kompabilitet med BMS
     if digastype:
         if digastype !='Music':
@@ -609,14 +548,12 @@ def hentIteminfoExtra(d,kanal,hovedkanal,distriktssending=0):
         item = beskrivelse
     else:
         return []
-    
     s=[]
     #Sette sammen dls til så få linjer som mulig
     part = ''
     deler = item.split('|')
     for delen in deler:
-        
-        
+
         if part:
             if len(part) + len(delen) < 125:
                 part = part + ' ' + delen
@@ -627,16 +564,15 @@ def hentIteminfoExtra(d,kanal,hovedkanal,distriktssending=0):
             else:
                 #Dls frqagmentet er for langt
                 #Vi deler det på punktum, dersom det finnes
-                
                 if '.' in delen:
-                    del1,del2 = delen.split('.',1)
+                    del1, del2 = delen.split('.', 1)
                     if len(part) + len(del1) < 125:
                         s.append(part + ' ' + del1 + '...')
                         part = '...' + del2
                     else:
                         #Vi må dytte part i listen
                         s.append(part + '...')
-                        s.append('...'+del1 + '...')
+                        s.append('...'+ del1 + '...')
                         part = '...' + del2
                 else:
                     pass
@@ -644,26 +580,22 @@ def hentIteminfoExtra(d,kanal,hovedkanal,distriktssending=0):
                     #eg krise
                     #Lage rutine som deler på ord
         else:
-        
+
             part = delen
     #Opprydding vi må uansett legge til den siste part
     s.append(part)
-
     return s
 
-def hentNewsItem(d,kanal,hovedkanal,distriktssending=0):
+def hent_news_item(d, kanal, hovedkanal, distriktssending=0):
     "Henter informasjon om innslaget som er på lufta, dersom det er et news innslag; returnerer en liste med et element."
     # Dersom vi ikke har en distriktssending, skal vi gå til hovedkanalen for metadata:
     # Slå av distrikt så lenge
-    
     if not distriktssending:
         kanal = hovedkanal
-
-    c= d.cursor()
+    c = d.cursor()
     #Først må vi finne ut om vi har en samsending
-    
     sql = """SELECT kildekanal FROM iteminfo WHERE kanal=%s AND type='programme'  AND localid = '1' LIMIT 1 ;"""
-    c.execute(sql,(kanal,))
+    c.execute(sql, (kanal, ))
     row =  c.fetchone()
     if row:
         kildekanal = row[0]
@@ -672,10 +604,8 @@ def hentNewsItem(d,kanal,hovedkanal,distriktssending=0):
     if kildekanal:
         #Da henter vi verdiene fra denne isteden
         kanal = kildekanal
-
     sql = """SELECT tittel,artist, beskrivelse, digastype, label FROM iteminfo WHERE kanal=%s AND type='item'  AND localid = '3' LIMIT 1 ;"""
-    
-    c.execute(sql,(kanal,))
+    c.execute(sql, (kanal, ))
     try:
         try:
             tittel,artist, beskrivelse, digastype, label = c.fetchone()
@@ -683,17 +613,15 @@ def hentNewsItem(d,kanal,hovedkanal,distriktssending=0):
             c.close()
     except TypeError:
         if hovedkanal and not distriktssending:
-            return hentIteminfo(d,hovedkanal,None)
+            return hentIteminfo(d, hovedkanal, None)
         else:
             return []
-    
-    if digastype !='News':
+    if digastype != 'News':
         return []
-    
     #Vi finner opptaksdato
-    c= d.cursor()
+    c = d.cursor()
     sql = """SELECT YEAR(laget) FROM iteminfo WHERE kanal=%s AND type='item'  AND localid = '3' LIMIT 1 ;"""
-    c.execute(sql,(kanal,))
+    c.execute(sql, (kanal, ))
     try:
         try:
             laget, = c.fetchone()
@@ -703,15 +631,12 @@ def hentNewsItem(d,kanal,hovedkanal,distriktssending=0):
         laget = 0
     else:
         if laget<LAGET_GRENSE:
-            tittel = "%s, innspilt %s," % (tittel,laget)
-
-
+            tittel = "%s, innspilt %s," % (tittel, laget)
 
     if kanal in newstittel:
         if not artist:
             item = tittel
-        
-        elif artist[0]=='.':
+        elif artist[0] == '.':
             #Dette er en type som ikke kan bindes med verk, ved hjelp av "spiller" verbet.
             #Vi velger derfor egen annonseringstype for dette.
             try:
@@ -723,14 +648,11 @@ def hentNewsItem(d,kanal,hovedkanal,distriktssending=0):
             item = eval(choice(newstittel[kanal]))
     else:
         item = eval(choice(newstittel['nrk']))
-
     s=[]
     #Sette sammen dls til så få linjer som mulig
     part = ''
     deler = item.split('|')
     for delen in deler:
-        
-        
         if part:
             if len(part) + len(delen) < 125:
                 part = part + ' ' + delen
@@ -743,14 +665,14 @@ def hentNewsItem(d,kanal,hovedkanal,distriktssending=0):
                 #Vi deler det på punktum, dersom det finnes
                 
                 if '.' in delen:
-                    del1,del2 = delen.split('.',1)
+                    del1, del2 = delen.split('.', 1)
                     if len(part) + len(del1) < 125:
                         s.append(part + ' ' + del1 + '...')
                         part = '...' + del2
                     else:
                         #Vi må dytte part i listen
                         s.append(part + '...')
-                        s.append('...'+del1 + '...')
+                        s.append('...'+ del1 + '...')
                         part = '...' + del2
                 else:
                     pass
@@ -758,28 +680,21 @@ def hentNewsItem(d,kanal,hovedkanal,distriktssending=0):
                     #eg krise
                     #Lage rutine som deler på ord
         else:
-        
             part = delen
     #Opprydding vi må uansett legge til den siste part
     s.append(part)
-    
     return s
 
-def hentNewsInfo(d,kanal,hovedkanal,distriktssending=0):
+def hent_news_info(d, kanal, hovedkanal, distriktssending=0):
     "Henter extra informasjon om nyhetsinnslag som er på lufta, returnerer en liste med et element."
-    
     #Dersom vi ikke har en distriktssending, skal vi gå til hovedkanalen for metadata:
-    #*******
     distriktssending = 0
     if not distriktssending:
         kanal = hovedkanal
-
-
-    c= d.cursor()
+    c = d.cursor()
     #Først må vi finne ut om vi har en samsending
-    
     sql = """SELECT kildekanal FROM iteminfo WHERE kanal=%s AND type='programme'  AND localid = '1' LIMIT 1 ;"""
-    c.execute(sql,(kanal,))
+    c.execute(sql, (kanal, ))
     row =  c.fetchone()
     if row:
         kildekanal = row[0]
@@ -788,9 +703,6 @@ def hentNewsInfo(d,kanal,hovedkanal,distriktssending=0):
     if kildekanal:
         #Da henter vi verdiene fra denne isteden
         kanal = kildekanal
-    
-
-
 
     sql = """SELECT tittel,artist, beskrivelse, digastype, label FROM iteminfo WHERE kanal=%s AND type='item'  AND localid = '3' LIMIT 1 ;"""
     
@@ -802,15 +714,14 @@ def hentNewsInfo(d,kanal,hovedkanal,distriktssending=0):
             c.close()
     except TypeError:
         if hovedkanal and not distriktssending:
-            return hentNewsInfo(d,hovedkanal,None)
-        else:
-            return []
+            return hent_news_info(d,hovedkanal,None)
+        return []
 
     if digastype !='News':
         return []
     
     #Vi finner opptaksdato
-    c= d.cursor()
+    c = d.cursor()()
     sql = """SELECT YEAR(laget) FROM iteminfo WHERE kanal=%s AND type='item'  AND localid = '3' LIMIT 1 ;"""
     c.execute(sql,(kanal,))
     try:
@@ -823,7 +734,6 @@ def hentNewsInfo(d,kanal,hovedkanal,distriktssending=0):
     else:
         if laget < LAGET_GRENSE:
             tittel = "%s, innspilt %s," % (tittel,laget)
-    
 
     if beskrivelse:
         item = beskrivelse
@@ -849,14 +759,14 @@ def hentNewsInfo(d,kanal,hovedkanal,distriktssending=0):
                 #Vi deler det på punktum, dersom det finnes
                 
                 if '.' in delen:
-                    del1,del2 = delen.split('.',1)
+                    del1, del2 = delen.split('.', 1)
                     if len(part) + len(del1) < 125:
                         s.append(part + ' ' + del1 + '...')
                         part = '...' + del2
                     else:
                         #Vi må dytte part i listen
                         s.append(part + '...')
-                        s.append('...'+del1 + '...')
+                        s.append('...'+ del1 + '...')
                         part = '...' + del2
                 else:
                     pass
@@ -864,7 +774,7 @@ def hentNewsInfo(d,kanal,hovedkanal,distriktssending=0):
                     #eg krise
                     #Lage rutine som deler på ord
         else:
-        
+
             part = delen
     #Opprydding vi må uansett legge til den siste part
     s.append(part)
@@ -920,12 +830,12 @@ def hentItemNext(d, kanal, hovedkanal, distriktssending=False):
             c.close()
     except TypeError:
         if hovedkanal and not distriktssending:
-            return hentItemNext(d,hovedkanal,None)
+            return hentItemNext(d, hovedkanal, None)
         else:
             return []
 
     if type(tid)!=type(''):
-        #Dette er en forelÃ¸pig patch for at en har begynt Ã¥ bruke datetime objekter
+        #Dette er en foreløpig patch for at en har begynt å bruke datetime objekter
         tid = tid.isoformat()
     
     ur = tid[11:16]
@@ -962,14 +872,14 @@ def hentItemNext(d, kanal, hovedkanal, distriktssending=False):
                 #Dls frqagmentet er for langt
                 #Vi deler det på punktum, dersom det finnes
                 if '.' in delen:
-                    del1,del2 = delen.split('.',1)
+                    del1, del2 = delen.split('.', 1)
                     if len(part) + len(del1) < 125:
                         s.append(part + ' ' + del1 + '...')
                         part = '...' + del2
                     else:
                         #Vi må dytte part i listen
                         s.append(part + '...')
-                        s.append('...'+del1 + '...')
+                        s.append('...'+ del1 + '...')
                         part = '...' + del2
                 else:
                     pass
@@ -983,7 +893,7 @@ def hentItemNext(d, kanal, hovedkanal, distriktssending=False):
     
     return s
 
-def hentNewsItemNext(d,kanal,hovedkanal,distriktssending=0):
+def hentNewsItemNext(d, kanal, hovedkanal, distriktssending=0):
     "Henter informasjon om det neste innslaget som skal på lufta, returnerer en liste med et element."
     #Dersom vi ikke har en distriktssending, skal vi gå til hovedkanalen for metadata:
     #******
@@ -991,11 +901,11 @@ def hentNewsItemNext(d,kanal,hovedkanal,distriktssending=0):
     if not distriktssending:
         kanal = hovedkanal
 
-    c= d.cursor()
+    c = d.cursor()
     #Først må vi finne ut om vi har en samsending
     
     sql = """SELECT kildekanal FROM iteminfo WHERE kanal=%s AND type='programme'  AND localid = '1' LIMIT 1 ;"""
-    c.execute(sql,(kanal,))
+    c.execute(sql, (kanal,))
     row =  c.fetchone()
     if row:
         kildekanal = row[0]
@@ -1005,12 +915,10 @@ def hentNewsItemNext(d,kanal,hovedkanal,distriktssending=0):
         #Da henter vi verdiene fra denne isteden
         kanal = kildekanal
     
-    
     #Ellers viser vi nesteinformasjon
     sql = """SELECT tittel, artist, digastype, tid FROM iteminfo WHERE kanal=%s AND type='item' AND localid = '4' LIMIT 1;"""
     
-
-    c.execute(sql,(kanal,))
+    c.execute(sql, (kanal,))
     try:
         try:
             tittel,artist, digastype, tid = c.fetchone()
@@ -1018,9 +926,8 @@ def hentNewsItemNext(d,kanal,hovedkanal,distriktssending=0):
             c.close()
     except TypeError:
         if hovedkanal and not distriktssending:
-            return hentNewsItemNext(d,hovedkanal,None)
-        else:
-            return []
+            return hentNewsItemNext(d, hovedkanal, None)
+        return []
     
     if digastype != 'News':
         return []
@@ -1033,19 +940,16 @@ def hentNewsItemNext(d,kanal,hovedkanal,distriktssending=0):
     if kanal in nesteNewstittel:
         if not artist and ('artist' in nesteNewstittel[kanal]):
             item = tittel
-
         else:
             item = eval(choice(nesteNewstittel[kanal]))
     else:
         item = eval(choice(nesteNewstittel['nrk']))
-    
+
     s=[]
     #Sette sammen dls til så få linjer som mulig
     part = ''
     deler = item.split('|')
     for delen in deler:
-        
-        
         if part:
             if len(part) + len(delen) < 125:
                 part = part + ' ' + delen
@@ -1057,17 +961,16 @@ def hentNewsItemNext(d,kanal,hovedkanal,distriktssending=0):
                 #Dls frqagmentet er for langt
                 #Vi deler det på punktum, dersom det finnes
                 if '.' in delen:
-                    del1,del2 = delen.split('.',1)
+                    del1, del2 = delen.split('.', 1)
                     if len(part) + len(del1) < 125:
                         s.append(part + ' ' + del1 + '...')
                         part = '...' + del2
                     else:
                         #Vi må dytte part i listen
                         s.append(part + '...')
-                        s.append('...'+del1 + '...')
+                        s.append('...'+ del1 + '...')
                         part = '...' + del2
                 else:
-                    pass
                     print("#HER SKULLE VI IKKE HA VÆRT#")
                     #eg krise
         else:
@@ -1135,7 +1038,6 @@ def til_dab(kanal='alle', datatype=None, id=''):
                 # Bygge opp visningslista
                 # Hente visningsvalg
 
-
                 visningsvalg = visningsvalgBlokk[blokk]
                 if VERBOSE:
                     print('Skal vises:', kanal, visningsvalgBlokk.keys())
@@ -1148,14 +1050,13 @@ def til_dab(kanal='alle', datatype=None, id=''):
                 sk=[]
                 #Så til tjenestegruppene
                 #Vi trenger aa hente programmeinfo uansett, men vi bruker dataene bare hvis det skal vises
-                programmeDls, distriktssending = hentProgrammeinfo(d,kanal,hovedkanal, harDistrikter = harDistrikter)
-
+                programmeDls, distriktssending = hentProgrammeinfo(d, kanal, hovedkanal, harDistrikter=harDistrikter)
                 if 'iteminfo' in visningsvalg:
                     s.extend(hentIteminfo(d, kanal, hovedkanal, distriktssending=distriktssending))
                 if 'newsItem' in visningsvalg:
-                    s.extend(hentNewsItem(d, kanal, hovedkanal, distriktssending=distriktssending))
+                    s.extend(hent_news_item(d, kanal, hovedkanal, distriktssending=distriktssending))
                 if 'pgrinfo' in visningsvalg:
-                    s.extend(hentPgrinfo(d,kanal,hovedkanal))
+                    s.extend(hentPgrinfo(d, kanal, hovedkanal))
 
                 #ProgrammeDls hentes ut ovenfor
                 if 'programmeinfo' in visningsvalg:
@@ -1163,37 +1064,36 @@ def til_dab(kanal='alle', datatype=None, id=''):
 
                 if 'iteminfo' in visningsvalg:
                     #Musikkobjekter
-                    linja = hentIteminfo(d,kanal,hovedkanal, distriktssending=distriktssending)
+                    linja = hentIteminfo(d, kanal, hovedkanal, distriktssending=distriktssending)
                     s.extend(linja)
                     sk.extend(linja)
                 if 'musicInfo' in visningsvalg:
                     #Tillegsinfo om musikk
-                    s.extend(hentIteminfoExtra(d,kanal,hovedkanal, distriktssending=distriktssending))
+                    s.extend(hentIteminfoExtra(d, kanal, hovedkanal, distriktssending=distriktssending))
                     #****
                     #Problem et sted her, er riktig hit forsvinner etterpå
                 #Et element er aldri både 'music' og 'news', derfor vill maks to innførsler her
                 #s.extend([]) har ingen effekt
                 if 'newsItem' in visningsvalg:
                     #Andre objekter
-                    linja = hentNewsItem(d,kanal,hovedkanal, distriktssending=distriktssending)
+                    linja = hent_news_item(d, kanal, hovedkanal, distriktssending=distriktssending)
                     s.extend(linja)
                     sk.extend(linja)
                 if 'newsInfo' in visningsvalg:
                     #Tillegsinfo om news
-                    s.extend(hentNewsInfo(d,kanal,hovedkanal, distriktssending=distriktssending))
-
+                    s.extend(hent_news_info(d, kanal, hovedkanal, distriktssending=distriktssending))
 
                 if 'itemNext' in visningsvalg:
-                    s.extend(hentItemNext(d,kanal,hovedkanal))
+                    s.extend(hentItemNext(d, kanal, hovedkanal))
                 if 'newsItemNext' in visningsvalg:
-                    s.extend(hentNewsItemNext(d,kanal,hovedkanal))
+                    s.extend(hentNewsItemNext(d, kanal, hovedkanal))
 
                 #Dersom det er veldig kort DLS så kan vi tvangsstyre infofeltet for ptogram
-                if 'programmeinfo' in visningsvalg and len(s)<4:
-                    s.extend(hentProgrammeinfo(d,kanal,hovedkanal, useTimeLimit=False)[0])
+                if 'programmeinfo' in visningsvalg and len(s) < 4:
+                    s.extend(hentProgrammeinfo(d, kanal, hovedkanal, useTimeLimit=False)[0])
 
                 if 'programmeNext' in visningsvalg:
-                    s.extend(hentProgrammeNext(d,kanal,hovedkanal))
+                    s.extend(hentProgrammeNext(d, kanal, hovedkanal))
 
                 if VERBOSE:
                     print(kanal)
@@ -1201,7 +1101,7 @@ def til_dab(kanal='alle', datatype=None, id=''):
                         print(i)
                         print('-' * 128)
                 if VERBOSE:
-                    print(kanal,datatype)
+                    print(kanal, datatype)
 
                 #Vi kan ikke sende en tom liste
                 if not s:
@@ -1223,12 +1123,12 @@ def til_dab(kanal='alle', datatype=None, id=''):
 
                 stop = send_til_server.isodato(time.time() + levetid + 5)  #5 sekunder ofset slik at infoen heller henger enn forsvinner like før en oppdatering
 
-                s = map(xmlEntety, s)
+                s = map(xml_entety, s)
                 #Lag en kommaseparert liste over visningstider
                 dataliste = map(None, s,(map(lagVisningstider,s)))
 
                 for addr in ["nrkhd-ice-01.netwerk.no","nrkhd-ice-02.netwerk.no"]:
-                    sendTilServer.sendData(
+                    send_til_server.send_data(
                     '%s:1204' % addr,
                     kanal=kanal,
                     blokk='riks1',
@@ -1241,5 +1141,5 @@ def til_dab(kanal='alle', datatype=None, id=''):
     d.close()
 
 if __name__=='__main__':
-    tilDab(kanal='p3x',datatype='iteminfo')
+    til_dab(kanal='p3x', datatype='iteminfo')
 

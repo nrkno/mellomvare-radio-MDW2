@@ -22,7 +22,6 @@
 		69D9D8F122170A5500DDCD7D /* lagTestWeb.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = lagTestWeb.py; sourceTree = "<group>"; };
 		69D9D8F422170A5500DDCD7D /* sendTilDab.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = sendTilDab.py; sourceTree = "<group>"; };
 		69D9D8F622170A5600DDCD7D /* iteminfo.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = iteminfo.py; sourceTree = "<group>"; };
-		69D9D8F822170A5600DDCD7D /* mot.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = mot.py; sourceTree = "<group>"; };
 		69D9D8F922170A5600DDCD7D /* gluonspin.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = gluonspin.py; sourceTree = "<group>"; };
 		69D9D8FB22170A5600DDCD7D /* dls_ext.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = dls_ext.py; sourceTree = "<group>"; };
 		69D9D8FC22170A5600DDCD7D /* mmt.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = mmt.py; sourceTree = "<group>"; };
@@ -58,7 +57,6 @@
 				69D9D8DE22170A5300DDCD7D /* lagTestWebNett.py */,
 				69D9D8E922170A5500DDCD7D /* MDWdump.py */,
 				69D9D8FC22170A5600DDCD7D /* mmt.py */,
-				69D9D8F822170A5600DDCD7D /* mot.py */,
 				69D9D90622170A5800DDCD7D /* result.py */,
 				69D9D8E422170A5400DDCD7D /* roller.py */,
 				69D9D90522170A5800DDCD7D /* sender_lokal.py */,
