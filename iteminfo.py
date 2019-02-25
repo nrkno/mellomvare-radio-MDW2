@@ -18,7 +18,7 @@ from db_conn import database
 from roller import rolleliste, rollerelasjon, ikkeRolle
 
 kanalSW = {'nrk jazz':'jazz','nrk sport':'sport','sport':'sport','nrk gull':'gull','nrk p1pluss':'p1pluss','nrk barn':'barn','p1_ndst':'p1st','nrk p1':'p1','p1':'p1','nrk p2':'p2','p2':'p2','nrk p3':'p3','petre':'p3','nrk petre':'p3','p3':'p3','nrk ak':'ak', 'alltid klassisk':'ak','ak':'ak','nrk mpetre':'mpetre', 'mpetre':'mpetre','nrk alltid nyheter':'','nrk an':'an','an':'an','nrk alltid folkemusikk':'fmk','fmk':'fmk','p3urort':'urort','urort':'urort', 'nrk p1 oslofjord':'p1of','p1of':'p1of','sami dab':'sami','lzu':'sami'}
-kanalAlow = ['p1_ndst','p1','p2','p3','ak','an','mpetre','sami','fmk','p3urort','p1of','ev1','ev2','nrk_5_1']#Brukes ikke
+
 
 fjernsyn = ['nrk 1', 'nrk 2', 'nrk 3_super']
 newsItem = ['p1','p3']
@@ -644,10 +644,7 @@ def parser(xmlstreng):
             #return "Settet er strøket"
             return {'status':2, 'kanal':kanal, 'datatype':'iteminfo'}
         
-        """	
-        if not kanal.lower() in kanalAlow:
-            return {'status':0, 'kanal':kanal, 'datatype':'iteminfo'}
-        """
+
         elementer = tabell.getElementsByTagName("element")
         sendingItem = 0
         sendingProgramme = 0

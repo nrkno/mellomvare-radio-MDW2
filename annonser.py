@@ -12,7 +12,7 @@ neste_lytter = ['Så får du høre ']
 # Tilgjengelige variabler : tittel,artist, beskrivelse, digastype, label
 
 # NRK kanalen er en kanal som brukes dersom kanalnavnet er ukjent
-#_ S kanalene er tilbruk der man har "solister"
+
 # itemtittel brukes for musikkinslag
 
 itemtittel = {'nrk':["<tittel> med <artist>"],

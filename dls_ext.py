@@ -65,11 +65,12 @@ def sammenlign_tittler(tittel1, tittel2):
         return False
 
 def iso_til_dato(dato, sekunder=0, sql=False):
+    "Gjør om iso strenger til vanlige sekunder"
     if not dato:
         return 0
     # FIXME: Denne er trolig unødvendig nå
     if type(dato) != type(''):
-        #Dette er en forelÃ¸pig patch for at en har begynt Ã¥ bruke datetime objekter
+        #Dette er en foreløpig patch for at en har begynt å bruke datetime objekter
         dato = dato.isoformat()
     if 'T' in dato or sql is True:
         try:
@@ -88,19 +89,21 @@ def iso_til_dato(dato, sekunder=0, sql=False):
             tid = 0
     return tid
 
-def finn_kanaler(d, ikke_distrikt=False):
+def insert_value(template, tittel, artist, beskrivelse, digastype, label):
+    "I steden for eval, setter vi inn verdier i en streng: <tittel> byttes med tittelen"
+
+    return template.replace('<tittel>', tittel).replace('<artist>', artist)
+
+def finn_kanaler(d,):
     "Returnerer alle kanalnavnene fra dab-databasen"
     c = d.cursor()
-    if ikke_distrikt:
-        sql = """SELECT DISTINCT navn FROM kanal WHERE foreldre_id=id;"""
-    else:
-        sql = """SELECT DISTINCT navn FROM kanal;"""
+    sql = """SELECT DISTINCT navn FROM kanal WHERE foreldre_id=id;"""
     svar = []
     c.execute(sql)
     while 1:
-        p = c.fetchone()
-        if p:
-            svar.append(p[0].lower())
+        post = c.fetchone()
+        if post:
+            svar.append(post[0].lower())
         else:
             break
     c.close()
@@ -189,12 +192,12 @@ def finnBlokker(d):
     c.close()
     return s
 
-def hentVisningsvalg(d, kanal, datatype=None):
+def hent_visningsvalg(d, kanal, datatype='iteminfo'):
     "Henter ut visningsvalg og verdier for filterfunksjonen"
     #Først finner vi kanal_ID på kanalen.
     blk = {}
     als = {}
-    c = d.cursor()()
+    c = d.cursor()
     sql = """SELECT DISTINCT
             datatyper.tittel,datatyper.alias, blokk.navn
             FROM datatyper
@@ -245,7 +248,7 @@ def hentPgrinfo(d, kanal, hovedkanal):
         return []
     return [tittel, beskrivelse]
 
-def hentProgrammeinfo(d, kanal, hovedkanal, distriktssending=False, useTimeLimit=True, harDistrikter=False, forceDistrikt=True):
+def hentProgrammeinfo(d, kanal, hovedkanal, distriktssending=False, useTimeLimit=True, har_distrikter=False, forceDistrikt=True):
     """Henter informasjon om programmet som er på lufta, returnerer en liste med et element. Ved distriktssendinger kan flagget
     for distriktssendinger settes.
     Finner ut om det gjeldenede programmet er på lufta akkurat nå, dersom ikke finner ut om hovedkanalen har data
@@ -255,7 +258,7 @@ def hentProgrammeinfo(d, kanal, hovedkanal, distriktssending=False, useTimeLimit
     if VERBOSE:
         print()
         print('Henter programme info - inn')
-        print('kanal=%s, hovedkanal=%s, distriktssending=%s, useTimeLimit=%s, harDistrikter=%s' % ( kanal, hovedkanal, distriktssending, useTimeLimit, harDistrikter))
+        print('kanal=%s, hovedkanal=%s, distriktssending=%s, useTimeLimit=%s, har_distrikter=%s' % ( kanal, hovedkanal, distriktssending, useTimeLimit, har_distrikter))
     c = d.cursor()
     
     #Sjekke om programmet er utløpt i kanalen
@@ -274,7 +277,7 @@ def hentProgrammeinfo(d, kanal, hovedkanal, distriktssending=False, useTimeLimit
         iProgramme = False
         if VERBOSE:
             print("%s IKKE eget PROGRAM" % kanal)
-    if iProgramme and harDistrikter:
+    if iProgramme and har_distrikter:
         #Vi har med å gjøre en distriktskanal som har eget program, da skal hele dls-en ignoreres. Den skal genereres ut ifra kanalens egen oppkall
         c.close()
         if VERBOSE:
@@ -354,7 +357,7 @@ def hentProgrammeinfo(d, kanal, hovedkanal, distriktssending=False, useTimeLimit
     tittel = tittel + tittelSufix #Legger på f. eks. "fra NRK Trøndelag" på dirstriksflater
     if VERBOSE:
         print('Henter programme info - ut')
-        print('kanal=%s, hovedkanal=%s, distriktssending=%s, useTimeLimit=%s, harDistrikter=%s' % ( kanal, hovedkanal, distriktssending, useTimeLimit, harDistrikter))
+        print('kanal=%s, hovedkanal=%s, distriktssending=%s, useTimeLimit=%s, har_distrikter=%s' % ( kanal, hovedkanal, distriktssending, useTimeLimit, har_distrikter))
     #Dersom vi ikke er i en sending, skal vi jo ikke vise noe program
     #Dersom vi er mer enn fem minutter, 300 sekunder inn i et program viser vi bare programmet
 
@@ -415,8 +418,7 @@ def hentIteminfo(d, kanal, hovedkanal, distriktssending=0):
         #Da henter vi verdiene fra denne isteden
         kanal = kildekanal
     
-    sql = """SELECT tittel,artist, beskrivelse, digastype, label FROM iteminfo WHERE kanal=%s AND type='item'  AND localid = '3' LIMIT 1 ;"""
-
+    sql = """SELECT tittel, artist, beskrivelse, digastype, label FROM iteminfo WHERE kanal=%s AND type='item' AND localid = '3' LIMIT 1;"""
     c.execute(sql, (kanal,))
     try:
         try:
@@ -428,11 +430,9 @@ def hentIteminfo(d, kanal, hovedkanal, distriktssending=0):
             return hentIteminfo(d, hovedkanal, None)
         else:
             return []
-    #Stotte for BMS som ikke har digastyper, default er musikk
     if digastype:
         if digastype !='Music':
             return []
-
     #Vi finner opptaksdato
     c = d.cursor()
     sql = """SELECT YEAR(laget) FROM iteminfo WHERE kanal=%s AND type='item'  AND localid = '3' LIMIT 1 ;"""
@@ -451,24 +451,16 @@ def hentIteminfo(d, kanal, hovedkanal, distriktssending=0):
     if kanal in itemtittel:
         if not artist:
             item = tittel
-        elif artist[0]=='.':
-            #Dette er en type som ikke kan bindes med verk, ved hjelp av "spiller" verbet.
-            #Vi velger derfor egen annonseringstype for dette.
-            # TODO: Bytt eval med string replace
-            try:
-                item = eval(choice(itemtittel[kanal+'_S']))
-            except KeyError:
-                #Dersom det ikke er laget egen maltype for dette faller vi tilbake på originalen
-                item = eval(choice(itemtittel[kanal]))
         else:
-            item = eval(choice(itemtittel[kanal]))
+            item = insert_value(choice(itemtittel[kanal]), tittel, artist, beskrivelse, digastype, label)
     else:
-        item = eval(choice(itemtittel['nrk']))
+        item = insert_value(choice(itemtittel['nrk']), tittel, artist, beskrivelse, digastype, label)
     
     if label.startswith(EGENPROD):
         # Vi tar den enkle utvegen, det er snakk om en ann. av et program, denne er det vel snart ikke brukt for lenger men vi beholder den litt til. ***
         item = tittel+ '.|'+ artist
 
+    #******REFR_Start
     s=[]
     #Sette sammen dls til så få linjer som mulig
     part = ''
@@ -502,13 +494,15 @@ def hentIteminfo(d, kanal, hovedkanal, distriktssending=0):
             part = delen
     #Opprydding vi må uansett legge til den siste part
     s.append(part)
+    #******REFR_END
+
     #Dersom det er ønskelig legge til platemerke
     if kanal == 'ak' and label:
         if not label.startswith('EBU-'):
             s.append(label)
     return s
 
-def hentIteminfoExtra(d,kanal,hovedkanal,distriktssending=0):
+def hentIteminfoExtra(d, kanal, hovedkanal, distriktssending=0):
     "Henter informasjon om ekstra musikkinformasjon om innslaget som er på lufta, returnerer en liste med et element."
     #Dersom vi ikke har en distriktssending, skal vi gå til hovedkanalen for metadata:
     if not distriktssending:
@@ -530,12 +524,12 @@ def hentIteminfoExtra(d,kanal,hovedkanal,distriktssending=0):
     c.execute(sql,(kanal,))
     try:
         try:
-            tittel,artist, beskrivelse, digastype, label = c.fetchone()
+            tittel, artist, beskrivelse, digastype, label = c.fetchone()
         finally:
             c.close()
     except TypeError:
         if hovedkanal and not distriktssending:
-            return hentIteminfoExtra(d,hovedkanal,None)
+            return hentIteminfoExtra(d, hovedkanal, None)
         else:
             return []
 
@@ -781,7 +775,7 @@ def hent_news_info(d, kanal, hovedkanal, distriktssending=0):
 
     return s
 
-def hentItemNext(d, kanal, hovedkanal, distriktssending=False):
+def hent_item_next(d, kanal, hovedkanal, distriktssending=False):
     "Henter informasjon om det neste innslaget som skal på lufta, returnerer en liste med et element."
     #Dersom vi ikke har en distriktssending, skal vi gå til hovedkanalen for metadata:
 
@@ -830,7 +824,7 @@ def hentItemNext(d, kanal, hovedkanal, distriktssending=False):
             c.close()
     except TypeError:
         if hovedkanal and not distriktssending:
-            return hentItemNext(d, hovedkanal, None)
+            return hent_item_next(d, hovedkanal, None)
         else:
             return []
 
@@ -893,7 +887,7 @@ def hentItemNext(d, kanal, hovedkanal, distriktssending=False):
     
     return s
 
-def hentNewsItemNext(d, kanal, hovedkanal, distriktssending=0):
+def hent_news_item_next(d, kanal, hovedkanal, distriktssending=0):
     "Henter informasjon om det neste innslaget som skal på lufta, returnerer en liste med et element."
     #Dersom vi ikke har en distriktssending, skal vi gå til hovedkanalen for metadata:
     #******
@@ -926,7 +920,7 @@ def hentNewsItemNext(d, kanal, hovedkanal, distriktssending=0):
             c.close()
     except TypeError:
         if hovedkanal and not distriktssending:
-            return hentNewsItemNext(d, hovedkanal, None)
+            return hent_news_item_next(d, hovedkanal, None)
         return []
     
     if digastype != 'News':
@@ -981,165 +975,141 @@ def hentNewsItemNext(d, kanal, hovedkanal, distriktssending=0):
 
     return s
 
+def xml_entety(streng):
+    "qout og amp er en kamp"
+    return streng.replace('&', '&amp;').replace('"', '&quot;')
+
 def roter(s,n):
     "Roterer en liste N plasser"
     return s[n:] + s[:n]
+
+def bygg_dls(d, kanal, hovedkanal, har_distrikter=False):
+    "Bygger opp dels - returnerer en liste"
+
+    visningsvalg_blokk = hent_visningsvalg(d, kanal)
+    for blokk in visningsvalg_blokk:
+        if blokk in IKKE_DLS:
+            if VERBOSE:
+                print("Ikke vis som DLS på %s" % blokk)
+            continue
+        # Bygge opp visningslista
+        # Hente visningsvalg
+        visningsvalg = visningsvalg_blokk[blokk]
+        if VERBOSE:
+            print('Skal vises:', kanal, visningsvalg_blokk.keys())
+            print("Visningsvalg:", visningsvalg)
+
+        dls_l=[]
+        #Så til tjenestegruppene
+        #Vi trenger aa hente programmeinfo uansett, men vi bruker dataene bare hvis det skal vises
+        programme_dls, distriktssending = hentProgrammeinfo(d, kanal, hovedkanal, har_distrikter=har_distrikter)
+        if 'iteminfo' in visningsvalg:
+            dls_l.extend(hentIteminfo(d, kanal, hovedkanal, distriktssending=distriktssending))
+        if 'newsItem' in visningsvalg:
+            dls_l.extend(hent_news_item(d, kanal, hovedkanal, distriktssending=distriktssending))
+        if 'pgrinfo' in visningsvalg:
+            dls_l.extend(hentPgrinfo(d, kanal, hovedkanal))
+        #ProgrammeDls hentes ut ovenfor
+        if 'programmeinfo' in visningsvalg:
+            dls_l.extend(programme_dls)
+        if 'iteminfo' in visningsvalg:
+            #Musikkobjekter
+            dls_l.extend(hentIteminfo(d, kanal, hovedkanal, distriktssending=distriktssending))
+        if 'musicInfo' in visningsvalg:
+            #Tillegsinfo om musikk
+            dls_l.extend(hentIteminfoExtra(d, kanal, hovedkanal, distriktssending=distriktssending))
+        if 'newsItem' in visningsvalg:
+            #Andre objekter
+            dls_l.extend(hent_news_item(d, kanal, hovedkanal, distriktssending=distriktssending))
+        if 'newsInfo' in visningsvalg:
+            #Tillegsinfo om news
+            dls_l.extend(hent_news_info(d, kanal, hovedkanal, distriktssending=distriktssending))
+        if 'itemNext' in visningsvalg:
+            dls_l.extend(hent_item_next(d, kanal, hovedkanal))
+        if 'newsItemNext' in visningsvalg:
+            dls_l.extend(hent_news_item_next(d, kanal, hovedkanal))
+
+        #Dersom det er veldig kort DLS så kan vi tvangsstyre infofeltet for ptogram
+        if 'programmeinfo' in visningsvalg and len(dls_l) < 4:
+            dls_l.extend(hentProgrammeinfo(d, kanal, hovedkanal, useTimeLimit=False)[0])
+        if 'programmeNext' in visningsvalg:
+            dls_l.extend(hentProgrammeNext(d, kanal, hovedkanal))
+
+        return dls_l
 
 def lagVisningstider(text, min_sec=4, max_sec=30):
     "Lager en kommaseparert liste med visningstider, slik at vi får en individuel tilpassning av dls-ene"
     #128 er max linjelengde som gir verdien max
     return str(int((len(text)) / 128.0 * max_sec + min_sec))
 
-def til_dab(kanal='alle', datatype=None, id=''):
+def til_dab(kanal='alle'):
     "Henter data for en gitt kanal ut i fra de forskjellige databasene og setter sammen til en DLS som sendes videre som et mimemultipartdokument."
     
-    #kanal='alle'
-    #Fange opp at jeg skal kunne generere nytt på alle kanaler.
     d = database()
     if kanal == 'alle':
-        kanaler = finn_kanaler(d, ikke_distrikt=True)
+        kanaler = finn_kanaler(d)
     else:
         kanaler = [kanal]
-        # Det kan hende at kanalene er delt opp i distrikter - eks. p1oslo
-
-    # Datatypen må trimmes hvis den inneholder :breaking
-    if ':' in datatype:
-        datatype = datatype.split(':')[0]
 
     for kanal in kanaler:
         #Det kan hende at kanalene er delt opp i distrikter - eks. p1oslo
-        #utvid kanaler
         distriktskanaler = distriktskanal(d, kanal)
         if len(distriktskanaler) == 1:
             #Vi har kunn en kanal, distrikskanal eller kanalen selv, vi må finne moderkanalen
             hovedkanal = finnHovedkanal(d, kanal)
-            harDistrikter = False
+            har_distrikter = False
         else:
             #Vi har en kanal med barn, ergo er hovedkanalen kanalen selv.
             hovedkanal = kanal
-            harDistrikter = True
+            har_distrikter = True
 
         for kanal in distriktskanaler:
-            # Filtrer for distriktskanaler som hr egne metadata
-            if hentProgrammeinfo(d, kanal, hovedkanal, harDistrikter=harDistrikter)[0][0]=='VOID':
+            # Filtrer for distriktskanaler som har egne metadata, dvs som har sending
+
+            if hentProgrammeinfo(d, kanal, hovedkanal, har_distrikter=har_distrikter)[0][0] == 'VOID':
                 if VERBOSE:
                     print("\n%s hadde egne data, ikke bruk %s\n" % (kanal, hovedkanal))
                 continue
-            visningsvalgBlokk = hentVisningsvalg(d, kanal, datatype=datatype)
-
+            dls_liste = bygg_dls(d, kanal, hovedkanal, har_distrikter=har_distrikter) or ['.']
             if VERBOSE:
-                print('\nSkal vises:', kanal, visningsvalgBlokk.keys())
+                print(kanal)
+                for linje in dls_liste:
+                    print(linje)
+                    print('-' * 128)
+            # FIXME: må vel være en lettere måte å få et timestamp på
+            start = send_til_server.isodato(time.time()) #DVS vi sender en liste som gjelder fra nå
+            # Dersom vi har iteminfo er levetiden på listen lik den gjenværende tiden på det korteste innslaget
+            distriktssending = True
+            if distriktssending:
+                levetid = minimum_levetid(d, kanal)
+            else:
+                levetid = minimum_levetid(d, hovedkanal)
+            if levetid <= 0:
+                #Vi har ingen ok tidsangivelse
+                levetid = 60 * 60 * MAX_LEVETID #dvs i hele timer regnet om til sekunder
 
-            for blokk in visningsvalgBlokk:
-                if blokk in IKKE_DLS:
-                    if VERBOSE:
-                        print("Ikke vis som DLS på %s" % blokk)
-                    continue
-                # Bygge opp visningslista
-                # Hente visningsvalg
-
-                visningsvalg = visningsvalgBlokk[blokk]
-                if VERBOSE:
-                    print('Skal vises:', kanal, visningsvalgBlokk.keys())
-
-                if VERBOSE:
-                    print("Visningsvalg:", visningsvalg)
-                    print("Datatype:", datatype)
-
-                s=[]
-                sk=[]
-                #Så til tjenestegruppene
-                #Vi trenger aa hente programmeinfo uansett, men vi bruker dataene bare hvis det skal vises
-                programmeDls, distriktssending = hentProgrammeinfo(d, kanal, hovedkanal, harDistrikter=harDistrikter)
-                if 'iteminfo' in visningsvalg:
-                    s.extend(hentIteminfo(d, kanal, hovedkanal, distriktssending=distriktssending))
-                if 'newsItem' in visningsvalg:
-                    s.extend(hent_news_item(d, kanal, hovedkanal, distriktssending=distriktssending))
-                if 'pgrinfo' in visningsvalg:
-                    s.extend(hentPgrinfo(d, kanal, hovedkanal))
-
-                #ProgrammeDls hentes ut ovenfor
-                if 'programmeinfo' in visningsvalg:
-                    s.extend(programmeDls)
-
-                if 'iteminfo' in visningsvalg:
-                    #Musikkobjekter
-                    linja = hentIteminfo(d, kanal, hovedkanal, distriktssending=distriktssending)
-                    s.extend(linja)
-                    sk.extend(linja)
-                if 'musicInfo' in visningsvalg:
-                    #Tillegsinfo om musikk
-                    s.extend(hentIteminfoExtra(d, kanal, hovedkanal, distriktssending=distriktssending))
-                    #****
-                    #Problem et sted her, er riktig hit forsvinner etterpå
-                #Et element er aldri både 'music' og 'news', derfor vill maks to innførsler her
-                #s.extend([]) har ingen effekt
-                if 'newsItem' in visningsvalg:
-                    #Andre objekter
-                    linja = hent_news_item(d, kanal, hovedkanal, distriktssending=distriktssending)
-                    s.extend(linja)
-                    sk.extend(linja)
-                if 'newsInfo' in visningsvalg:
-                    #Tillegsinfo om news
-                    s.extend(hent_news_info(d, kanal, hovedkanal, distriktssending=distriktssending))
-
-                if 'itemNext' in visningsvalg:
-                    s.extend(hentItemNext(d, kanal, hovedkanal))
-                if 'newsItemNext' in visningsvalg:
-                    s.extend(hentNewsItemNext(d, kanal, hovedkanal))
-
-                #Dersom det er veldig kort DLS så kan vi tvangsstyre infofeltet for ptogram
-                if 'programmeinfo' in visningsvalg and len(s) < 4:
-                    s.extend(hentProgrammeinfo(d, kanal, hovedkanal, useTimeLimit=False)[0])
-
-                if 'programmeNext' in visningsvalg:
-                    s.extend(hentProgrammeNext(d, kanal, hovedkanal))
-
-                if VERBOSE:
-                    print(kanal)
-                    for i in s:
-                        print(i)
-                        print('-' * 128)
-                if VERBOSE:
-                    print(kanal, datatype)
-
-                #Vi kan ikke sende en tom liste
-                if not s:
-                    s=['.']
-                #Send data til DAB
-                multiplex = blokk
-                if VERBOSE:
-                    print("MULTIPLEX", multiplex)
-                # multiplex = 'ALL' # Dette kan difrensieres etterhvert
-                start = send_til_server.isodato(time.time()) #DVS vi sender en liste som gjelder fra nå
-                # Dersom vi har iteminfo er levetiden på listen lik den gjenværende tiden på det korteste innslaget
-                if distriktssending:
-                    levetid = minimum_levetid(d, kanal)
-                else:
-                    levetid = minimum_levetid(d, hovedkanal)
-                if levetid <= 0:
-                    #Vi har ingen ok tidsangivelse
-                    levetid = 60 * 60 * MAX_LEVETID #dvs i hele timer regnet om til sekunder
-
-                stop = send_til_server.isodato(time.time() + levetid + 5)  #5 sekunder ofset slik at infoen heller henger enn forsvinner like før en oppdatering
-
-                s = map(xml_entety, s)
-                #Lag en kommaseparert liste over visningstider
-                dataliste = map(None, s,(map(lagVisningstider,s)))
-
-                for addr in ["nrkhd-ice-01.netwerk.no","nrkhd-ice-02.netwerk.no"]:
-                    send_til_server.send_data(
-                    '%s:1204' % addr,
-                    kanal=kanal,
-                    blokk='riks1',
-                    start=start,
-                    stop=stop,
-                    liste=dataliste
-                    )
+            stop = send_til_server.isodato(time.time() + levetid + 5)  #5 sekunder ofset slik at infoen heller henger enn forsvinner like før en oppdatering
+            dls_liste = map(xml_entety, dls_liste)
+            #Lag en kommaseparert liste over visningstider
+            # FIXME: map returnerer en generator
+            dataliste = map(None, dls_liste, (map(lagVisningstider, dls_liste)))
+            if VERBOSE:
+                print(dataliste)
+            """
+            for addr in ["nrkhd-ice-01.netwerk.no","nrkhd-ice-02.netwerk.no"]:
+                send_til_server.send_data(
+                '%s:1204' % addr,
+                kanal=kanal,
+                blokk='riks1',
+                start=start,
+                stop=stop,
+                liste=dataliste
+                )
+            """
     #Lukke databasen
     
     d.close()
 
 if __name__=='__main__':
-    til_dab(kanal='p3x', datatype='iteminfo')
+    til_dab(kanal='ak')
 
