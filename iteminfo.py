@@ -1,38 +1,38 @@
 # -*- coding: utf-8 -*-
-
-
 """iteminfo tjenester
 Versjon som sjekker lengden på programmet utifra avstanden i sendetid mellom program 1 og 2, dersom
 programtiden oppgis til å være null"""
 
-#TODO
-
-
-import xml.dom.minidom
-import pymysql as mdb
 import re
 import time
+import xml.dom.minidom
+import pymysql as mdb
 from random import choice
 from db_conn import database
 
 from roller import rolleliste, rollerelasjon, ikkeRolle
 
-kanalSW = {'nrk jazz':'jazz','nrk sport':'sport','sport':'sport','nrk gull':'gull','nrk p1pluss':'p1pluss','nrk barn':'barn','p1_ndst':'p1st','nrk p1':'p1','p1':'p1','nrk p2':'p2','p2':'p2','nrk p3':'p3','petre':'p3','nrk petre':'p3','p3':'p3','nrk ak':'ak', 'alltid klassisk':'ak','ak':'ak','nrk mpetre':'mpetre', 'mpetre':'mpetre','nrk alltid nyheter':'','nrk an':'an','an':'an','nrk alltid folkemusikk':'fmk','fmk':'fmk','p3urort':'urort','urort':'urort', 'nrk p1 oslofjord':'p1of','p1of':'p1of','sami dab':'sami','lzu':'sami'}
+kanal_sw = {'nrk jazz':'jazz', 'nrk sport':'sport', 'sport':'sport', 'nrk gull':'gull',
+            'nrk p1pluss':'p1pluss', 'nrk barn':'barn', 'p1_ndst':'p1st', 'nrk p1':'p1', 'p1':'p1', 'nrk p2':'p2', 'p2':'p2',
+            'nrk p3':'p3', 'petre':'p3', 'nrk petre':'p3', 'p3':'p3', 'nrk ak':'ak', 'alltid klassisk':'ak', 'ak':'ak',
+            'nrk mpetre':'mpetre', 'mpetre':'mpetre', 'nrk alltid nyheter':'an', 'nrk an':'an', 'an':'an',
+            'nrk alltid folkemusikk':'fmk', 'fmk':'fmk', 'p3urort':'urort', 'urort':'urort',
+            'nrk p1 oslofjord':'p1of', 'p1of':'p1of', 'sami dab':'sami', 'lzu':'sami'}
 
 
 fjernsyn = ['nrk 1', 'nrk 2', 'nrk 3_super']
-newsItem = ['p1','p3']
+newsItem = ['p1', 'p3']
 
-verbose = False
-loggingItem = False
+VERBOSE = False
+logging_item = False
 
-fjernerollefor = ['Conductor','Leader']
-dirigert = [' under ledelse av ',' dirigert av ',', dirigent ']
-ledet = ['ledet av']
+FJERNROLLERFOR = ['Conductor', 'Leader']
+DIRIGERT = [' under ledelse av ',' DIRIGERT av ', ', dirigent ']
+LEDET = ['LEDET av']
 
-ordSomIkkeBeskriver = ['fortsetter','samsending','også sendt i går']
+ORD_SOM_IKKE_BESKRIVER = ['fortsetter', 'samsending', 'også sendt i går']
 
-egenProd = 'EBU-NONRK' #Label for egenproduksjon
+EGEN_PROD = 'EBU-NONRK' #Label for EGEN_PRODuksjon
 
 #def database(host="160.68.118.48", user="tormodv", database="dab",passord="allmc21"):
 #def database(host="localhost", user="tormodv", database="dab",passord=""):
@@ -45,7 +45,7 @@ def sjekkProgramLengde(d,kanal):
     #Sjekk programme lengde
     c =  d.cursor()
     sql = """SELECT lengde FROM iteminfo WHERE kanal=%s and localid = 1;"""
-    c.execute(sql,(kanal)) 
+    c.execute(sql, (kanal))
     try:
         lengde = int(c.fetchone()[0])
     except TypeError:
@@ -64,7 +64,7 @@ MIN(UNIX_TIMESTAMP(tid))
 from 
 iteminfo
 where kanal = %s; """
-    c.execute(sql,(kanal))
+    c.execute(sql, (kanal))
     try:
         beregnetLengde = int(c.fetchone()[0])
     except TypeError:
@@ -80,29 +80,26 @@ where kanal = %s; """
                     WHERE kanal=%s and localid = 1;"""
     c.execute(sql,(beregnetLengde, kanal))
     c.close()
-    if verbose:
+    if VERBOSE:
         print("Rettet lengde på programm",lengde, beregnetLengde)
     
 
 
-def flushProgramData(d,kanal):
+def flush_program_data(d,kanal):
     "Renserutine for programskift"
     #1 Stryk innslag/neste program
     c2= d.cursor()
     sql = """DELETE FROM iteminfo 
     WHERE kanal=%s and localid !=0;"""
-    c2.execute(sql,(kanal)) 
+    c2.execute(sql, (kanal))
     
     #2 Stryk ev textinfo på programmnivå (eller lavere)
     sql = """DELETE FROM textinfo 
     WHERE kanal=%s and type = 'programme';"""
-    c2.execute(sql,(kanal)) 
-    
+    c2.execute(sql, (kanal))
     c2.close()
 
-    
-
-def isoTilLengde(isoTid):
+def iso_til_lengde(isoTid):
     tid = 0.0
     tidsFeil = "Feil i konvertering fra ISO 8601 format."
     if isoTid[0]!='P':
@@ -110,23 +107,23 @@ def isoTilLengde(isoTid):
     #Split dager fra timer
     dager,timer = isoTid[1:].split('T')
     #Finn sekunder osv.
-    p=re.search('(\d+|\d+\.\d+)S',timer)
+    p=re.search(r'(\d+|\d+\.\d+)S',timer)
     if p:
         tid += float(p.group(1))
-    p=re.search('(\d+|\d+\.\d+)M',timer)
+    p=re.search(r'(\d+|\d+\.\d+)M',timer)
     if p:
         tid += float(p.group(1)) * 60
-    p=re.search('(\d+|\d+\.\d+)H',timer)
+    p=re.search(r'(\d+|\d+\.\d+)H',timer)
     if p:
         tid += float(p.group(1)) * 3600
     # dager o.l.
-    p=re.search('(\d+|\d+\.\d+)D',dager)
+    p=re.search(r'(\d+|\d+\.\d+)D',dager)
     if p:
         tid += float(p.group(1)) * 3600 * 24
-    p=re.search('(\d+|\d+\.\d+)M',dager)
+    p=re.search(r'(\d+|\d+\.\d+)M',dager)
     if p:
         tid += float(p.group(1)) * 3600 * 24 * 30
-    p=re.search('(\d+|\d+\.\d+)Y',dager)
+    p=re.search(r'(\d+|\d+\.\d+)Y',dager)
     if p:
         tid += float(p.group(1)) * 3600 * 24 * 365
     
@@ -423,7 +420,7 @@ def lagArtistfelt(artister,solister=0):
 def finnKomponist(element, kunEtternavn = 0, aarsTall = 0):
     creators = element.getElementsByTagName('creator')
     for creator in creators:
-        role = finnVerdi(creator,'role',entity = 0)
+        role = finnVerdi(creator,'role',entity=0)
         if role.lower() == "composer" or role.lower() == "komponist":
             komponist_fornavn = finnVerdi(creator,'given_name',entity = 1)
             komponist = finnVerdi(creator,'family_name',entity = 1)
@@ -461,7 +458,7 @@ def finnMedvirkende(element, lagreIbase=0, klasse=''):
     for contributor in contributors:
         solist = False
         #Finne rolle bruke denne som key
-        role = finnVerdi(contributor,'role',entity = 0)
+        role = finnVerdi(contributor,'role',entity=0)
         #Fiks for tvilsommedata
         if (klasse !='News' and role=='Reporter'):
             continue
@@ -574,7 +571,7 @@ def finnMedvirkende(element, lagreIbase=0, klasse=''):
         
         #Fjerne rolleparanteser
         
-        if role in fjernerollefor:
+        if role in FJERNROLLERFOR:
             navn = navn.split('(')[0].rstrip()
         
         if solist:
@@ -627,8 +624,8 @@ def parser(xmlstreng):
         #kampObj['lagetDato'] = lagetDato
         kanal = finnVerdi(tabell,'element/@channel')
         #Rette kanalnavn
-        if kanal.lower() in kanalSW:
-            kanal = kanalSW[kanal.lower()].lower()
+        if kanal.lower() in kanal_sw:
+            kanal = kanal_sw[kanal.lower()].lower()
         else:
             kanal = kanal.lower()
         #Fjerne NRK fra kanlnavn
@@ -662,13 +659,13 @@ def parser(xmlstreng):
             #Past hopper vi foreløpig over, dette er mer nyttig i statistikksammenheng, da dette vil være det som er 
             #Riktig spilletid på innslaget.
             
-            runorder = finnVerdi( element,'@runorder', entity = 0)
+            runorder = finnVerdi( element,'@runorder', entity=0)
                         
             xmlElement=element.toxml().encode('latin-1', 'replace')
             
             #Finne tekniske parametre
             
-            elementtype =  finnVerdi( element,'@objecttype', entity = 0)
+            elementtype =  finnVerdi( element,'@objecttype', entity=0)
             if elementtype=='programme':
                 sendingProgramme +=1
                 localprogid = 0
@@ -697,14 +694,14 @@ def parser(xmlstreng):
 
             #Dette gir oss rekefølgen programme,programme,item,item,item(past)
             
-            detaljering = finnVerdi( element,'@type', entity = 0)
+            detaljering = finnVerdi( element,'@type', entity=0)
             # **** Dersom det er summary skal vi ikke ta hensyn til at det er et nytt program
-            dataid = finnVerdi( element,'@dataid', entity = 0)
+            dataid = finnVerdi( element,'@dataid', entity=0)
             
             #Tittel
-            tittel = finnVerdi( element,'metadata_DC/titles/title', entity = 0)
-            plateselskap = finnVerdi( element,'metadata_DC/source/@label', entity = 0)
-            platenummer = finnVerdi( element,'metadata_DC/source/@reference', entity = 0)
+            tittel = finnVerdi( element,'metadata_DC/titles/title', entity=0)
+            plateselskap = finnVerdi( element,'metadata_DC/source/@label', entity=0)
+            platenummer = finnVerdi( element,'metadata_DC/source/@reference', entity=0)
             if plateselskap:
                 label =  plateselskap + ':' + platenummer
             else:
@@ -712,13 +709,13 @@ def parser(xmlstreng):
             #Justere titler o.l.
             komponist = finnKomponist(element)
             
-            if label.startswith(egenProd):
-                tittel = finnVerdi( element,'metadata_DC/titles/title', entity = 0)
+            if label.startswith(EGEN_PROD):
+                tittel = finnVerdi( element,'metadata_DC/titles/title', entity=0)
             else:
                 if komponist and kanal == 'ak' and elementtype=='item':
                     tittel= komponist + ': ' + tittel
-                    if len(tittel)>128:
-                        tittel= finnKomponist(element, kunEtternavn = 1) + ': ' + finnVerdi( element,'metadata_DC/titles/title', entity = 0)
+                    if len(tittel) > 128:
+                        tittel= finnKomponist(element, kunEtternavn = 1) + ': ' + finnVerdi( element,'metadata_DC/titles/title', entity=0)
             
             #Beskrivelse
             beskrivelse = ''
@@ -726,7 +723,7 @@ def parser(xmlstreng):
             annonsering1 = ''
             annonsering2 = ''
             
-            beskrivelser = finnVerdi(element,'metadata_DC/description/+abstract', nodetre = True, entity = 0)
+            beskrivelser = finnVerdi(element,'metadata_DC/description/+abstract', nodetre = True, entity=0)
             for abstract in beskrivelser:
                 absLabel = finnVerdi(abstract, '@label')
                 if not absLabel:
@@ -735,8 +732,7 @@ def parser(xmlstreng):
                     annonsering1 = finnVerdi(abstract, '')
                 elif absLabel == 'annonsering2':
                     annonsering2 = finnVerdi(abstract, '')
-                    
-            #print 77777, repr((beskrivelse, annonsering1, annonsering2))
+
             
             #Dersom denne er tom konsulter nettradiodatabasen, dersom det gjelder et program
             if elementtype=='programme':
@@ -748,7 +744,7 @@ def parser(xmlstreng):
                 kildekanal = ''	
                 
                 #Rensker pidata
-                if beskrivelse.lower().rstrip(' .,;') in ordSomIkkeBeskriver:
+                if beskrivelse.lower().rstrip(' .,;') in ORD_SOM_IKKE_BESKRIVER:
                     beskrivelse = ''
                 
                 if beskrivelse.lower().startswith("ved ") or beskrivelse.lower().startswith("programleder "):
@@ -776,7 +772,7 @@ def parser(xmlstreng):
                 #***
                 
             #Finne digasklasse
-            digastype =  finnVerdi( element,'metadata_DC/types/type',  entity = 0)
+            digastype =  finnVerdi( element,'metadata_DC/types/type',  entity=0)
             #Finne medarbeidere, utøvere o.l.
             try:
                 medvirkende, solistene = finnMedvirkende(element, klasse = digastype)
@@ -786,14 +782,14 @@ def parser(xmlstreng):
                 solistene = {}
             #Artister...
             
-            if verbose:
+            if VERBOSE:
                 print(medvirkende, solistene)
             
             if 'Orchestra' in medvirkende: #UTGÅR MED BMS
                 artist = medvirkende['Orchestra'][0]
                 medvirkende.pop('Orchestra')
                 if 'Conductor' in medvirkende:
-                    artist = artist.rstrip(" ,.;") + choice(dirigert) + medvirkende['Conductor'][0]
+                    artist = artist.rstrip(" ,.;") + choice(DIRIGERT) + medvirkende['Conductor'][0]
                     medvirkende.pop('Conductor')
                 if 'Performer' in medvirkende:
                     artist = artist + ', ' + ', '.join(medvirkende['Performer'])
@@ -806,7 +802,7 @@ def parser(xmlstreng):
                 artist = medvirkende['Choir'][0]
                 medvirkende.pop('Choir')
                 if 'Conductor' in medvirkende:
-                    artist = artist.rstrip(" ,.;") + choice(dirigert) + medvirkende['Conductor'][0]
+                    artist = artist.rstrip(" ,.;") + choice(DIRIGERT) + medvirkende['Conductor'][0]
                     medvirkende.pop('Conductor')
                 if 'Performer' in medvirkende:
                     artist = artist + ', ' + ', '.join(medvirkende['Performer'])
@@ -820,7 +816,7 @@ def parser(xmlstreng):
                 # Vi har en dirigent, ergo er utøveren et orkester eller noe annet som kan ledes
                 dirigentnavn = medvirkende.pop('Conductor')[0]
                 artist = lagArtistfelt(medvirkende,solister=0)
-                artist = artist.rstrip(" ,.;") + choice(dirigert) + dirigentnavn
+                artist = artist.rstrip(" ,.;") + choice(DIRIGERT) + dirigentnavn
                 if solistene:
                     #Funksjon som henter ut solistene.
                     artist = lagArtistfelt(solistene, solister = 1) + '|med ' + artist
@@ -829,7 +825,7 @@ def parser(xmlstreng):
                 # Vi har en leder av en gruppe
                 dirigentnavn = medvirkende.pop('Leader')[0]
                 artist = lagArtistfelt(medvirkende,solister=0)
-                artist = artist.rstrip(" ,.;") + choice(ledet) + dirigentnavn
+                artist = artist.rstrip(" ,.;") + choice(LEDET) + dirigentnavn
                 if solistene:
                     #Funksjon som henter ut solistene.
                     artist = lagArtistfelt(solistene, solister = 1) + '|med ' + artist
@@ -853,29 +849,28 @@ def parser(xmlstreng):
             else:
                 artist = ''
             #Dersom dette er et program og vi ikke har funnet noen...
-            if elementtype=='programme' and programleder:
+            if elementtype == 'programme' and programleder:
                 artist = programleder
-
-            if verbose:
+            if VERBOSE:
                 print(artist)
     
             #Saa sendetidspunktet
-            sendetidspunkt = finnVerdi( element,'metadata_DC/dates/date_issued',  entity = 0)
+            sendetidspunkt = finnVerdi(element, 'metadata_DC/dates/date_issued', entity=0)
             tid = mdb.TimestampFromTicks(ISOtilDato(sendetidspunkt,sekunder=1))
             
             #Finne opptaksdato, dersom dette finnes.
-            opptaksdato = finnVerdi( element,'metadata_DC/dates/date_created',  entity = 0)
+            opptaksdato = finnVerdi(element, 'metadata_DC/dates/date_created', entity=0)
             if opptaksdato:
-                laget = mdb.TimestampFromTicks(ISOtilDato(opptaksdato,sekunder=1))
+                laget = mdb.TimestampFromTicks(ISOtilDato(opptaksdato, sekunder=1))
             else:
                 #** Mulig denne må endres til en nullverdi
                 laget = tid	
             
             #Finne tiden i sekunder
-            lengde = int ( isoTilLengde(finnVerdi( element,'metadata_DC/format/format_extent',  entity = 0)))
+            lengde = int(iso_til_lengde(finnVerdi(element,'metadata_DC/format/format_extent',  entity=0)))
             
             #Hente ut albumillustrasjon, dersom denne finnes.
-            bilde = finnVerdi( element,'musicSpecials/albumIllustration/origin/file',  entity = 0) #*** Endre path
+            bilde = finnVerdi( element,'musicSpecials/albumIllustration/origin/file',  entity=0) #*** Endre path
             if len(bilde)<11:bilde=''
                    
             #Sjekke om programmet skal oppdateres (summary sjekk)
@@ -936,7 +931,7 @@ def parser(xmlstreng):
                     c1.close()
                 else:
                     if (tittel2, tid2, lengde2) == (tittel, tid, lengde):
-                        if verbose:
+                        if VERBOSE:
                             print("SAMMA GREIENE JO")
                         #Vi flusher ikke 
                         flushItems = 0
@@ -944,11 +939,11 @@ def parser(xmlstreng):
                         #Det er et nytt programm
                 
                         flushItems = 1
-                #Det er ikke snakk om at det er summary, og vi har et nytt program, vi må starte opprydingsrutinene
-                #Gamle innslag må renskes ut og meldinger fra programlederen må tas.
+                # Det er ikke snakk om at det er summary, og vi har et nytt program, vi må starte opprydingsrutinene
+                # Gamle innslag må renskes ut og meldinger fra programlederen må tas.
                 if flushItems:
-                    flushProgramData(d, kanal)
-                    if verbose:
+                    flush_program_data(d, kanal)
+                    if VERBOSE:
                         print("FLUSH - programdata kjørt")
             
             #Vi har komplett datasett, denne skal ikke ryddes
@@ -972,7 +967,7 @@ def parser(xmlstreng):
             sql = """SELECT id FROM iteminfo 
                 WHERE kanal=%s and localid=%s;"""
             c.execute(sql,(kanal,localid)) 
-            if verbose:
+            if VERBOSE:
                 print((
                     tittel,
                     elementtype,
@@ -990,7 +985,7 @@ def parser(xmlstreng):
                     ))
             if c.rowcount == 1:
                 status = 1
-                if verbose:
+                if VERBOSE:
                     print("UPDATE",repr(tittel))
                 sql = """UPDATE iteminfo SET 
                     tittel=%s,
@@ -1032,7 +1027,7 @@ def parser(xmlstreng):
                 #Det er ingen felter som er oppdatert
                 
                 status = 2
-                if verbose:
+                if VERBOSE:
                     print("INSERT",repr(tittel))
                 sql = """INSERT INTO iteminfo(tittel,kildekanal,type,localprogid,progID,laget,tid,lengde,beskrivelse,artist,element,label,bildeID,kanal,localid,digastype) VALUES 
                 (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
@@ -1056,7 +1051,7 @@ def parser(xmlstreng):
                     digastype
                     )
                 )
-            if loggingItem:
+            if logging_item:
                 #Sette inn i loggtabell
                 if localid == 1 or localid == 3:
                     sql = """INSERT INTO iteminfoLogg(tittel,kildekanal,type,laget,tid,lengde,beskrivelse,artist,element,label,bildeID,kanal,digastype,insatt) VALUES 
@@ -1089,7 +1084,7 @@ def parser(xmlstreng):
         #Vi må sjekke dette
         sjekkProgramLengde(d,kanal)	
         #Rydde opp manglende elementer, dvs det er ferre en 4 elementer i settet.
-        if verbose:
+        if VERBOSE:
             print('flushItems, rydd,stryk:',flushItems, rydd,stryk)
         for localid in localids:
             
@@ -1144,7 +1139,7 @@ def parser(xmlstreng):
                 c2.execute(sql,(kanal,localid)) 
                 c2.close()
                 
-                if verbose:
+                if VERBOSE:
                     print(localid,'SLETTET, fordi den var utløpt, eller skulle strykes')
         
             

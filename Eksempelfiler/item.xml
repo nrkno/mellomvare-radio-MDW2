@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<gluon priority="3" artID="iteminfo_NRK_gull">
+<gluon priority="3" artID="iteminfo_NRK_gulling">
 	<head>
 		<metadata_DC>
 			<creators>
@@ -14,7 +14,7 @@
 	</head>
 	<body>
 		<tables type="iteminfo">
-			<element objecttype="programme" channel="gulling" dataid="GULL122203" type="summary">
+			<element objecttype="programme" channel="gulling" dataid="GULLING122203" type="summary">
 				<metadata_DC>
 					<titles>
 						<title>Gull</title>

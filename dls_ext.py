@@ -63,7 +63,7 @@ def iso_til_dato(dato, sekunder=0, sql=False):
     "Gjør om iso strenger til vanlige sekunder"
     if not dato:
         return 0
-    
+
     dato = dato.isoformat()
     if 'T' in dato or sql is True:
         try:
@@ -124,7 +124,6 @@ def fordel_til_liste(item):
     #Opprydding vi må uansett legge til den siste part
     liste.append(part)
     return liste
-
 
 def finn_kanaler(d,):
     "Returnerer alle kanalnavnene fra dab-databasen"
@@ -194,15 +193,15 @@ def finn_hovedkanal(d, kanal):
     row = c.fetchone()
     c.close()
     if row:
-        hovedId = row[0]
+        hoved_id = row[0]
     else:
-        hovedId = 99
+        hoved_id = 99
         print("UKJENT KANAL", kanal)
 
     #Finne hva hovedkanalen heter
     c = d.cursor()
     sql = """SELECT navn FROM kanal WHERE id =%s LIMIT 1;"""
-    c.execute(sql, (hovedId))
+    c.execute(sql, (hoved_id))
     row = c.fetchone()
     c.close()
     if row:
@@ -264,7 +263,7 @@ def hent_pgr_info(d, kanal, hovedkanal):
         return []
     return [tittel, beskrivelse]
 
-def hent_programmeinfo(d, kanal, hovedkanal, distriktssending=False, useTimeLimit=True, har_distrikter=False, forceDistrikt=True):
+def hent_programmeinfo(d, kanal, hovedkanal, distriktssending=False, use_time_limit=True, har_distrikter=False, forceDistrikt=True):
     """Henter informasjon om programmet som er på lufta, returnerer en liste med et element. Ved distriktssendinger kan flagget
     for distriktssendinger settes.
     Finner ut om det gjeldenede programmet er på lufta akkurat nå, dersom ikke finner ut om hovedkanalen har data
@@ -274,9 +273,9 @@ def hent_programmeinfo(d, kanal, hovedkanal, distriktssending=False, useTimeLimi
     if VERBOSE:
         print()
         print('Henter programme info - inn')
-        print('kanal=%s, hovedkanal=%s, distriktssending=%s, useTimeLimit=%s, har_distrikter=%s' % (kanal, hovedkanal, distriktssending, useTimeLimit, har_distrikter))
+        print('kanal=%s, hovedkanal=%s, distriktssending=%s, use_time_limit=%s, har_distrikter=%s' % (kanal, hovedkanal, distriktssending, use_time_limit, har_distrikter))
     c = d.cursor()
-    
+
     #Sjekke om programmet er utløpt i kanalen
     sql = """select tittel, beskrivelse, artist, tid FROM iteminfo
     WHERE kanal=%s AND type='programme' AND localid = '1' AND
@@ -302,7 +301,6 @@ def hent_programmeinfo(d, kanal, hovedkanal, distriktssending=False, useTimeLimi
         # Sjekke på denne verdien om kanalen skal hoppes over i
 
     #Vi må sjekke om hovedkanalen har en distriktsflate
-
     sql = """SELECT digastype FROM iteminfo WHERE kanal=%s AND type='programme' AND localid = '1' LIMIT 1;"""
     #Denne gir og PI sendeflatetype
     c.execute(sql, (hovedkanal,))
@@ -366,32 +364,29 @@ def hent_programmeinfo(d, kanal, hovedkanal, distriktssending=False, useTimeLimi
         #Dersom vi ikke har noe her, kan det hende det er en distriktskanal som ikke har egne metadata,
         # *** ENDRING sjekke om programdataene er utløpt
         if hovedkanal and (not distriktssending):
-            return hent_programmeinfo(d,hovedkanal,None, distriktssending=distriktssending, useTimeLimit= useTimeLimit)
-        else:
-            return [''], distriktssending
+            return hent_programmeinfo(d, hovedkanal, None, distriktssending=distriktssending, use_time_limit=use_time_limit)
+        return [''], distriktssending
 
     tittel = tittel + tittel_sufix #Legger på f. eks. "fra NRK Trøndelag" på dirstriksflater
     if VERBOSE:
         print('Henter programme info - ut')
-        print('kanal=%s, hovedkanal=%s, distriktssending=%s, useTimeLimit=%s, har_distrikter=%s' % (kanal, hovedkanal, distriktssending, useTimeLimit, har_distrikter))
+        print('kanal=%s, hovedkanal=%s, distriktssending=%s, use_time_limit=%s, har_distrikter=%s' % (kanal, hovedkanal, distriktssending, use_time_limit, har_distrikter))
     #Dersom vi ikke er i en sending, skal vi jo ikke vise noe program
     #Dersom vi er mer enn fem minutter, 300 sekunder inn i et program viser vi bare programmet
 
-    sekunderSiden = time.time() - iso_til_dato(tid, sekunder=1, sql=1)
+    sekunder_siden = time.time() - iso_til_dato(tid, sekunder=1, sql=1)
     #Tar bort programomtale litt ut i programmet.
-    if sekunderSiden > 600 and useTimeLimit:
+    if sekunder_siden > 600 and use_time_limit:
         return [tittel], distriktssending
     if artist:
         item = tittel + '. ' + artist
         if len(item) > 128:
             return [tittel, artist], distriktssending
-        else:
-            return [item], distriktssending
+        return [item], distriktssending
     else:
         item = tittel + '. ' + beskrivelse
         if len(item) > 128:
             return [tittel, beskrivelse], distriktssending
-
         return [item], distriktssending
 
 def hent_programme_next(d, kanal, hovedkanal, distriktssending=0):
@@ -431,7 +426,7 @@ def hent_iteminfo(d, kanal, hovedkanal, distriktssending=0):
     if kildekanal:
         #Da henter vi verdiene fra denne isteden
         kanal = kildekanal
-    
+
     sql = """SELECT tittel, artist, beskrivelse, digastype, label FROM iteminfo WHERE kanal=%s AND type='item' AND localid = '3' LIMIT 1;"""
     c.execute(sql, (kanal,))
     try:
@@ -469,7 +464,7 @@ def hent_iteminfo(d, kanal, hovedkanal, distriktssending=0):
             item = insert_value(choice(itemtittel[kanal]), tittel, artist, beskrivelse, digastype, label)
     else:
         item = insert_value(choice(itemtittel['nrk']), tittel, artist, beskrivelse, digastype, label)
-    
+
     if label.startswith(EGENPROD):
         # Vi tar den enkle utvegen, det er snakk om en ann. av et program, denne er det vel snart ikke brukt for lenger men vi beholder den litt til. ***
         item = tittel+ '.|'+ artist
@@ -536,14 +531,13 @@ def hent_news_item(d, kanal, hovedkanal, distriktssending=0):
     c.execute(sql, (kanal, ))
     try:
         try:
-            tittel,artist, beskrivelse, digastype, label = c.fetchone()
+            tittel, artist, beskrivelse, digastype, label = c.fetchone()
         finally:
             c.close()
     except TypeError:
         if hovedkanal and not distriktssending:
             return hent_iteminfo(d, hovedkanal, None)
-        else:
-            return []
+        return []
     if digastype != 'News':
         return []
     #Vi finner opptaksdato
@@ -600,7 +594,7 @@ def hent_news_info(d, kanal, hovedkanal, distriktssending=0):
             c.close()
     except TypeError:
         if hovedkanal and not distriktssending:
-            return hent_news_info(d,hovedkanal,None)
+            return hent_news_info(d, hovedkanal, None)
         return []
 
     if digastype != 'News':
@@ -629,7 +623,7 @@ def hent_item_next(d, kanal, hovedkanal, distriktssending=False):
     if kildekanal:
         #Da henter vi verdiene fra denne isteden
         kanal = kildekanal
-    
+
     #Først finne ut om vi har to like titler. Dersom denne feiler har vi i alle fall ikke noen like titler.
     try:
         sql = """SELECT tittel FROM iteminfo WHERE kanal=%s AND type='item' AND (localid = '4' OR localid = '3')  LIMIT 2;"""
@@ -643,10 +637,10 @@ def hent_item_next(d, kanal, hovedkanal, distriktssending=False):
     else:
         if sammenlign_tittler(tittel1, tittel2):
             return []
-    
+
     #Ellers viser vi nesteinformasjon
     sql = """SELECT tittel, artist, beskrivelse, digastype, label  FROM iteminfo WHERE kanal=%s AND type='item' AND localid = '4' LIMIT 1;"""
-    
+
     c.execute(sql, (kanal,))
     try:
         try:
@@ -661,7 +655,7 @@ def hent_item_next(d, kanal, hovedkanal, distriktssending=False):
 
     if digastype != 'Music':
         return []
-    
+
     if kanal in neste_itemtittel:
         if not artist  and ('artist' in neste_itemtittel[kanal]):
             item = tittel
@@ -681,7 +675,7 @@ def hent_news_item_next(d, kanal, hovedkanal, distriktssending=0):
         kanal = hovedkanal
     c = d.cursor()
     #Først må vi finne ut om vi har en samsending
-    
+
     sql = """SELECT kildekanal FROM iteminfo WHERE kanal=%s AND type='programme'  AND localid = '1' LIMIT 1 ;"""
     c.execute(sql, (kanal,))
     row = c.fetchone()
@@ -692,10 +686,10 @@ def hent_news_item_next(d, kanal, hovedkanal, distriktssending=0):
     if kildekanal:
         #Da henter vi verdiene fra denne isteden
         kanal = kildekanal
-    
+
     #Ellers viser vi nesteinformasjon
     sql = """SELECT tittel, artist, digastype, beskrivelse, label tid FROM iteminfo WHERE kanal=%s AND type='item' AND localid = '4' LIMIT 1;"""
-    
+
     c.execute(sql, (kanal,))
     try:
         try:
@@ -706,7 +700,7 @@ def hent_news_item_next(d, kanal, hovedkanal, distriktssending=0):
         if hovedkanal and not distriktssending:
             return hent_news_item_next(d, hovedkanal, None)
         return []
-    
+
     if digastype != 'News':
         return []
 
@@ -772,7 +766,7 @@ def bygg_dls(d, kanal, hovedkanal, har_distrikter=False):
 
         #Dersom det er veldig kort DLS så kan vi tvangsstyre infofeltet for ptogram
         if 'programmeinfo' in visningsvalg and len(dls_l) < 4:
-            dls_l.extend(hent_programmeinfo(d, kanal, hovedkanal, useTimeLimit=False)[0])
+            dls_l.extend(hent_programmeinfo(d, kanal, hovedkanal, use_time_limit=False)[0])
         if 'programmeNext' in visningsvalg:
             dls_l.extend(hent_programme_next(d, kanal, hovedkanal))
 
