@@ -8,11 +8,8 @@ lytter = ['Du hører ', 'Du lytter til ', 'Nå: ']
 neste_lytter = ['Så får du høre ']
 
 # | gir ny linje dersom det trengs, ellers vil det fremstå som et ordskille.
-
 # Tilgjengelige variabler : tittel,artist, beskrivelse, digastype, label
-
 # NRK kanalen er en kanal som brukes dersom kanalnavnet er ukjent
-
 # itemtittel brukes for musikkinslag
 
 itemtittel = {'nrk':["<tittel> med <artist>"],
@@ -30,7 +27,7 @@ newstittel =  {'nrk':["<tittel>. |<artist>"],
 			}
 
 # NRK kanalen er en kanal som brukes dersom kanalnavnet er ukjent
-nesteItemtittel = {'nrk':["Neste: <tittel> med <artist>"],
+neste_itemtittel = {'nrk':["Neste: <tittel> med <artist>"],
 		'p3':["Snart: <tittel + ', ' + artist"],
 		'ak':["Neste: <tittel>"],
 		'ev1':["Neste: <tittel>"],
@@ -38,7 +35,7 @@ nesteItemtittel = {'nrk':["Neste: <tittel> med <artist>"],
 		}
 
 # brukes for news innslag fra Digas
-nesteNewstittel =  {'nrk':["Neste: <tittel>.|'<artist>"],
+neste_newstittel =  {'nrk':["Neste: <tittel>.|'<artist>"],
             'barn':["Neste: <tittel>"],
 		    'ev1':["Neste: <tittel>"],
             'ev2':["Neste: <tittel>"],
