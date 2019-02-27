@@ -19,7 +19,6 @@ kanal_sw = {'nrk jazz':'jazz', 'nrk sport':'sport', 'sport':'sport', 'nrk gull':
             'nrk alltid folkemusikk':'fmk', 'fmk':'fmk', 'p3urort':'urort', 'urort':'urort',
             'nrk p1 oslofjord':'p1of', 'p1of':'p1of', 'sami dab':'sami', 'lzu':'sami'}
 
-
 fjernsyn = ['nrk 1', 'nrk 2', 'nrk 3_super']
 newsItem = ['p1', 'p3']
 
@@ -32,15 +31,9 @@ LEDET = ['LEDET av']
 
 ORD_SOM_IKKE_BESKRIVER = ['fortsetter', 'samsending', 'også sendt i går']
 
-EGEN_PROD = 'EBU-NONRK' #Label for EGEN_PRODuksjon
+EGEN_PROD = 'EBU-NONRK' # Label for EGEN_PRODuksjon
 
-#def database(host="160.68.118.48", user="tormodv", database="dab",passord="allmc21"):
-#def database(host="localhost", user="tormodv", database="dab",passord=""):
-#	d = mdb.connect(user=user,passwd=passord, host=host)
-#	d.select_db(database)
-#	return d
-
-def sjekkProgramLengde(d,kanal):
+def sjekk_program_lengde(d, kanal):
     "Sjekker om programmet som er på lufta nå, har fått lengde 0, i så fall rettes den til tiden frem til neste program. Har ingen definert returverdi."
     #Sjekk programme lengde
     c =  d.cursor()
@@ -58,32 +51,26 @@ def sjekkProgramLengde(d,kanal):
         return
     #Hvis ikke for vi finne lengden
     sql = """select 
-MAX(UNIX_TIMESTAMP(tid))
--
-MIN(UNIX_TIMESTAMP(tid))
-from 
-iteminfo
-where kanal = %s; """
+             MAX(UNIX_TIMESTAMP(tid)) - MIN(UNIX_TIMESTAMP(tid))
+             FROM iteminfo WHERE kanal = %s; """
     c.execute(sql, (kanal))
     try:
-        beregnetLengde = int(c.fetchone()[0])
+        beregnet_lengde = int(c.fetchone()[0])
     except TypeError:
-        beregnetLengde = 0
+        beregnet_lengde = 0
     except ValueError:
-        beregnetLengde = 0
+        beregnet_lengde = 0
     #Hvis lengden er null nå også er vi like kloke og må returnere
-    if beregnetLengde == 0:
+    if beregnet_lengde == 0:
         c.close()
         return
     sql = """UPDATE iteminfo SET 
                     lengde=%s
                     WHERE kanal=%s and localid = 1;"""
-    c.execute(sql,(beregnetLengde, kanal))
+    c.execute(sql, (beregnet_lengde, kanal))
     c.close()
     if VERBOSE:
-        print("Rettet lengde på programm",lengde, beregnetLengde)
-    
-
+        print("Rettet lengde på programm", lengde, beregnet_lengde)
 
 def flush_program_data(d,kanal):
     "Renserutine for programskift"
@@ -93,94 +80,88 @@ def flush_program_data(d,kanal):
     WHERE kanal=%s and localid !=0;"""
     c2.execute(sql, (kanal))
     
-    #2 Stryk ev textinfo på programmnivå (eller lavere)
+    # Stryk ev textinfo på programmnivå (eller lavere)
     sql = """DELETE FROM textinfo 
     WHERE kanal=%s and type = 'programme';"""
     c2.execute(sql, (kanal))
     c2.close()
 
 def iso_til_lengde(isoTid):
+    "Leser en iso lengde og setter om til sekunder"
     tid = 0.0
-    tidsFeil = "Feil i konvertering fra ISO 8601 format."
-    if isoTid[0]!='P':
-        raise(tidsFeil,"Begynner ikke med P")
     #Split dager fra timer
     dager,timer = isoTid[1:].split('T')
     #Finn sekunder osv.
-    p=re.search(r'(\d+|\d+\.\d+)S',timer)
+    p = re.search(r'(\d+|\d+\.\d+)S', timer)
     if p:
         tid += float(p.group(1))
-    p=re.search(r'(\d+|\d+\.\d+)M',timer)
+    p = re.search(r'(\d+|\d+\.\d+)M', timer)
     if p:
         tid += float(p.group(1)) * 60
-    p=re.search(r'(\d+|\d+\.\d+)H',timer)
+    p = re.search(r'(\d+|\d+\.\d+)H', timer)
     if p:
         tid += float(p.group(1)) * 3600
     # dager o.l.
-    p=re.search(r'(\d+|\d+\.\d+)D',dager)
+    p = re.search(r'(\d+|\d+\.\d+)D', dager)
     if p:
         tid += float(p.group(1)) * 3600 * 24
-    p=re.search(r'(\d+|\d+\.\d+)M',dager)
+    p = re.search(r'(\d+|\d+\.\d+)M', dager)
     if p:
         tid += float(p.group(1)) * 3600 * 24 * 30
-    p=re.search(r'(\d+|\d+\.\d+)Y',dager)
+    p = re.search(r'(\d+|\d+\.\d+)Y', dager)
     if p:
         tid += float(p.group(1)) * 3600 * 24 * 365
-    
     return tid
 
-def ISOtilDato(dato,sekunder=0, sql=0):
+def iso_til_dato(dato, sekunder=0, sql=0):
+    "Tar en datostreng og gjør om til et tidsobjekt"
+    #TODO: Hva brukes egentlig denne til
     offsett = 0
     if not dato:
         return 0
-    if type(dato)!=type(''):
-                #Dette er en forelÃ¸pig patch for at en har begynt Ã¥ bruke datetime objekter
-                dato = dato.isoformat()
+    dato = dato.isoformat()
     if 'T' in dato or sql:
         aar = int(dato[0:4])
         if aar < 1970:
             #Da har vi et problem
             aar = aar + 60
             offsett = 1893456000.0
-            
         try:
             if sekunder:
-                tid= time.mktime ((aar,int(dato[5:7]), int(dato[8:10]),int(dato[11:13]),int(dato[14:16])
-                        ,int(dato[17:19]),-1,-1,-1))
+                tid = time.mktime((aar,int(dato[5:7]), int(dato[8:10]), int(dato[11:13]), int(dato[14:16]),
+                                   int(dato[17:19]), -1, -1, -1))
             else:
-                tid= time.mktime ((aar,int(dato[5:7]), int(dato[8:10]),int(dato[11:13]),int(dato[14:16])
-                        ,0,-1,-1,-1))
+                tid = time.mktime((aar,int(dato[5:7]), int(dato[8:10]), int(dato[11:13]), int(dato[14:16]),
+                                   0, -1, -1, -1))
         except ValueError:
             tid = 0
-            
     else:
         try:
             tid = int(dato)
         except:
-            tid=0
-
+            tid = 0
     return tid - offsett
-    
 
-def finnUnger(noder,tag,kunEn=0):
-    s=[]
+def finn_unger(noder, tag, kun_en=0):
+    "Kryper et lag ned i eet nodetre"
+    nodeliste=[]
     for node in noder:
         if node.nodeType == node.ELEMENT_NODE:
             if node.tagName == tag:
-                s.append(node)
-                if kunEn: return s
-                
-    return s
+                nodeliste.append(node)
+                if kun_en:
+                    return nodeliste
+    return nodeliste
 
-def hentVerdier(noder,lim='', encoding = 'utf-8'):
-    s=''
+def hent_verdier(noder, lim=''):
+    text_nodes=''
     for node in noder:
         if node.nodeType == node.TEXT_NODE:
-            s+=node.data + lim
-        s.replace(u'\u2019', "'")
-    return s.encode(encoding,'replace')
+            text_nodes += node.data + lim
+        text_nodes.replace('\u2019', "'")
+    return s
     
-def finnVerdi(xmlobjekt,path, entity = False, nodetre = False, encoding = 'iso-8859-1'):
+def finnVerdi(xmlobjekt,path, entity=False, nodetre=False):
     #path til nodeliste
     nodeliste = path.split('/')
     try:
@@ -189,12 +170,12 @@ def finnVerdi(xmlobjekt,path, entity = False, nodetre = False, encoding = 'iso-8
                 continue
             if node[0]!='@':
                 if  node[0]=='+' and nodetre:
-                    xmlobjekt = finnUnger(xmlobjekt.childNodes,node[1:],kunEn=0)
+                    xmlobjekt = finn_unger(xmlobjekt.childNodes,node[1:],kun_en=0)
                     #Siden dette kun er gyldig i siste node:
                     break
                     #Så fortsetter vi under
                 else:
-                    xmlobjekt = finnUnger(xmlobjekt.childNodes,node,kunEn=1)[0]
+                    xmlobjekt = finn_unger(xmlobjekt.childNodes,node,kun_en=1)[0]
             else:
                 #returnere attributverdi
                 return xmlobjekt.getAttribute(node[1:]).encode(encoding,'replace')
@@ -207,25 +188,22 @@ def finnVerdi(xmlobjekt,path, entity = False, nodetre = False, encoding = 'iso-8
     if nodetre:
         return xmlobjekt
     if not entity:
-        return hentVerdier(xmlobjekt.childNodes, encoding = encoding)
+        return hent_verdier(xmlobjekt.childNodes)
     else:
-        return entetyReplace(hentVerdier(xmlobjekt.childNodes, encoding = encoding))
+        return entetyReplace(hent_verdier(xmlobjekt.childNodes))
         
     
-def entetyReplace(s):
-    s = s.replace('&amp;','&')
-    
-    return s
+def entety_replace(streng):
+    return streng.replace('&amp;','&')
 
 def samsendinglexer(setning):
-    "Finner og forstÃ¥r variasjoner over setningen: 'I sammmesending med kulturkanalen'"
+    "Finner og forstår variasjoner over setningen: 'I sammmesending med kulturkanalen'"
     stoppord = ['den','det','den','med','for','i']
     pynt = ['radioens','fjernsynets','tvens','NRK']
     samsendingsbegreper = ['sammsending','samssending','samsending','sams']
     samsending = False
-    
     for ord in setning.split():
-        
+        #TODO: Fortsette her
         if ord.lower() in stoppord:continue
         if ord.lower() in pynt:continue
         if ord.lower() in samsendingsbegreper:
@@ -453,7 +431,7 @@ def finnMedvirkende(element, lagreIbase=0, klasse=''):
     s = {} #Utøver liste
     ss = {} #Solist liste
     
-    metadata = finnUnger(element.childNodes,"metadata_DC", kunEn=1)[0]
+    metadata = finn_unger(element.childNodes,"metadata_DC", kun_en=1)[0]
     contributors = metadata.getElementsByTagName('contributor')
     for contributor in contributors:
         solist = False
@@ -856,12 +834,12 @@ def parser(xmlstreng):
     
             #Saa sendetidspunktet
             sendetidspunkt = finnVerdi(element, 'metadata_DC/dates/date_issued', entity=0)
-            tid = mdb.TimestampFromTicks(ISOtilDato(sendetidspunkt,sekunder=1))
+            tid = mdb.TimestampFromTicks(iso_til_dato(sendetidspunkt,sekunder=1))
             
             #Finne opptaksdato, dersom dette finnes.
             opptaksdato = finnVerdi(element, 'metadata_DC/dates/date_created', entity=0)
             if opptaksdato:
-                laget = mdb.TimestampFromTicks(ISOtilDato(opptaksdato, sekunder=1))
+                laget = mdb.TimestampFromTicks(iso_til_dato(opptaksdato, sekunder=1))
             else:
                 #** Mulig denne må endres til en nullverdi
                 laget = tid	
@@ -900,8 +878,8 @@ def parser(xmlstreng):
                 else:
                     c1.close()
                     #Finne slutttidspunkt
-                    slutttid1 = ISOtilDato(tid1,sekunder=1,sql=1) + lengde
-                    if ISOtilDato(sendetidspunkt,sekunder=1)>=slutttid1:
+                    slutttid1 = iso_til_dato(tid1,sekunder=1,sql=1) + lengde
+                    if iso_til_dato(sendetidspunkt,sekunder=1)>=slutttid1:
                         oppdatere = 1
                 
                 if not oppdatere:
@@ -1082,7 +1060,7 @@ def parser(xmlstreng):
             
         #I noen tilfeller har vi situasjonen der et program feilaktig har blitt satt til lengde 0
         #Vi må sjekke dette
-        sjekkProgramLengde(d,kanal)	
+        sjekk_program_lengde(d,kanal)
         #Rydde opp manglende elementer, dvs det er ferre en 4 elementer i settet.
         if VERBOSE:
             print('flushItems, rydd,stryk:',flushItems, rydd,stryk)
@@ -1104,7 +1082,7 @@ def parser(xmlstreng):
             c1.close()
             
             #Finne slutttidspunkt
-            slutttid1 = ISOtilDato(tid1,sekunder=1,sql=1) + float(lengde1)
+            slutttid1 = iso_til_dato(tid1,sekunder=1,sql=1) + float(lengde1)
             #Forige innslag eldre enn en time er neppe relevante
             if localid == 5:
                 #Vi har det utløående elementet
@@ -1125,7 +1103,7 @@ def parser(xmlstreng):
 
 
 
-            #print time.ctime(slutttid1), time.ctime(ISOtilDato(sendetidspunkt,sekunder=1)), nu>=slutttid1, lengde1
+            #print time.ctime(slutttid1), time.ctime(iso_til_dato(sendetidspunkt,sekunder=1)), nu>=slutttid1, lengde1
             #Stryker noe hvis:
             #  Tiden på inslaget er utløpt og ikke null
             #  De andre valgene fjerner innslag ved programskifte
