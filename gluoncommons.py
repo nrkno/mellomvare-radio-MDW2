@@ -32,7 +32,7 @@ def logg(msg):
 	f.write(msg)
 	f.write('\n')
 	f.close()
-	
+
 def sendMail(til, fra, emne, melding, alvorlighetsgrad = 2):
 	"Sender en mail fra NRKs postsystem"
 	#Gjøre om til Iso
@@ -49,7 +49,7 @@ def sendMail(til, fra, emne, melding, alvorlighetsgrad = 2):
 		server.quit()
 	except:
 		return msg
-	
+
 def checkProcess(processName):
 	"Sjekker om prosesser er oppe eller ikke"
 	f=popen('/bin/ps -A | /usr/bin/grep -c "%s"' % processName)
@@ -58,7 +58,7 @@ def checkProcess(processName):
 	i = int(result)
 	#Siden grep er en prosess ved kjøringen trenger vi å trekke fra denne prosessen:
 	return i-1
-	
+
 def returnTimezone():
 	if time.localtime()[8]:
 		return '+02:00'
@@ -73,7 +73,7 @@ def ISOtilLengde(isoTid, error='tilgi'):
 			raise tidsFeil,"Begynner ikke med P"
 		else:
 			return tid
-	
+
 	if isoTid[0]!='P':
 		if not error == 'tilgi':
 			raise tidsFeil,"Begynner ikke med P"
@@ -101,9 +101,9 @@ def ISOtilLengde(isoTid, error='tilgi'):
 	p=re.search('(\d+|\d+\.\d+)Y',dager)
 	if p:
 		tid += float(p.group(1)) * 3600 * 24 * 365
-	
+
 	return tid
-	
+
 def ISOtilDato(dato,sekunder=0, sql=0):
 	offsett = 0
 	if not dato:
@@ -114,7 +114,7 @@ def ISOtilDato(dato,sekunder=0, sql=0):
 			#Da har vi et problem
 			aar = aar + 60
 			offsett = 1893456000.0
-			
+
 		try:
 			if sekunder:
 				tid= time.mktime ((aar,int(dato[5:7]), int(dato[8:10]),int(dato[11:13]),int(dato[14:16])
@@ -124,7 +124,7 @@ def ISOtilDato(dato,sekunder=0, sql=0):
 						,0,-1,-1,-1))
 		except ValueError:
 			tid = 0
-			
+
 	else:
 		try:
 			tid = int(dato)
@@ -140,7 +140,7 @@ def hentVerdier(noder,lim='', encoding = 'utf-8'):
 		if node.nodeType == node.TEXT_NODE or node.nodeType == node.CDATA_SECTION_NODE:
 			s+=node.data + lim
 	return s#.encode(encoding,'replace')
-	
+
 def finnVerdi(xmlobjekt,path, entity = False, nodetre = False, encoding = 'utf-8'):
 	#path til nodeliste
 	nodeliste = path.split('/')
@@ -159,7 +159,7 @@ def finnVerdi(xmlobjekt,path, entity = False, nodetre = False, encoding = 'utf-8
 			else:
 				#returnere attributverdi
 				return xmlobjekt.getAttribute(node[1:])#.encode(encoding,'replace')
-				
+
 	except IndexError:
 		if nodetre:
 			return []
@@ -184,11 +184,11 @@ def lagBiografi(contributor, format = 'enkel'):
 				f = finnFuzzyDate(hendelse, 'metadata_DC/dates/+fuzzy_date', filter='event', dictOutput = False, output = ['year'])
 			if hendelsetittel.lower() == 'død':
 				d = finnFuzzyDate(hendelse, 'metadata_DC/dates/+fuzzy_date', filter='event', dictOutput = False, output = ['year'])
-		
+
 		else:
 			pass
 			#Legg inn kode for en samla biografi her
-		
+
 	if format == 'enkel':
 		if f and d:
 			return '(%s-%s)' % (f,d)
@@ -197,7 +197,7 @@ def lagBiografi(contributor, format = 'enkel'):
 		elif d:
 			return '(?-%s)' % f
 	return ''
-	
+
 def unique(list):
 	"returnerer en kopi av liste i normalisert utgave"
 	s =[]
@@ -205,11 +205,11 @@ def unique(list):
 		if i not in s:
 			s.append(i)
 	return s
-		
+
 
 def finnNasjon(node, path, filter=None):
 	"Returnerer en liste med nasjonaliteter funnet i en node, og disses underelementer"
-	
+
 	s=[]
 	contributors = finnVerdi(node, path, nodetre=True)
 	for contributor in contributors:
@@ -224,10 +224,10 @@ def finnNasjon(node, path, filter=None):
 		else:
 			#Vi legger til alt
 			s.append(nasjon)
-					
-	
+
+
 	return s
-	
+
 
 def finnRoller(node, path, entity = False, filter = None, filter2 = None, filter3 = None, filter4 = None,
 	kunEtternavn = False, navnSkille = False, etterNavn_forNavn = False, alias = False, aliasSufix = False,
@@ -241,7 +241,7 @@ def finnRoller(node, path, entity = False, filter = None, filter2 = None, filter
 	filter4 - tar ikke med folk som bare har denne rollen(e)
 	kunEtternavn - undertrykker fornavnene
 	navneskille - Beholder for og etternavn i hver sin variabel, ellers settes disse sammen
-	
+
 	vaskWs - Vasker unødvendige mellomrom
 	medRolle - gir et formatert liste med hovedrollene foran person(ene)
 	setSufix - setter denne verdien i parantes etter navnet, his det ikke er noen rolle generert
@@ -254,15 +254,15 @@ def finnRoller(node, path, entity = False, filter = None, filter2 = None, filter
 	targetLength - prøver å holde seg under den opgitte lenge for dataene"""
 	#TODO legge inn støtte for at det bare er roller fra en hvis rolleliste som skal ut i rolle betegnelsene
 	#Støtte for å filtere der birolle er den samme som hovedrolle
-	
+
 	#Rydde opp dersom vi spesifikt spør etter en rolle som står på aldriRolle listen
-	
-	
+
+
 	#Legge inn en funksjon som gjør at en tar vekk støtterollene og stryker persjonen dersom dette var den eneste rollen.
-	
+
 	if not aldriRolle:
 		aldriRolle = ['Bidragsyter','Opphavsmann','Solist']
-	
+
 	try:
 		if filter in aldriRolle:
 			aldriRolle.remove(filter)
@@ -273,13 +273,13 @@ def finnRoller(node, path, entity = False, filter = None, filter2 = None, filter
 			aldriRolle.remove(filter2)
 	except:
 		pass
-	
-	
+
+
 	#Dersom filter er satt til Utøver, så skal alle støtteroller ignoreres
-	
+
 	if filter == 'Utøver':
 		aldriRolle.extend(notPerformers)
-	
+
 	s = {}
 	l = []
 	contributors = finnVerdi(node, path, nodetre=True)
@@ -310,20 +310,20 @@ def finnRoller(node, path, entity = False, filter = None, filter2 = None, filter
 			#vokal står til vokalist som bass står til vokalist
 			if rolePart.lower() == 'vokalist':
 				rolePart = 'vokal'
-				
+
 			#Ny patch
-			
+
 			if len(roles)<5 and filter=='Utøver' and rolePart=='Musiker':
 				#Da har vi en situasjon der vi bare skal betrakte musikeren som utøver
 				rolePart = 'Utøver'
-			
+
 			try:
 				if rolePart in filter4:
 					continue
 					#*******
 			except:
 				pass
-			
+
 			try:
 				if rolePart in filter3:
 					filtrert = True
@@ -349,7 +349,7 @@ def finnRoller(node, path, entity = False, filter = None, filter2 = None, filter
 		if filter2:
 			if not filter2 in totalRoles:
 				continue
-				
+
 		#Dersom vi nå har filter og ingen rolle så kan vi likesågodt gi oss
 		if filter and not role:
 			continue
@@ -427,18 +427,18 @@ def finnRoller(node, path, entity = False, filter = None, filter2 = None, filter
 					else:
 						role = "Dirigent"
 						totalRoles.remove("Dirigent")
-				else:		
+				else:
 					role = totalRoles[0]
 					totalRoles.remove(role)
-				
-			
-		
+
+
+
 		if dictOutput:
 			if not navnSkille:
 				if fornavn:
 					navn = fornavn + ' ' + navn
 					fornavn = ''
-		
+
 			if fornavn:
 				if role in s:
 					s[role].append({'fornavn':fornavn,'navn':navn, 'nasjon':nasjon, 'solist':solist})
@@ -453,7 +453,7 @@ def finnRoller(node, path, entity = False, filter = None, filter2 = None, filter
 			if totalRoles:
 				#Legger på ekstraroller hvis de fremdeles finnes
 				s[role][-1]['extraRoles'] = totalRoles
-			
+
 		else:
 			if fornavn:
 				if role in s:
@@ -466,22 +466,22 @@ def finnRoller(node, path, entity = False, filter = None, filter2 = None, filter
 						s[role] = [navn + ', ' + fornavn + aliasHerme + rolleParantes +  biografiParantes + nasjonsklamme]
 					else:
 						s[role] = [fornavn + ' ' + navn + aliasHerme + rolleParantes +  biografiParantes + nasjonsklamme]
-						
+
 				if etterNavn_forNavn:
 					l.append(navn + ', ' + fornavn + aliasHerme + rolleParantes + biografiParantes + nasjonsklamme)
 				else:
 					l.append(fornavn + ' ' + navn + aliasHerme + rolleParantes +  biografiParantes + nasjonsklamme)
-						
+
 			else:
 				if role in s:
 					s[role].append(navn + aliasHerme + rolleParantes +  biografiParantes + nasjonsklamme)
 				else:
 					s[role] = [navn + aliasHerme + rolleParantes +  biografiParantes + nasjonsklamme]
 				l.append(navn + aliasHerme + rolleParantes +  biografiParantes + nasjonsklamme)
-	
+
 	if dictOutput:
 		return s
-		
+
 	if filter:
 		if filter in s or filter == 'Utøver':
 			if medRolle:
@@ -508,12 +508,12 @@ def finnRoller(node, path, entity = False, filter = None, filter2 = None, filter
 def finnFuzzyDate(node, path, filter=None, dictOutput = True, output = []):
 	"""Behandler gluonklassen fuzzydate.
 	Begrensning: Returnerer bare første datoobjektet som er argument
-	
+
 	TODO: Bygg ut med flere formaterings muligheter  19?? f. eks."""
 	s = {}
 	datoen = None
 	datoer =  finnVerdi(node, path, nodetre=True)
-	
+
 	for dato in datoer:
 		label = finnVerdi(dato,'@label', entity = 0)
 		if label == filter:
@@ -535,36 +535,36 @@ def finnFuzzyDate(node, path, filter=None, dictOutput = True, output = []):
 	dayInterval = (finnVerdi(datoen,'start/@startDay', entity = 0), finnVerdi(datoen,'end/@startDay', entity = 0))
 	if dayInterval != ('', ''):
 		s['day'] = dayInterval
-	
+
 	if dictOutput:
 		return s
-		
-	if 'year' in output and 'year' in s: 
+
+	if 'year' in output and 'year' in s:
 		return s['year'][0]
-		
+
 	if 'digasdate' in output:
 		#Endres til også å støtte sluttdatoene
 		if 'year' in s:
 			year = s['year'][0]
 		else:
 			year = '????'
-			
+
 		if 'month' in s:
 			month = s['month'][0]
 			if len(month)==1:month='0'+month
 		else:
 			month = '??'
-			
+
 		if 'day' in s:
 			day = s['day'][0]
 			if len(day)==1:day='0'+day
 		else:
 			day = '??'
-			
+
 		return "%s-%s-%s" % (year, month, day)
-		
+
 	#otherwise
-	
+
 	return ''
 
 def finnDestinasjoner(node, path = 'gluon/head/transmitters/+transmitter'):
@@ -577,26 +577,26 @@ def finnDestinasjoner(node, path = 'gluon/head/transmitters/+transmitter'):
 			s.append(ref)
 	return s
 
-		
-		
+
+
 def finnTyper(node, path, filter = None, navnSkille = False):
 	"Returnerer en diktionary med typer, eller en liste"
 	s = {}
 	typer = finnVerdi(node, path, nodetre=True)
-	
+
 	for type in typer:
 		#Finne rolle bruke denne som key
 		ref = finnVerdi(type,'@reference', entity = 0)
 		if not ref:
 			ref = 'ingenRef'
 		typebetegnelse =  finnVerdi(type,'', entity = 1)
-		
+
 		if ref in s:
 			s[ref].append(typebetegnelse)
 		else:
 			s[ref] = [typebetegnelse]
-		
-			
+
+
 	if filter:
 		if filter in s:
 			return s[filter]
@@ -610,25 +610,25 @@ def finnBeskrivelse(node, path, filter = None, filterFelt = '@label', encoding =
 	"""Returnerer en liste av dictionaries som gjenspeiler et "description" felt."""
 	s = {}
 	relasjoner = finnVerdi(node, path, nodetre = True)
-	
+
 	for relasjon in relasjoner:
 		#Finne rolle bruke denne som key
 		ref = finnVerdi(relasjon, filterFelt, entity = 0)
 		if not ref:
 			ref = 'ingenLabel'
 		relasjonsbetegnelse =  finnVerdi(relasjon,'', entity = 1, encoding = encoding)
-		
+
 		if ref in s:
 			s[ref].append(relasjonsbetegnelse)
 		else:
 			s[ref] = [relasjonsbetegnelse]
-		
-	
+
+
 	if filter:
 		if filter in s:
 			return s[filter]
 		else:
-			
+
 			return []
 	else:
 		return s
@@ -638,60 +638,60 @@ def finnRelasjoner(node, path, filter = None):
 	"""Returnerer en liste av dictionaries som gjenspeiler en relasjonsnode."""
 	s = {}
 	relasjoner = finnVerdi(node, path, nodetre=True)
-	
+
 	for relasjon in relasjoner:
 		#Finne rolle bruke denne som key
 		ref = finnVerdi(relasjon,'@label', entity = 0)
 		if not ref:
 			ref = 'ingenLabel'
 		relasjonsbetegnelse =  finnVerdi(relasjon,'', entity = 0)
-		
+
 		if ref in s:
 			s[ref].append(relasjonsbetegnelse)
 		else:
 			s[ref] = [relasjonsbetegnelse]
-		
-	
+
+
 	if filter:
 		if filter in s:
 			return s[filter]
 		else:
-			
+
 			return []
 	else:
 		return s
-		
+
 def finnTitler(node, path, filter = None, encoding = 'utf-8'):
 	"""Returnerer en liste av dictionaries som gjenspeiler en relasjonsnode."""
 	s = {}
 	titler = finnVerdi(node, path, nodetre=True)
-	
+
 	for tittel in titler:
 		#Finne rolle bruke denne som key
 		ref = finnVerdi(tittel,'@label', entity = 0)
 		if not ref:
 			ref = 'ingenLabel'
 		relasjonsbetegnelse =  finnVerdi(tittel,'', entity = 0, encoding = encoding)
-		
+
 		if ref in s:
 			s[ref].append(relasjonsbetegnelse)
 		else:
 			s[ref] = [relasjonsbetegnelse]
-		
-	
+
+
 	if filter:
 		if filter in s:
 			return s[filter]
 		else:
-			
+
 			return []
 	else:
 		return s
 
-		
+
 def entetyReplace(s):
 	s = s.replace('&','&amp;')
-	
+
 	return s
 
 
@@ -702,8 +702,8 @@ def finnUnger(noder,tag,kunEn=0):
 			if node.tagName == tag:
 				s.append(node)
 				if kunEn: return s
-				
+
 	return s
-	
+
 if __name__=='__main__':
 		print checkProcess('Awawe ert')

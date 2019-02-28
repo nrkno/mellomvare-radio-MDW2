@@ -67,7 +67,7 @@ def startUtspiller(innstikk_navn=None, innstikk_type=None, parametre={}, retur_m
         type, val, tb = exc_info()
         msg = "".join(traceback.format_exception(type, val, tb))
         retur_meldinger.put({'innstikk_navn':innstikk_navn, 'status':'error','msg':msg})
-    
+
 def main(dok):
     # Hvis det ikke er noe dok her er det ønsket en oppdatering av utmodulene
     status_list = []
@@ -80,11 +80,11 @@ def main(dok):
         # Lager proforma liste for  oppdatere alle
         status_list = [{'status':1,'kanal':'alle','datatype':'iteminfo'}]
     # Start utspillingstjeneste
-    
+
     if VERBOSE:
         print ("Start utspilling:",time.time() - now)
     # Innstikkstyper for hver av tjenestetypene i dab, dls, mot o.l.
-    
+
     # Sjekke hva som er oppdatert
     s2 = []
     trd = []
@@ -101,14 +101,14 @@ def main(dok):
             id = i['id']
         else:
             id = ''
-        
+
         for ut in utenheter:
             if TRAADER:
                 t = Thread(target=startUtspiller,
                         kwargs = {'innstikk_navn':ut, 'innstikk_type':utenheter[ut], 'parametre':i, 'returMeldinger': meldinger}
                         )
                 t.setName(ut)
-                t.setDaemon(1) 
+                t.setDaemon(1)
                 t.start()
                 trd.append(t)
             else:
@@ -154,7 +154,7 @@ def main(dok):
         # Vi fyrer feilmelding
         return error('dab11', QUARK_NAME, melding="\n".join(totalMelding))
 
-    
+
 def handler():
     "Modul for CGI, henter ut dok"
     print("Content-type: text/html")

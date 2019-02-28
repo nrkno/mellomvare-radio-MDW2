@@ -43,7 +43,7 @@ varsling = False
 kanalAlow = ['p1','P2','NRK Petre','PETRE','NRK P3','Alltid Klassisk','mPetre','P3','p3']
 kanalAlow = ['fmk','p3urort']
 kanalAlow = ['p1','p2','p3','ak','an','mpetre','fmk','p3urort','p1of','ev1','ev2','nrk_5_1']
-lagetGrense = 1980 
+lagetGrense = 1980
 
 #kanalAlow = ['mpetre']
 
@@ -65,7 +65,7 @@ htmlWrapper = """<html>
 </body>
 </html>"""
 imgWrapper = """<img src="http://nettradio.nrk.no/albumill/%s" hspace="2" align="left" />
-"""	
+"""
 XML = """<?xml version="1.0" encoding="iso-8859-1"?>
 <nr>
 <tl>%(tl)s</tl>
@@ -171,7 +171,7 @@ billedmappe = "http://nettradio.nrk.no/albumill/"
 billedmappe = "/albumill/"
 fakeURL = "http://160.68.118.65/php/includes/streamData.php"
 #print len(mal)
-	
+
 crlf = chr(10) + chr(13)
 crlf =  chr(10)
 
@@ -203,7 +203,7 @@ def sendMail(til, fra, emne, melding, alvorlighetsgrad = 2):
 
 def getUrl(d, kanal, port='9090', realm='dr'):
 	"Gir riktig DR url på grunnlag av kanal, returnerer en liste"
-	
+
 	#sjekke kanaltabellen
 	s  = []
 	c = d.cursor()
@@ -212,26 +212,26 @@ def getUrl(d, kanal, port='9090', realm='dr'):
 	rows = c.fetchall()
 	for row in rows:
 		s.append(row[0]% port)
-	
-	
+
+
 	return s
 
 def getUrlTest(kanal, port='9090'):
 	"Gir riktig DR url på grunnlag av kanal, returnerer en liste"
-	
+
 	#sjekke kanaltabellen
-	
+
 	#return ["http://localhost/"]
 	#if not kanal == 'p1_ndoa':
 	if not kanal == 'mpetre':
 
 		return []
-		
+
 	return ['http://160.68.104.136:%s/channel1' % port, 'http://160.68.104.136:%s/channel2' % port]
 
 def sendDataWeb(data,uri, svar_fra_mottager = True, utverdier = []):
 	#For at den ikke skal sende noe noe
-	
+
 	headers = {"Content-type": "application/xml",
 		"Accept": "*/*",
 		"User-Agent":"MDW 1.0 [no] (%s; U)"%sys.platform}
@@ -240,7 +240,7 @@ def sendDataWeb(data,uri, svar_fra_mottager = True, utverdier = []):
 	uri=uri.lstrip('/')
 	#Dele opp uri til hostname og url
 	host,url = uri.split('/',1)
-	
+
 	try:
 		conn = HTTPConnection(host)
 		conn.request("POST", '/' + url,data, headers)
@@ -256,7 +256,7 @@ def sendDataWeb(data,uri, svar_fra_mottager = True, utverdier = []):
 			return 'Connection reset by peer'
 		if svar_fra_mottager:
 			svar = svar.read()
-			
+
 		else:
 			pass
 			svar =  svar.status
@@ -270,13 +270,13 @@ def sjekkStatus(id, host = "nettradio.nrk.no", path = "/albumill/"):
 	try:
 		conn = HTTPConnection(host)
 		conn.request("GET", path + id)
-		
+
 	except:
 		#Legge inn forskjellige verdier her
 		if verbose:
 			print 'Kunne ikke lage forbindelse'
 	else:
-		
+
 		svar = conn.getresponse()
 		conn.close()
 		if svar.status == 200:
@@ -291,7 +291,7 @@ def finnUnger(noder,tag,kunEn=0):
 			if node.tagName == tag:
 				s.append(node)
 				if kunEn: return s
-				
+
 	return s
 
 def hentVerdier(noder,lim=''):
@@ -300,11 +300,11 @@ def hentVerdier(noder,lim=''):
 		if node.nodeType == node.TEXT_NODE:
 			s+=node.data + lim
 	return s
-	
+
 def finnVerdi(xmlobjekt,path,entity = 0):
 	#path til nodeliste
 	nodeliste = path.split('/')
-	
+
 	try:
 		for node in nodeliste:
 			if node=='':
@@ -314,17 +314,17 @@ def finnVerdi(xmlobjekt,path,entity = 0):
 			else:
 				#returnere attributverdi
 				return xmlobjekt.getAttribute(node[1:])
-				
+
 	except IndexError:
 		return ''
 	if not entity:
 		return hentVerdier(xmlobjekt.childNodes)
 	else:
 		return entetyReplace(hentVerdier(xmlobjekt.childNodes))
-	
+
 def entetyReplace(s):
 	s = s.replace('&','&amp;')
-	
+
 	return s
 
 
@@ -334,7 +334,7 @@ def minimumLevetid(d,kanal):
 	#Denne må modifiseres for å ta hensyn til alle dls'ene i kanalen
 	#Kanskje heller ta vare på alle stoptidene slik at vi kan legge de på en stak som regenererer dls,ene?
 	c = d.cursor()
-	sql = """select 
+	sql = """select
 UNIX_TIMESTAMP(tid) + lengde - UNIX_TIMESTAMP()
  as tid_igjen
 from iteminfo
@@ -345,38 +345,38 @@ Limit 1
 ;"""
 	c.execute(sql,(kanal))
 	try:
-		try:	
+		try:
 			p = int(c.fetchone()[0])
 		finally:
 			c.close()
-	except TypeError:	
+	except TypeError:
 		return 0
 	if kanal != 'ak':
 		p += 600
 	return p
-	
+
 
 def sammenlignTittler(tittel1,tittel2):
 	"Sammenligner om titler er nesten like, f. eks. to satser av et verk, returnerer True hvis vi synes det er likt"
 	#Vi finner forskjellen, Vi forutsetter at Verktittel begynner likt, dersom dette er et problem
-	
+
 	try:
 		for i in range(len(tittel1)):
 			if tittel1[i]!=tittel2[i]:break
-		
+
 	except:
 		pass
 	#Vi tar ut forskjellene
 	likheten = tittel1[:i].rstrip(':.;, ')
 	forskjell = tittel1[i:]
-	
+
 	#Vi gjør en enkel test i første omgang, siden kan dette brukes til noe ala : ... sats 1. fulgt av sats 2.
-	
+
 	if len(likheten)>3 * len(forskjell) and 'sats' in forskjell:
 		return True
 	else:
 		return False
-		
+
 
 def ISOtilDato(dato,sekunder=0, sql=0):
 	if not dato:
@@ -394,7 +394,7 @@ def ISOtilDato(dato,sekunder=0, sql=0):
 						,0,-1,-1,-1))
 		except ValueError:
 			tid = 0
-			
+
 	else:
 		try:
 			tid = int(dato)
@@ -433,9 +433,9 @@ def  distriktskanal(d, kanal):
 	else:
 		kanalId = 99
 		print "UKJENT KANAL", kanal
-		
+
 	#Finne så hvilke distriktskanaler vi har
-	
+
 	c = d.cursor()
 	sql = """SELECT navn FROM kanal WHERE foreldre_id =%s ;"""
 	s = []
@@ -443,7 +443,7 @@ def  distriktskanal(d, kanal):
 	while 1:
 		p = c.fetchone()
 		if p:
-			s.append(p[0]) 
+			s.append(p[0])
 		else:
 			break
 	c.close()
@@ -457,12 +457,12 @@ def  distriktskanal(d, kanal):
 		while 1:
 			p = c.fetchone()
 			if p:
-				s.append(p[0]) 
+				s.append(p[0])
 			else:
 				break
 		c.close()
 	return s
-	
+
 def finnHovedkanal(d, kanal):
 	"Returnerer navnet pÃ¥ hovedkanalen eller kanalnavn pÃ¥ grunnlag av kanalnavn"
 	#Finne fÃ¸rst intern ideen pÃ¥ morkanalen
@@ -476,9 +476,9 @@ def finnHovedkanal(d, kanal):
 	else:
 		hovedId = 99
 		print "UKJENT KANAL", kanal
-		
+
 	#Finne hva hovedkanalen heter
-	
+
 	c = d.cursor()
 	sql = """SELECT navn FROM kanal WHERE id =%s LIMIT 1;"""
 	s = []
@@ -488,14 +488,14 @@ def finnHovedkanal(d, kanal):
 	if row:
 		return row[0]
 	else:
-		
+
 		print "FEIL I SQL"
 
 
-	
+
 def finnBlokker(d):
 	"Returnerer alle blokkene fra dab-databasen"
-	
+
 	c = d.cursor()
 	sql = """SELECT DISTINCT id, navn FROM blokk;"""
 	s = {}
@@ -509,7 +509,7 @@ def finnBlokker(d):
 	c.close()
 	return s
 
-	
+
 def hentVisningsvalg(d,kanal, blokkId, datatype=None, oppdatering = 0):
 	"Henter ut visningsvalg og verdier for filterfunksjonen"
 	#Først finner vi kanal_ID på kanalen.
@@ -525,12 +525,12 @@ def hentVisningsvalg(d,kanal, blokkId, datatype=None, oppdatering = 0):
 	else:
 		kanalId = 99
 		print "UKJENT KANAL", kanal
-		
+
 	#Så sjekke om denne datatypen skal være breaking for den gitte kanalen
 	#Dette kan være bestemt av datatypen også
 	if ':' in datatype:
 		return datatype.split(':',1) # Gir en [datatype,'breaking'] type
-		
+
 	c= d.cursor()
 	sql="""SELECT breaking from datatyper
 INNER JOIN dataikanal ON dataikanal.datatype_id=datatyper.id
@@ -545,15 +545,15 @@ WHERE kanal_id=%s AND blokk_id=%s AND tittel=%s LIMIT 1;"""
 	except:
 		#Dette kan feile dersom datatypen/kanalen ikke er registrert -> skal da ikke vise noe
 		pass
-	
+
 	if oppdatering:
 		c= d.cursor()
-		sql = """SELECT DISTINCT 
+		sql = """SELECT DISTINCT
 				alias
-				FROM datatyper  
+				FROM datatyper
 				INNER JOIN dataikanal ON datatyper.id=dataikanal.datatype_id
 				WHERE dataikanal.kanal_id = %s AND dataikanal.blokk_id = %s;"""
-		s = []			
+		s = []
 		c.execute(sql,(kanalId,blokkId))
 		while 1:
 			p = c.fetchone()
@@ -561,11 +561,11 @@ WHERE kanal_id=%s AND blokk_id=%s AND tittel=%s LIMIT 1;"""
 				s.append(p[0])
 			else:
 				break
-				
+
 		#Legge over til navn i steden for id
 		if not s:
 			return []
-		
+
 		if len(s)==1:
 			s=s[0]
 			sql = """SELECT tittel from datatyper
@@ -573,31 +573,31 @@ WHERE kanal_id=%s AND blokk_id=%s AND tittel=%s LIMIT 1;"""
 		else:
 			sql = """SELECT tittel from datatyper
 					WHERE id in %s;"""
-		s1 = []			
+		s1 = []
 		c.execute(sql,(s,))
-		
+
 		while 1:
 			p = c.fetchone()
 			if p:
-				
+
 				s1.append(p[0])
 			else:
 				break
-		
+
 		c.close()
-		
-		
-		
+
+
+
 		return s1
-		
-		
-		
+
+
+
 	else:
 		c= d.cursor()
 		sql = """SELECT datatyper.tittel FROM datatyper
 		INNER JOIN dataikanal ON datatyper.id=dataikanal.datatype_id
 		WHERE kanal_id=%s AND blokk_id = %s;"""
-		s = []			
+		s = []
 		c.execute(sql,(kanalId,blokkId))
 		while 1:
 			p = c.fetchone()
@@ -607,12 +607,12 @@ WHERE kanal_id=%s AND blokk_id=%s AND tittel=%s LIMIT 1;"""
 				break
 		c.close()
 		return s
-	
+
 def hentPgrinfo(d,kanal,hovedkanal):
 	"Henter kanalnavn og kanalbeskrivelse. Returnerer en liste de kanalnavn er 1. element og beskrivelsen 2."
 	c= d.cursor()
 	sql = """SELECT tittel, beskrivelse FROM iteminfo WHERE kanal=%s AND type='pgr' LIMIT 1;"""
-				
+
 	c.execute(sql,(kanal,))
 	try:
 		try:
@@ -620,7 +620,7 @@ def hentPgrinfo(d,kanal,hovedkanal):
 		finally:
 			c.close()
 	except TypeError:
-		
+
 		return []
 	return [tittel, beskrivelse]
 
@@ -633,35 +633,35 @@ def hentNyheter(d,kanal, max=None):
 	else:
 		sql = """SELECT tittel, sammendrag FROM nyheter ORDER BY id LIMIT %s;"""
 		c.execute(sql,(max,))
-	
-		
+
+
 	while 1:
 		row = c.fetchone()
 		#print row
 		if not row:
 			c.close()
 			break
-		
+
 		item = "%s. %s" % row
 		if len(item)>128:
 			item = row[1]
 		if len(item)>128:
 			item = item[:120] + '...'
 		yield [item]
-		
+
 
 	c.close()
-	
-	
+
+
 def hentProgrammeinfo(d,kanal,hovedkanal,distriktssending=0):
 	"""Henter informasjon om programmet som er på lufta, returnerer dette som en tuple.
 	Denne funksjonen bestemmer også om vi er i en distriktsflate eller ikke"""
 	c= d.cursor()
-	
+
 	#Vi må sjekke om hovedkanalen har en distriktsflate
-	
+
 	sql = """SELECT element FROM iteminfo WHERE kanal=%s AND type='programme' AND localid = '1' LIMIT 1;"""
-	
+
 	c.execute(sql,(hovedkanal,))
 	try:
 		try:
@@ -671,14 +671,14 @@ def hentProgrammeinfo(d,kanal,hovedkanal,distriktssending=0):
 	except TypeError:
 		element=''
 		#Sjekke omo denne egentlig vil kunne feile
-	
+
 	if '<subject reference="ESCORT">R' in element:
 		#Vi har en distriktssending
 		distriktssending = True
 		#Vi har ennå ikke distriktsvise programme info
 		#Vi henter først ut navnet "Brandet" på kanalen
 		c= d.cursor()
-		
+
 		sql = """SELECT branding FROM kanal WHERE navn=%s LIMIT 1;"""
 		c.execute(sql,(kanal,))
 		try:
@@ -693,16 +693,16 @@ def hentProgrammeinfo(d,kanal,hovedkanal,distriktssending=0):
 			tittelSufix = ' fra ' + branding
 		else:
 			tittelSufix = ''
-			
+
 		kanal = hovedkanal #Dette gjør at vi aldri henter programdata fra distriktsflaten
-		
+
 	else:
 		#Vi skal ikke har regionvise resultater
 		kanal = hovedkanal
 		tittelSufix = ''
-	c = d.cursor()	
+	c = d.cursor()
 	sql = """SELECT tittel, beskrivelse, artist, tid, lengde FROM iteminfo WHERE kanal=%s AND type='programme' AND localid = '1' LIMIT 1;"""
-				
+
 	c.execute(sql,(kanal,))
 	try:
 		try:
@@ -715,7 +715,7 @@ def hentProgrammeinfo(d,kanal,hovedkanal,distriktssending=0):
 			return hentProgrammeinfo(d,hovedkanal,None,distriktssending=distriktssending)
 		else:
 			return '','','','','', distriktssending
-			
+
 	tittel = tittel + tittelSufix #Legger på f. eks. "fra NRK Trøndelag" på dirstriksflater
 	if type(sendetid)!=type(''):
 		#Dette er en foreløpig patch for at en har begynt å bruke datetime objekter
@@ -725,20 +725,20 @@ def hentProgrammeinfo(d,kanal,hovedkanal,distriktssending=0):
 	#print 888, sekunderSiden
 	if sekunderSiden>30000:
 		return  tittel, '', artist, sendetid[11:16], int(math.ceil(float(lengde) /60.0)), distriktssending
-			
-		
+
+
 	return tittel, beskrivelse, artist, sendetid[11:16], int(math.ceil(float(lengde) /60.0)), distriktssending
-	
-		
+
+
 def hentProgrammeNext(d,kanal,hovedkanal,distriktssending=0):
 	"Henter informasjon om det neste programmet som skal på lufta, returnerer en liste med et element."
 	c= d.cursor()
 	sql = """SELECT tittel, tid FROM iteminfo WHERE kanal=%s AND type='programme' AND localid = '2' LIMIT 1;"""
-	
+
 	c.execute(sql,(kanal,))
 	try:
 		try:
-			
+
 			tittel, tid = c.fetchone()
 		finally:
 			c.close()
@@ -749,47 +749,47 @@ def hentProgrammeNext(d,kanal,hovedkanal,distriktssending=0):
 			return ''
 
 	return tittel
-	
+
 def hentEpg(d,kanal,hovedkanal,distriktssending=0):
 	"Henter informasjon om programmene utover dagen og kvelden, returnerer en liste med et element."
-	
+
 	#Først finne klokka
 	timen = time.localtime()[3]
 	#Sikring for gamle data
 	c= d.cursor()
 	sql = """select TO_DAYS(NOW()) - TO_DAYS(date)  from epg_light_gyldighet WHERE kanal = %s LIMIT 1;"""
-	
+
 	c.execute(sql,(kanal,))
-	
+
 	try:
 		try:
 			dagerGammel = c.fetchone()[0]
 		finally:
 			c.close()
-			
+
 	except TypeError:
-		
+
 		if hovedkanal and not distriktssending:
 			#Vi har en ukjent kanal, uten epg, vi prøver å gå opp et hakk
 			return hentEpg(d,hovedkanal,None)
 		else:
 			return []
-		
+
 	if not (dagerGammel ==0 or (dagerGammel==1 and timen<6)):
 		if verbose:print "EPG er GAMMEL"
 		return []
-	
-	
+
+
 
 	#Her er det vel ingen hensikt å dele på distrikter, der alle distriktene nå er like, med henhold til sendetidspunkter, eller?
-	
+
 	c= d.cursor()
 	sql = """SELECT id, info FROM epg_light WHERE kanal=%s AND time=%s LIMIT 1;"""
 
 	c.execute(sql,(kanal,timen))
 	try:
 		try:
-	
+
 			id, info = c.fetchone()
 		finally:
 			c.close()
@@ -799,17 +799,17 @@ def hentEpg(d,kanal,hovedkanal,distriktssending=0):
 		else:
 			return []
 
-	
+
 	item = "%s" % info #Legge inn På P1 i kveld...
-	
+
 	return [item]
 
 def hentTextinfo(d,kanal,hovedkanal,distriktssending=0):
 	"Henter informasjon og flashmeldinger om sendingen, støtter foreløpig kunn programnivået"
-	
+
 	c= d.cursor()
 	sql = """SELECT tid, lengde, innhold FROM textinfo WHERE kanal=%s AND type='programme'  AND localid = '1' LIMIT 1;"""
-	
+
 	c.execute(sql,(kanal,))
 	try:
 		try:
@@ -822,45 +822,45 @@ def hentTextinfo(d,kanal,hovedkanal,distriktssending=0):
 		else:
 			return ''
 
-	
-	
+
+
 	#Rutine som sjekker om elementet er utløpt.
-	
+
 	oppdatere = 0 #?
 	c1= d.cursor()
 	sql = """SELECT tid, lengde FROM textinfo
 	WHERE kanal=%s and localid='1';"""
-	
-	c1.execute(sql,(kanal,)) 
+
+	c1.execute(sql,(kanal,))
 	try:
 		tid1, lengde1 = c1.fetchone()
 	except TypeError:
 		#Raden eksisterer ikke
-		
+
 		c1.close()
-		#Skal ikke ut 
+		#Skal ikke ut
 		return ''
 	else:
 		c1.close()
-		
-		slutttid1 = ISOtilDato(tid1,sekunder=1,sql=1) + lengde
-		
-		if time.time()>=slutttid1:
-		
-			
-			return ''
-			
 
-	
+		slutttid1 = ISOtilDato(tid1,sekunder=1,sql=1) + lengde
+
+		if time.time()>=slutttid1:
+
+
+			return ''
+
+
+
 	return innhold
-	
-	
-			
+
+
+
 def hentIteminfo(d,kanal,hovedkanal,distriktssending=0, item = False, info = False):
 	"Henter informasjon om innslaget som er på lufta, returnerer en liste med et element."
 	c= d.cursor()
 	#samsending?
-	
+
 	sql = """SELECT kildekanal FROM iteminfo WHERE kanal=%s AND type='programme'  AND localid = '1' LIMIT 1 ;"""
 	c.execute(sql,(kanal,))
 	row =  c.fetchone()
@@ -873,7 +873,7 @@ def hentIteminfo(d,kanal,hovedkanal,distriktssending=0, item = False, info = Fal
 		kanal = kildekanal
 
 	sql = """SELECT tittel, artist, beskrivelse,label, digastype, bildeID FROM iteminfo WHERE kanal=%s AND type='item'  AND localid = '3' LIMIT 1 ;"""
-	
+
 	c.execute(sql,(kanal,))
 	try:
 		try:
@@ -885,13 +885,13 @@ def hentIteminfo(d,kanal,hovedkanal,distriktssending=0, item = False, info = Fal
 			return hentIteminfo(d,hovedkanal,None, item = item, info = info)
 		else:
 			return '','','',''
-	if digastype == '':digastype = 'Music' #Lex BMS		
+	if digastype == '':digastype = 'Music' #Lex BMS
 	if digastype !='Music':
 		return '','','',''
-		
+
 	album = '' #Denne informasjonen finnes ikke foreløpi
 	#Vi tester bildet
-	if len(bilde)<4:bilde ='' 
+	if len(bilde)<4:bilde =''
 	if not (bilde =='' or bilde =='.jpg'):
 		if not sjekkStatus(bilde):
 			#Bildet finnes ikke, vi trimmer
@@ -900,10 +900,10 @@ def hentIteminfo(d,kanal,hovedkanal,distriktssending=0, item = False, info = Fal
 				#Finnes fremdeles ikke
 				bilde =''
 		else:
-			pass 
+			pass
 	else:
 		bilde = ''
-	
+
 	#Artist feltet må endres litt
 	if artist:
 		artist = artist.replace('|',' ')
@@ -924,7 +924,7 @@ def hentIteminfo(d,kanal,hovedkanal,distriktssending=0, item = False, info = Fal
 	else:
 		if laget<lagetGrense:
 			tittel = "%s, innspilt %s," % (tittel,laget)
-	
+
 	if info and beskrivelse:
 		album = beskrivelse
 
@@ -936,7 +936,7 @@ def hentNewsItem(d,kanal,hovedkanal,distriktssending=0, news = False, info = Fal
 	"Henter informasjon om innslaget som er på lufta, returnerer en liste med et element."
 	c= d.cursor()
 	#samsending?
-	
+
 	sql = """SELECT kildekanal FROM iteminfo WHERE kanal=%s AND type='programme'  AND localid = '1' LIMIT 1 ;"""
 	c.execute(sql,(kanal,))
 	row =  c.fetchone()
@@ -949,7 +949,7 @@ def hentNewsItem(d,kanal,hovedkanal,distriktssending=0, news = False, info = Fal
 		kanal = kildekanal
 
 	sql = """SELECT tittel, artist, beskrivelse,label, digastype, bildeID FROM iteminfo WHERE kanal=%s AND type='item'  AND localid = '3' LIMIT 1 ;"""
-	
+
 	c.execute(sql,(kanal,))
 	try:
 		try:
@@ -962,13 +962,13 @@ def hentNewsItem(d,kanal,hovedkanal,distriktssending=0, news = False, info = Fal
 		else:
 			return '','','',''
 
-	if digastype == '':digastype = 'Music' #Lex BMS		
+	if digastype == '':digastype = 'Music' #Lex BMS
 	if digastype !='News':
 		return '','','',''
-		
+
 
 	album = '' #Denne informasjonen finnes ikke foreløpig
-	if len(bilde)<4:bilde ='' 
+	if len(bilde)<4:bilde =''
 
 	if not (bilde =='' or bilde =='.jpg'):
                 if not sjekkStatus(bilde):
@@ -985,7 +985,7 @@ def hentNewsItem(d,kanal,hovedkanal,distriktssending=0, news = False, info = Fal
 
 
 
-	
+
 	#Artist feltet må endres litt
 	if artist:
 		artist = artist.replace('|',' ')
@@ -1018,15 +1018,15 @@ def hentNewsItem(d,kanal,hovedkanal,distriktssending=0, news = False, info = Fal
 		artist = ''
 	if not info:
 		album = ''
-		
+
 	return tittel, artist, album, bilde
-	
-		
+
+
 def hentItemNext(d,kanal,hovedkanal,distriktssending=0, musikk=False, news = False):
 	"Henter informasjon om det neste innslaget som skal på lufta, returnerer en liste med et element."
 	c= d.cursor()
 	#samsending?
-	
+
 	sql = """SELECT kildekanal FROM iteminfo WHERE kanal=%s AND type='programme'  AND localid = '1' LIMIT 1 ;"""
 	c.execute(sql,(kanal,))
 	row =  c.fetchone()
@@ -1042,21 +1042,21 @@ def hentItemNext(d,kanal,hovedkanal,distriktssending=0, musikk=False, news = Fal
 	try:
 		sql = """SELECT tittel FROM iteminfo WHERE kanal=%s AND type='item' AND (localid = '4' OR localid = '3')  LIMIT 2;"""
 		c.execute(sql,(kanal,))
-		
+
 		tittel1 = c.fetchone()[0]
 		tittel2 = c.fetchone()[0]
 	except:
 		pass
-		
+
 	#Dersom titlene er like med untak av satsbetegnelsene viser vi ingenting
 	else:
 		if sammenlignTittler(tittel1,tittel2):
 			return '','','',''
-		
+
 	#Ellers viser vi nesteinformasjon
 	sql = """SELECT tittel,artist, beskrivelse, digastype, bildeID FROM iteminfo WHERE kanal=%s AND type='item' AND localid = '4' LIMIT 1;"""
-	
-	
+
+
 	c.execute(sql,(kanal,))
 	try:
 		try:
@@ -1084,20 +1084,20 @@ def hentItemNext(d,kanal,hovedkanal,distriktssending=0, musikk=False, news = Fal
 			bilde =''
 		else:
 			bilde = billedmappe + bilde
-		
+
 	#Artist feltet må endres litt
 	if artist:
 		artist = artist.replace('|',' ')
 		artist = artist.lstrip('. ')
 		artist = artist[0].upper() + artist[1:]
-	
+
 	#Aldri infofelt paa neste, og ikke artis paa news
 	if digastype =='News':
 		#Vi skal ikke ha med kun tittel, pga plassmangel
 		return tittel, '', '', ''
 
 	return tittel, artist, album, bilde
-	
+
 def hentBadetemperaturer(d,kanal,hovedkanal,distriktssending=0):
 	"Henter badetemperaturer til reiseradioen o.l."
 	c= d.cursor()
@@ -1108,11 +1108,11 @@ vanntemperatur
 from bade_temp
 where
 vanntemperatur <> 0
-and 
+and
 TO_DAYS(NOW()) - TO_DAYS(oppdatert) = 0
 and svarteliste = 'N'
 order by
-vanntemperatur 
+vanntemperatur
 desc
 ;"""
 	s=[]
@@ -1126,13 +1126,13 @@ desc
 	for temp in temperaturliste:
 		listestreng += "%s:%s|" % temp
 	listestreng += '(lavest)'
-	
+
 
 	#Sette sammen dls til så få linjer som mulig
 	part = ''
 	deler = listestreng.split('|')
 	for delen in deler:
-		
+
 		if part:
 			if len(part) + len(delen) < 125:
 				part = part + ' ' + delen
@@ -1140,23 +1140,23 @@ desc
 				#Vi legger den ferdige dls fragmentet til listen
 				s.append(part + '...')
 				part = '...' + delen
-			
+
 		else:
-		
+
 			part = delen
 	#Opprydding vi må uansett legge til den siste part
 	s.append(part)
 
-		
+
 	return s
 
 def storForbokstav(item):
 	return item[0].upper() + item[1:]
-	
+
 def roter(s,n):
 	"Roterer en liste N plasser"
 	return s[n:] + s[:n]
-	
+
 def querryNettradioBase(tittel,kanal):
 	#return ' ','NRK nettradio','http://',' ',' '
 	#JTS ikke i drift
@@ -1174,7 +1174,7 @@ def querryNettradioBase(tittel,kanal):
 		d = finnVerdi( pars,'program/url',  entity = 0).encode('iso-8859-1')
 		e = finnVerdi( pars,'program/act',  entity = 0).encode('iso-8859-1')
 		#Vi skrur av de ferdiglagede tekstene
-		b = ''	
+		b = ''
 		return a,b,c,d,e
 	except:
 		return '','','','',''
@@ -1186,7 +1186,7 @@ def sendDataStreambase(dok,baseUrl,kanalnavn,interval=4,command='start',password
 	if not iDrift or testum:
 		return "Ville ha sendt til %s adressen!" % baseUrl
 	#if kanalnavn=='p3':kanalnavn='petre'
-	sendUrl = baseUrl 
+	sendUrl = baseUrl
 	data = {}
 	data['channel']=kanalnavn.encode('iso-8859-1')
 	data['type'] = 'XML'
@@ -1204,13 +1204,13 @@ def sendDataStreambase(dok,baseUrl,kanalnavn,interval=4,command='start',password
 def sendDataGet(url, navn, kanal):
 	tilogData = url + '?' + urllib.urlencode({'name':navn,'channel':kanal})
 	msg = "Ikke svar"
-	
+
 	u=urllib.urlopen(tilogData)
 	try:
-		
+
 		msg =u.read(2048)
-	
-		
+
+
 	finally:
 		u.close()
 	return msg
@@ -1236,11 +1236,11 @@ def lagMetadata(kanal='alle',datatype=None,id='', verbose=False, loggWin = False
 	else:
 		kanaler = [kanal]
 		#Det kan hende at kanalene er delt opp i distrikter - eks. p1oslo
-		
-	
+
+
 	#Finne blokker
 	blokker = finnBlokker(d)
-	
+
 	for kanal in kanaler:
 		#For inføringsfasen kan vi filtrere hvilke kanaler som skal fra denne applikasjonen
 		#if kanal not in kanalAlow:
@@ -1262,8 +1262,8 @@ def lagMetadata(kanal='alle',datatype=None,id='', verbose=False, loggWin = False
 			hovedkanal = finnHovedkanal(d, kanal)
 		else:
 			#Vi har en kanal med barn, ergo er hovedkanalen kanalen selv.
-			hovedkanal = kanal 
-	
+			hovedkanal = kanal
+
 		for kanal in distriktskanaler:
 			offnavn = getOffNavn(d, kanal)
 			#print offnavn
@@ -1272,23 +1272,23 @@ def lagMetadata(kanal='alle',datatype=None,id='', verbose=False, loggWin = False
 				if blokker[blokkId] not in ikkeDls:
 					if verbose:print "Ikke vis som DLS på %s" % blokker[blokkId]
 					continue
-					
+
 				if verbose:print "Viser på %s" % blokker[blokkId]
-				
+
 				#Bygge opp visningslista
 				#Hente visningsvalg
 				visningsvalg = hentVisningsvalg(d, kanal, blokkId, datatype=datatype)
 				oppdateres = hentVisningsvalg(d, kanal, blokkId, datatype=datatype, oppdatering = 1)
-				
+
 				if verbose:print "Visningsvalg:", visningsvalg
 				if verbose:print "Opdateringskriterie;", oppdateres
-				
+
 				#Sjekke om det er nødvendig å oppdatere
 				if not datatype in oppdateres:
 					if verbose:print "SKAL IKKE VISES", kanal,blokkId
 					continue
-				
-				s=[]	
+
+				s=[]
 				#Så til tjenestegruppene
 				if 'news' in visningsvalg:
 					if listetype == 0:
@@ -1298,20 +1298,20 @@ def lagMetadata(kanal='alle',datatype=None,id='', verbose=False, loggWin = False
 					nytt = hentNyheter(d,kanal,max=max)
 				else:
 					nytt = []
-				
+
 				#Denne typen er foreløpig ikke støttet eller nødvendig
-				"""	
+				"""
 				if 'pgrinfo' in visningsvalg:
 					s.extend(hentPgrinfo(d,kanal,hovedkanal))
 				"""
-				
+
 				if 'programmeinfo' in visningsvalg:
 					utdata['tl'], info, utdata['prgln'], utdata['st'], utdata['ln'], distriktssending = hentProgrammeinfo(d,kanal,hovedkanal)
 					#Ettersom vi ikke skal stryke standardinformsjonen, med et tomt feilt fra PI, må vi gjøre følgende
 					if info != '':
 						utdata['inf'] = info
 					if not 'inf' in utdata : utdata['inf']=''
-						
+
 				else:
 					if not 'tl' in utdata : utdata['tl'] = ''
 					if not 'inf' in utdata : utdata['inf'] = ''
@@ -1319,24 +1319,24 @@ def lagMetadata(kanal='alle',datatype=None,id='', verbose=False, loggWin = False
 					if not 'st' in utdata : utdata['st'] = ''
 					if not 'ln' in utdata : utdata['ln'] = ''
 					distriktssending = False
-				
+
 				if 'textinfo' in visningsvalg:
 					info = hentTextinfo(d,kanal,hovedkanal)
 					if info !='':
 						utdata['inf'] = info
 				else:
 					if not 'inf' in utdata : utdata['inf'] = ''
-					
-				
+
+
 				if 'iteminfo' in visningsvalg or 'musicInfo' in visningsvalg:
 					#Musikkobjekter
 					tittel, artist, album, bilde = hentIteminfo(d,kanal,hovedkanal, distriktssending = distriktssending, item = 'iteminfo' in visningsvalg, info = 'musicInfo' in visningsvalg)
 				else:
 					tittel, artist, album, bilde = '','','',''
-					
+
 				if 'newsItem' in visningsvalg or 'newsInfo' in visningsvalg:
 					#Andre innslag
-					
+
 					n_tittel, n_artist, n_album, n_bilde = hentNewsItem(d,kanal,hovedkanal, distriktssending = distriktssending, news = 'newsItem' in visningsvalg, info = 'newsInfo' in visningsvalg)
 				else:
 					n_tittel, n_artist, n_album, n_bilde = '','','',''
@@ -1345,15 +1345,15 @@ def lagMetadata(kanal='alle',datatype=None,id='', verbose=False, loggWin = False
 				if n_artist: artist = n_artist
 				if n_album: album = n_album
 				if n_bilde: bilde = n_bilde
-				
+
 				utdata['itl'], utdata['iart'], utdata['ialbt'], utdata['iill'] = tittel, artist, album, bilde
 				#For å sørge for at vi har et komplett sett uansett
 				if not 'itl' in utdata : utdata['itl'] = ''
 				if not 'iart' in utdata : utdata['iart'] = ''
 				if not 'ialbt' in utdata : utdata['ialbt'] = ''
 				if not 'iill' in utdata : utdata['iill'] = ''
-				
-				
+
+
 				if 'itemNext' in visningsvalg or 'newsItemNext' in visningsvalg:
 					utdata['nitl'], utdata['nart'], utdata['nalb'], utdata['nill'] = hentItemNext(d,kanal,hovedkanal, distriktssending = distriktssending, musikk = 'itemNext' in visningsvalg, news = 'newsItemNext' in visningsvalg)
 				else:
@@ -1362,40 +1362,40 @@ def lagMetadata(kanal='alle',datatype=None,id='', verbose=False, loggWin = False
 					if not 'nalb' in utdata : utdata['nalb'] = ''
 					if not 'nill' in utdata : utdata['nill'] = ''
 
-				
+
 				if 'programmeNext' in visningsvalg:
 					utdata['ntl'] = hentProgrammeNext(d,kanal,hovedkanal)
 				else:
 					if not 'ntl' in utdata : utdata['ntl'] = ''
-				
+
 				"""if 'epg' in visningsvalg:
 					s.extend(hentEpg(d,kanal,hovedkanal))
 				"""
 				#Så er det badetemperaturene - kan bli laaaaange
 				if 'bath' in visningsvalg:
 					s.extend(hentBadetemperaturer(d,kanal,hovedkanal))
-				
-				#**** Siden vi har med xml at lave skal konvertering av & etc skje her 	
+
+				#**** Siden vi har med xml at lave skal konvertering av & etc skje her
 				if verbose:print utdata
 				utdok = mal % utdata
 				#print utdok, len(utdok)
-				
+
 				#kanal = 'fmk'
-				
+
 				#Finne riktig url
-				
-			
-				
+
+
+
 				enkoderurls = getUrl(d, kanal, port='9090')
-				
+
 				#Sjekke bilde
 				if utdata['iill'] !='':
 					imgTag=imgWrapper % utdata['iill']
 					#print imgTag
 				else:
-					imgTag = '' 
+					imgTag = ''
 				#lt gt av xml
-				utdok = utdok.replace('<','&lt;').replace('>','&gt;') 
+				utdok = utdok.replace('<','&lt;').replace('>','&gt;')
 				#gre datafeltene litt
 				if tagDest:
 					utdata['itl'] = '[%s]'
@@ -1426,7 +1426,7 @@ def lagMetadata(kanal='alle',datatype=None,id='', verbose=False, loggWin = False
 				if tagDest:
 					utdok = utdok % (offnavn, offnavn)
 				#Så lage utf-8 støtte
-				
+
 				utdok = unicode(utdok, encoding = 'latin-1').encode('latin-1')
 				if verbose:print kanal
 				if verbose:print utdok
@@ -1436,14 +1436,14 @@ def lagMetadata(kanal='alle',datatype=None,id='', verbose=False, loggWin = False
 					try:
 						if tagDest:
 							pass
-							 
+
 						if timeout:
 							utverdier = []
 							argumenter = {'utverdier':utverdier}
 							t = Thread(target=sendDataWeb,
 							args=(utdok,encUrl),
 							kwargs=argumenter)
-							t.setDaemon(1) 
+							t.setDaemon(1)
 							t.start()
 							t.join(timeout)
 							try:
@@ -1463,12 +1463,12 @@ def lagMetadata(kanal='alle',datatype=None,id='', verbose=False, loggWin = False
 						if varsling:sendMail(['tormodv@nrk.no'], 'enkodere@nrk.no', 'Feil i metadatatjeneste WIN, melder socket error' , 'Feil i metadataene: %s' % kanal, alvorlighetsgrad = 2)
 					elif u == 'Connection reset by peer':
 						pass
-						#***Legg i n feilhandtering her	
+						#***Legg i n feilhandtering her
 					rapp.append((offnavn, u))
 					if verbose:
 						print 'SVAR:'
 						print u
-				
+
 
 
 				#Samme for mp3, vi setter ikke dette inn på enkoderne naa
@@ -1491,7 +1491,7 @@ def lagMetadata(kanal='alle',datatype=None,id='', verbose=False, loggWin = False
 							t = Thread(target=sendDataWeb,
 							args=(utdok1,encUrl),
 							kwargs=argumenter)
-							t.setDaemon(1) 
+							t.setDaemon(1)
 							t.start()
 							t.join(timeout)
 							try:
@@ -1508,7 +1508,7 @@ def lagMetadata(kanal='alle',datatype=None,id='', verbose=False, loggWin = False
 					rapp3.append((offnavn, u))
 					if u == 'Socket error':
                                                 pass
-                                                if varsling:sendMail(['tormodv@nrk.no'], 'enkodere@nrk.no', 'Feil i metadatatjeneste mp3, melder socket error' , 'Feil i metadataene: %s' % kanal, alvorlighetsgrad = 2) 
+                                                if varsling:sendMail(['tormodv@nrk.no'], 'enkodere@nrk.no', 'Feil i metadatatjeneste mp3, melder socket error' , 'Feil i metadataene: %s' % kanal, alvorlighetsgrad = 2)
 
 				"""
 				try:
@@ -1517,16 +1517,16 @@ def lagMetadata(kanal='alle',datatype=None,id='', verbose=False, loggWin = False
 					#Dette må gjøres på en annen måte her, meldingene må gå til dab som svar og der fyres som en feilmelding
 					return error("nr11",quark, melding="Kunne ikke sende til Streambase")
 				"""
-				
+
 				#f=open('test.txt','a')
 				#f.write(time.ctime() + kanal + '\n'+ u+'\n')
 				#f.close()
 				#if verbose:print "Dette svarte tjener:" , u
-				
+
 				#return 0
 				#lagTestWebNett.sendData(kanal, eml=utdok, svar=u)
 				#print rapp, rapp3
-		
+
 	#Lukke databasen
 	#Generere og lagre rapp
 	if loggWin:
@@ -1538,7 +1538,7 @@ def lagMetadata(kanal='alle',datatype=None,id='', verbose=False, loggWin = False
 		f.write(rapport)
 		f.close()
 		d.close()
-	
+
 if __name__=='__main__':
 	for i in range(3):
 		now = time.time()

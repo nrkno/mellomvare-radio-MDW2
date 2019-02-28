@@ -31,11 +31,11 @@ def sendData(uri, method="POST", data_raw = None, data_enc = None, svar_fra_mott
 	utverdier={}
 	#Lager midlertidig svar som ev. oversktives senere
 	#Lock og skriv
-	
+
 	ret_svar['status']='0'
 	ret_svar['reason']='Starter utsendelse'
-	
-	
+
+
 	utverdier[tag] = ret_svar
 	#start = time.time()
 	#Sett opp headers
@@ -55,7 +55,7 @@ def sendData(uri, method="POST", data_raw = None, data_enc = None, svar_fra_mott
 	try:
 		conn = HTTPConnection(host)
 		conn.request(method, '/' + url,data, headers)
-		
+
 		ret_svar['status']='3'
 		ret_svar['reason'] = 'Sendt data - transmitter svarer ikke. Ting er sansynlighvis OK'
 		#Dette skyldes som regel en treg mottaker og er ikke nødvendighvis en feil
@@ -76,7 +76,7 @@ def sendData(uri, method="POST", data_raw = None, data_enc = None, svar_fra_mott
 			else:
 				ret_svar['msg'] = svar.read()
 			ret_svar['duration'] = "PT%sS" % (time.time() - start)
-			
+
 		else:
 			tid = time.time() - start
 			ret_svar['msg']='TID: %s HVEM: %s' % (tid,tag)
@@ -87,17 +87,17 @@ def sendData(uri, method="POST", data_raw = None, data_enc = None, svar_fra_mott
 		if reqursivLevel<maxReqursivLevel:
 			nyUrl = svar.getheader('Location')
 			nytransmitter = tag + ":redirekt_%s" % reqursivLevel
-			sendData(nyUrl, 
-			data_raw = data_raw, 
+			sendData(nyUrl,
+			data_raw = data_raw,
 			svar_fra_mottager = svar_fra_mottager,
 			tag=nytransmitter,
 			reqursivLevel = reqursivLevel + 1)
 		#ret_svar['msg'] = nyUrl
 	#Lock og skriv
-	
+
 	utverdier[tag]= ret_svar
 	return utverdier
-	
+
 def sendData2(uri, method="POST", data_raw = None, data_enc = None, svar_fra_mottager = 1,tag='karusell', reqursivLevel = 1, multipefaktor = 1):
 	"""Sender gluoner til de forskjellige transmitterne. Plagemodus
 	Denne brukes av trådmodulen og blir kjørt en gang pr. transmitter"""
@@ -105,11 +105,11 @@ def sendData2(uri, method="POST", data_raw = None, data_enc = None, svar_fra_mot
 	utverdier={}
 	#Lager midlertidig svar som ev. oversktives senere
 	#Lock og skriv
-	
+
 	ret_svar['status']='0'
 	ret_svar['reason']='Starter utsendelse'
-	
-	
+
+
 	utverdier[tag] = ret_svar
 	#start = time.time()
 	#Sett opp headers
@@ -129,7 +129,7 @@ def sendData2(uri, method="POST", data_raw = None, data_enc = None, svar_fra_mot
 	try:
 		conn = HTTPConnection(host)
 		conn.request(method, '/' + url,data, headers)
-		
+
 		ret_svar['status']='3'
 		ret_svar['reason'] = 'Sendt data - transmitter svarer ikke. Ting er sansynlighvis OK'
 		#Dette skyldes som regel en treg mottaker og er ikke nødvendighvis en feil
@@ -150,7 +150,7 @@ def sendData2(uri, method="POST", data_raw = None, data_enc = None, svar_fra_mot
 			else:
 				ret_svar['msg'] = svar.read()
 			ret_svar['duration'] = "PT%sS" % (time.time() - start)
-			
+
 		else:
 			tid = time.time() - start
 			ret_svar['msg']='TID: %s HVEM: %s' % (tid,tag)
@@ -161,14 +161,14 @@ def sendData2(uri, method="POST", data_raw = None, data_enc = None, svar_fra_mot
 		if reqursivLevel<maxReqursivLevel:
 			nyUrl = svar.getheader('Location')
 			nytransmitter = tag + ":redirekt_%s" % reqursivLevel
-			sendData(nyUrl, 
-			data_raw = data_raw, 
+			sendData(nyUrl,
+			data_raw = data_raw,
 			svar_fra_mottager = svar_fra_mottager,
 			tag=nytransmitter,
 			reqursivLevel = reqursivLevel + 1)
 		#ret_svar['msg'] = nyUrl
 	#Lock og skriv
-	
+
 	utverdier[tag]= ret_svar
 	return utverdier
 
@@ -180,36 +180,36 @@ def main():
 	f=open('23412.jpg')
 	dataBilde1 = f.read()
 	f.close()
-	
+
 	f=open('35782.jpg')
 	dataBilde2 = f.read()
 	f.close()
-	
+
 	f=open('1087.pdf')
 	dataPdf = f.read()
 	f.close()
-	
+
 	#dataBilde1='#'*50000
 	#dataBilde2='$'*4000
-	
+
 	print 'Sjekker bildefil1'
 	rapport = sendData('http://%s/DMAnyserver/1003888.jpg' % server, method="HEAD")['karusell']
 	print 'STATUS:  ', rapport['status'],  rapport['reason']
 	print 'MELDING: ' , rapport['msg']
 	print 'TID:     ' , rapport['duration']
-	
+
 	#time.sleep(1)
 
-	
+
 	print 'Sender bildefil1'
 	rapport = sendData('http://%s/DMAnyserver/1003888.jpg' % server, method="PUT", data_raw = dataBilde1)['karusell']
 	print 'STATUS:  ', rapport['status'],  rapport['reason']
 	print 'MELDING: ' , rapport['msg']
 	print 'TID:     ' , rapport['duration']
-	
+
 	#time.sleep(1)
 """
-	
+
 	#Sende xml
 	f=open('item.xml')
 	#f=open('nDMA_529337070_18_01_2010_14_38.xml')
@@ -231,22 +231,22 @@ def main():
 	print 'STATUS:  ', rapport['status'],  rapport['reason']
 	print 'MELDING: ' , rapport['msg']
 	print 'TID:     ' , rapport['duration']
-	
+
 	#time.sleep(15)
-	
-	
+
+
 	print 'Sender bildefil2'
 	rapport = sendData('http://%s/DMAnyserver/1003887.jpg' % server, method="PUT", data_raw = dataBilde2)['karusell']
 	print 'STATUS:  ', rapport['status'],  rapport['reason']
 	print 'MELDING: ' , rapport['msg']
 	print 'TID:     ' , rapport['duration']
-	
+
 	print 'Sender pdf'
 	rapport = sendData('http://%s/DMAnyserver/1087.pdf' % server, method="PUT", data_raw = dataPdf)['karusell']
 	print 'STATUS:  ', rapport['status'],  rapport['reason']
 	print 'MELDING: ' , rapport['msg']
 	print 'TID:     ' , rapport['duration']
-	
+
 """
 
 if __name__=="__main__":

@@ -1,6 +1,6 @@
 import os
 import re
-PATH = ''
+PATH = '/Users/n12327/Documents/Xcode prosjekter/MDW2'
 
 re_strip = re.compile(r'[ \t]+(\n|\Z)')
 

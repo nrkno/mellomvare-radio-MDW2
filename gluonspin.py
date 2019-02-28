@@ -16,7 +16,7 @@ class gluonspinError(Exception):
         self.value = value
     def __str__(self):
         return repr(self.value)
-    
+
 class gluonTransmitters(xml.sax.handler.ContentHandler):
     """Henter ut transmitterne, og navnet på avsendersystemet."""
     def __init__(self):
@@ -27,9 +27,9 @@ class gluonTransmitters(xml.sax.handler.ContentHandler):
         self.inCreator = None
         self.Creator = None
         self.gotCreator = None
-    
+
     def startElement (self,name, attrs ):
-        
+
         if name=='gluon':
             self.artID = attrs['artID']
         elif name == 'head':
@@ -52,8 +52,8 @@ class gluonTransmitters(xml.sax.handler.ContentHandler):
             else:
                 #Dette er en vanlig transmitter det holder å legge til navnet
                 self.transmitters.append(name)
-    
-    
+
+
 
     def endElement (self,name ):
         if name == 'transmitters':
@@ -62,7 +62,7 @@ class gluonTransmitters(xml.sax.handler.ContentHandler):
             self.inHead = None
         elif name == 'creator':
             self.inCreator = None
-    
+
     def characters (self,content ):
         if self.Creator == "SET":
             self.Creator = content
@@ -70,7 +70,7 @@ class gluonTransmitters(xml.sax.handler.ContentHandler):
             self.gotCreator = 1
 
 class gluonPath(xml.sax.handler.ContentHandler):
-    
+
     def __init__(self,path):
         if '=' in path:
             path,self.value = path.split('=')
@@ -79,7 +79,7 @@ class gluonPath(xml.sax.handler.ContentHandler):
         #Fjerne / i begge ender
         path = path.rstrip('/').lstrip('/')
         self.path = path.split('/')
-        
+
         if path == '*':
             self.pathInXml = 1
             self.finis = 1
@@ -88,7 +88,7 @@ class gluonPath(xml.sax.handler.ContentHandler):
             self.finis = None
         self.spool = None
         self.parent = None
-    
+
     def startElement (self,name, attrs):
         if not self.finis or self.pathInXml:
             if self.path and not self.spool:
@@ -114,8 +114,8 @@ class gluonPath(xml.sax.handler.ContentHandler):
                                     self.pathInXml = 1
                 else:
                     self.spool = name #spoler til dette taget er slutt
-        
-        
+
+
     def endElement (self,name ):
         if self.parent == name:
             self.finis = 1
@@ -211,10 +211,10 @@ def parseDok(xmlstreng,fra,stopp = [], data_enc = None):
 \t\t\t\t<errorMessage  errorType="gl12"><message>Kunne ikke sende til: %s</message></errorMessage>
 \t\t\t</error>\n""" % ( transmitter, transmitter)])
             continue
-            
+
     if not transmitterMode:
         #Vanlig modus, det var ingen transmittertags
-        
+
         for transmitter in transmittere[fra]:
             #Vi må parse dersom vi ikke har artID, eller dersom krav != *
             #************* Nytt
@@ -226,7 +226,7 @@ def parseDok(xmlstreng,fra,stopp = [], data_enc = None):
                 iBane = gluonPath(transmitter['krav'])
                 parseString(xmlstreng,iBane)
                 skalSende = iBane.pathInXml
-            
+
             #************ Nytt slutt
             if skalSende:
                 #Dette sender moroa videre
@@ -238,7 +238,7 @@ def parseDok(xmlstreng,fra,stopp = [], data_enc = None):
 \t\t\t\t<errorMessage dataid="gl14"><message>Transmitter ukjent : %s. Feil konfigurasjon</message></errorMessage>
 \t\t\t</error>\n""" % (tag,tag)])
                     continue
-    
+
                 #Finne riktig enkoding:
                 if system[tag][1]=='raw':
                     argumenter = {'data_raw':xmlstreng,'tag':tag}

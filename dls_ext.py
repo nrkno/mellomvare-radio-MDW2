@@ -779,7 +779,7 @@ def lag_visningstider(text, min_sec=4, max_sec=30):
 
 def til_dab(kanal='alle'):
     "Henter data for en gitt kanal ut i fra de forskjellige databasene og setter sammen til en DLS som sendes videre som et mimemultipartdokument."
-    
+
     d = database()
     if kanal == 'alle':
         kanaler = finn_kanaler(d)
