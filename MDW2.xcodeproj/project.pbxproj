@@ -31,6 +31,7 @@
 		69D9D90922170A5900DDCD7D /* send_til_server.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = send_til_server.py; sourceTree = "<group>"; };
 		69D9D90B22170A5900DDCD7D /* dabfilter.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = dabfilter.py; sourceTree = "<group>"; };
 		69D9D90C22170A5900DDCD7D /* utGluon2exp.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = utGluon2exp.py; sourceTree = "<group>"; };
+		69ECCD472228289400996151 /* trail.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = trail.py; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -50,6 +51,7 @@
 				69D9D8F922170A5600DDCD7D /* gluonspin.py */,
 				69D9D90E221804B700DDCD7D /* Eksempelfiler */,
 				69D9D8F622170A5600DDCD7D /* iteminfo.py */,
+				69ECCD472228289400996151 /* trail.py */,
 				69D9D8FC22170A5600DDCD7D /* mmt.py */,
 				69D9D90622170A5800DDCD7D /* result.py */,
 				69D9D8E422170A5400DDCD7D /* roller.py */,

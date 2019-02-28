@@ -26,7 +26,7 @@ VERBOSE = False
 logging_item = False
 
 FJERNROLLERFOR = ['Conductor', 'Leader']
-DIRIGERT = [' under ledelse av ',' DIRIGERT av ', ', dirigent ']
+DIRIGERT = [' under ledelse av ', ' DIRIGERT av ', ', dirigent ']
 LEDET = ['LEDET av']
 
 ORD_SOM_IKKE_BESKRIVER = ['fortsetter', 'samsending', 'også sendt i går']
@@ -36,7 +36,7 @@ EGEN_PROD = 'EBU-NONRK' # Label for EGEN_PRODuksjon
 def sjekk_program_lengde(d, kanal):
     "Sjekker om programmet som er på lufta nå, har fått lengde 0, i så fall rettes den til tiden frem til neste program. Har ingen definert returverdi."
     #Sjekk programme lengde
-    c =  d.cursor()
+    c = d.cursor()
     sql = """SELECT lengde FROM iteminfo WHERE kanal=%s and localid = 1;"""
     c.execute(sql, (kanal))
     try:
@@ -72,7 +72,7 @@ def sjekk_program_lengde(d, kanal):
     if VERBOSE:
         print("Rettet lengde på programm", lengde, beregnet_lengde)
 
-def flush_program_data(d,kanal):
+def flush_program_data(d, kanal):
     "Renserutine for programskift"
     #1 Stryk innslag/neste program
     c2= d.cursor()
@@ -90,7 +90,7 @@ def iso_til_lengde(isoTid):
     "Leser en iso lengde og setter om til sekunder"
     tid = 0.0
     #Split dager fra timer
-    dager,timer = isoTid[1:].split('T')
+    dager, timer = isoTid[1:].split('T')
     #Finn sekunder osv.
     p = re.search(r'(\d+|\d+\.\d+)S', timer)
     if p:
@@ -199,9 +199,9 @@ def entety_replace(streng):
 
 def samsendinglexer(setning):
     "Finner og forstår variasjoner over setningen: 'I sammmesending med kulturkanalen'"
-    stoppord = ['den','det','den','med','for','i']
-    pynt = ['radioens','fjernsynets','tvens','NRK']
-    samsendingsbegreper = ['sammsending','samssending','samsending','sams']
+    stoppord = ['den', 'det', 'den', 'med', 'for', 'i']
+    pynt = ['radioens', 'fjernsynets', 'tvens', 'NRK']
+    samsendingsbegreper = ['sammsending', 'samssending', 'samsending', 'sams']
     samsending = False
     for ord in setning.split():
         if ord.lower() in stoppord:
@@ -389,10 +389,10 @@ def lag_artistfelt(artister, solister=0):
 def finnKomponist(element, kunEtternavn = 0, aarsTall = 0):
     creators = element.getElementsByTagName('creator')
     for creator in creators:
-        role = finn_verdi(creator,'role',entity=0)
+        role = finn_verdi(creator,'role',entity=False)
         if role.lower() == "composer" or role.lower() == "komponist":
-            komponist_fornavn = finn_verdi(creator,'given_name',entity = 1)
-            komponist = finn_verdi(creator,'family_name',entity = 1)
+            komponist_fornavn = finn_verdi(creator,'given_name', entity=True)
+            komponist = finn_verdi(creator,'family_name', entity=True)
             
             if kunEtternavn:
                 if komponist_fornavn:
@@ -419,24 +419,24 @@ def finnKomponist(element, kunEtternavn = 0, aarsTall = 0):
     
 
 def finnMedvirkende(element, lagreIbase=0, klasse=''):
-    s = {} #Utøver liste
-    ss = {} #Solist liste
-    
-    metadata = finn_unger(element.childNodes,"metadata_DC", kun_en=1)[0]
+    contributor_list = {}
+    soloist_list = {}
+
+    metadata = finn_unger(element.childNodes, "metadata_DC", kun_en=1)[0]
     contributors = metadata.getElementsByTagName('contributor')
     for contributor in contributors:
         solist = False
         #Finne rolle bruke denne som key
-        role = finn_verdi(contributor,'role',entity=0)
+        role = finn_verdi(contributor,'role',entity=False)
         #Fiks for tvilsommedata
-        if (klasse !='News' and role=='Reporter'):
+        if klasse != 'News' and role == 'Reporter':
             continue
-        #print role
         if not role:
             role = 'contributor'
-        fornavn =  finn_verdi(contributor,'given_name', entity = 1)
-        navn = finn_verdi(contributor,'family_name', entity = 1)
-        if not navn:continue		
+        fornavn =  finn_verdi(contributor, 'given_name', entity=True)
+        navn = finn_verdi(contributor, 'family_name', entity=True)
+        if not navn:
+            continue
     
         #Flytte parantes
         if '(' in fornavn:
@@ -445,11 +445,10 @@ def finnMedvirkende(element, lagreIbase=0, klasse=''):
             navn = "%s (%s)" % (navn, parantes.rstrip(')'))
             #Trimme fornavn
             fornavn = fornavn.strip()
-
         #Dersom rollen er 'Orchestra' og navnet inneholder en '(' da kan vi sjekke om vi skal endre rollen
         #Dette skyldes AK sin misbruk av databasen sin, dette kan fjernes etterhvert.
         if role == 'Orchestra':
-            
+
             try:
                 nyrolle = navn.split('(')[1].rstrip(')')
             except:
@@ -462,8 +461,6 @@ def finnMedvirkende(element, lagreIbase=0, klasse=''):
             else:
                 #Vi beholder rollen og beholde parantes
                 pass
-                
-                
         if role == 'Choir':
             try:
                 nyrolle = navn.split('(')[1].rstrip(')')
@@ -471,15 +468,12 @@ def finnMedvirkende(element, lagreIbase=0, klasse=''):
                 nyrolle = False
             if nyrolle in rolleliste:
                 #Rettes til if nyrollen er i dab rollelisten
-                
                 role = nyrolle
                 navn = navn.split('(')[0].rstrip()
             else:
                 #Vi beholder rollen og parantes
                 pass
-                
         #Fjerne rolleparanteser
-
         #Dersom rollen er 'Performer' og navnet inneholder en '(' da kan vi sjekke om vi skal endre rollen
         if role == 'Performer':
             try:
@@ -495,12 +489,10 @@ def finnMedvirkende(element, lagreIbase=0, klasse=''):
             else:
                 #Vi må skifte rolle og beholde parantes
                 role="Utøver"
-                
+
         #Vi gjør samme øvelsen med Conductor:
-        
         #Dette skyldes AK sin misbruk av databasen sin, dette kan fjernes etterhvert, gjelder ikke Digas dataene.
         if role == 'Conductor':
-            
             try:
                 nyrolle = navn.split('(')[1].rstrip(')')
                 if ',' in nyrolle:
@@ -509,7 +501,6 @@ def finnMedvirkende(element, lagreIbase=0, klasse=''):
                 nyrolle = False
             if nyrolle in rolleliste:
                 #Rettes til if nyrollen er i dab rollelisten
-                
                 role = nyrolle
                 navn = navn.split('(')[0].rstrip()
             else:
@@ -517,9 +508,7 @@ def finnMedvirkende(element, lagreIbase=0, klasse=''):
                 if nyrolle == 'leder' or nyrolle == 'Leder':
                     role = "Leader"
                     navn = navn.split('(')[0].rstrip()
-    
         if role == 'Soloist':
-            
             try:
                 nyrolle = navn.split('(')[1].rstrip(')')
                 if ',' in nyrolle:
@@ -528,47 +517,39 @@ def finnMedvirkende(element, lagreIbase=0, klasse=''):
                 nyrolle = False
             if nyrolle in rolleliste:
                 #Rettes til if nyrollen er i dab rollelisten
-                
                 role = nyrolle
                 navn = navn.split('(')[0].rstrip()
-            else:
-                #Vi må skifte rolle og beholde parantes
-                pass
-                #role="Utøver"
-                
+
             solist = True
-        
         #Fjerne rolleparanteser
-        
         if role in FJERNROLLERFOR:
             navn = navn.split('(')[0].rstrip()
-        
+
         if solist:
-        
             if fornavn:
-                if role in ss:
-                    ss[role] = ss[role].append(fornavn + ' ' + navn)
+                if role in soloist_list:
+                    soloist_list[role] = soloist_list[role].append(fornavn + ' ' + navn)
                 else:
-                    ss[role] = [fornavn + ' ' + navn]
+                    soloist_list[role] = [fornavn + ' ' + navn]
             else:
-                if role in s:
-                    ss[role].append(navn)
+                if role in contributor_list:
+                    soloist_list[role].append(navn)
                 else:
-                    ss[role] = [navn]
+                    soloist_list[role] = [navn]
         else:
                 
             if fornavn:
-                if role in s:
-                    s[role] = s[role].append(fornavn + ' ' + navn)
+                if role in contributor_list:
+                    contributor_list[role] = contributor_list[role].append(fornavn + ' ' + navn)
                 else:
-                    s[role] = [fornavn + ' ' + navn]
+                    contributor_list[role] = [fornavn + ' ' + navn]
             else:
-                if role in s:
-                    s[role].append(navn)
+                if role in contributor_list:
+                    contributor_list[role].append(navn)
                 else:
-                    s[role] = [navn]
+                    contributor_list[role] = [navn]
     
-    return s,ss
+    return contributor_list, soloist_list
 
 def parser(xmlstreng):
     status = 0
@@ -627,13 +608,13 @@ def parser(xmlstreng):
             # Past hopper vi foreløpig over, dette er mer nyttig i statistikksammenheng, da dette vil være det som er
             # Riktig spilletid på innslaget.
             
-            runorder = finn_verdi(element, '@runorder', entity=0)
+            runorder = finn_verdi(element, '@runorder', entity=False)
                         
             xmlElement=element.toxml()
             
             #Finne tekniske parametre
             
-            elementtype = finn_verdi(element, '@objecttype', entity=0)
+            elementtype = finn_verdi(element, '@objecttype', entity=False)
             if elementtype=='programme':
                 sendingProgramme +=1
                 localprogid = 0
@@ -662,14 +643,14 @@ def parser(xmlstreng):
 
             #Dette gir oss rekefølgen programme,programme,item,item,item(past)
             
-            detaljering = finn_verdi(element,'@type', entity=0)
+            detaljering = finn_verdi(element,'@type', entity=False)
             # **** Dersom det er summary skal vi ikke ta hensyn til at det er et nytt program
-            dataid = finn_verdi(element,'@dataid', entity=0)
+            dataid = finn_verdi(element,'@dataid', entity=False)
             
             #Tittel
-            tittel = finn_verdi(element,'metadata_DC/titles/title', entity=0)
-            plateselskap = finn_verdi(element,'metadata_DC/source/@label', entity=0)
-            platenummer = finn_verdi(element,'metadata_DC/source/@reference', entity=0)
+            tittel = finn_verdi(element,'metadata_DC/titles/title', entity=False)
+            plateselskap = finn_verdi(element,'metadata_DC/source/@label', entity=False)
+            platenummer = finn_verdi(element,'metadata_DC/source/@reference', entity=False)
             if plateselskap:
                 label =  plateselskap + ':' + platenummer
             else:
@@ -678,12 +659,12 @@ def parser(xmlstreng):
             komponist = finnKomponist(element)
             
             if label.startswith(EGEN_PROD):
-                tittel = finn_verdi(element,'metadata_DC/titles/title', entity=0)
+                tittel = finn_verdi(element,'metadata_DC/titles/title', entity=False)
             else:
                 if komponist and kanal == 'ak' and elementtype=='item':
                     tittel= komponist + ': ' + tittel
                     if len(tittel) > 128:
-                        tittel= finnKomponist(element, kunEtternavn = 1) + ': ' + finn_verdi(element,'metadata_DC/titles/title', entity=0)
+                        tittel= finnKomponist(element, kunEtternavn = 1) + ': ' + finn_verdi(element,'metadata_DC/titles/title', entity=False)
             
             #Beskrivelse
             beskrivelse = ''
@@ -691,7 +672,7 @@ def parser(xmlstreng):
             annonsering1 = ''
             annonsering2 = ''
             
-            beskrivelser = finn_verdi(element,'metadata_DC/description/+abstract', nodetre = True, entity=0)
+            beskrivelser = finn_verdi(element,'metadata_DC/description/+abstract', nodetre = True, entity=False)
             for abstract in beskrivelser:
                 absLabel = finn_verdi(abstract, '@label')
                 if not absLabel:
@@ -740,7 +721,7 @@ def parser(xmlstreng):
                 #***
                 
             #Finne digasklasse
-            digastype =  finn_verdi(element,'metadata_DC/types/type', entity=0)
+            digastype =  finn_verdi(element,'metadata_DC/types/type', entity=False)
             #Finne medarbeidere, utøvere o.l.
             try:
                 medvirkende, solistene = finnMedvirkende(element, klasse = digastype)
@@ -823,11 +804,11 @@ def parser(xmlstreng):
                 print(artist)
     
             #Saa sendetidspunktet
-            sendetidspunkt = finn_verdi(element, 'metadata_DC/dates/date_issued', entity=0)
+            sendetidspunkt = finn_verdi(element, 'metadata_DC/dates/date_issued', entity=False)
             tid = mdb.TimestampFromTicks(iso_til_dato(sendetidspunkt,sekunder=1))
             
             #Finne opptaksdato, dersom dette finnes.
-            opptaksdato = finn_verdi(element, 'metadata_DC/dates/date_created', entity=0)
+            opptaksdato = finn_verdi(element, 'metadata_DC/dates/date_created', entity=False)
             if opptaksdato:
                 laget = mdb.TimestampFromTicks(iso_til_dato(opptaksdato, sekunder=1))
             else:
@@ -835,12 +816,13 @@ def parser(xmlstreng):
                 laget = tid	
             
             #Finne tiden i sekunder
-            lengde = int(iso_til_lengde(finn_verdi(element,'metadata_DC/format/format_extent', entity=0)))
+            lengde = int(iso_til_lengde(finn_verdi(element,'metadata_DC/format/format_extent', entity=False)))
             
             #Hente ut albumillustrasjon, dersom denne finnes.
-            bilde = finn_verdi(element, 'musicSpecials/albumIllustration/origin/file', entity=0) #*** Endre path
-            if len(bilde)<11:bilde=''
-                   
+            bilde = finn_verdi(element, 'musicSpecials/albumIllustration/origin/file', entity=False) #*** Endre path
+            if len(bilde) < 11:
+                bilde=''
+
             #Sjekke om programmet skal oppdateres (summary sjekk)
             if detaljering == 'summary':
                 
