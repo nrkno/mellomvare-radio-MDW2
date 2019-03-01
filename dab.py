@@ -127,9 +127,9 @@ def main(dok):
     if dok:
         #Venter bare ved dok
         time.sleep(20)
-    for n,i in enumerate(p):
+    for n, i in enumerate(p):
         if VERBOSE:
-            print(n,i)
+            print(n, i)
     # Vi sjekker trdene enda en gang og lager en sluttrapport
     for t in trd:
         t.join(0.1)

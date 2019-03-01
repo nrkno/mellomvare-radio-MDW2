@@ -1,3 +1,5 @@
+"Fjerner trailing ws"
+
 import os
 import re
 PATH = '/Users/n12327/Documents/Xcode prosjekter/MDW2'
