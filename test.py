@@ -2,6 +2,8 @@
 
 "Tester for MDW2"
 
+# TODO: Skift til den nye databasen
+
 #import dabfilter
 #import dab
 import dls_ext

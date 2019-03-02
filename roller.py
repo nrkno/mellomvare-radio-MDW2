@@ -1,14 +1,8 @@
-#! /usr/bin/python
-# -*- coding: iso-8859-1 -*-
+# -*- coding: utf-8 -*-
+"Dette er en hjelpefil for roller"
 
-
-
-#Dette er en hjelpefil for roller
-
-
-
-rollerelasjon = {'sanger':2,'stryker':1,'treblåser':1,'messingblåsere':1,'tangent':1}
-#Her må alle grupper inn
+rollerelasjon = {'sanger':2,'stryker':1,'treblÃ¥ser':1,'messingblÃ¥sere':1,'tangent':1}
+#Her mÃ¥ alle grupper inn
 
 #Instrumenter som ikke er roller
 ikkeRolle = ['engelsk horn','fortepiano', 'hammerklaver']
@@ -32,15 +26,15 @@ rolleliste = {
 	'bratsj':{'gruppe':'stryker','tittel':'bratsjisten','aktiv':'spiller','passiv':'akkompagnert av'},
 	'cello':{'gruppe':'stryker','tittel':'cellisten','aktiv':'spiller','passiv':'akkompagnert av'},
 	'kontrabass':{'gruppe':'stryker','tittel':'bassisten','aktiv':'spiller','passiv':'akkompagnert av'},
-	#Treblåsere
-	'klarinett':{'gruppe':'treblåser','tittel':'klarinettisten','aktiv':'spiller','passiv':'akkompagnert av'},
-	'bassklarinett':{'gruppe':'treblåser','tittel':'bassklarinettisten','aktiv':'spiller','passiv':'akkompagnert av'},
-	'klarinett':{'gruppe':'treblåser','tittel':'klarinettisten','aktiv':'spiller','passiv':'akkompagnert av'},
-	'fagott':{'gruppe':'treblåser','tittel':'fagottisten','aktiv':'spiller','passiv':'akkompagnert av'},
-	'fløyte':{'gruppe':'treblåser','tittel':'fløytisten','aktiv':'spiller','passiv':'akkompagnert av'},
-	'engelsk horn':{'gruppe':'treblåser','tittel':'oboisten','aktiv':'spiller','passiv':'akkompagnert av'},
-	'obo':{'gruppe':'treblåser','tittel':'oboisten','aktiv':'spiller','passiv':'akkompagnert av'},
-	#Messingblåsere
-	'horn':{'gruppe':'messingblåser','tittel':'hornisten','aktiv':'spiller','passiv':'akkompagnert av'},
-	'trompet':{'gruppe':'messingblåser','tittel':'trompetisten','aktiv':'spiller','passiv':'akkompagnert av'},
+	#TreblÃ¥sere
+	'klarinett':{'gruppe':'treblÃ¥ser','tittel':'klarinettisten','aktiv':'spiller','passiv':'akkompagnert av'},
+	'bassklarinett':{'gruppe':'treblÃ¥ser','tittel':'bassklarinettisten','aktiv':'spiller','passiv':'akkompagnert av'},
+	'klarinett':{'gruppe':'treblÃ¥ser','tittel':'klarinettisten','aktiv':'spiller','passiv':'akkompagnert av'},
+	'fagott':{'gruppe':'treblÃ¥ser','tittel':'fagottisten','aktiv':'spiller','passiv':'akkompagnert av'},
+	'flÃ¸yte':{'gruppe':'treblÃ¥ser','tittel':'flÃ¸ytisten','aktiv':'spiller','passiv':'akkompagnert av'},
+	'engelsk horn':{'gruppe':'treblÃ¥ser','tittel':'oboisten','aktiv':'spiller','passiv':'akkompagnert av'},
+	'obo':{'gruppe':'treblÃ¥ser','tittel':'oboisten','aktiv':'spiller','passiv':'akkompagnert av'},
+	#MessingblÃ¥sere
+	'horn':{'gruppe':'messingblÃ¥ser','tittel':'hornisten','aktiv':'spiller','passiv':'akkompagnert av'},
+	'trompet':{'gruppe':'messingblÃ¥ser','tittel':'trompetisten','aktiv':'spiller','passiv':'akkompagnert av'},
 	}

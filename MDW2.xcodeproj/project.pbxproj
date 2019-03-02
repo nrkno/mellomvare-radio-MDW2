@@ -10,7 +10,6 @@
 		690E9C321EB3FA9400326680 /* test.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = test.py; sourceTree = "<group>"; };
 		690E9C341EB4044F00326680 /* pylintrc */ = {isa = PBXFileReference; lastKnownFileType = text; path = pylintrc; sourceTree = "<group>"; };
 		69D9D8DF22170A5400DDCD7D /* dlsExt_test.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = dlsExt_test.py; sourceTree = "<group>"; };
-		69D9D8E122170A5400DDCD7D /* felles.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = felles.py; sourceTree = "<group>"; };
 		69D9D8E222170A5400DDCD7D /* item.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = item.xml; sourceTree = "<group>"; };
 		69D9D8E322170A5400DDCD7D /* item3.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = item3.xml; sourceTree = "<group>"; };
 		69D9D8E422170A5400DDCD7D /* roller.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = roller.py; sourceTree = "<group>"; };
@@ -44,7 +43,6 @@
 				69D9D90322170A5800DDCD7D /* db_conn.py */,
 				69D9D8DF22170A5400DDCD7D /* dlsExt_test.py */,
 				69D9D8FB22170A5600DDCD7D /* dls_ext.py */,
-				69D9D8E122170A5400DDCD7D /* felles.py */,
 				69D9D8FF22170A5700DDCD7D /* gluoncommons.py */,
 				69D9D8F922170A5600DDCD7D /* gluonspin.py */,
 				69D9D90E221804B700DDCD7D /* Eksempelfiler */,
