@@ -95,8 +95,8 @@ def main(dok):
             if VERBOSE:
                 print("IGNORERES")
             continue
-        kanal=i['kanal']
-        datatype =i['datatype']
+        kanal = i['kanal']
+        datatype = i['datatype']
         if 'id' in i:
             id = i['id']
         else:
@@ -114,12 +114,12 @@ def main(dok):
             else:
                 s2.append(eval(utenheter[ut]))
             if VERBOSE:
-                print("UTG:",ut,time.time()-now)
+                print("UTG:", ut, time.time() - now)
         # Samle trådene
         nu = time.time()
         warnings = ['Warnings:']
         for t in trd:
-            vent = TIMEOUT - (time.time() -nu)
+            vent = TIMEOUT - (time.time() - nu)
             t.join(vent)
             if t.isAlive():
                 warnings.append("%s brukte mer en %s sekunder" % (t.getName(), TIMEOUT))
@@ -140,7 +140,7 @@ def main(dok):
     totalMelding = []
     while not meldinger.empty():
         melding = meldinger.get()
-        if melding['status']=='error':
+        if melding['status'] == 'error':
             totalStatusOK = False
         totalMelding.append("\n%(innstikk_navn)s\n%(status)s\n%(msg)s" % melding)
     # Legge til Warnings
@@ -177,5 +177,5 @@ def handler():
         #Svar til sender
         print(respons)
 
-if (__name__=='__main__'):
+if __name__ == '__main__':
         handler()

@@ -1,43 +1,18 @@
-#! /usr/bin/env python
 # -*- coding: utf-8 -*-
 
 """Tjeneste som skriver data tilbake til gluon
 """
-#! /usr/local/bin/python
 
-# TODO
-"""
-*** Rette antall parameter returnert fra musikk (iteminfo) funksjonene
-
-
-lage en python dict for programmet, en for nå og en for neste, nå og forrige
-
-<element objecttype="item" dataid="M3TY_071560CS0001" runorder="present">
-
-
-hentNewsItemForrige
-
-***Lage funksjon som løser opp en dictionary url til vanlige data
-
-"""
-
-
-# BUGS
-
-#from gluoncommons import finnVerdi, finnRelasjoner, finnRoller, finnFuzzyDate, finnBeskrivelse, ISOtilLengde
-import MySQLdb as mdb
 import re
 import xml.dom.minidom
 import time
 from random import choice, sample
 import math
-import urllib
-from httplib import HTTPConnection #importer heller sendrutinen til gluon, her trenger vi timeout
+from urllib.request import urlopen#(url, data=None, [timeout, ]*,
 import sys
-from dbConn import database
+from db_conn import database
 from hashlib import md5
 
-import lagTestWebNett
 from annonser import *
 from dabfilter import forkort_tittel
 
@@ -52,19 +27,7 @@ verbose = False
 iDrift = 1
 testum = 0
 
-kanalAlow = ['p1','P2','NRK Petre','PETRE','NRK P3','Alltid Klassisk','mPetre','P3','p3']
-kanalAlow = ['fmk','p3urort']
-kanalAlow = ['p1','p2','p3','ak','an','mpetre','fmk','p3urort','p1of','ev1','ev2','nrk_5_1']
 lagetGrense = 1980
-
-#kanalAlow = ['mpetre']
-
-#def database(host = "160.68.118.48", user="tormodv", database="dab",passord="allmc21"):
-#def database(host = "127.0.0.1", user="tormodv", database="dab",passord=""):
-#	"Lager en databaseconnection."
-#	d = mdb.connect(user=user,passwd=passord, host=host)
-#	d.select_db(database)
-#	return d
 
 crlf = chr(10) + chr(13)
 crlf =  chr(10)
@@ -101,7 +64,7 @@ def sjekkStatus(bilde):
 
     return True
 
-def bildeFix(d, bilde, upid):
+def bilde_fix(d, bilde, upid):
     "Henter bilderef fra kaleido"
     #upid = '124145CD0013'
     if bilde.startswith('http://'):#endre dette kriteriet
@@ -122,27 +85,6 @@ def bildeFix(d, bilde, upid):
     bilde = c.fetchone()[0]
     c.close()
     return bilde.split('/')[-1]
-
-def sammenlignTittler(tittel1, tittel2):
-    "Sammenligner om titler er nesten like, f. eks. to satser av et verk, returnerer True hvis vi synes det er likt"
-    #Vi finner forskjellen, Vi forutsetter at Verktittel begynner likt, dersom dette er et problem
-    try:
-        for i in range(len(tittel1)):
-            if tittel1[i] != tittel2[i]:
-                break
-
-    except:
-        return False
-    #Vi tar ut forskjellene
-    likheten = tittel1[:i].rstrip(':.;, ')
-    forskjell = tittel1[i:]
-
-    #Vi gj¯r en enkel test i f¯rste omgang, siden kan dette brukes til noe ala : ... sats 1. fulgt av sats 2.
-
-    if len(likheten)>3 * len(forskjell) and 'sats' in forskjell:
-        return True
-    else:
-        return False
 
 def filter_title(tittel):
     "Filtrerer titler"
@@ -219,7 +161,7 @@ def  distriktskanal(d, kanal):
         kanalId = row[0]
     else:
         kanalId = 99
-        print "UKJENT KANAL", kanal
+        print("UKJENT KANAL", kanal)
 
     #Finne sÂ hvilke distriktskanaler vi har
 
@@ -262,7 +204,7 @@ def finnHovedkanal(d, kanal):
         hovedId = row[0]
     else:
         hovedId = 99
-        print "UKJENT KANAL", kanal
+        print("UKJENT KANAL", kanal)
 
     #Finne hva hovedkanalen heter
 
@@ -276,7 +218,7 @@ def finnHovedkanal(d, kanal):
         return row[0]
     else:
 
-        print "FEIL I SQL"
+        print("FEIL I SQL")
 
 def finnBlokker(d):
     "Returnerer alle blokkene fra dab-databasen"
@@ -449,15 +391,18 @@ def hentProgrammeinfo(d,kanal,hovedkanal,distriktssending=False, harDistrikter =
     c.execute(sql,(kanal,))
     if c.rowcount:
         iProgramme = True
-        if verbose:print "I PROGRAMMET"
+        if verbose:
+            print("I PROGRAMMET")
     else:
         iProgramme = False
-        if verbose:print "IKKE I PROGRAMMET"
+        if verbose:
+            print("IKKE I PROGRAMMET")
 
     if iProgramme and harDistrikter:
         #Vi har med Â gj¯re en distriktskanal som har eget program, da skal hele dls-en ignoreres. Den skal genereres ut ifra kanalens egen oppkall
         c.close()
-        if verbose:print 'VOID - har eget program'
+        if verbose:
+            print('VOID - har eget program')
         return '','','','','','','','', False, True
         # Sjekke pÂ denne verdien om kanalen skal hoppes over i
 
@@ -543,7 +488,7 @@ def hentProgrammeinfo(d,kanal,hovedkanal,distriktssending=False, harDistrikter =
     return progId, tittel, beskrivelse, artist, sendetid, int(lengde), digastype, nettype, distriktssending, False
 
 
-def hentProgrammeNext(d,kanal,hovedkanal,distriktssending=0):
+def hent_programme_next(d,kanal,hovedkanal,distriktssending=0):
     "Henter informasjon om det neste programmet som skal pÂ lufta, returnerer en liste med et element."
     c= d.cursor()
     sql = """SELECT tittel, progId, beskrivelse, artist, tid, lengde, digastype FROM iteminfo WHERE kanal=%s AND type='programme' AND localid = '2' LIMIT 1;"""
@@ -557,7 +502,7 @@ def hentProgrammeNext(d,kanal,hovedkanal,distriktssending=0):
             c.close()
     except TypeError:
         if hovedkanal and not distriktssending:
-            return hentProgrammeNext(d,hovedkanal,None)
+            return hent_programme_next(d,hovedkanal,None)
         else:
             return '','','','','','',''
     if type(tid)!=type(''):
@@ -593,7 +538,8 @@ def hentEpg(d,kanal,hovedkanal,distriktssending=0):
             return []
 
     if not (dagerGammel ==0 or (dagerGammel==1 and timen<6)):
-        if verbose:print "EPG er GAMMEL"
+        if verbose:
+            print("EPG er GAMMEL")
         return []
 
 
@@ -667,7 +613,7 @@ def hentTextinfo(d,kanal,hovedkanal,distriktssending=0):
 
     return innhold
 
-def hentIteminfoForrige(d,kanal,hovedkanal,distriktssending=0, item = False, info = False):
+def hent_iteminfoForrige(d,kanal,hovedkanal,distriktssending=0, item = False, info = False):
     "Henter informasjon om innslaget som er pÂ lufta, returnerer en liste med et element."
     c= d.cursor()
     #samsending?
@@ -692,7 +638,7 @@ def hentIteminfoForrige(d,kanal,hovedkanal,distriktssending=0, item = False, inf
             c.close()
     except TypeError:
         if hovedkanal and not distriktssending:
-            return hentIteminfoForrige(d,hovedkanal,None, item = item, info = info)
+            return hent_iteminfoForrige(d,hovedkanal,None, item = item, info = info)
         else:
             return '','','','','','','','','',''
     if digastype == '':digastype = 'Music' #Lex BMS
@@ -736,14 +682,13 @@ def hentIteminfoForrige(d,kanal,hovedkanal,distriktssending=0, item = False, inf
     return dataid, tittel, kortTittel, artist, komponist, album, bilde, tid, int(lengde), digastype
 
 
-def hentIteminfo(d,kanal,hovedkanal,distriktssending=0, item = False, info = False):
+def hent_iteminfo(d, kanal, hovedkanal, distriktssending=False, item=False, info=False):
     "Henter informasjon om innslaget som er pÂ lufta, returnerer en liste med et element."
-    c= d.cursor()
+    c = d.cursor()
     #samsending?
-
     sql = """SELECT kildekanal FROM iteminfo WHERE kanal=%s AND type='programme'  AND localid = '1' LIMIT 1 ;"""
-    c.execute(sql,(kanal,))
-    row =  c.fetchone()
+    c.execute(sql, (kanal,))
+    row = c.fetchone()
     if row:
         kildekanal = row[0]
     else:
@@ -753,8 +698,7 @@ def hentIteminfo(d,kanal,hovedkanal,distriktssending=0, item = False, info = Fal
         kanal = kildekanal
 
     sql = """SELECT progId, tittel, ExtractValue(element, 'element/metadata_DC/titles/title'), artist,  ExtractValue(element, 'element/metadata_DC/contributors/contributor[role="Performer"]/family_name'), ExtractValue(element, 'element/metadata_DC/creators/creator[role="Composer"]/family_name'), beskrivelse, digastype, bildeID, tid, lengde FROM iteminfo WHERE kanal=%s AND type='item'  AND localid = '3' LIMIT 1 ;"""
-
-    c.execute(sql,(kanal,))
+    c.execute(sql, (kanal,))
     try:
         try:
             dataid, tittel, kortTittel, artist, artistShort, komponist, album, digastype, bilde, tid, lengde = c.fetchone()
@@ -763,19 +707,18 @@ def hentIteminfo(d,kanal,hovedkanal,distriktssending=0, item = False, info = Fal
 
     except TypeError:
         if hovedkanal and not distriktssending:
-            return hentIteminfo(d,hovedkanal,None, item = item, info = info)
-        else:
-            return '','','','','','','','','','', ''
-    if digastype == '':digastype = 'Music' #Lex BMS
+            return hent_iteminfo(d,hovedkanal,None, item = item, info = info)
+
+        return '', '', '', '', '', '', '', '', '', '', ''
+
     if digastype !='Music':
-        return '','','','','','','','','','', ''
-
-
-    if type(tid)!=type(''):
+        return '', '', '', '', '', '', '', '', '', '', ''
+    # FIXME: Denne kan vel fikses nå
+    if type(tid) != type(''):
         #Dette er en foreløig patch for at en har begynt å bruke datetime objekter
         tid = tid.isoformat()
     if tid:
-                tid = tid.replace(' ','T')
+            tid = tid.replace(' ','T')
     #Artist feltet må endres litt
     if artist:
         artist = artist.replace('|',' ')
@@ -783,9 +726,9 @@ def hentIteminfo(d,kanal,hovedkanal,distriktssending=0, item = False, info = Fal
         artist = artist[0].upper() + artist[1:]
 
     #Vi finner opptaksdato
-    c= d.cursor()
+    c = d.cursor()
     sql = """SELECT YEAR(laget) FROM iteminfo WHERE kanal=%s AND type='item'  AND localid = '3' LIMIT 1 ;"""
-    c.execute(sql,(kanal,))
+    c.execute(sql, (kanal,))
     try:
         try:
             laget, = c.fetchone()
@@ -794,13 +737,8 @@ def hentIteminfo(d,kanal,hovedkanal,distriktssending=0, item = False, info = Fal
     except :
         laget = 0
     else:
-        if laget<lagetGrense:
+        if laget < lagetGrense:
             tittel = "%s, innspilt %s," % (tittel,laget)
-
-    if info and beskrivelse:
-        album = beskrivelse
-    else:
-        album = ''
 
     return dataid, tittel, kortTittel, artist, artistShort, komponist, album, bilde, tid, int(lengde), digastype
 
@@ -1000,10 +938,6 @@ def hentItemNext(d,kanal,hovedkanal,distriktssending=0, musikk=False, news = Fal
     except:
         pass
 
-    #Dersom titlene er like med untak av satsbetegnelsene viser vi ingenting
-    else:
-        if sammenlignTittler(tittel1,tittel2):
-            return '','','','','','','',''
 
     #Ellers viser vi nesteinformasjon
     sql = """SELECT progId, tittel, ExtractValue(element, 'element/metadata_DC/titles/title'), artist,  ExtractValue(element, 'element/metadata_DC/creators/creator[role="Composer"]/family_name'), beskrivelse, digastype, bildeID, tid, lengde FROM iteminfo WHERE kanal=%s AND type='item' AND localid = '4' LIMIT 1;"""
@@ -1023,7 +957,6 @@ def hentItemNext(d,kanal,hovedkanal,distriktssending=0, musikk=False, news = Fal
     if digastype == '':
         digastype = 'Music' #Lex BMS
 
-    #print 'Music?' , musikk, 'News?' , news, digastype, digastype == 'Music' and not musikk
     if digastype == 'Music' and not musikk:
         #Vi skal ikke vise
         return '','','','','','','','','',''
@@ -1055,7 +988,7 @@ def hentItemNext(d,kanal,hovedkanal,distriktssending=0, musikk=False, news = Fal
 def storForbokstav(item):
     return item[0].upper() + item[1:]
 
-def sendDataWeb(data,uri, svar_fra_mottager = True):
+def send_data_web(data,uri, svar_fra_mottager = True):
     #For at den ikke skal sende noe noe
 
     headers = {"Content-type": "application/xml",
@@ -1072,7 +1005,7 @@ def sendDataWeb(data,uri, svar_fra_mottager = True):
         conn.request("POST", '/' + url,data, headers)
     except 0:
         #Legge inn forskjellige verdier her
-        print 'Kunne ikke lage forbindelse'
+        print('Kunne ikke lage forbindelse')
     else:
         if svar_fra_mottager:
             svar = conn.getresponse().read()
@@ -1082,19 +1015,6 @@ def sendDataWeb(data,uri, svar_fra_mottager = True):
         conn.close()
     return svar
 
-def sendDataGet(url, navn, kanal):
-    tilogData = url + '?' + urllib.urlencode({'name':navn,'channel':kanal})
-    msg = "Ikke svar"
-
-    u=urllib.urlopen(tilogData)
-    try:
-
-        msg =u.read(2048)
-
-
-    finally:
-        u.close()
-    return msg
 
 def returnTimezone():
     if time.localtime()[8]:
@@ -1131,8 +1051,9 @@ def getRole(roleId):
 
     return ''
 
-def setteDataid(tittel):
-    m = md5(tittel)
+def sette_dataid(tittel):
+    "Fattigmans id generator"
+    m = md5(tittel.encode('utf-8'))
     return 'MDW:%s' % m.hexdigest()
 
 
@@ -1140,7 +1061,7 @@ def setteDataid(tittel):
 
 def addName(utdok, tag, roleId='', name='', ):
     famname = tag.appendChild(utdok.createElement('name'))
-    famname.appendChild(utdok.createTextNode(unicode(name,'iso-8859-1')))
+    famname.appendChild(utdok.createTextNode(name))
     #famname.setAttribute('person', 'true') #Bruke bare visningsnavnet for dette, kunne vel egentlig brukt abstract
     roleTag = tag.appendChild(utdok.createElement('role'))
     if roleId:
@@ -1148,7 +1069,7 @@ def addName(utdok, tag, roleId='', name='', ):
     #roleTag.appendChild(utdok.createTextNode(getRole(roleId)))
 
 def addObject(utdok, pointer,
-                subElements = False,
+                sub_elements = False,
                 objecttype='',
                 subjects='',
                 dataid='',
@@ -1158,10 +1079,10 @@ def addObject(utdok, pointer,
                 kortTittel = '',
                 creator = '',
                 abstract = '',
-                partisipantDescription = '',
+                partisipant_description = '',
                 partisipantShortDescription='',
                 contributor = '',
-                gluonType = '',
+                gluon_type = '',
                 issued = '',
                 duration = '',
                 bilde = ''
@@ -1175,7 +1096,7 @@ def addObject(utdok, pointer,
     #print 77, channel
     element = pointer.appendChild(utdok.createElement('object'))
     element.setAttribute('objecttype', objecttype)
-    element.setAttribute('dataid', unicode(dataid,'iso-8859-1'))
+    element.setAttribute('dataid', dataid)
     element.setAttribute('channel', channel)
     if runorder: element.setAttribute('runorder', runorder)
     #Har to underelementer, metadata og subelements
@@ -1186,7 +1107,7 @@ def addObject(utdok, pointer,
     #Legge til de ulike elementene
     if tittel:
         titler = metadata.appendChild(utdok.createElement('titles'))
-        titler.appendChild(utdok.createElement('title')).appendChild(utdok.createTextNode(unicode(tittel,'iso-8859-1')))
+        titler.appendChild(utdok.createElement('title')).appendChild(utdok.createTextNode(tittel))
         # Legge til kort tittel for DAB
         if objecttype=='item':
             try:
@@ -1194,12 +1115,12 @@ def addObject(utdok, pointer,
             except:
                 publishing_title = tittel
             titAlt2 = titler.appendChild(utdok.createElement('titleAlternative'))
-            titAlt2.appendChild(utdok.createTextNode(unicode(publishing_title,'iso-8859-1')))
+            titAlt2.appendChild(utdok.createTextNode(publishing_title))
             titAlt2.setAttribute('gluonDict:titlesGroupType', 'publishingTitle')
 
         if kortTittel:
             titAlt = titler.appendChild(utdok.createElement('titleAlternative'))
-            titAlt.appendChild(utdok.createTextNode(unicode(kortTittel,'iso-8859-1')))
+            titAlt.appendChild(utdok.createTextNode(kortTittel))
             titAlt.setAttribute('gluonDict:titlesGroupType', 'intellectualWorkTitle')
 
     if creator:
@@ -1221,7 +1142,7 @@ def addObject(utdok, pointer,
         for subject in subjects:
             st = subjectelement.appendChild(utdok.createElement('subject'))
             if 'value' in subject:
-                st.appendChild(utdok.createTextNode(unicode(subject['value'],'iso-8859-1')))
+                st.appendChild(utdok.createTextNode(subject['value']))
             if 'label' in subject:
                 st.setAttribute('label', subject['label'])
             if 'reference' in subject:
@@ -1229,27 +1150,27 @@ def addObject(utdok, pointer,
      # TODO: hente denne fra base sammen med resten, så filtrere
     partisipantShortDescription = filter_artist(partisipantShortDescription)
 
-    if abstract or partisipantDescription or partisipantShortDescription:
+    if abstract or partisipant_description or partisipantShortDescription:
         desc = metadata.appendChild(utdok.createElement('description'))
         if abstract:
             absSF = desc.appendChild(utdok.createElement('abstract'))
             absSF.setAttribute('restriction','public')
             absSF.setAttribute('link','http://gluon.nrk.no/dataordbok.xml#standFirst')
             absSF.setAttribute('purpose','shortDescription')
-            absSF.appendChild(utdok.createTextNode(unicode(abstract,'iso-8859-1')))
-        if partisipantDescription:
+            absSF.appendChild(utdok.createTextNode(abstract))
+        if partisipant_description:
             #print 88888
             absSF = desc.appendChild(utdok.createElement('abstract'))
             absSF.setAttribute('restriction','public')
             absSF.setAttribute('link','http://gluon.nrk.no/dataordbok.xml#presentation')
             absSF.setAttribute('purpose','presentation2')
-            absSF.appendChild(utdok.createTextNode(unicode(partisipantDescription,'iso-8859-1')))
+            absSF.appendChild(utdok.createTextNode(partisipant_description))
         if partisipantShortDescription:
             absSF = desc.appendChild(utdok.createElement('abstract'))
             absSF.setAttribute('restriction','public')
             absSF.setAttribute('link','http://gluon.nrk.no/dataordbok.xml#presentation')
             absSF.setAttribute('purpose','presentationShort')
-            absSF.appendChild(utdok.createTextNode(unicode(partisipantShortDescription,'iso-8859-1')))
+            absSF.appendChild(utdok.createTextNode(partisipantShortDescription))
 
 
     if contributor:
@@ -1265,39 +1186,39 @@ def addObject(utdok, pointer,
         else:
             metadata.appendChild(contributor)
 
-    if gluonType:
-        gluonTypes = metadata.appendChild(utdok.createElement('types'))
-        for gts in gluonType:
-            gt = gluonTypes.appendChild(utdok.createElement('type'))
+    if gluon_type:
+        gluon_types = metadata.appendChild(utdok.createElement('types'))
+        for gts in gluon_type:
+            gt = gluon_types.appendChild(utdok.createElement('type'))
             if 'value' in gts:
-                gt.appendChild(utdok.createTextNode(unicode(gts['value'],'iso-8859-1')))
+                gt.appendChild(utdok.createTextNode(gts['value']))
             if 'label' in gts:
                 gt.setAttribute('label', gts['label'])
             if 'reference' in gts:
                 gt.setAttribute('reference', gts['reference'])
 
     if issued:
-        metadata.appendChild(utdok.createElement('dates')).appendChild(utdok.createElement('dateIssued')).appendChild(utdok.createTextNode(unicode(issued,'iso-8859-1')))
+        metadata.appendChild(utdok.createElement('dates')).appendChild(utdok.createElement('dateIssued')).appendChild(utdok.createTextNode(issued))
 
     if duration:
-        metadata.appendChild(utdok.createElement('format')).appendChild(utdok.createElement('formatExtent')).appendChild(utdok.createTextNode(unicode("PT%sS" % duration,'iso-8859-1')))
+        metadata.appendChild(utdok.createElement('format')).appendChild(utdok.createElement('formatExtent')).appendChild(utdok.createTextNode("PT%sS" % duration))
 
     if bilde:
         relations = metadata.appendChild(utdok.createElement('relations'))
         oldRef = relations.appendChild(utdok.createElement('relationReferences'))
         oldRef.setAttribute('label','illustration')
         oldRef.setAttribute('reference','DMA')
-        oldRef.appendChild(utdok.createTextNode(unicode(bilde,'iso-8859-1')))
+        oldRef.appendChild(utdok.createTextNode(bilde))
         bildeRel = relations.appendChild(utdok.createElement('relationIsDescribedBy'))
         bildeRel.setAttribute('reference','DMA')
-        bildeRel.appendChild(utdok.createTextNode(unicode(bilde,'iso-8859-1')))
+        bildeRel.appendChild(utdok.createTextNode(bilde))
 
-    if subElements:
+    if sub_elements:
         return element.appendChild(utdok.createElement('subelements'))
     else:
         return None
 
-def lagMetadata(kanal='alle',datatype=None,id='' , testModus=False):
+def lag_metadata(kanal='alle', datatype=None, id='', test_modus=False):
     "Henter data for en gitt kanal ut i fra de forskjellige databasene og setter sammen til en DLS som sendes videre som et mimemultipartdokument."
     utdata = {}
     #kanal='alle'
@@ -1331,11 +1252,13 @@ def lagMetadata(kanal='alle',datatype=None,id='' , testModus=False):
             for blokkId in blokker:
                 #print blokkId
                 if blokker[blokkId] not in ikkeDls:
-                    if verbose:print "Ikke vis som DLS på %s" % blokker[blokkId]
+                    if verbose:
+                        print("Ikke vis som DLS på %s" % blokker[blokkId])
                     continue
                     #dvs denne bruker instillingene for NETT
 
-                if verbose:print "Viser på %s" % blokker[blokkId]
+                if verbose:
+                    print("Viser på %s" % blokker[blokkId])
 
                 #Lage nytt dokument
                 xmldom, tablePointer = lagGluon(artID="iteminfo_NRK_%s" % kanal)
@@ -1346,12 +1269,14 @@ def lagMetadata(kanal='alle',datatype=None,id='' , testModus=False):
                 visningsvalg = hentVisningsvalg(d, kanal, blokkId, datatype=datatype)
                 oppdateres = hentVisningsvalg(d, kanal, blokkId, datatype=datatype, oppdatering = 1)
 
-                if verbose:print "Visningsvalg:", visningsvalg
-                if verbose:print "Opdateringskriterie;", oppdateres
+                if verbose:
+                    print("Visningsvalg:", visningsvalg)
+                    print("Opdateringskriterie;", oppdateres)
 
                 #Sjekke om det er nødvendig Â oppdatere
                 if not datatype in oppdateres:
-                    if verbose:print "SKAL IKKE VISES", kanal,blokkId
+                    if verbose:
+                        print("SKAL IKKE VISES", kanal,blokkId)
                     continue
 
                 s=[]
@@ -1362,7 +1287,8 @@ def lagMetadata(kanal='alle',datatype=None,id='' , testModus=False):
 
                 progId, tittel, info, programleder, issued, duration, digastype, nettype, distriktssending, egenKanal = hentProgrammeinfo(d,kanal,hovedkanal, harDistrikter = harDistrikter)
                 if egenKanal:
-                    if verbose:print "Har egen sending"
+                    if verbose:
+                        print("Har egen sending")
                     continue
 
                 if programleder:
@@ -1377,7 +1303,7 @@ def lagMetadata(kanal='alle',datatype=None,id='' , testModus=False):
                 #Legge inn som objekt
                 #print tablePointer
                 innslag = addObject(xmldom, tablePointer,
-                    subElements = True,
+                    sub_elements = True,
                     objecttype="programme",
                     channel = kanal,
                     dataid = progId,
@@ -1386,28 +1312,28 @@ def lagMetadata(kanal='alle',datatype=None,id='' , testModus=False):
                     contributor = programleder,
                     duration = duration,
                     issued = issued,
-                    gluonType = [{'reference':'NRK-Escort', 'value' : digastype}],
+                    gluon_type = [{'reference':'NRK-Escort', 'value' : digastype}],
                     subjects = subjects
                     )
 
                 if 'iteminfo' in visningsvalg or 'musicInfo' in visningsvalg:
                     #Da skal vi ogsÂ ha med forige
 
-                    dataid, tittel, kortTittel, artist, komponist, info, bilde, issued, duration, gluonType = hentIteminfoForrige(d,kanal,hovedkanal, item = 'iteminfo' in visningsvalg, info = 'musicInfo' in visningsvalg, distriktssending = distriktssending)
+                    dataid, tittel, kortTittel, artist, komponist, info, bilde, issued, duration, gluon_type = hent_iteminfoForrige(d,kanal,hovedkanal, item = 'iteminfo' in visningsvalg, info = 'musicInfo' in visningsvalg, distriktssending = distriktssending)
                     if not dataid:
-                        dataid = setteDataid(tittel)
+                        dataid = sette_dataid(tittel)
                     if not komponist:
                         creator = ''
                     else:
                         creator = {'V34':komponist}
-                    bilde = bildeFix(d, bilde, dataid)
+                    bilde = bilde_fix(d, bilde, dataid)
                     #if artist:
                     #	artist = {'Utøver':artist}
                     if tittel:
                         #Dersom vi ikke har en tittel skal vi ikke ha noe objekt heller
                         addObject(xmldom, innslag,
                         runorder = "past",
-                        subElements = False,
+                        sub_elements = False,
                         objecttype="item",
                         channel = kanal,
                         dataid = dataid,
@@ -1415,18 +1341,18 @@ def lagMetadata(kanal='alle',datatype=None,id='' , testModus=False):
                         kortTittel= kortTittel,
                         abstract = info,
                         creator = creator,
-                        partisipantDescription = artist,
+                        partisipant_description = artist,
                         duration = duration,
                         issued = issued,
-                        gluonType = [{'label':'class', 'reference':'Digas', 'value' : gluonType}],
+                        gluon_type = [{'label':'class', 'reference':'Digas', 'value' : gluon_type}],
                         bilde = bilde
                         )
 
                     #Musikkobjekter
-                    #print hentIteminfo(d,kanal,hovedkanal, item = 'iteminfo' in visningsvalg, info = 'musicInfo' in visningsvalg)
-                    dataid, tittel, kortTittel, artist, artistShort, komponist, info, bilde, issued, duration, gluonType = hentIteminfo(d,kanal,hovedkanal, item='iteminfo' in visningsvalg, info='musicInfo' in visningsvalg, distriktssending = distriktssending)
+                    #print hent_iteminfo(d,kanal,hovedkanal, item = 'iteminfo' in visningsvalg, info = 'musicInfo' in visningsvalg)
+                    dataid, tittel, kortTittel, artist, artistShort, komponist, info, bilde, issued, duration, gluon_type = hent_iteminfo(d,kanal,hovedkanal, item='iteminfo' in visningsvalg, info='musicInfo' in visningsvalg, distriktssending = distriktssending)
                     if not dataid:
-                        dataid = setteDataid(tittel)
+                        dataid = sette_dataid(tittel)
                     if not komponist:
                         creator = ''
                     else:
@@ -1435,10 +1361,10 @@ def lagMetadata(kanal='alle',datatype=None,id='' , testModus=False):
                     #	artist = {'Utøver':artist}
                     if tittel:
                         #Dersom vi ikke har en tittel skal vi ikke ha noe objekt heller
-                        bilde = bildeFix(d, bilde, dataid)
+                        bilde = bilde_fix(d, bilde, dataid)
                         addObject(xmldom, innslag,
                         runorder="present",
-                        subElements=False,
+                        sub_elements=False,
                         channel=kanal,
                         objecttype="item",
                         dataid=dataid,
@@ -1446,11 +1372,11 @@ def lagMetadata(kanal='alle',datatype=None,id='' , testModus=False):
                         kortTittel=kortTittel,
                         abstract=info,
                         creator=creator,
-                        partisipantDescription=artist,
+                        partisipant_description=artist,
                         partisipantShortDescription=artistShort,
                         duration=duration,
                         issued=issued,
-                        gluonType=[{'label':'class', 'reference':'Digas', 'value' : gluonType}],
+                        gluon_type=[{'label':'class', 'reference':'Digas', 'value' : gluon_type}],
                         bilde=bilde
                         )
                         #SEtte inn innslags objekt her
@@ -1458,17 +1384,17 @@ def lagMetadata(kanal='alle',datatype=None,id='' , testModus=False):
                     #Andre innslag
                     #Da skal vi ogsÂ ha med forige
                     #print visningsvalg
-                    dataid, tittel, artist, info, bilde, issued, duration, gluonType = hentNewsItemForrige(d,kanal,hovedkanal, news = 'newsItem' in visningsvalg, info = 'newsInfo' in visningsvalg, distriktssending = distriktssending)
+                    dataid, tittel, artist, info, bilde, issued, duration, gluon_type = hentNewsItemForrige(d,kanal,hovedkanal, news = 'newsItem' in visningsvalg, info = 'newsInfo' in visningsvalg, distriktssending = distriktssending)
                     if not dataid:
-                        dataid = setteDataid(tittel)
+                        dataid = sette_dataid(tittel)
                     #Sette inn innslags objekt her
                     if tittel:
                         #Dersom vi ikke har en tittel skal vi ikke ha noe objekt heller
-                        bilde = bildeFix(d, bilde, dataid)
+                        bilde = bilde_fix(d, bilde, dataid)
                         addObject(xmldom, innslag,
                         runorder = "past",
                         channel = kanal,
-                        subElements = False,
+                        sub_elements = False,
                         objecttype="item",
                         dataid = dataid,
                         tittel = tittel,
@@ -1476,23 +1402,23 @@ def lagMetadata(kanal='alle',datatype=None,id='' , testModus=False):
                         contributor = {'V36':artist},
                         duration = duration,
                         issued = issued,
-                        gluonType = [{'label':'class', 'reference':'Digas', 'value' : gluonType}],
+                        gluon_type = [{'label':'class', 'reference':'Digas', 'value' : gluon_type}],
                         bilde = bilde
                         )
 
 
 
-                    dataid, tittel, artist, info, bilde, issued, duration, gluonType = hentNewsItem(d,kanal,hovedkanal, news = 'newsItem' in visningsvalg, info = 'newsInfo' in visningsvalg)
+                    dataid, tittel, artist, info, bilde, issued, duration, gluon_type = hentNewsItem(d,kanal,hovedkanal, news = 'newsItem' in visningsvalg, info = 'newsInfo' in visningsvalg)
                     if not dataid:
-                        dataid = setteDataid(tittel)
+                        dataid = sette_dataid(tittel)
                     #Sette inn innslags objekt her
                     if tittel:
                         #Dersom vi ikke har en tittel skal vi ikke ha noe objekt heller
-                        bilde = bildeFix(d, bilde, dataid)
+                        bilde = bilde_fix(d, bilde, dataid)
                         addObject(xmldom, innslag,
                         runorder = "present",
                         channel = kanal,
-                        subElements = False,
+                        sub_elements = False,
                         objecttype="item",
                         dataid = dataid,
                         tittel = tittel,
@@ -1500,7 +1426,7 @@ def lagMetadata(kanal='alle',datatype=None,id='' , testModus=False):
                         contributor = {'V36':artist},
                         duration = duration,
                         issued = issued,
-                        gluonType = [{'label':'class', 'reference':'Digas', 'value' : gluonType}],
+                        gluon_type = [{'label':'class', 'reference':'Digas', 'value' : gluon_type}],
                         bilde = bilde
                         )
 
@@ -1508,9 +1434,9 @@ def lagMetadata(kanal='alle',datatype=None,id='' , testModus=False):
 
                 if ('itemNext' in visningsvalg):
                     #**** Rette denne
-                    dataid, tittel, kortTittel, artist, komponist, info, bilde, issued, duration, gluonType = hentItemNext(d,kanal,hovedkanal,musikk = 'itemNext' in visningsvalg, news = False)
+                    dataid, tittel, kortTittel, artist, komponist, info, bilde, issued, duration, gluon_type = hentItemNext(d,kanal,hovedkanal,musikk = 'itemNext' in visningsvalg, news = False)
                     if not dataid:
-                        dataid = setteDataid(tittel)
+                        dataid = sette_dataid(tittel)
                     if not komponist:
                         creator = ''
                     else:
@@ -1519,81 +1445,72 @@ def lagMetadata(kanal='alle',datatype=None,id='' , testModus=False):
                     #Sette inn innslags objekt her
                     if tittel:
                         #Dersom vi ikke har en tittel skal vi ikke ha noe objekt heller
-                        bilde = bildeFix(d, bilde, dataid)
+                        bilde = bilde_fix(d, bilde, dataid)
                         addObject(xmldom, innslag,
-                        runorder = "future",
-                        channel = kanal,
-                        subElements = False,
+                        runorder="future",
+                        channel=kanal,
+                        sub_elements=False,
                         objecttype="item",
-                        dataid = dataid,
-                        tittel = tittel,
-                        kortTittel = kortTittel,
-                        abstract = info,
-                        creator = creator,
-                        partisipantDescription = artist,
-                        duration = duration,
-                        issued = issued,
-                        gluonType = [{'label':'class', 'reference':'Digas', 'value' : gluonType}],
-                        bilde = bilde
+                        dataid=dataid,
+                        tittel=tittel,
+                        kortTittel=kortTittel,
+                        abstract=info,
+                        creator=creator,
+                        partisipant_description=artist,
+                        duration=duration,
+                        issued=issued,
+                        gluon_type=[{'label':'class', 'reference':'Digas', 'value' : gluon_type}],
+                        bilde=bilde
                         )
-                if ('newsItemNext' in visningsvalg):
-                    dataid, tittel, kortTittel, artist, komponist, info, bilde, issued, duration, gluonType = hentItemNext(d,kanal,hovedkanal,musikk = False, news = 'newsItemNext' in visningsvalg)
+                if 'newsItemNext' in visningsvalg:
+                    dataid, tittel, kortTittel, artist, komponist, info, bilde, issued, duration, gluon_type = hentItemNext(d, kanal, hovedkanal, musikk=False, news='newsItemNext' in visningsvalg)
                     if not dataid:
-                        dataid = setteDataid(tittel)
+                        dataid = sette_dataid(tittel)
                     #Sette inn innslags objekt her
                     if tittel:
                         #Dersom vi ikke har en tittel skal vi ikke ha noe objekt heller
-                        bilde = bildeFix(d, bilde, dataid)
+                        bilde=bilde_fix(d, bilde, dataid)
                         addObject(xmldom, innslag,
-                        runorder = "future",
-                        channel = kanal,
-                        subElements = False,
+                        runorder="future",
+                        channel=kanal,
+                        sub_elements=False,
                         objecttype="item",
-                        dataid = dataid,
-                        tittel = tittel,
-                        abstract = info,
-                        contributor = {'V36':artist},
-                        duration = duration,
-                        issued = issued,
-                        gluonType = [{'label':'class', 'reference':'Digas', 'value' : gluonType}],
-                        bilde = bilde
+                        dataid=dataid,
+                        tittel=tittel,
+                        abstract=info,
+                        contributor={'V36': artist},
+                        duration=duration,
+                        issued=issued,
+                        gluon_type=[{'label':'class', 'reference':'Digas', 'value' : gluon_type}],
+                        bilde=bilde
                         )
 
                 try:
-                    #print tablePointer
                     if 'programmeNext' in visningsvalg:
-
-                        progId, tittel, info, programleder, issued, duration, digastype = hentProgrammeNext(d,kanal,hovedkanal)
+                        progId, tittel, info, programleder, issued, duration, digastype = hent_programme_next(d, kanal, hovedkanal)
                         if programleder:
                             programleder = {'V40':programleder}
-                        #print 	progId, tittel, info, programleder, issued, duration, digastype
                         #Legge inn som objekt
                         if tittel:
                             addObject(xmldom, tablePointer,
-                                subElements = False,
+                                sub_elements=False,
                                 objecttype="programme",
-                                channel = kanal,
-                                dataid = progId,
-                                tittel = tittel,
-                                abstract = info,
-                                contributor = programleder,
-                                duration = duration,
-                                issued = issued,
-                                gluonType = [{'reference':'NRK-Escort', 'value' : digastype}]
+                                channel=kanal,
+                                dataid=progId,
+                                tittel=tittel,
+                                abstract=info,
+                                contributor=programleder,
+                                duration=duration,
+                                issued=issued,
+                                gluon_type=[{'reference':'NRK-Escort', 'value' : digastype}]
                                 )
-
                         #Sette inn object
-
-
-                except 0:
+                except:
                     pass
 
 
-                if testModus:
-                    print kanal, xmldom.toprettyxml('  ','\n')#, xmldom.toxml('utf-8')
 
-                #print xmldom.toprettyxml('  ','\n','utf-8')
-                #print xmldom.toxml('utf-8')
+
                 data = xmldom.toxml('utf-8')
                 #pars = xml.dom.minidom.parseString(xmldom.toprettyxml('  ','\n','utf-8'))
 
@@ -1601,30 +1518,20 @@ def lagMetadata(kanal='alle',datatype=None,id='' , testModus=False):
                 #SÂ sender vi til gluon
 
                 #Hele denne er i en trxad med timeout, vi trenger ikke noe timeout
-                if testModus:
-                    print (kanal, tittel)
-                    #print
-                    #print xmldom.toprettyxml('  ','\n','utf-8')
+                if test_modus:
+                    print(kanal, tittel)
+                    print()
+                    print(xmldom.toprettyxml('  ','\n','utf-8'))
+                    f = open('/Users/n12327/Desktop/filex.xml', 'w')
+                    f.write(xmldom.toprettyxml('  ','\n'))
+                    f.close()
                     continue
 
-                for adr in gluonAdr:
+                #for adr in gluonAdr:
 
-                    if 'OK' in sendDataWeb(data,adr):
-                        break
-
-
-
-                #return error("nr11",quark, melding="Kunne ikke sende til Webplugg")
-
-
+                #    if 'OK' in send_data_web(data,adr):
+                #        break
 
     #Lukke databasen
-
     d.close()
 
-if __name__=='__main__':
-    #application/xml
-
-    print "Content-type: text/html"
-    print
-    lagMetadata(kanal='jazz',datatype='iteminfo', testModus=True)

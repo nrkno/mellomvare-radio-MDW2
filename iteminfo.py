@@ -112,7 +112,7 @@ def iso_til_lengde(isoTid):
         tid += float(p.group(1)) * 3600 * 24 * 365
     return tid
 
-def iso_til_dato(dato, sekunder=0, sql=0):
+def iso_til_dato(dato, sekunder=False, sql=False):
     "Tar en datostreng og gjør om til et tidsobjekt"
     #TODO: Hva brukes egentlig denne til
     offsett = 0
@@ -141,7 +141,7 @@ def iso_til_dato(dato, sekunder=0, sql=0):
             tid = 0
     return tid - offsett
 
-def finn_unger(noder, tag, kun_en=0):
+def finn_unger(noder, tag, kun_en=False):
     "Kryper et lag ned i eet nodetre"
     nodeliste = []
     for node in noder:
@@ -265,11 +265,12 @@ def finn_kildekanal(d, beskrivelse):
     else:
         return None
 
-def begrens(tekst, lengde):
+def begrens(tekst, lengde=128):
+    "Prøver å begrense en streng ved et punktum."
     if "." in tekst:
         s = ''
         for setning in  tekst.split('.'):
-            if len(s) + len(setning) + 1 <= 128:
+            if len(s) + len(setning) + 1 <= lengde:
                 s += setning + '.'
             else:
                 break
@@ -284,7 +285,7 @@ def tell_artister(artister):
         artist_ant += len(artister[rolle])
     return artist_ant
 
-def lag_artistfelt(artister, solister=0):
+def lag_artistfelt(artister, solister=False):
     "Lager deler eller hele artistfeltet, kan kalles flere ganger"
     artistfelt = ''
     artisttall = tell_artister(artister)
@@ -350,11 +351,9 @@ def lag_artistfelt(artister, solister=0):
         if ir == jr or jr != 0:
             #Vi bruker og...
             return artistfelt + ' og ' + rolleliste[j]['tittel'] + ' ' + artister[j][0] + solistfelt
-        else:
-            #Vi bruker passiv form
-            return artistfelt + ' ' + rolleliste[j]['passiv'] + ' ' + rolleliste[j]['tittel'] + ' ' + artister[j][0] + solistfelt
+        #Vi bruker passiv form
+        return artistfelt + ' ' + rolleliste[j]['passiv'] + ' ' + rolleliste[j]['tittel'] + ' ' + artister[j][0] + solistfelt
 
-        return artistfelt + solistfelt
 
     while 1:
         rolle, navneliste = artister.popitem()
@@ -373,8 +372,7 @@ def lag_artistfelt(artister, solister=0):
             artistfelt += ' og '
     if solister:
         return '. ' + artistfelt[0].upper() + (artistfelt + solistfelt)[1:]
-    else:
-        return artistfelt + solistfelt
+    return artistfelt + solistfelt
 
 #TODO: Forsett her
 def finn_komponist(element, kun_etternavn=False, aars_tall=False):
@@ -408,7 +406,7 @@ def finn_medvirkende(element, klasse=''):
     contributor_list = {}
     soloist_list = {}
 
-    metadata = finn_unger(element.childNodes, "metadata_DC", kun_en=1)[0]
+    metadata = finn_unger(element.childNodes, "metadata_DC", kun_en=True)[0]
     contributors = metadata.getElementsByTagName('contributor')
     for contributor in contributors:
         solist = False
@@ -538,6 +536,7 @@ def finn_medvirkende(element, klasse=''):
     return contributor_list, soloist_list
 
 def parser(xmlstreng):
+    "Parser et XML-dokument og legger innholdet inn i databasen."
     status = 0
     flush_items = 0
     #Lager en database forbindelse
@@ -566,7 +565,6 @@ def parser(xmlstreng):
             return {'status':2, 'kanal':kanal, 'datatype':'iteminfo'}
 
         elementer = tabell.getElementsByTagName("element")
-        sendingItem = 0
         sending_programme = 0
         rydd = [1, 2, 3, 4, 5]
         localids = [1, 2, 3, 4, 5]
@@ -574,7 +572,6 @@ def parser(xmlstreng):
         #Opdatere db
         localid = 0
         digastype = ''
-        nettype = ''
         for element in elementer[:4]:
             # Vil aldri inneholde mer enn 4 elementer, som oftest mindre
             # Dersom dette er av den nye Digastypen, så vil vi ha et runorder parameter som viser om dette er
@@ -608,9 +605,7 @@ def parser(xmlstreng):
                     # future 1
                 elif runorder == 'past':
                     localprogid = 0 #Vil altid tilordnes det lopende programmet
-
                     localid = 5
-
 
             #Dette gir oss rekefølgen programme,programme,item,item,item(past)
 
@@ -638,7 +633,6 @@ def parser(xmlstreng):
                         tittel = finn_komponist(element, kun_etternavn=True) + ': ' + finn_verdi(element, 'metadata_DC/titles/title', entity=False)
             #Beskrivelse
             beskrivelse = ''
-            beskrivelse_alt = ''
             annonsering1 = ''
             annonsering2 = ''
 
@@ -673,7 +667,7 @@ def parser(xmlstreng):
                     programleder = ''
 
                 if len(beskrivelse) > 128:
-                    beskrivelse = begrens(beskrivelse, 128)
+                    beskrivelse = begrens(beskrivelse)
                 #Så må vi legge inn en test for om den er for lang, og prøve å kutte fornuftig.
                 #Splitte på punktum og Addere oppover til vi nermer oss 128 tegn.
 
@@ -718,7 +712,7 @@ def parser(xmlstreng):
             elif 'Conductor' in medvirkende: #FOR DIGAS
                 # Vi har en dirigent, ergo er utøveren et orkester eller noe annet som kan ledes
                 dirigentnavn = medvirkende.pop('Conductor')[0]
-                artist = lag_artistfelt(medvirkende,solister=0)
+                artist = lag_artistfelt(medvirkende,solister=False)
                 artist = artist.rstrip(" ,.;") + choice(DIRIGERT) + dirigentnavn
                 if solistene:
                     #Funksjon som henter ut solistene.
@@ -727,12 +721,11 @@ def parser(xmlstreng):
             elif 'Leader' in medvirkende: #FOR DIGAS
                 # Vi har en leder av en gruppe
                 dirigentnavn = medvirkende.pop('Leader')[0]
-                artist = lag_artistfelt(medvirkende,solister=0)
+                artist = lag_artistfelt(medvirkende,solister=False)
                 artist = artist.rstrip(" ,.;") + choice(LEDET) + dirigentnavn
                 if solistene:
                     #Funksjon som henter ut solistene.
-                    artist = lag_artistfelt(solistene, solister = 1) + '|med ' + artist
-
+                    artist = lag_artistfelt(solistene, solister=True) + '|med ' + artist
 
             elif 'Performer' in medvirkende:
                 artist = ', '.join(medvirkende['Performer'])
@@ -744,27 +737,27 @@ def parser(xmlstreng):
                 artist = ', '.join(medvirkende['Programleder'])
             elif 'Host' in medvirkende:
                 artist = ', '.join(medvirkende['Host'])
-            elif len(medvirkende):
+            elif medvirkende:
                 artist = lag_artistfelt(medvirkende)
                 if solistene:
                     #Funksjon som henter ut solistene.
-                    artist = lag_artistfelt(solistene, solister=1) + '|med ' + artist
+                    artist = lag_artistfelt(solistene, solister=True) + '|med ' + artist
             else:
                 artist = ''
             #Dersom dette er et program og vi ikke har funnet noen...
             if elementtype == 'programme' and programleder:
                 artist = programleder
             if VERBOSE:
-                print(artist)
+                print('Artist: ', artist)
 
             #Saa sendetidspunktet
             sendetidspunkt = finn_verdi(element, 'metadata_DC/dates/date_issued', entity=False)
-            tid = mdb.TimestampFromTicks(iso_til_dato(sendetidspunkt,sekunder=1))
+            tid = mdb.TimestampFromTicks(iso_til_dato(sendetidspunkt, sekunder=True))
 
             #Finne opptaksdato, dersom dette finnes.
             opptaksdato = finn_verdi(element, 'metadata_DC/dates/date_created', entity=False)
             if opptaksdato:
-                laget = mdb.TimestampFromTicks(iso_til_dato(opptaksdato, sekunder=1))
+                laget = mdb.TimestampFromTicks(iso_til_dato(opptaksdato, sekunder=True))
             else:
                 #** Mulig denne må endres til en nullverdi
                 laget = tid
@@ -804,8 +797,8 @@ def parser(xmlstreng):
                 else:
                     c1.close()
                     #Finne slutttidspunkt
-                    slutttid1 = iso_til_dato(tid1,sekunder=1, sql=True) + lengde
-                    if iso_til_dato(sendetidspunkt,sekunder=1)>=slutttid1:
+                    slutttid1 = iso_til_dato(tid1,sekunder=True, sql=True) + lengde
+                    if iso_til_dato(sendetidspunkt,sekunder=True) >= slutttid1:
                         oppdatere = 1
 
                 if not oppdatere:
@@ -824,7 +817,6 @@ def parser(xmlstreng):
                 WHERE kanal=%s and localid=%s;"""
 
                 c1.execute(sql, (kanal, localid))
-
                 try:
                     tittel2, tid2, lengde2 = c1.fetchone()
                 except TypeError:
@@ -841,7 +833,6 @@ def parser(xmlstreng):
                         flush_items = 0
                     else:
                         #Det er et nytt programm
-
                         flush_items = 1
                 # Det er ikke snakk om at det er summary, og vi har et nytt program, vi må starte opprydingsrutinene
                 # Gamle innslag må renskes ut og meldinger fra programlederen må tas.
@@ -929,14 +920,13 @@ def parser(xmlstreng):
                 )
             else:
                 #Det er ingen felter som er oppdatert
-
                 status = 2
                 if VERBOSE:
                     print("INSERT", repr(tittel))
                 sql = """INSERT INTO iteminfo(tittel,kildekanal,type,localprogid,progID,laget,tid,lengde,beskrivelse,artist,element,label,bildeID,kanal,localid,digastype) VALUES
                 (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
                 """
-                c.execute(sql,(
+                c.execute(sql, (
                     tittel,
                     kildekanal,
                     elementtype,
@@ -957,7 +947,7 @@ def parser(xmlstreng):
                 )
             if LOGGING_ITEM:
                 #Sette inn i loggtabell
-                if localid == 1 or localid == 3:
+                if localid in (1, 3):
                     sql = """INSERT INTO iteminfoLogg(tittel,kildekanal,type,laget,tid,lengde,beskrivelse,artist,element,label,bildeID,kanal,digastype,insatt) VALUES
                     (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,NOW())
                     """
@@ -1000,7 +990,7 @@ def parser(xmlstreng):
             c1.close()
 
             #Finne slutttidspunkt
-            slutttid1 = iso_til_dato(tid1, sekunder=1 , sql=True) + float(lengde1)
+            slutttid1 = iso_til_dato(tid1, sekunder=True, sql=True) + float(lengde1)
             #Forige innslag eldre enn en time er neppe relevante
             if localid == 5:
                 #Vi har det utlgående elementet
@@ -1015,7 +1005,6 @@ def parser(xmlstreng):
                     stryk.append(3)
                 if 4 in rydd:
                     stryk.append(4)
-
                 #Vi rydder aldri nummer 5, den vil jo være utløpt uansett
 
             #Stryker noe hvis:
