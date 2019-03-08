@@ -210,6 +210,7 @@ def finn_hovedkanal(d, kanal):
 
 def hent_visningsvalg(d, kanal, datatype='iteminfo'):
     "Henter ut visningsvalg og verdier for filterfunksjonen"
+    #TODO: Iteminfo som er den eneste datatypen skal altid vises
     #Først finner vi kanal_ID på kanalen.
     blk = {}
     als = {}
