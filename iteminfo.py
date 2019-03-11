@@ -425,7 +425,7 @@ def finn_medvirkende(element, klasse=''):
         #Flytte parantes
         if '(' in fornavn:
             #flytte parantes til etternavn
-            fornavn, parantes = fornavn.split('(',1)
+            fornavn, parantes = fornavn.split('(', 1)
             navn = "%s (%s)" % (navn, parantes.rstrip(')'))
             #Trimme fornavn
             fornavn = fornavn.strip()

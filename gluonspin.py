@@ -9,7 +9,7 @@ from xml.sax import parseString
 #from httplib import HTTPConnection
 
 utverdier = {}
-threads=[]
+threads = []
 
 class gluonspinError(Exception):
     def __init__(self, value):
