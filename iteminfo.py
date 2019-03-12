@@ -3,16 +3,19 @@
 Versjon som sjekker lengden på programmet utifra avstanden i sendetid mellom program 1 og 2, dersom
 programtiden oppgis til å være null"""
 
+# TODO: Hente ut sekunder fra timediff, før insert i basen
+
 import re
 import time
 import xml.dom.minidom
 from random import choice
+from datetime import datetime, timedelta
 
 import pymysql as mdb
 
 from db_conn import database
 
-from roller import rolleliste, rollerelasjon, ikkeRolle
+from roller import ROLLELISTE, ROLLERELASJON, IKKE_ROLLE
 
 KANAL_NAVN = {'nrk jazz':'jazz', 'nrk sport':'sport', 'sport':'sport', 'nrk gull':'gull',
               'nrk p1pluss':'p1pluss', 'nrk barn':'barn', 'p1_ndst':'p1st', 'nrk p1':'p1', 'p1':'p1', 'nrk p2':'p2', 'p2':'p2',
@@ -110,36 +113,7 @@ def iso_til_lengde(isoTid):
     p = re.search(r'(\d+|\d+\.\d+)Y', dager)
     if p:
         tid += float(p.group(1)) * 3600 * 24 * 365
-    return tid
-
-def iso_til_dato(dato, sekunder=False, sql=False):
-    "Tar en datostreng og gjør om til et tidsobjekt"
-    #TODO: Hva brukes egentlig denne til
-    offsett = 0
-    if not dato:
-        return 0
-    dato = dato.isoformat()
-    if 'T' in dato or sql:
-        aar = int(dato[0:4])
-        if aar < 1970:
-            #Da har vi et problem
-            aar = aar + 60
-            offsett = 1893456000.0
-        try:
-            if sekunder:
-                tid = time.mktime((aar, int(dato[5:7]), int(dato[8:10]), int(dato[11:13]), int(dato[14:16]),
-                                   int(dato[17:19]), -1, -1, -1))
-            else:
-                tid = time.mktime((aar, int(dato[5:7]), int(dato[8:10]), int(dato[11:13]), int(dato[14:16]),
-                                   0, -1, -1, -1))
-        except ValueError:
-            tid = 0
-    else:
-        try:
-            tid = int(dato)
-        except:
-            tid = 0
-    return tid - offsett
+    return timedelta(seconds=tid)
 
 def finn_unger(noder, tag, kun_en=False):
     "Kryper et lag ned i eet nodetre"
@@ -209,8 +183,8 @@ def samsendinglexer(setning):
         if enkeltord.lower() in samsendingsbegreper:
             samsending = True
             continue
-        #I og med at vi tar bort alle stoppord og pynt er det neste som kommer nå kanalbetegnelsen
-        # TODO bruke kanal SW til å bekrefte kanal
+        # I og med at vi tar bort alle stoppord og pynt er det neste som kommer nå kanalbetegnelsen
+        # TODO: bruke kanal SW til å bekrefte kanal
         if samsending:
             return enkeltord
 
@@ -301,20 +275,20 @@ def lag_artistfelt(artister, solister=False):
             if solister:
                 return '. ' + artister['Utøver'][0][0].upper() + (artister['Utøver'][0] + solistfelt)[1:]
             return artister['Utøver'][0]
-
-        elif artister.keys()[0] in rolleliste:
-            rolle = artister.keys()[0]
-            if rolle in ikkeRolle:
+    
+        elif list(artister.keys())[0] in ROLLELISTE:
+            rolle = list(artister.keys())[0]
+            if rolle in IKKE_ROLLE:
                 if solister:
                     return '. ' + artister[rolle][0][0].upper() + (artister[rolle][0] + ' på ' + rolle + solistfelt)[1:]
                 return artister[rolle][0] + ' på ' + rolle
             else:
                 if solister:
-                    return '. ' + rolleliste[rolle]['tittel'][0].upper() + (rolleliste[rolle]['tittel'] + ' ' + artister[rolle][0] + solistfelt)[1:]
-                return rolleliste[rolle]['tittel'] + ' ' + artister[rolle][0]
+                    return '. ' + ROLLELISTE[rolle]['tittel'][0].upper() + (ROLLELISTE[rolle]['tittel'] + ' ' + artister[rolle][0] + solistfelt)[1:]
+                return ROLLELISTE[rolle]['tittel'] + ' ' + artister[rolle][0]
         else:
-            #Vi finner ikke rollen, dette viol normali ikke skje, vi retunerer da bare navnene
-            return artister[artister.keys()[0]][0]
+            #Vi finner ikke rollen, dette vil normalt ikke skje, vi retunerer da bare navnene
+            return artister[list(artister.keys())[0]][0]
 
     elif artisttall == 2 and not solister:
         #Finne forholdet mellom roller, dersom det er solister vi skal bare liste opp. Noen roller er underordnet andre
@@ -325,7 +299,7 @@ def lag_artistfelt(artister, solister=False):
                 return artistfelt + ' og '.join(artister['Utøver'])
             else:
                 #Vi har en ukjent og en kjent, for å få dette pent setter vi rollen over i () igjen. Fram og tilbake er like langt.
-                i, j = artister.keys()
+                i, j = list(artister.keys())
                 if j == 'Utøver':
                     #SWAP, dette gir oss den 'eksotiske' først.
                     i, j = j, i
@@ -333,35 +307,35 @@ def lag_artistfelt(artister, solister=False):
 
         #Så derspm vi bare har kjente artister
         if len(artister) == 1:
-            i, = artister.keys()
+            i, = list(artister.keys())
             #Dersom disse er like -> vi bruker og, og har rollen i flertall
-            return rolleliste[i]['tittel'] + 'e ' + ' og '.join(artister[i]) + solistfelt
+            return ROLLELISTE[i]['tittel'] + 'e ' + ' og '.join(artister[i]) + solistfelt
         #Så sjekke gruppene og relasjonene mellom disse
-        i, j = artister.keys()
-        ir = rollerelasjon[rolleliste[i]['gruppe']]
-        jr = rollerelasjon[rolleliste[j]['gruppe']]
+        i, j = list(artister.keys())
+        ir = ROLLERELASJON[ROLLELISTE[i]['gruppe']]
+        jr = ROLLERELASJON[ROLLELISTE[j]['gruppe']]
         #Sjekke slik at mest dominerende gruppe kommer først
         if jr > ir:
             #swap
             i, ir, j, jr = j, jr, i, ir
-        # if rolle in ikkeRolle:
-        artistfelt += rolleliste[i]['tittel'] + ' ' + artister[i][0]
+        # if rolle in IKKE_ROLLE:
+        artistfelt += ROLLELISTE[i]['tittel'] + ' ' + artister[i][0]
 
         #Finne konjuksjon
         if ir == jr or jr != 0:
             #Vi bruker og...
-            return artistfelt + ' og ' + rolleliste[j]['tittel'] + ' ' + artister[j][0] + solistfelt
+            return artistfelt + ' og ' + ROLLELISTE[j]['tittel'] + ' ' + artister[j][0] + solistfelt
         #Vi bruker passiv form
-        return artistfelt + ' ' + rolleliste[j]['passiv'] + ' ' + rolleliste[j]['tittel'] + ' ' + artister[j][0] + solistfelt
+        return artistfelt + ' ' + ROLLELISTE[j]['passiv'] + ' ' + ROLLELISTE[j]['tittel'] + ' ' + artister[j][0] + solistfelt
 
 
     while 1:
         rolle, navneliste = artister.popitem()
         if rolle != "Utøver":
             if len(navneliste) != 1:
-                artistfelt += rolleliste[rolle]['tittel'] + 'e ' + ', '.join(navneliste)
+                artistfelt += ROLLELISTE[rolle]['tittel'] + 'e ' + ', '.join(navneliste)
             else:
-                artistfelt += rolleliste[rolle]['tittel'] + ' ' + ', '.join(navneliste)
+                artistfelt += ROLLELISTE[rolle]['tittel'] + ' ' + ', '.join(navneliste)
         else:
             artistfelt += ', '.join(navneliste)
         if not artister:
@@ -437,7 +411,7 @@ def finn_medvirkende(element, klasse=''):
                 nyrolle = navn.split('(')[1].rstrip(')')
             except:
                 nyrolle = False
-            if nyrolle in rolleliste:
+            if nyrolle in ROLLELISTE:
                 #Rettes til if nyrollen er i dab rollelisten
 
                 role = nyrolle
@@ -450,7 +424,7 @@ def finn_medvirkende(element, klasse=''):
                 nyrolle = navn.split('(')[1].rstrip(')')
             except:
                 nyrolle = False
-            if nyrolle in rolleliste:
+            if nyrolle in ROLLELISTE:
                 #Rettes til if nyrollen er i dab rollelisten
                 role = nyrolle
                 navn = navn.split('(')[0].rstrip()
@@ -466,7 +440,7 @@ def finn_medvirkende(element, klasse=''):
                     nyrolle = nyrolle.split(',')[0].rstrip()
             except:
                 nyrolle = False
-            if nyrolle in rolleliste:
+            if nyrolle in ROLLELISTE:
                 #Rettes til if nyrollen er i dab rollelisten
                 role = nyrolle
                 navn = navn.split('(')[0].rstrip()
@@ -483,7 +457,7 @@ def finn_medvirkende(element, klasse=''):
                     nyrolle = nyrolle.split(',')[0].rstrip()
             except:
                 nyrolle = False
-            if nyrolle in rolleliste:
+            if nyrolle in ROLLELISTE:
                 #Rettes til if nyrollen er i dab rollelisten
                 role = nyrolle
                 navn = navn.split('(')[0].rstrip()
@@ -499,7 +473,7 @@ def finn_medvirkende(element, klasse=''):
                     nyrolle = nyrolle.split(',')[0].rstrip()
             except:
                 nyrolle = False
-            if nyrolle in rolleliste:
+            if nyrolle in ROLLELISTE:
                 #Rettes til if nyrollen er i dab rollelisten
                 role = nyrolle
                 navn = navn.split('(')[0].rstrip()
@@ -561,7 +535,6 @@ def parser(xmlstreng):
             kanal, label = kanal.split('-')
 
         if pars.documentElement.getAttribute('priority') == '0':
-
             return {'status':2, 'kanal':kanal, 'datatype':'iteminfo'}
 
         elementer = tabell.getElementsByTagName("element")
@@ -576,7 +549,6 @@ def parser(xmlstreng):
             # Vil aldri inneholde mer enn 4 elementer, som oftest mindre
             # Dersom dette er av den nye Digastypen, så vil vi ha et runorder parameter som viser om dette er
             # past, present eller future.
-            # Past hopper vi foreløpig over, dette er mer nyttig i statistikksammenheng, da dette vil være det som er
             # Riktig spilletid på innslaget.
 
             runorder = finn_verdi(element, '@runorder', entity=False)
@@ -604,7 +576,7 @@ def parser(xmlstreng):
                     localid = 4
                     # future 1
                 elif runorder == 'past':
-                    localprogid = 0 #Vil altid tilordnes det lopende programmet
+                    localprogid = 0 #Vil altid tilordnes det løpende programmet
                     localid = 5
 
             #Dette gir oss rekefølgen programme,programme,item,item,item(past)
@@ -751,24 +723,22 @@ def parser(xmlstreng):
                 print('Artist: ', artist)
 
             #Saa sendetidspunktet
-            sendetidspunkt = finn_verdi(element, 'metadata_DC/dates/date_issued', entity=False)
-            tid = mdb.TimestampFromTicks(iso_til_dato(sendetidspunkt, sekunder=True))
+            sendetidspunkt = datetime.fromisoformat(finn_verdi(element, 'metadata_DC/dates/date_issued', entity=False))
+            tid = sendetidspunkt
 
             #Finne opptaksdato, dersom dette finnes.
-            opptaksdato = finn_verdi(element, 'metadata_DC/dates/date_created', entity=False)
-            if opptaksdato:
-                laget = mdb.TimestampFromTicks(iso_til_dato(opptaksdato, sekunder=True))
-            else:
-                #** Mulig denne må endres til en nullverdi
-                laget = tid
+            try:
+                laget = datetime.fromisoformat(finn_verdi(element, 'metadata_DC/dates/date_created', entity=False))
+            except ValueError:
+                laget = sendetidspunkt
 
             #Finne tiden i sekunder
-            lengde = int(iso_til_lengde(finn_verdi(element,'metadata_DC/format/format_extent', entity=False)))
+            lengde = iso_til_lengde(finn_verdi(element,'metadata_DC/format/format_extent', entity=False))
 
             #Hente ut albumillustrasjon, dersom denne finnes.
             bilde = finn_verdi(element, 'musicSpecials/albumIllustration/origin/file', entity=False) #*** Endre path
             if len(bilde) < 11:
-                bilde=''
+                bilde = ''
 
             #Sjekke om programmet skal oppdateres (summary sjekk)
             if detaljering == 'summary':
@@ -787,18 +757,17 @@ def parser(xmlstreng):
 
                 c1.execute(sql, (kanal, localid))
                 try:
-                    tid1, lengde1 = c1.fetchone()
+                    tid_eksisterende_programm, lengde_eksisterende_programm = c1.fetchone()
                 except TypeError:
-                    #Raden eksisterer ikke
-                    #print "I FEILLØKKE %s - raden eksisterer antagelig ikke" % localid
-                    oppdatere = 1
-                    #Da kan man oppdatere
+                    #Raden eksisterer ikke, da kan vi oppdatere til proformaprogram fra digas
+                    oppdatere = True
                     c1.close()
                 else:
                     c1.close()
                     #Finne slutttidspunkt
-                    slutttid1 = iso_til_dato(tid1,sekunder=True, sql=True) + lengde
-                    if iso_til_dato(sendetidspunkt,sekunder=True) >= slutttid1:
+                    # FIXME: lengde må være en timedelta her
+                    slutttid_eksisterende_programm = tid_eksisterende_programm + lengde
+                    if sendetidspunkt >= slutttid_eksisterende_programm:
                         oppdatere = 1
 
                 if not oppdatere:
@@ -826,7 +795,7 @@ def parser(xmlstreng):
                     #Vi flusher
                     c1.close()
                 else:
-                    if (tittel2, tid2, lengde2) == (tittel, tid, lengde):
+                    if (tittel2, tid2, lengde2) == (tittel, sendetidspunkt, lengde):
                         if VERBOSE:
                             print("SAMMA GREIENE JO")
                         #Vi flusher ikke
@@ -869,7 +838,7 @@ def parser(xmlstreng):
                     localprogid,
                     dataid,
                     laget,
-                    tid,
+                    sendetidspunkt,
                     lengde,
                     beskrivelse,
                     artist,
@@ -906,7 +875,7 @@ def parser(xmlstreng):
                     localprogid,
                     dataid,
                     laget,
-                    tid,
+                    sendetidspunkt,
                     lengde,
                     beskrivelse,
                     artist,
@@ -933,7 +902,7 @@ def parser(xmlstreng):
                     localprogid,
                     dataid,
                     laget,
-                    tid,
+                    sendetidspunkt,
                     lengde,
                     beskrivelse,
                     artist,
@@ -956,7 +925,7 @@ def parser(xmlstreng):
                         kildekanal,
                         elementtype,
                         laget,
-                        tid,
+                        sendetidspunkt,
                         lengde,
                         beskrivelse,
                         artist,
@@ -969,32 +938,35 @@ def parser(xmlstreng):
                 )
 
             c.close()
-        #I noen tilfeller har vi situasjonen der et program feilaktig har blitt satt til lengde 0
-        #Vi må sjekke dette
+        # I noen tilfeller har vi situasjonen der et program feilaktig har blitt satt til lengde 0
+        # Vi må sjekke dette
         sjekk_program_lengde(d, kanal)
-        #Rydde opp manglende elementer, dvs det er ferre en 4 elementer i settet.
+        # Rydde opp manglende elementer, dvs det er ferre en 4 elementer i settet.
         if VERBOSE:
             print('flush_items, rydd,stryk:', flush_items, rydd,stryk)
+            
+        #Finne elementer som ligger igjen og har gått ut på tid
+        #Past elementet skal jo være utgått
         for localid in localids:
-            #Er elementet utgått på tid?
-            #Past elementet skal jo være utgått
-            c1= d.cursor()
+            # FIXME: kall denne også c, den andre er lukket på dette tidspunktet
+            c1 = d.cursor()
             sql = """SELECT tid, lengde FROM iteminfo
             WHERE kanal=%s and localid=%s;"""
             c1.execute(sql, (kanal, localid))
             try:
-                tid1, lengde1 = c1.fetchone()
-            except:
-                #Raden eksisterer ikke
+                # FIXME: Her må lengden være en timedelta
+                start, lengde = c1.fetchone()
+            except ValueError:
+                #Raden eksisterer ikke,og har dermed ikke utløpt heller
                 continue
             c1.close()
 
             #Finne slutttidspunkt
-            slutttid1 = iso_til_dato(tid1, sekunder=True, sql=True) + float(lengde1)
+            slutttid1 = tid1  + lengde1
             #Forige innslag eldre enn en time er neppe relevante
             if localid == 5:
                 #Vi har det utlgående elementet
-                #Aldri rydde fortiden
+                #Aldri rydde fortiden, dagens filosofiske
                 continue
             nu = time.time()
 
@@ -1014,6 +986,7 @@ def parser(xmlstreng):
             if (nu >= slutttid1 and lengde1 != 0) or (localid % 2 == 0 and localid in rydd) or (flush_items and localid == 3 and localid in rydd) or localid in stryk:
                 #print "utg %s" % localid
                 status = 1
+                # FIXME: kall denne også c, den andre er lukket på dette tidspunktet
                 c2 = d.cursor()
                 sql = """DELETE FROM iteminfo
                 WHERE kanal=%s and localid=%s;"""

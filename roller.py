@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
 "Dette er en hjelpefil for roller"
-
-rollerelasjon = {'sanger':2,'stryker':1,'treblåser':1,'messingblåsere':1,'tangent':1}
+ROLLERELASJON = {'sanger':2,'stryker':1,'treblåser':1,'messingblåsere':1,'tangent':1}
 #Her må alle grupper inn
 
 #Instrumenter som ikke er roller
-ikkeRolle = ['engelsk horn','fortepiano', 'hammerklaver']
+IKKE_ROLLE = ['engelsk horn','fortepiano', 'hammerklaver']
 
-rolleliste = {
+ROLLELISTE = {
 	#Sangere
 	'sopran':{'gruppe':'sanger','tittel':'sopranen','aktiv':'synger','passiv':'synger'},
 	'mezzosopran':{'gruppe':'sanger','tittel':'mezzosopranen','aktiv':'synger','passiv':'synger'},
