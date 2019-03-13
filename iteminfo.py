@@ -3,18 +3,13 @@
 Versjon som sjekker lengden på programmet utifra avstanden i sendetid mellom program 1 og 2, dersom
 programtiden oppgis til å være null"""
 
-# TODO: Hente ut sekunder fra timediff, før insert i basen
 
 import re
-import time
 import xml.dom.minidom
 from random import choice
 from datetime import datetime, timedelta
 
-import pymysql as mdb
-
 from db_conn import database
-
 from roller import ROLLELISTE, ROLLERELASJON, IKKE_ROLLE
 
 KANAL_NAVN = {'nrk jazz':'jazz', 'nrk sport':'sport', 'sport':'sport', 'nrk gull':'gull',
@@ -42,13 +37,13 @@ def sjekk_program_lengde(d, kanal):
     sql = """SELECT lengde FROM iteminfo WHERE kanal=%s and localid = 1;"""
     c.execute(sql, (kanal))
     try:
-        lengde = int(c.fetchone()[0])
+        lengde = float(c.fetchone()[0])
     except TypeError:
-        lengde = 0
+        lengde = 0.0
     except ValueError:
-        lengde = 0
+        lengde = 0.0
     #Dersom lengden ikke er null nå kan vi returnere uten å gjøre noe mer
-    if lengde != 0:
+    if lengde != 0.0:
         c.close()
         return
     #Hvis ikke for vi finne lengden
@@ -57,13 +52,13 @@ def sjekk_program_lengde(d, kanal):
              FROM iteminfo WHERE kanal = %s; """
     c.execute(sql, (kanal))
     try:
-        beregnet_lengde = int(c.fetchone()[0])
+        beregnet_lengde = float(c.fetchone()[0])
     except TypeError:
-        beregnet_lengde = 0
+        beregnet_lengde = 0.0
     except ValueError:
-        beregnet_lengde = 0
+        beregnet_lengde = 0.0
     #Hvis lengden er null nå også er vi like kloke og må returnere
-    if beregnet_lengde == 0:
+    if beregnet_lengde == 0.0:
         c.close()
         return
     sql = """UPDATE iteminfo SET
@@ -77,16 +72,16 @@ def sjekk_program_lengde(d, kanal):
 def flush_program_data(d, kanal):
     "Renserutine for programskift"
     #1 Stryk innslag/neste program
-    c2 = d.cursor()
+    c = d.cursor()
     sql = """DELETE FROM iteminfo
     WHERE kanal=%s and localid !=0;"""
-    c2.execute(sql, (kanal))
+    c.execute(sql, (kanal))
 
     # Stryk ev textinfo på programmnivå (eller lavere)
     sql = """DELETE FROM textinfo
     WHERE kanal=%s and type = 'programme';"""
-    c2.execute(sql, (kanal))
-    c2.close()
+    c.execute(sql, (kanal))
+    c.close()
 
 def iso_til_lengde(isoTid):
     "Leser en iso lengde og setter om til sekunder"
@@ -116,7 +111,7 @@ def iso_til_lengde(isoTid):
     return timedelta(seconds=tid)
 
 def finn_unger(noder, tag, kun_en=False):
-    "Kryper et lag ned i eet nodetre"
+    "Kryper et lag ned i et nodetre"
     nodeliste = []
     for node in noder:
         if node.nodeType == node.ELEMENT_NODE:
@@ -157,8 +152,7 @@ def finn_verdi(xmlobjekt, path, entity=False, nodetre=False):
     except IndexError:
         if nodetre:
             return []
-        else:
-            return ''
+        return ''
     if nodetre:
         return xmlobjekt
     if not entity:
@@ -184,7 +178,6 @@ def samsendinglexer(setning):
             samsending = True
             continue
         # I og med at vi tar bort alle stoppord og pynt er det neste som kommer nå kanalbetegnelsen
-        # TODO: bruke kanal SW til å bekrefte kanal
         if samsending:
             return enkeltord
 
@@ -226,18 +219,17 @@ def finn_kildekanal(d, beskrivelse):
     for setning in setninger:
         kanaltoken = samsendinglexer(setning)
         if kanaltoken:
-            break # TODO: Bedre sikringen at det er et kanalnavn vi finner
+            break
 
-    c1 = d.cursor()
+    c = d.cursor()
     sql = """SELECT navn FROM kanal
     WHERE alias=%s or navn=%s;"""
-    c1.execute(sql, (kanaltoken, kanaltoken))
+    c.execute(sql, (kanaltoken, kanaltoken))
 
-    result = c1.fetchone()
+    result = c.fetchone()
     if result:
         return result[0]
-    else:
-        return None
+    return None
 
 def begrens(tekst, lengde=128):
     "Prøver å begrense en streng ved et punktum."
@@ -249,7 +241,6 @@ def begrens(tekst, lengde=128):
             else:
                 break
         return s
-
     return tekst[:128]
 
 def tell_artister(artister):
@@ -348,7 +339,6 @@ def lag_artistfelt(artister, solister=False):
         return '. ' + artistfelt[0].upper() + (artistfelt + solistfelt)[1:]
     return artistfelt + solistfelt
 
-#TODO: Forsett her
 def finn_komponist(element, kun_etternavn=False, aars_tall=False):
     creators = element.getElementsByTagName('creator')
     for creator in creators:
@@ -446,7 +436,7 @@ def finn_medvirkende(element, klasse=''):
                 navn = navn.split('(')[0].rstrip()
             else:
                 #Vi må skifte rolle og beholde parantes
-                role="Utøver"
+                role = "Utøver"
 
         #Vi gjør samme øvelsen med Conductor:
         #Dette skyldes AK sin misbruk av databasen sin, dette kan fjernes etterhvert, gjelder ikke Digas dataene.
@@ -644,7 +634,7 @@ def parser(xmlstreng):
                 #Splitte på punktum og Addere oppover til vi nermer oss 128 tegn.
 
             #Finne digasklasse
-            digastype =  finn_verdi(element, 'metadata_DC/types/type', entity=False)
+            digastype = finn_verdi(element, 'metadata_DC/types/type', entity=False)
             #Finne medarbeidere, utøvere o.l.
             try:
                 medvirkende, solistene = finn_medvirkende(element, klasse=digastype)
@@ -684,7 +674,7 @@ def parser(xmlstreng):
             elif 'Conductor' in medvirkende: #FOR DIGAS
                 # Vi har en dirigent, ergo er utøveren et orkester eller noe annet som kan ledes
                 dirigentnavn = medvirkende.pop('Conductor')[0]
-                artist = lag_artistfelt(medvirkende,solister=False)
+                artist = lag_artistfelt(medvirkende, solister=False)
                 artist = artist.rstrip(" ,.;") + choice(DIRIGERT) + dirigentnavn
                 if solistene:
                     #Funksjon som henter ut solistene.
@@ -693,7 +683,7 @@ def parser(xmlstreng):
             elif 'Leader' in medvirkende: #FOR DIGAS
                 # Vi har en leder av en gruppe
                 dirigentnavn = medvirkende.pop('Leader')[0]
-                artist = lag_artistfelt(medvirkende,solister=False)
+                artist = lag_artistfelt(medvirkende, solister=False)
                 artist = artist.rstrip(" ,.;") + choice(LEDET) + dirigentnavn
                 if solistene:
                     #Funksjon som henter ut solistene.
@@ -723,12 +713,11 @@ def parser(xmlstreng):
                 print('Artist: ', artist)
 
             #Saa sendetidspunktet
-            sendetidspunkt = datetime.fromisoformat(finn_verdi(element, 'metadata_DC/dates/date_issued', entity=False))
-            tid = sendetidspunkt
+            sendetidspunkt = datetime.fromisoformat(finn_verdi(element, 'metadata_DC/dates/date_issued', entity=False)).replace(tzinfo=None)
 
             #Finne opptaksdato, dersom dette finnes.
             try:
-                laget = datetime.fromisoformat(finn_verdi(element, 'metadata_DC/dates/date_created', entity=False))
+                laget = datetime.fromisoformat(finn_verdi(element, 'metadata_DC/dates/date_created', entity=False)).replace(tzinfo=None)
             except ValueError:
                 laget = sendetidspunkt
 
@@ -751,23 +740,23 @@ def parser(xmlstreng):
                 #Sjekke om det gjeldene programmet er utløpt
                 #Gjeldene sendetid
                 oppdatere = 0
-                c1 = d.cursor()
+                c = d.cursor()
                 sql = """SELECT tid, lengde FROM iteminfo
                 WHERE kanal=%s and localid=%s;"""
 
-                c1.execute(sql, (kanal, localid))
+                c.execute(sql, (kanal, localid))
                 try:
-                    tid_eksisterende_programm, lengde_eksisterende_programm = c1.fetchone()
+                    tid_eksisterende_program, lengde_eksisterende_program = c.fetchone()
                 except TypeError:
                     #Raden eksisterer ikke, da kan vi oppdatere til proformaprogram fra digas
                     oppdatere = True
-                    c1.close()
+                    c.close()
                 else:
-                    c1.close()
-                    #Finne slutttidspunkt
-                    # FIXME: lengde må være en timedelta her
-                    slutttid_eksisterende_programm = tid_eksisterende_programm + lengde
-                    if sendetidspunkt >= slutttid_eksisterende_programm:
+                    c.close()
+                    #Finne sluttidspunkt
+
+                    slutttid_eksisterende_program = tid_eksisterende_program + timedelta(seconds=float(lengde_eksisterende_program))
+                    if sendetidspunkt >= slutttid_eksisterende_program:
                         oppdatere = 1
 
                 if not oppdatere:
@@ -775,25 +764,25 @@ def parser(xmlstreng):
                     #Vi kan ikke rydde neste heller da
                     try:
                         rydd.remove(2)
-                    except:
+                    except ValueError:
                         pass
                     continue
             elif localid == 1:
 
                 #Sjekke om tittel er lik, sendetidspunkt er likt og lengde er likt, da har vi en oppdatering av det samme programmet og vi skal ikke flushe!!!
-                c1 = d.cursor()
+                c = d.cursor()
                 sql = """SELECT tittel,tid, lengde FROM iteminfo
                 WHERE kanal=%s and localid=%s;"""
 
-                c1.execute(sql, (kanal, localid))
+                c.execute(sql, (kanal, localid))
                 try:
-                    tittel2, tid2, lengde2 = c1.fetchone()
+                    tittel2, tid2, lengde2 = c.fetchone()
                 except TypeError:
                     #Raden eksisterer ikke
                     #Dette er i alle fall et nytt program
                     flush_items = 1
                     #Vi flusher
-                    c1.close()
+                    c.close()
                 else:
                     if (tittel2, tid2, lengde2) == (tittel, sendetidspunkt, lengde):
                         if VERBOSE:
@@ -813,8 +802,7 @@ def parser(xmlstreng):
             #Vi har komplett datasett, denne skal ikke ryddes
             try:
                 rydd.remove(localid)
-            except:
-                #to present noder?
+            except ValueError:
                 pass
             #Tilpasse for annonsering
             if annonsering1:
@@ -839,7 +827,7 @@ def parser(xmlstreng):
                     dataid,
                     laget,
                     sendetidspunkt,
-                    lengde,
+                    lengde.total_seconds(),
                     beskrivelse,
                     artist,
                     #xml_element,
@@ -850,7 +838,7 @@ def parser(xmlstreng):
             if c.rowcount == 1:
                 status = 1
                 if VERBOSE:
-                    print("UPDATE", repr(tittel))
+                    print("UPDATE", repr(tittel), lengde.total_seconds())
                 sql = """UPDATE iteminfo SET
                     tittel=%s,
                     kildekanal=%s,
@@ -868,7 +856,7 @@ def parser(xmlstreng):
                     digastype=%s
                     WHERE kanal=%s and localid=%s;"""
 
-                c.execute(sql,(
+                c.execute(sql, (
                     tittel,
                     kildekanal,
                     elementtype,
@@ -876,7 +864,7 @@ def parser(xmlstreng):
                     dataid,
                     laget,
                     sendetidspunkt,
-                    lengde,
+                    lengde.total_seconds(),
                     beskrivelse,
                     artist,
                     xml_element,
@@ -903,7 +891,7 @@ def parser(xmlstreng):
                     dataid,
                     laget,
                     sendetidspunkt,
-                    lengde,
+                    lengde.total_seconds(),
                     beskrivelse,
                     artist,
                     xml_element,
@@ -926,7 +914,7 @@ def parser(xmlstreng):
                         elementtype,
                         laget,
                         sendetidspunkt,
-                        lengde,
+                        lengde.total_seconds(),
                         beskrivelse,
                         artist,
                         xml_element,
@@ -936,7 +924,6 @@ def parser(xmlstreng):
                         digastype
                         )
                 )
-
             c.close()
         # I noen tilfeller har vi situasjonen der et program feilaktig har blitt satt til lengde 0
         # Vi må sjekke dette
@@ -948,28 +935,26 @@ def parser(xmlstreng):
         #Finne elementer som ligger igjen og har gått ut på tid
         #Past elementet skal jo være utgått
         for localid in localids:
-            # FIXME: kall denne også c, den andre er lukket på dette tidspunktet
-            c1 = d.cursor()
+            c = d.cursor()
             sql = """SELECT tid, lengde FROM iteminfo
             WHERE kanal=%s and localid=%s;"""
-            c1.execute(sql, (kanal, localid))
+            c.execute(sql, (kanal, localid))
             try:
-                # FIXME: Her må lengden være en timedelta
-                start, lengde = c1.fetchone()
-            except ValueError:
+                start, lengde_i_sek = c.fetchone()
+            except TypeError:
                 #Raden eksisterer ikke,og har dermed ikke utløpt heller
                 continue
-            c1.close()
+            c.close()
 
-            #Finne slutttidspunkt
-            slutttid1 = tid1  + lengde1
+            #Finne sluttidspunkt
+            slutttid = start + timedelta(seconds=float(lengde_i_sek))
             #Forige innslag eldre enn en time er neppe relevante
             if localid == 5:
                 #Vi har det utlgående elementet
                 #Aldri rydde fortiden, dagens filosofiske
                 continue
-            nu = time.time()
 
+            nu = datetime.now()# - timedelta(days=10000)
             #Vi sjekker om vi har data av den nye typen
             if runorder != '':
                 #Vi har den nye typen
@@ -977,21 +962,17 @@ def parser(xmlstreng):
                     stryk.append(3)
                 if 4 in rydd:
                     stryk.append(4)
-                #Vi rydder aldri nummer 5, den vil jo være utløpt uansett
-
-            #Stryker noe hvis:
+            # Stryker noe dersom:
             #  Tiden på inslaget er utløpt og ikke null
             #  De andre valgene fjerner innslag ved programskifte
             #Sjekke hvordan denne reagerer på past, noden
-            if (nu >= slutttid1 and lengde1 != 0) or (localid % 2 == 0 and localid in rydd) or (flush_items and localid == 3 and localid in rydd) or localid in stryk:
-                #print "utg %s" % localid
+            if (nu >= slutttid and lengde_i_sek != 0) or (localid % 2 == 0 and localid in rydd) or (flush_items and localid == 3 and localid in rydd) or localid in stryk:
                 status = 1
-                # FIXME: kall denne også c, den andre er lukket på dette tidspunktet
-                c2 = d.cursor()
+                c = d.cursor()
                 sql = """DELETE FROM iteminfo
                 WHERE kanal=%s and localid=%s;"""
-                c2.execute(sql, (kanal, localid))
-                c2.close()
+                c.execute(sql, (kanal, localid))
+                c.close()
                 if VERBOSE:
                     print(localid, 'SLETTET, fordi den var utløpt, eller skulle strykes')
 

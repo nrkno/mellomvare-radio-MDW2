@@ -11,7 +11,6 @@ import ut_gluon2
 import iteminfo
 
 
-
 #print(dls_ext.til_dab(kanal='ak'))
 
 #ut_gluon2.lag_metadata(kanal='p3', datatype='iteminfo', test_modus=True)

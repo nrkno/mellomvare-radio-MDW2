@@ -68,6 +68,11 @@
             isEnabled = "YES">
          </EnvironmentVariable>
          <EnvironmentVariable
+            key = "DB_PASS_WD"
+            value = "piexiMai7eegung7"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+         <EnvironmentVariable
             key = "PYTHONIOENCODING"
             value = "utf-8"
             isEnabled = "YES">
