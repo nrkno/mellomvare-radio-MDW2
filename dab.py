@@ -31,25 +31,25 @@ TIMEOUT = 15 # Maks ventetid på utspillingsmodulene
 QUARK_NAME = "dab:mdw2"
 
 utenheter = {
-    'dls_ext':'dls_ext.tilDab(kanal=kanal,datatype=datatype,id=id)',
-    'dlsExt_test':'dlsExt_test.tilDab(kanal=kanal,datatype=datatype,id=id)',
-    'winmediaDr':'winmediaDr.lagMetadata(kanal=kanal,datatype=datatype,id=id)',
-    'ut_gluon2':'ut_gluon2.lagMetadata(kanal=kanal,datatype=datatype,id=id)',
+    'dls_ext':dls_ext.til_dab(kanal=kanal, datatype=datatype, id=id),
+    #'dlsExt_test':dlsExt_test.tilDab(kanal=kanal, datatype=datatype, id=id),
+    #'winmediaDr':winmediaDr.lagMetadata(kanal=kanal,datatype=datatype, id=id),
+    'ut_gluon2':ut_gluon2.lagMetadata(kanal=kanal, datatype=datatype, id=id),
     }
 
-def OK(QUARK_NAME, melding=""):
+def OK(quarq, melding=""):
     if melding:
-        return '<OK quark="%s">%s</OK>' % (QUARK_NAME, melding)
+        return '<OK quark="%s">%s</OK>' % (quarq, melding)
     else:
-        return '<OK quark="%s" />' % QUARK_NAME
+        return '<OK quark="%s" />' % quarq
 
-def error(errid, QUARK_NAME, melding=""):
+def error(errid, quarq, melding=""):
     if melding:
         return """<error quark="%s">
 \t<errorMessage errorType="%s"><message>%s</message></errorMessage>
-</error>""" % (QUARK_NAME, errid, melding)
+</error>""" % (quarq, errid, melding)
 
-def startUtspiller(innstikk_navn=None, innstikk_type=None, parametre={}, retur_meldinger=None):
+def start_utspiller(innstikk_navn=None, innstikk_type=None, parametre={}, retur_meldinger=None):
     "Enhet som startes som en trd og som laster riktig utspillingsenhet"
     # Setter riktige variabler for eval funksjonen
     kanal = parametre['kanal']
@@ -62,11 +62,11 @@ def startUtspiller(innstikk_navn=None, innstikk_type=None, parametre={}, retur_m
         msg = eval(innstikk_type)
         if not msg:
             msg = ''
-        retur_meldinger.put({'innstikk_navn':innstikk_navn, 'status':'ok','msg':msg})
+        retur_meldinger.put({'innstikk_navn':innstikk_navn, 'status':'ok', 'msg':msg})
     except:
         type, val, tb = exc_info()
         msg = "".join(traceback.format_exception(type, val, tb))
-        retur_meldinger.put({'innstikk_navn':innstikk_navn, 'status':'error','msg':msg})
+        retur_meldinger.put({'innstikk_navn':innstikk_navn, 'status':'error', 'msg':msg})
 
 def main(dok):
     # Hvis det ikke er noe dok her er det ønsket en oppdatering av utmodulene
@@ -78,7 +78,7 @@ def main(dok):
         status_list.append(iteminfo.parser(dok))
     else:
         # Lager proforma liste for  oppdatere alle
-        status_list = [{'status':1,'kanal':'alle','datatype':'iteminfo'}]
+        status_list = [{'status':1, 'kanal':'alle', 'datatype':'iteminfo'}]
     # Start utspillingstjeneste
 
     if VERBOSE:
@@ -104,7 +104,7 @@ def main(dok):
 
         for ut in utenheter:
             if TRAADER:
-                t = Thread(target=startUtspiller,
+                t = Thread(target=start_utspiller,
                         kwargs = {'innstikk_navn':ut, 'innstikk_type':utenheter[ut], 'parametre':i, 'returMeldinger': meldinger}
                         )
                 t.setName(ut)
@@ -178,4 +178,4 @@ def handler():
         print(respons)
 
 if __name__ == '__main__':
-        handler()
+    handler()

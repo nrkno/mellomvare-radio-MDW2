@@ -83,11 +83,11 @@ def flush_program_data(d, kanal):
     c.execute(sql, (kanal))
     c.close()
 
-def iso_til_lengde(isoTid):
-    "Leser en iso lengde og setter om til sekunder"
+def iso_til_lengde(iso_varighet):
+    "Leser en iso varighet og setter om til en timedelta"
     tid = 0.0
     #Split dager fra timer
-    dager, timer = isoTid[1:].split('T')
+    dager, timer = iso_varighet[1:].split('T')
     #Finn sekunder osv.
     p = re.search(r'(\d+|\d+\.\d+)S', timer)
     if p:
@@ -161,6 +161,7 @@ def finn_verdi(xmlobjekt, path, entity=False, nodetre=False):
         return entety_replace(hent_verdier(xmlobjekt.childNodes))
 
 def entety_replace(streng):
+    "Fjerner xml enteties"
     return streng.replace('&amp;', '&')
 
 def samsendinglexer(setning):
@@ -340,6 +341,7 @@ def lag_artistfelt(artister, solister=False):
     return artistfelt + solistfelt
 
 def finn_komponist(element, kun_etternavn=False, aars_tall=False):
+    "Henter ut komponister"
     creators = element.getElementsByTagName('creator')
     for creator in creators:
         role = finn_verdi(creator, 'role', entity=False)
@@ -954,7 +956,7 @@ def parser(xmlstreng):
                 #Aldri rydde fortiden, dagens filosofiske
                 continue
 
-            nu = datetime.now()# - timedelta(days=10000)
+            now = datetime.now()# - timedelta(days=10000)
             #Vi sjekker om vi har data av den nye typen
             if runorder != '':
                 #Vi har den nye typen
@@ -966,7 +968,7 @@ def parser(xmlstreng):
             #  Tiden på inslaget er utløpt og ikke null
             #  De andre valgene fjerner innslag ved programskifte
             #Sjekke hvordan denne reagerer på past, noden
-            if (nu >= slutttid and lengde_i_sek != 0) or (localid % 2 == 0 and localid in rydd) or (flush_items and localid == 3 and localid in rydd) or localid in stryk:
+            if (now >= slutttid and lengde_i_sek != 0) or (localid % 2 == 0 and localid in rydd) or (flush_items and localid == 3 and localid in rydd) or localid in stryk:
                 status = 1
                 c = d.cursor()
                 sql = """DELETE FROM iteminfo
