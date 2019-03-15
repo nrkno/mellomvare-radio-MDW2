@@ -70,19 +70,18 @@ def start_utspiller(innstikk_navn=None, innstikk_type=None, parametre={}, retur_
 
 def main(dok):
     # Hvis det ikke er noe dok her er det ønsket en oppdatering av utmodulene
-    status_list = []
     prosess_list = []
     # Finne riktig parser til dokumentet
     if dok:
         # Alt skal til iteminfo
-        status_list.append(iteminfo.parser(dok))
+        status = iteminfo.parser(dok)
     else:
-        # Lager proforma liste for  oppdatere alle
-        status_list = [{'status':1, 'kanal':'alle', 'datatype':'iteminfo'}]
+        # Lager en kommando som oppdaterer alle
+        status = {'status':1, 'kanal':'alle'}
     # Start utspillingstjeneste
 
     if VERBOSE:
-        print ("Start utspilling:",time.time() - now)
+        print("Start utspilling:",time.time() - now)
     # Innstikkstyper for hver av tjenestetypene i dab, dls, mot o.l.
 
     # Sjekke hva som er oppdatert
@@ -90,18 +89,13 @@ def main(dok):
     trd = []
     meldinger = Queue()
     warnings = []
-    for i in status_list:
-        if not i['status']:
-            if VERBOSE:
-                print("IGNORERES")
-            continue
-        kanal = i['kanal']
-        datatype = i['datatype']
-        if 'id' in i:
-            id = i['id']
-        else:
-            id = ''
 
+    if status['status'] == 0:
+        if VERBOSE:
+            print("IGNORERES")
+   else:
+    # TODO: fortsett her
+        kanal = status['kanal']
         for ut in utenheter:
             if TRAADER:
                 t = Thread(target=start_utspiller,

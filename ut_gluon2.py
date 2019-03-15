@@ -620,7 +620,7 @@ def add_object(utdok, pointer,
         return element.appendChild(utdok.createElement('subelements'))
     return None
 
-def lag_metadata(kanal='alle', datatype=None, id='', test_modus=False):
+def lag_metadata(kanal='alle', test_modus=False):
     "Henter data for en gitt kanal ut i fra de forskjellige databasene og setter sammen til en DLS som sendes videre som et mimemultipartdokument."
     utdata = {}
     #kanal='alle'

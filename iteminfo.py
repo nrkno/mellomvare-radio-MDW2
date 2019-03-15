@@ -527,7 +527,7 @@ def parser(xmlstreng):
             kanal, label = kanal.split('-')
 
         if pars.documentElement.getAttribute('priority') == '0':
-            return {'status':2, 'kanal':kanal, 'datatype':'iteminfo'}
+            return {'status':2, 'kanal':kanal}
 
         elementer = tabell.getElementsByTagName("element")
         sending_programme = 0
@@ -981,5 +981,5 @@ def parser(xmlstreng):
     #Lukke database
     d.commit()
     d.close()
-    return {'status':status, 'kanal':kanal, 'datatype':'iteminfo'}
+    return {'status':status, 'kanal':kanal}
 
