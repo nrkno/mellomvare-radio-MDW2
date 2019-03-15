@@ -778,7 +778,7 @@ def lag_visningstider(text, min_sec=4, max_sec=30):
     #128 er max linjelengde som gir verdien max
     return str(int((len(text)) / 128.0 * max_sec + min_sec))
 
-def til_dab(kanal='alle'):
+def lag_metadata(kanal='alle'):
     "Henter data for en gitt kanal ut i fra de forskjellige databasene og setter sammen til en DLS som sendes videre som et mimemultipartdokument."
 
     d = database()

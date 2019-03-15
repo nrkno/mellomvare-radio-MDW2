@@ -31,7 +31,7 @@ TIMEOUT = 15 # Maks ventetid på utspillingsmodulene
 QUARK_NAME = "dab:mdw2"
 
 utenheter = {
-    'dls_ext':dls_ext.til_dab(kanal=kanal, datatype=datatype, id=id),
+    'dls_ext':dls_ext.lagMetadata(kanal=kanal, datatype=datatype, id=id),
     #'dlsExt_test':dlsExt_test.tilDab(kanal=kanal, datatype=datatype, id=id),
     #'winmediaDr':winmediaDr.lagMetadata(kanal=kanal,datatype=datatype, id=id),
     'ut_gluon2':ut_gluon2.lagMetadata(kanal=kanal, datatype=datatype, id=id),
