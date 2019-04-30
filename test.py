@@ -17,6 +17,7 @@ import iteminfo
 
 with open('/Users/n12327/Documents/Xcode prosjekter/MDW2/Eksempelfiler/item.xml') as fp:
     dok = fp.read()
-iteminfo.parser(dok)
+#iteminfo.parser(dok)
+dab.main(dok)
 
 print('Hello')

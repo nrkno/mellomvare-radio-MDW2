@@ -31,10 +31,10 @@ TIMEOUT = 15 # Maks ventetid på utspillingsmodulene
 QUARK_NAME = "dab:mdw2"
 
 utenheter = {
-    'dls_ext':dls_ext.lagMetadata(kanal=kanal, datatype=datatype, id=id),
+    'dls_ext':dls_ext.lag_metadata,
     #'dlsExt_test':dlsExt_test.tilDab(kanal=kanal, datatype=datatype, id=id),
     #'winmediaDr':winmediaDr.lagMetadata(kanal=kanal,datatype=datatype, id=id),
-    'ut_gluon2':ut_gluon2.lagMetadata(kanal=kanal, datatype=datatype, id=id),
+    'ut_gluon2':ut_gluon2.lag_metadata,
     }
 
 def OK(quarq, melding=""):
@@ -79,7 +79,7 @@ def main(dok):
         # Lager en kommando som oppdaterer alle
         status = {'status':1, 'kanal':'alle'}
     # Start utspillingstjeneste
-
+    print(8888)
     if VERBOSE:
         print("Start utspilling:",time.time() - now)
     # Innstikkstyper for hver av tjenestetypene i dab, dls, mot o.l.
@@ -93,9 +93,10 @@ def main(dok):
     if status['status'] == 0:
         if VERBOSE:
             print("IGNORERES")
-   else:
-    # TODO: fortsett her
+    else:
+        # TODO: fortsett her
         kanal = status['kanal']
+        print('Kanal: ', kanal)
         for ut in utenheter:
             if TRAADER:
                 t = Thread(target=start_utspiller,
