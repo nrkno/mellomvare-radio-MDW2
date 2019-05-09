@@ -21,6 +21,6 @@ with open('/Users/n12327/Documents/Xcode prosjekter/MDW2/Eksempelfiler/item.xml'
 #iteminfo.parser(dok)
 #dls_ext.lag_metadata(kanal='gulling')
 #dab.main(dok)
-get_iteminfo.get_insert_data()
+print(get_iteminfo.get_insert_data())
 
 print('Hello')

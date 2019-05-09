@@ -83,10 +83,12 @@ def main(dok):
         if VERBOSE:
             print("IGNORERES")
     else:
-        # TODO: fortsett her
+    
         kanal = status['kanal']
-        print('Kanal: ', kanal)
-        print(utenheter)
+        # TODO: Starte en løkke her, som henter programmer fra annet sted og sender videre, dersom status er 10 eller noe
+        if VERBOSE:
+            print('Kanal: ', kanal)
+            print(utenheter)
         for ut in utenheter:
             t = Thread(target=start_utspiller,
                     kwargs = {'innstikk_navn':ut, 'innstikk_funksjon':utenheter[ut], 'kanal':status['kanal'], 'retur_meldinger': meldinger}
@@ -107,7 +109,7 @@ def main(dok):
     # Dersom noe trenger opprydningsrutiner legges disse inn her etter alle utspillingsmodulene
     if dok:
         #Venter bare ved dok
-        time.sleep(10)
+        time.sleep(2 )
 
     # Vi sjekker trdene enda en gang og lager en sluttrapport
     for t in trd:
