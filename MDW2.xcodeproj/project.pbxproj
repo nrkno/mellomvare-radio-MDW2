@@ -9,6 +9,7 @@
 /* Begin PBXFileReference section */
 		690E9C321EB3FA9400326680 /* test.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = test.py; sourceTree = "<group>"; };
 		690E9C341EB4044F00326680 /* pylintrc */ = {isa = PBXFileReference; lastKnownFileType = text; path = pylintrc; sourceTree = "<group>"; };
+		696D369822842AAB001C30E5 /* get_iteminfo.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = get_iteminfo.py; sourceTree = "<group>"; };
 		69D9D8DF22170A5400DDCD7D /* dlsExt_test.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = dlsExt_test.py; sourceTree = "<group>"; };
 		69D9D8E222170A5400DDCD7D /* item.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = item.xml; sourceTree = "<group>"; };
 		69D9D8E322170A5400DDCD7D /* item3.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = item3.xml; sourceTree = "<group>"; };
@@ -34,6 +35,7 @@
 			isa = PBXGroup;
 			children = (
 				690E9C321EB3FA9400326680 /* test.py */,
+				696D369822842AAB001C30E5 /* get_iteminfo.py */,
 				690E9C341EB4044F00326680 /* pylintrc */,
 				69D9D8EE22170A5500DDCD7D /* annonser.py */,
 				69D9D90422170A5800DDCD7D /* dab.py */,
@@ -87,7 +89,7 @@
 		690E9C281EB3995A00326680 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1010;
+				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = "Tormod Værvågen";
 				TargetAttributes = {
 					690E9C2C1EB3995A00326680 = {
@@ -98,10 +100,11 @@
 			};
 			buildConfigurationList = 690E9C2B1EB3995A00326680 /* Build configuration list for PBXProject "MDW2" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 690E9C271EB3995A00326680;
 			projectDirPath = "";
@@ -117,6 +120,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -169,6 +173,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";

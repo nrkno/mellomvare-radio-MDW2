@@ -9,6 +9,7 @@ import dab
 import dls_ext
 import ut_gluon2
 import iteminfo
+import get_iteminfo
 
 
 #print(dls_ext.til_dab(kanal='ak'))
@@ -18,6 +19,8 @@ import iteminfo
 with open('/Users/n12327/Documents/Xcode prosjekter/MDW2/Eksempelfiler/item.xml') as fp:
     dok = fp.read()
 #iteminfo.parser(dok)
-dab.main(dok)
+#dls_ext.lag_metadata(kanal='gulling')
+#dab.main(dok)
+get_iteminfo.get_insert_data()
 
 print('Hello')

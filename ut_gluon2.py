@@ -806,10 +806,7 @@ def lag_metadata(kanal='alle', test_modus=False):
                 f.close()
                 continue
 
-            #for adr in GLUON_ADR:
-
-            #    if 'OK' in send_data_web(data,adr):
-            #        break
-
+            for adr in GLUON_ADR:
+                assert (urlopen(adr, data=data, timeout=5).status) == 200
     #Lukke databasen
     d.close()

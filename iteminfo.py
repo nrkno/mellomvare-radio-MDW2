@@ -8,6 +8,7 @@ import re
 import xml.dom.minidom
 from random import choice
 from datetime import datetime, timedelta
+from os import environ
 
 from db_conn import database
 from roller import ROLLELISTE, ROLLERELASJON, IKKE_ROLLE
@@ -19,7 +20,7 @@ KANAL_NAVN = {'nrk jazz':'jazz', 'nrk sport':'sport', 'sport':'sport', 'nrk gull
               'nrk alltid folkemusikk':'fmk', 'fmk':'fmk', 'p3urort':'urort', 'urort':'urort',
               'nrk p1 oslofjord':'p1of', 'p1of':'p1of', 'sami dab':'sami', 'lzu':'sami'}
 FJERNSYN = ['nrk 1', 'nrk 2', 'nrk 3_super']
-VERBOSE = False
+VERBOSE = environ['VERBOSE']
 LOGGING_ITEM = False
 
 FJERNROLLERFOR = ['Conductor', 'Leader']

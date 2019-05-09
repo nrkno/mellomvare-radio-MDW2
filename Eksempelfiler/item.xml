@@ -8,7 +8,7 @@
 				</creator>
 			</creators>
 			<dates>
-				<date_issued>2013-02-07T14:53:06+01:00</date_issued>
+				<date_issued>2020-02-07T14:53:06+01:00</date_issued>
 			</dates>
 		</metadata_DC>
 	</head>
@@ -20,7 +20,7 @@
 						<title>Gull</title>
 					</titles>
 					<dates>
-						<date_issued>2013-02-07T14:53:06+01:00</date_issued>
+						<date_issued>2020-02-07T14:53:06+01:00</date_issued>
 					</dates>
 					<format>
 						<format_extent>PT24H00M</format_extent>
@@ -52,7 +52,7 @@
 								<type reference="Digas" label="class">Music</type>
 							</types>
 							<dates>
-								<date_issued>2013-02-07T13:55:08.094</date_issued>
+								<date_issued>2020-02-07T13:55:08.094</date_issued>
 							</dates>
 							<format>
 								<format_extent>PT287.891S</format_extent>
@@ -72,7 +72,7 @@
 					<element objecttype="item" dataid="" runorder="present">
 						<metadata_DC>
 							<titles>
-								<title>Herreavdelingen</title>
+								<title>Herreavdelingen  345ščřž</title>
 							</titles>
 							<creators/>
 							<description>
@@ -89,7 +89,7 @@ Første gang sendt 4. april 2006.</abstract>
 								<type reference="Digas" label="class">News</type>
 							</types>
 							<dates>
-								<date_issued>2013-02-07T14:00:10.857</date_issued>
+								<date_issued>2020-02-07T14:00:10.857</date_issued>
 							</dates>
 							<format>
 								<format_extent>PT6715.299S</format_extent>
@@ -130,7 +130,7 @@ Første gang sendt 4. april 2006.</abstract>
 								<type reference="Digas" label="class">Music</type>
 							</types>
 							<dates>
-								<date_issued>2013-02-07T15:52:10.805</date_issued>
+								<date_issued>2020-02-07T15:52:10.805</date_issued>
 							</dates>
 							<format>
 								<format_extent>PT136.41S</format_extent>
@@ -172,7 +172,7 @@ Første gang sendt 4. april 2006.</abstract>
 								<type reference="Digas" label="class">Music</type>
 							</types>
 							<dates>
-								<date_issued>2013-02-07T15:54:27.215</date_issued>
+								<date_issued>2020-02-07T15:54:27.215</date_issued>
 							</dates>
 							<format>
 								<format_extent>PT144.071S</format_extent>
@@ -214,7 +214,7 @@ Første gang sendt 4. april 2006.</abstract>
 								<type reference="Digas" label="class">Music</type>
 							</types>
 							<dates>
-								<date_issued>2013-02-07T15:56:51.286</date_issued>
+								<date_issued>2020-02-07T15:56:51.286</date_issued>
 							</dates>
 							<format>
 								<format_extent>PT189.033S</format_extent>
@@ -250,7 +250,7 @@ Første gang sendt 4. april 2006.</abstract>
 								<type reference="Digas" label="class">News</type>
 							</types>
 							<dates>
-								<date_issued>2013-02-07T16:00:18.360</date_issued>
+								<date_issued>2020-02-07T16:00:18.360</date_issued>
 							</dates>
 							<format>
 								<format_extent>PT1598.839S</format_extent>

@@ -37,7 +37,7 @@ def send_data(uri, kanal='kanal', blokk='blokk', start=None, stop=None, liste=No
     xml_liste = ''
     for rad in liste:
         xml_liste += '  <rad data="%s" visningstid="%s" />\n' % rad
-
+    # FIXME: Her må vi ha utf-8
     #Så lager vi XML dataene
     xml_mal = """<?xml version="1.0" encoding="iso-8859-1"?>
 <dls kanal="%s" blokk="%s" start="%s" stop="%s">
@@ -51,10 +51,13 @@ def send_data(uri, kanal='kanal', blokk='blokk', start=None, stop=None, liste=No
         stop,
         xml_liste
         )
-
+        
+    print(7878778, data)
+    """
     # Dele opp uri til hostname og url
     host, port = uri.split(':', 1)
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     s.connect((host, int(port)))
     s.send(data)
     s.close()
+    """

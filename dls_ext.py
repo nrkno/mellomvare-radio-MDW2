@@ -7,6 +7,7 @@ Henter data fra databasen, sjekker utvalget fra sidevisningsmodulen.
 
 import time
 from random import choice
+from os import environ
 
 import send_til_server
 from annonser import itemtittel, newstittel, neste_itemtittel, neste_newstittel
@@ -16,7 +17,7 @@ IKKE_DLS = ['nett'] #Legg inn bloknavn som ikke støtter dls teknologien, nettra
 
 EGENPROD = 'EBU-NONRK' #Label for egenproduksjon
 MAX_LEVETID = 2
-VERBOSE = True
+VERBOSE = environ['VERBOSE']
 LAGET_GRENSE = 1980 #Årstall for når vi skal markere at eldre er arkivopptak
 
 def minimum_levetid(d, kanal):
@@ -825,13 +826,20 @@ def lag_metadata(kanal='alle'):
                 levetid = 60 * 60 * MAX_LEVETID #dvs i hele timer regnet om til sekunder
 
             stop = send_til_server.isodato(time.time() + levetid + 5)  #5 sekunder ofset slik at infoen heller henger enn forsvinner like før en oppdatering
-            dls_liste = map(xml_entety, dls_liste)
+
+            dls_liste = list(map(xml_entety, dls_liste))
+            print(33333, dls_liste)
+
             #Lag en kommaseparert liste over visningstider
+
             # FIXME: map returnerer en generator
-            dataliste = map(None, dls_liste, (map(lag_visningstider, dls_liste)))
+            dataliste = list(zip(dls_liste, (map(lag_visningstider, dls_liste))))
+            print(5555, dataliste)
+
+            print(4444)
             if VERBOSE:
                 print(dataliste)
-            """
+
             for addr in ["nrkhd-ice-01.netwerk.no","nrkhd-ice-02.netwerk.no"]:
                 send_til_server.send_data(
                 '%s:1204' % addr,
@@ -841,6 +849,6 @@ def lag_metadata(kanal='alle'):
                 stop=stop,
                 liste=dataliste
                 )
-            """
+            
     #Lukke databasen
     d.close()
