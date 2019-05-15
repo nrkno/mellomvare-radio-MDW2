@@ -9,6 +9,12 @@
 /* Begin PBXFileReference section */
 		690E9C321EB3FA9400326680 /* test.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = test.py; sourceTree = "<group>"; };
 		690E9C341EB4044F00326680 /* pylintrc */ = {isa = PBXFileReference; lastKnownFileType = text; path = pylintrc; sourceTree = "<group>"; };
+		6935116F228C1D8D000F0FF7 /* start-apache.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "start-apache.sh"; sourceTree = "<group>"; };
+		69351170228C20E8000F0FF7 /* locale.gen */ = {isa = PBXFileReference; lastKnownFileType = text; path = locale.gen; sourceTree = "<group>"; };
+		69351171228C25BA000F0FF7 /* apache.conf.sample */ = {isa = PBXFileReference; lastKnownFileType = text; path = apache.conf.sample; sourceTree = "<group>"; };
+		69351172228C312D000F0FF7 /* wsgi.conf.tmpl */ = {isa = PBXFileReference; lastKnownFileType = text; path = wsgi.conf.tmpl; sourceTree = "<group>"; };
+		695DC41B228B500A00F549FB /* Dockerfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Dockerfile; sourceTree = "<group>"; };
+		695DC41C228B503D00F549FB /* requirements.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = requirements.txt; sourceTree = "<group>"; };
 		696D369822842AAB001C30E5 /* get_iteminfo.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = get_iteminfo.py; sourceTree = "<group>"; };
 		69D9D8DF22170A5400DDCD7D /* dlsExt_test.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = dlsExt_test.py; sourceTree = "<group>"; };
 		69D9D8E222170A5400DDCD7D /* item.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = item.xml; sourceTree = "<group>"; };
@@ -33,25 +39,39 @@
 		690E9C271EB3995A00326680 = {
 			isa = PBXGroup;
 			children = (
-				690E9C321EB3FA9400326680 /* test.py */,
-				696D369822842AAB001C30E5 /* get_iteminfo.py */,
 				690E9C341EB4044F00326680 /* pylintrc */,
-				69D9D8EE22170A5500DDCD7D /* annonser.py */,
-				69D9D90422170A5800DDCD7D /* dab.py */,
-				69D9D90B22170A5900DDCD7D /* dabfilter.py */,
-				69D9D90322170A5800DDCD7D /* db_conn.py */,
+				695DC41C228B503D00F549FB /* requirements.txt */,
+				695DC41B228B500A00F549FB /* Dockerfile */,
+				6935116F228C1D8D000F0FF7 /* start-apache.sh */,
+				69351170228C20E8000F0FF7 /* locale.gen */,
+				69351171228C25BA000F0FF7 /* apache.conf.sample */,
+				69351172228C312D000F0FF7 /* wsgi.conf.tmpl */,
 				69D9D8DF22170A5400DDCD7D /* dlsExt_test.py */,
-				69D9D8FB22170A5600DDCD7D /* dls_ext.py */,
-				69D9D8F922170A5600DDCD7D /* gluonspin.py */,
 				69D9D90E221804B700DDCD7D /* Eksempelfiler */,
-				69D9D8F622170A5600DDCD7D /* iteminfo.py */,
-				69ECCD472228289400996151 /* trail.py */,
-				69D9D8E422170A5400DDCD7D /* roller.py */,
 				69D9D90522170A5800DDCD7D /* sender_lokal.py */,
-				69D9D90922170A5900DDCD7D /* send_til_server.py */,
-				69D9D8E522170A5400DDCD7D /* ut_gluon2.py */,
-				69D9D8E722170A5400DDCD7D /* winmediaDr.py */,
+				69351173228C498F000F0FF7 /* pylibs */,
 			);
+			sourceTree = "<group>";
+		};
+		69351173228C498F000F0FF7 /* pylibs */ = {
+			isa = PBXGroup;
+			children = (
+				690E9C321EB3FA9400326680 /* test.py */,
+				69D9D8FB22170A5600DDCD7D /* dls_ext.py */,
+				69D9D90322170A5800DDCD7D /* db_conn.py */,
+				69D9D8EE22170A5500DDCD7D /* annonser.py */,
+				69D9D90B22170A5900DDCD7D /* dabfilter.py */,
+				696D369822842AAB001C30E5 /* get_iteminfo.py */,
+				69D9D90422170A5800DDCD7D /* dab.py */,
+				69D9D8F922170A5600DDCD7D /* gluonspin.py */,
+				69ECCD472228289400996151 /* trail.py */,
+				69D9D8F622170A5600DDCD7D /* iteminfo.py */,
+				69D9D8E422170A5400DDCD7D /* roller.py */,
+				69D9D90922170A5900DDCD7D /* send_til_server.py */,
+				69D9D8E722170A5400DDCD7D /* winmediaDr.py */,
+				69D9D8E522170A5400DDCD7D /* ut_gluon2.py */,
+			);
+			path = pylibs;
 			sourceTree = "<group>";
 		};
 		69D9D90E221804B700DDCD7D /* Eksempelfiler */ = {

@@ -8,10 +8,12 @@
 
 import time
 import traceback
+
 from os import environ
 from sys import stdin, exc_info
 from threading import Thread
 from queue import Queue
+#from flask import Flask
 
 import gluonspin
 
@@ -24,6 +26,8 @@ import dls_ext # DLS ekstern streamingspartner
 #import winmedia # Nettradiomodul
 #import winmediaDr # Modul for DR enkodere
 import ut_gluon2
+
+app = Flask(__name__)
 
 VERBOSE = environ['VERBOSE']
 TRAADER = True # Kjører hver av utspillingsmodulene i tråder
@@ -70,6 +74,7 @@ def main(dok):
         status = iteminfo.parser(dok)
     else:
         # Lager en kommando som oppdaterer alle
+        # TODO: Les inn kanal fra caller, dvs inngående argument.
         status = {'status':1, 'kanal':'alle'}
     # Start utspillingstjeneste
 
@@ -109,7 +114,7 @@ def main(dok):
     # Dersom noe trenger opprydningsrutiner legges disse inn her etter alle utspillingsmodulene
     if dok:
         #Venter bare ved dok
-        time.sleep(2 )
+        time.sleep(2)
 
     # Vi sjekker trdene enda en gang og lager en sluttrapport
     for t in trd:
@@ -134,6 +139,14 @@ def main(dok):
     else:
         # Vi fyrer feilmelding
         return error('dab11', QUARK_NAME, melding="\n".join(totalMelding))
+
+@app.route("/")
+def flask_handler():
+    "Handler for flask-server"
+    a = time.asctime()
+    time.sleep(10)
+    b = time.asctime()
+    return 'Something' + a + b
 
 
 def handler():

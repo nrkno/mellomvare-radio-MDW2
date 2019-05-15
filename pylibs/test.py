@@ -2,6 +2,10 @@
 
 "Tester for MDW2"
 
+from os import environ
+
+print(environ['PYTHONPATH'])
+
 # TODO: Skift til den nye databasen
 # TODO: bruk dette til å lese datetime:  datetime.datetime.fromisoformat('1998-03-09T13:45:00')
 #import dabfilter
