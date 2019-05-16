@@ -20,7 +20,7 @@ import get_iteminfo
 
 #ut_gluon2.lag_metadata(kanal='p3', datatype='iteminfo', test_modus=True)
 
-with open('/Users/n12327/Documents/Xcode prosjekter/MDW2/Eksempelfiler/item.xml') as fp:
+with open('/Users/n12327/Documents/Xcode_prosjekter/MDW2/Eksempelfiler/item.xml') as fp:
     dok = fp.read()
 #iteminfo.parser(dok)
 #dls_ext.lag_metadata(kanal='gulling')

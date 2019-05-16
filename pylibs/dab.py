@@ -27,7 +27,6 @@ import dls_ext # DLS ekstern streamingspartner
 #import winmediaDr # Modul for DR enkodere
 import ut_gluon2
 
-app = Flask(__name__)
 
 VERBOSE = environ['VERBOSE']
 TRAADER = True # Kjører hver av utspillingsmodulene i tråder
@@ -139,14 +138,6 @@ def main(dok):
     else:
         # Vi fyrer feilmelding
         return error('dab11', QUARK_NAME, melding="\n".join(totalMelding))
-
-@app.route("/")
-def flask_handler():
-    "Handler for flask-server"
-    a = time.asctime()
-    time.sleep(10)
-    b = time.asctime()
-    return 'Something' + a + b
 
 
 def handler():

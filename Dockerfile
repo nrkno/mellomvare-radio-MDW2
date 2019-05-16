@@ -24,11 +24,18 @@ RUN ./virtualenv/bin/pip install mod_wsgi
 # Prepare app directory
 RUN mkdir ./pylibs
 
+COPY ./pylibs/* ./pylibs/
+
+#HTML?
+
+COPY ./index.html ./www-data/index.html
+COPY ./dab.wsgi ./www-data/dab.wsgi
+
 # Configure Apache
 COPY ./start-apache.sh /
 COPY ./wsgi.conf.tmpl /tmp/wsgi.conf.tmpl
 RUN sed -e s/\$PYVERSION/$PYVERSION/g /tmp/wsgi.conf.tmpl | sed -e s/\$PYV/`echo $PYVERSION | sed -e "s/\\.//"`/g >/etc/apache2/mods-enabled/wsgi.conf
-ONBUILD COPY apache.conf /etc/apache2/sites-available/000-default.conf
+COPY apache.conf /etc/apache2/sites-available/000-default.conf
 
 # Start Apache
 EXPOSE 80

@@ -11,11 +11,13 @@
 		690E9C341EB4044F00326680 /* pylintrc */ = {isa = PBXFileReference; lastKnownFileType = text; path = pylintrc; sourceTree = "<group>"; };
 		6935116F228C1D8D000F0FF7 /* start-apache.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "start-apache.sh"; sourceTree = "<group>"; };
 		69351170228C20E8000F0FF7 /* locale.gen */ = {isa = PBXFileReference; lastKnownFileType = text; path = locale.gen; sourceTree = "<group>"; };
-		69351171228C25BA000F0FF7 /* apache.conf.sample */ = {isa = PBXFileReference; lastKnownFileType = text; path = apache.conf.sample; sourceTree = "<group>"; };
+		69351171228C25BA000F0FF7 /* apache.conf */ = {isa = PBXFileReference; lastKnownFileType = text; path = apache.conf; sourceTree = "<group>"; };
 		69351172228C312D000F0FF7 /* wsgi.conf.tmpl */ = {isa = PBXFileReference; lastKnownFileType = text; path = wsgi.conf.tmpl; sourceTree = "<group>"; };
+		69351176228D6807000F0FF7 /* index.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
 		695DC41B228B500A00F549FB /* Dockerfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Dockerfile; sourceTree = "<group>"; };
 		695DC41C228B503D00F549FB /* requirements.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = requirements.txt; sourceTree = "<group>"; };
 		696D369822842AAB001C30E5 /* get_iteminfo.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = get_iteminfo.py; sourceTree = "<group>"; };
+		69C29095228D7C20007B5802 /* dab.wsgi */ = {isa = PBXFileReference; explicitFileType = text.script.python; path = dab.wsgi; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.python; };
 		69D9D8DF22170A5400DDCD7D /* dlsExt_test.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = dlsExt_test.py; sourceTree = "<group>"; };
 		69D9D8E222170A5400DDCD7D /* item.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = item.xml; sourceTree = "<group>"; };
 		69D9D8E322170A5400DDCD7D /* item3.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = item3.xml; sourceTree = "<group>"; };
@@ -42,9 +44,11 @@
 				690E9C341EB4044F00326680 /* pylintrc */,
 				695DC41C228B503D00F549FB /* requirements.txt */,
 				695DC41B228B500A00F549FB /* Dockerfile */,
+				69351176228D6807000F0FF7 /* index.html */,
+				69C29095228D7C20007B5802 /* dab.wsgi */,
 				6935116F228C1D8D000F0FF7 /* start-apache.sh */,
 				69351170228C20E8000F0FF7 /* locale.gen */,
-				69351171228C25BA000F0FF7 /* apache.conf.sample */,
+				69351171228C25BA000F0FF7 /* apache.conf */,
 				69351172228C312D000F0FF7 /* wsgi.conf.tmpl */,
 				69D9D8DF22170A5400DDCD7D /* dlsExt_test.py */,
 				69D9D90E221804B700DDCD7D /* Eksempelfiler */,
