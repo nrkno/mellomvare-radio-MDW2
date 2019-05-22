@@ -6,7 +6,7 @@
 import xml.dom.minidom
 import time
 import sys
-from urllib.request import urlopen#(url, data=None, [timeout, ]*,
+from urllib.request import urlopen
 from db_conn import database
 from hashlib import md5
 
