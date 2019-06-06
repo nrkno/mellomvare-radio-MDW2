@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mdw2-deployment
+  labels:
+    app: mdw2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mdw2
+  template:
+    metadata:
+      labels:
+        app: mdw2
+    spec:
+      containers:
+      - name: mdw2
+        image: plattform.azurecr.io/mdw2/mdw2:test
+        env:
+        - name: "DB_PASS_WD"
+          valueFrom:
+            secretKeyRef:
+              name: mdw2-sectrets
+              key: dbpass
+#        envFrom:
+#        - configMapRef:
+#            name: piipoverride
+#        env:
+#        - name: JVM_OPTS
+#          value: "-XX:+UseContainerSupport -Xmx1024M -Xms64M"
+#        env:
+#        - name: piip-override-blob
+#          valueFrom:
+#            configMapKeyRef:
+#              name: piip-override
+#              key: piip-override
+        ports:
+        - containerPort: 80
+          protocol: TCP
+#        livenessProbe:
+#          initialDeleySeconds: 60
+#          httpGet:
+#            path: /piip/probe/liviness
+#            port: 22500
+#        readinessPort:
+#          httpGet:
+#            path: /piip/probe/readiness
+#            port: 22500
+        resources:
+          requests:
+            cpu: "1000m"
+            memory: "2Gi"
+          limits:
+            cpu: "1000m"
+            memory: "2Gi"

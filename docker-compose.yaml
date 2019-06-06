@@ -1,0 +1,21 @@
+version: "3.7"
+services:
+    mdw2web:
+        build:
+            context: .
+        image: mdw2
+        deploy:
+            replicas: 2
+            resources:
+                limits:
+                    cpus: "0.5"
+                    memory: 100M
+            restart_policy:
+                condition: on-failure
+        ports:
+            - "4000:80"
+        networks:
+            - webnet
+
+networks:
+  webnet:

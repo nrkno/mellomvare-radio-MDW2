@@ -18,9 +18,13 @@ import get_iteminfo
 #print(dls_ext.til_dab(kanal='ak'))
 
 #ut_gluon2.lag_metadata(kanal='p3', datatype='iteminfo', test_modus=True)
-adr = 'http://127.0.0.1:5500/dab.wsgi/p4'
+adr = 'http://127.0.0.1:5500/dab.wsgi/gulling'
+#adr = 'http://127.0.0.1:5500/index.html'
+adr = 'http://mdw2.mdw-test.svc.int.nrk.cloud/dab.wsgi'
 with open('/Users/n12327/Documents/Xcode_prosjekter/MDW2/Eksempelfiler/item.xml') as fp:
     dok = fp.read().encode('utf-8')
+
+dok = None
 
 result = urlopen(adr, data=dok, timeout=5)
 

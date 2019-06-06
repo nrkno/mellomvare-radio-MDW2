@@ -42,23 +42,9 @@ COPY apache.conf /etc/apache2/sites-available/000-default.conf
 
 ENV VERBOSE False
 # ENV DB_PASS_WD 
-#ENV USER
+
 
 # Start Apache
 EXPOSE 80
 CMD ["/bin/sh", "/start-apache.sh"]
 
-
-
-#FROM python:3
-
-#WORKDIR /app
-
-#COPY . /app
-
-
-#EXPOSE 80
-
-#ENV NAME World
-
-#CMD ["python", "app.py"]

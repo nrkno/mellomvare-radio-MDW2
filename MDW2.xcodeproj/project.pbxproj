@@ -16,7 +16,10 @@
 		69351176228D6807000F0FF7 /* index.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
 		695DC41B228B500A00F549FB /* Dockerfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Dockerfile; sourceTree = "<group>"; };
 		695DC41C228B503D00F549FB /* requirements.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = requirements.txt; sourceTree = "<group>"; };
+		6962F0B32295914C006AE118 /* docker-compose.yaml */ = {isa = PBXFileReference; lastKnownFileType = text; path = "docker-compose.yaml"; sourceTree = "<group>"; };
 		696D369822842AAB001C30E5 /* get_iteminfo.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = get_iteminfo.py; sourceTree = "<group>"; };
+		698DD85922A8F969003F1304 /* service.yaml */ = {isa = PBXFileReference; lastKnownFileType = text; name = service.yaml; path = Kybernetes/service.yaml; sourceTree = "<group>"; };
+		698DD85C22A92195003F1304 /* Kybernetes */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Kybernetes; sourceTree = "<group>"; };
 		69C29095228D7C20007B5802 /* dab.wsgi */ = {isa = PBXFileReference; explicitFileType = text.script.python; path = dab.wsgi; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.python; };
 		69D9D8DF22170A5400DDCD7D /* dlsExt_test.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = dlsExt_test.py; sourceTree = "<group>"; };
 		69D9D8E222170A5400DDCD7D /* item.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = item.xml; sourceTree = "<group>"; };
@@ -41,9 +44,12 @@
 		690E9C271EB3995A00326680 = {
 			isa = PBXGroup;
 			children = (
+				698DD85922A8F969003F1304 /* service.yaml */,
+				698DD85C22A92195003F1304 /* Kybernetes */,
 				690E9C341EB4044F00326680 /* pylintrc */,
 				695DC41C228B503D00F549FB /* requirements.txt */,
 				695DC41B228B500A00F549FB /* Dockerfile */,
+				6962F0B32295914C006AE118 /* docker-compose.yaml */,
 				69351176228D6807000F0FF7 /* index.html */,
 				69C29095228D7C20007B5802 /* dab.wsgi */,
 				6935116F228C1D8D000F0FF7 /* start-apache.sh */,

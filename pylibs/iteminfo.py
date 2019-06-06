@@ -618,6 +618,7 @@ def parser(xmlstreng):
 
                 #Før vi renske pidataene må vi finne ut om det er en samsending
                 #Vi oppdaterer kildekanal
+                # TODO: Lese denne verdien fra en key fra pi i steden
                 kildekanal = finn_kildekanal(d, beskrivelse)
                 kildekanal = ''
 
