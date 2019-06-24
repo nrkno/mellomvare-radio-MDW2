@@ -832,14 +832,14 @@ def lag_metadata(kanal='alle'):
 
             #Lag en kommaseparert liste over visningstider
 
-            # FIXME: map returnerer en generator
+
             dataliste = list(zip(dls_liste, (map(lag_visningstider, dls_liste))))
             print(5555, dataliste)
 
             print(4444)
             if VERBOSE:
                 print(dataliste)
-
+            """
             for addr in ["nrkhd-ice-01.netwerk.no","nrkhd-ice-02.netwerk.no"]:
                 send_til_server.send_data(
                 '%s:1204' % addr,
@@ -849,6 +849,7 @@ def lag_metadata(kanal='alle'):
                 stop=stop,
                 liste=dataliste
                 )
+            """
             
     #Lukke databasen
     d.close()

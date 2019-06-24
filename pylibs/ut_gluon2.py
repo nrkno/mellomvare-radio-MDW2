@@ -796,7 +796,6 @@ def lag_metadata(kanal='alle', test_modus=False):
             #pars = xml.dom.minidom.parseString(xmldom.toprettyxml('  ','\n','utf-8'))
 
 
-            #Hele denne er i en trxad med timeout, vi trenger ikke noe timeout
             if test_modus:
                 print(kanal, tittel)
                 print()

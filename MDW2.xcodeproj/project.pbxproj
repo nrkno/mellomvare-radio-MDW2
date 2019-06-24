@@ -9,6 +9,7 @@
 /* Begin PBXFileReference section */
 		690E9C321EB3FA9400326680 /* test.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = test.py; sourceTree = "<group>"; };
 		690E9C341EB4044F00326680 /* pylintrc */ = {isa = PBXFileReference; lastKnownFileType = text; path = pylintrc; sourceTree = "<group>"; };
+		69209B4322C0FC5D0038BD44 /* build.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = build.sh; sourceTree = "<group>"; };
 		6935116F228C1D8D000F0FF7 /* start-apache.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "start-apache.sh"; sourceTree = "<group>"; };
 		69351170228C20E8000F0FF7 /* locale.gen */ = {isa = PBXFileReference; lastKnownFileType = text; path = locale.gen; sourceTree = "<group>"; };
 		69351171228C25BA000F0FF7 /* apache.conf */ = {isa = PBXFileReference; lastKnownFileType = text; path = apache.conf; sourceTree = "<group>"; };
@@ -44,6 +45,7 @@
 		690E9C271EB3995A00326680 = {
 			isa = PBXGroup;
 			children = (
+				69209B4322C0FC5D0038BD44 /* build.sh */,
 				698DD85922A8F969003F1304 /* service.yaml */,
 				698DD85C22A92195003F1304 /* Kybernetes */,
 				690E9C341EB4044F00326680 /* pylintrc */,
