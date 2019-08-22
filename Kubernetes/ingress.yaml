@@ -1,0 +1,22 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: nginx
+  name: mdw
+spec:
+  rules:
+  - host: mdw.kubeint.nrk.no
+    http:
+      paths:
+      - backend:
+          serviceName: mdw2
+          servicePort: 80
+        path: /
+  tls:
+  - hosts:
+    - mdw.kubeint.nrk.no
+status:
+  loadBalancer:
+    ingress:
+    - {}

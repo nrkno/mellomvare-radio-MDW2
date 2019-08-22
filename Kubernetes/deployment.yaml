@@ -21,7 +21,7 @@ spec:
         - name: "DB_PASS_WD"
           valueFrom:
             secretKeyRef:
-              name: mdw2-sectrets
+              name: mdw2-secret
               key: dbpass
 #        envFrom:
 #        - configMapRef:
